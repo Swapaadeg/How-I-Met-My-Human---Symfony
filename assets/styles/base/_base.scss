@@ -1,0 +1,48 @@
+@use "../abstracts/variables" as v;
+
+// Reset and base styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: variables.$font-family-primary;
+    background-color: variables.$color-background;
+    line-height: 1.6;
+    color: variables.$color-dark;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1 {
+    font-family: v.$font-family-courgette;
+    margin-bottom: 15px;
+    color: v.$color-primary;
+    text-align: center;
+    font-size: 3rem;
+    letter-spacing: 4px;
+}
+
+h2 {
+    font-family: v.$font-family-italic;
+    text-align: center;
+    color: v.$color-primary;
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-family: v.$font-family-bold;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+h4 {
+    font-family: v.$font-family-bold;
+    font-size: 2rem;
+}
