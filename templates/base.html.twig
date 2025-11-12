@@ -2,20 +2,151 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}How I Met My Human{% endblock %}</title>
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
+
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
     </head>
+
     <body>
+        <header class="main-header">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="{{ path('home') }}">
+                        <img src="{{ asset('logo.png') }}" alt="How I Met My Human Logo">
+                    </a>
+                </div>
+
+                <ul class="nav-links">
+                    <li><a href="{{ path('animals') }}">Nos rescapés</a></li>
+                    <li><a href="{{ path('associations') }}">Les associations</a></li>
+                </ul>
+
+                <div class="auth-section">
+                    {% if not is_granted('ROLE_USER') %}
+                        <a href="{{ path('profile') }}" class="auth-link">
+                            <i class="user-icon"></i> Mon espace
+                        </a>
+                        <span class="separator">|</span>
+                        <a href="{{ path('subscription') }}" class="auth-link">Je suis une association</a>
+                    {% else %}
+                        {% if app.user %}
+                            <span class="greeting">Bonjour {{ app.user.username }}!</span>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('admin') }}" target="_blank">Pannel Admin</a>
+                        {% endif %}
+                        <a href="{{ path('logout') }}">Se déconnecter</a>
+                    {% endif %}
+                </div>
+            </nav>
+            
+            <!-- Carrousel Hero Section -->
+            <div class="hero-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slides">
+                        <div class="carousel-slide active">
+                            <img src="{{ asset('carousel1.jpg') }}" alt="Chien et enfant jouant ensemble">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ asset('carousel2.jpg') }}" alt="Chat dans les bras d'une personne">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ asset('carousel3.jpg') }}" alt="Famille adoptant un animal">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ asset('carousel4.jpg') }}" alt="Animal de refuge heureux">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ asset('carousel5.jpg') }}" alt="Moment de complicité avec animal">
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-content">
+                        <h1>HOW I MET MY HUMAN</h1>
+                        <h2>Chaque animal a son humain</h2>
+                        
+                        <div class="search-form">
+                            <div class="search-field">
+                                <select id="type-select">
+                                    <option value="">Type</option>
+                                    <option value="chien">Chien</option>
+                                    <option value="chat">Chat</option>
+                                    <option value="autre">Autre</option>
+                                </select>
+                            </div>
+                            <div class="search-field">
+                                <select id="sexe-select">
+                                    <option value="">Sexe</option>
+                                    <option value="male">Mâle</option>
+                                    <option value="femelle">Femelle</option>
+                                </select>
+                            </div>
+                            <div class="search-field">
+                                <select id="age-select">
+                                    <option value="">Âge</option>
+                                    <option value="jeune">Jeune</option>
+                                    <option value="adulte">Adulte</option>
+                                    <option value="senior">Senior</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="search-btn">
+                                Votre compagnons idéal
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button class="carousel-arrow carousel-prev" aria-label="Image précédente">
+                        <span>&larr;</span>
+                    </button>
+                    <button class="carousel-arrow carousel-next" aria-label="Image suivante">
+                        <span>&rarr;</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
         {% block body %}{% endblock %}
-    </body>
+        </main>
+
+
+
+        <footer>
+            <div class="footer-container">
+                <div class="logo-footer">
+                    <span class="separator-footer"></span>
+                    <a href="{{ path('home') }}"><img src="{{ asset('logo.png') }}" alt="Logo How I Met My Human"></a>
+                    <span class="separator-footer"></span>
+                </div>
+                <div class="footer-content">
+                    <div class="footer-contact">
+                        <h4>Contact</h4>
+                        <p>01-23-45-67-89</p>
+                        <p>Association How I Met My Human</p>
+                        <p>75000 Paris</p>
+                        <a href="{{ path('contact') }}">Formulaire de contact</a>
+                    </div>
+                    <div class="footer-propos">
+                        <h4>À propos</h4>
+                        <ul>
+                            <li><a href="#">Politique de Confidentialité</a></li>
+                            <li><a href="#">Mentions Légales</a></li>
+                            <li><a href="#">Conditions Générales d'Utilisation</a></li>
+                            <li><a href="#">Remerciements</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <span class="separator-big-footer"></span>
+            <p>Copyright&copy How I Met My Human - 2025 </p>
+        </footer>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
+    </body>
 </html>

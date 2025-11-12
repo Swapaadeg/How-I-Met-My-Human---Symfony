@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <section class="bouteille-form-container">
+        <h2> S'inscrire</h2>
+
+        {{ form_start(userForm) }}
+            {% for error in userForm.vars.errors %}
+                <div class="form-error">
+                    {{ error.message }}
+                </div>
+            {% endfor %}
+                <div class="form-grid">
+                <div class="form-group">
+                    {{ form_row(userForm.email, {
+                        'label': 'Adresse email',
+                        'label_attr': {'class': 'form-label'},
+                        'attr': {'placeholder': 'ex: un-verre-par-jour@wine.com'}
+                    }) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(userForm.username, {
+                        'label': 'Pseudo',
+                        'label_attr': {'class': 'form-label'},
+                        'attr': {'placeholder': 'ex: Le caviste du 24'}
+                    }) }}
+                </div>
+
+                <div class="form-group full-width">
+                    {{ form_row(userForm.password.first, {
+                        'label': 'Mot de passe',
+                        'label_attr': {'class': 'form-label'}
+                    }) }}
+                </div>
+
+                <div class="form-group full-width">
+                    {{ form_row(userForm.password.second, {
+                        'label': 'Confirmez le mot de passe',
+                        'label_attr': {'class': 'form-label'}
+                    }) }}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">S'inscrire</button>
+            </div>
+
+        {{ form_end(userForm) }}
+    </section>
+{% endblock %}

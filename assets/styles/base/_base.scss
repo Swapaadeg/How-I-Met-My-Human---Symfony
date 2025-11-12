@@ -8,10 +8,10 @@
 }
 
 body {
-    font-family: variables.$font-family-primary;
-    background-color: variables.$color-background;
+    font-family: v.$font-family-primary;
+    background-color: v.$color-background;
     line-height: 1.6;
-    color: variables.$color-dark;
+    color: v.$color-dark;
 }
 
 .container {

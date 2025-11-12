@@ -1,13 +1,12 @@
 // IMPORT ABSTRACTS SCSS
-@use "abstracts/variables";
-@use "abstracts/mixins";
+@use "abstracts/variables" as *;
+@use "abstracts/mixins" as *;
 
 // IMPORT BASE SCSS
 @use "base/base";
 @use "base/font-face";
 
 // IMPORT COMPONENTS SCSS
-
 @use "components/animation";
 @use "components/buttons";
 @use "components/cards";
