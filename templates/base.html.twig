@@ -15,10 +15,17 @@
     <body>
         <header class="main-header">
             <nav class="navbar">
-                <div class="logo">
-                    <a href="{{ path('home') }}">
-                        <img src="{{ asset('logo.png') }}" alt="How I Met My Human Logo">
-                    </a>
+                <div class="logo-section">
+                    <div class="logo">
+                        <a href="{{ path('home') }}">
+                            <img src="{{ asset('logo.png') }}" alt="How I Met My Human Logo">
+                        </a>
+                    </div>
+                    {% if is_granted('ROLE_USER') and app.user %}
+                        <div class="user-greeting">
+                            <span class="greeting-text">Bonjour {{ app.user.name }}!</span>
+                        </div>
+                    {% endif %}
                 </div>
 
                 <ul class="nav-links">
@@ -39,9 +46,6 @@
                         <a href="{{ path('profile') }}" class="auth-link">
                             <i class="fa-solid fa-user"></i> Mon espace
                         </a>
-                        {% if app.user %}
-                            <span class="greeting">Bonjour {{ app.user.name }}!</span>
-                        {% endif %}
                         {% if is_granted('ROLE_ASSOCIATION') %}
                             <a href="{{ path('animals_add') }}" class="auth-link">
                                 <i class="fas fa-plus"></i> Ajouter un animal
