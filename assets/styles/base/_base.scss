@@ -43,7 +43,8 @@ h3 {
 
 h4 {
     font-family: v.$font-family-bold;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    color: v.$color-black;
 }
 
 a {
@@ -51,4 +52,8 @@ a {
     font-family: v.$font-family-primary;
     font-size: 1.5rem;
     transition: opacity 0.3s ease;
+}
+
+li {
+    color: v.$color-black;
 }

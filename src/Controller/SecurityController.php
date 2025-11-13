@@ -35,6 +35,37 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
+    // Page d'authentification combinée (login/register)
+    #[Route(path: '/auth', name: 'auth')]
+    public function auth(Request $request, AuthenticationUtils $authenticationUtils, UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $entityManager): Response
+    {
+        // Gestion de la connexion
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        // Gestion de l'inscription
+        $user = new User();
+        $registerForm = $this->createForm(RegisterType::class, $user);
+        $registerForm->handleRequest($request);
+
+        if ($registerForm->isSubmitted() && $registerForm->isValid()) {
+            $user->setRoles(['ROLE_USER']);
+            $user->setPassword(
+                $passwordEncoder->hashPassword($user, $registerForm->get('password')->getData())
+            );
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre inscription a été réalisée avec succès !');
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('security/auth.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'registerForm' => $registerForm->createView(),
+        ]);
+    }
+
     // RegisterType
     #[Route(path: '/register', name: 'register')]
     public function register(Request $request,UserPasswordHasherInterface $passwordEncoder,EntityManagerInterface $entityManager): Response

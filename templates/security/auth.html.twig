@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion / Inscription{% endblock %}
+
+{% block body_class %} class="auth-page"{% endblock %}
+
+{% block body %}
+<!-- Section d'authentification intégrée -->
+<section class="auth-form-section">
+    <div class="auth-container">
+        <div class="auth-wrapper" id="authWrapper">
+            <!-- Panneau de connexion -->
+            <div class="auth-panel login-panel" id="loginPanel">
+                <div class="auth-content">
+                    <h2>Se connecter</h2>
+                    
+                    <form method="post" action="{{ path('login') }}" class="auth-form" id="loginForm">
+                    {% if error %}
+                        <div class="form-error">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+
+                    <div class="input-box animation" style="--i: 1; --j: 21;">
+                        <input type="email" value="{{ last_username }}" name="_username" id="username" required>
+                        <label for="username">Email</label>
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <div class="input-box animation" style="--i: 2; --j: 22;">
+                        <input type="password" name="_password" id="password" required>
+                        <label for="password">Mot de passe</label>
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+
+                    <div class="checkbox-container animation" style="--i: 3; --j: 23;">
+                        <input type="checkbox" name="_remember_me" id="_remember_me">
+                        <label for="_remember_me">Se souvenir de moi</label>
+                    </div>
+
+                    <button type="submit" class="btn animation" style="--i: 4; --j: 24;">
+                        Se connecter <i class="fa-solid fa-paw"></i>
+                    </button>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                </form>
+
+                <div class="info-text login-info">
+                    <a href="{{ path('request') }}">Mot de passe oublié?</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panneau d'inscription -->
+        <div class="auth-panel register-panel" id="registerPanel">
+            <div class="auth-content">
+                <h2>S'inscrire</h2>
+                
+                {{ form_start(registerForm, {'attr': {'class': 'auth-form', 'id': 'registerForm'}}) }}
+                    {% for error in registerForm.vars.errors %}
+                        <div class="form-error">
+                            {{ error.message }}
+                        </div>
+                    {% endfor %}
+
+                    <div class="input-box animation" style="--i: 1; --j: 21;">
+                        {{ form_widget(registerForm.name, {'attr': {'required': true}}) }}
+                        {{ form_label(registerForm.name, 'Nom') }}
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div class="input-box animation" style="--i: 2; --j: 22;">
+                        {{ form_widget(registerForm.email, {'attr': {'required': true}}) }}
+                        {{ form_label(registerForm.email, 'Email') }}
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <div class="input-box animation" style="--i: 3; --j: 23;">
+                        {{ form_widget(registerForm.password.first, {'attr': {'required': true}}) }}
+                        {{ form_label(registerForm.password.first, 'Mot de passe') }}
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+
+                    <div class="input-box animation" style="--i: 4; --j: 24;">
+                        {{ form_widget(registerForm.password.second, {'attr': {'required': true}}) }}
+                        {{ form_label(registerForm.password.second, 'Confirmer le mot de passe') }}
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+
+                    <button type="submit" class="btn animation" style="--i: 5; --j: 25;">
+                        S'inscrire <i class="fa-solid fa-paw"></i>
+                    </button>
+                {{ form_end(registerForm) }}
+            </div>
+        </div>
+
+        <!-- Panneau d'information animé -->
+        <div class="info-panel" id="infoPanel">
+            <div class="info-content">
+                <h2 class="animation" style="--i: 0; --j: 20;">Prêt(e) à rencontrer ton compagnon ?</h2>
+                <p class="animation" style="--i: 1; --j: 21;">
+                    Un compte, c'est le premier pas vers une belle histoire
+                </p>
+                <button class="btn transparent animation" id="sign-up-btn" style="--i: 2; --j: 22;">
+                    S'inscrire <i class="fa-solid fa-paw"></i>
+                </button>
+                <button class="btn transparent animation" id="sign-in-btn" style="--i: 2; --j: 22;">
+                    Se connecter <i class="fa-solid fa-paw"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Messages flash #}
+{% for label, messages in app.flashes %}
+    {% if label == 'success' %}
+        <div class="modale-flash" id="modale-flash">
+            <div class="modale-content">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+                <button class="modale-close" onclick="fermerModale()">Fermer</button>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,102 @@
+@use "../abstracts/variables" as v;
+
+// =========================
+// FOOTER GLOBAL WRAPPER
+// =========================
+.footer-wrapper {
+    position: relative;
+    background-color: v.$color-dark;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 7rem;
+
+
+    // =========================
+    // LOGO & CONTACT BUTTON
+    // =========================
+    .logo-footer {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, -130%);
+        background-color: v.$color-background;
+        max-width: 280px;
+        z-index: 10;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        color: v.$color-primary;
+
+        a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            text-decoration: none;
+        }
+        img {
+            width: 100px;
+        }
+        p {
+            font-size: 1rem;
+            font-family: v.$font-family-bold;
+            color: v.$color-dark;
+        }
+    }
+
+    // =========================
+    // SECTION FOOTER (LIENS & CONTACT)
+    // =========================
+    .section-footer {
+        display: flex;
+        position: relative;
+        width: 80%;
+        background-color: v.$color-secondary;
+        margin-top: -200px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+        padding: 2rem 2rem 1.5rem 2rem;
+
+        .link-footer {
+            flex: 1;
+            li {
+                list-style: inside;
+            }
+            a {
+                color: v.$color-black;
+                font-size: 1.2rem;
+                transition: opacity 0.3s ease;
+                &:hover {
+                opacity: 0.7;
+                }
+            }
+        }
+
+        .contact-footer {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            h4 {
+                margin-bottom: 0.5rem;
+            }
+            ul {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                li {
+                margin-bottom: 0.5rem;
+                color: v.$color-black;
+                font-size: 1.1rem;
+                    i {
+                        margin-right: 8px;
+                        color: v.$color-primary;
+                    }
+                }
+            }
+        }
+    }
+}

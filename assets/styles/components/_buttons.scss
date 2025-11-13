@@ -26,3 +26,55 @@
         box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.4);
     }
 }
+
+
+//Bouton de formulaire de connexion et d'inscription
+.btn {
+    width: 100%;
+    height: 45px;
+    background: v.$color-secondary;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: v.$color-primary;
+    font-weight: 600;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(54, 143, 139, 0.3);
+    
+    i {
+        color: v.$color-primary;
+    }
+}
+
+.btn:hover {
+    background: v.$color-accent;
+    color: v.$color-primary;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(54, 143, 139, 0.4);
+    
+    i {
+        color: v.$color-primary;
+    }
+}
+
+.btn.transparent {
+    background: transparent;
+    border: 2px solid v.$color-secondary;
+    color: v.$color-primary;
+    box-shadow: none;
+    
+    i {
+        color: v.$color-primary;
+    }
+}
+
+.btn.transparent:hover {
+    background: v.$color-secondary;
+    color: v.$color-primary;
+    box-shadow: 0 4px 15px rgba(54, 143, 139, 0.3);
+    
+    i {
+        color: v.$color-primary;
+    }
+}

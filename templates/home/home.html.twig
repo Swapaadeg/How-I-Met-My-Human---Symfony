@@ -3,6 +3,75 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
+<!-- Carrousel Hero Section -->
+<div class="hero-carousel">
+    <div class="carousel-container">
+        <div class="carousel-slides">
+            <div class="carousel-slide active">
+                <img src="{{ asset('carousel1.jpg') }}" alt="Chien et enfant jouant ensemble">
+            </div>
+            <div class="carousel-slide">
+                <img src="{{ asset('carousel2.jpg') }}" alt="Chat dans les bras d'une personne">
+            </div>
+            <div class="carousel-slide">
+                <img src="{{ asset('carousel3.jpg') }}" alt="Famille adoptant un animal">
+            </div>
+            <div class="carousel-slide">
+                <img src="{{ asset('carousel4.jpg') }}" alt="Animal de refuge heureux">
+            </div>
+            <div class="carousel-slide">
+                <img src="{{ asset('carousel5.jpg') }}" alt="Moment de complicité avec animal">
+            </div>
+        </div>
+        
+        <div class="carousel-content">
+            <h1>HOW I MET MY HUMAN</h1>
+            <h2>Chaque animal a son humain</h2>
+        </div>
+        
+        <button class="carousel-arrow carousel-prev" aria-label="Image précédente">
+            <span>&larr;</span>
+        </button>
+        <button class="carousel-arrow carousel-next" aria-label="Image suivante">
+            <span>&rarr;</span>
+        </button>
+    </div>
+</div>
+
+<!-- Rectangle de recherche -->
+<div class="search-container">
+    <div class="search-rectangle">
+        <div class="search-form">
+            <div class="search-field">
+                <select id="type-select">
+                    <option value="">Type</option>
+                    <option value="chien">Chien</option>
+                    <option value="chat">Chat</option>
+                    <option value="autre">Autre</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <select id="sexe-select">
+                    <option value="">Sexe</option>
+                    <option value="male">Mâle</option>
+                    <option value="femelle">Femelle</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <select id="age-select">
+                    <option value="">Âge</option>
+                    <option value="jeune">Jeune</option>
+                    <option value="adulte">Adulte</option>
+                    <option value="senior">Senior</option>
+                </select>
+            </div>
+            <button type="submit" class="search-btn">
+                Votre compagnon idéal <i class="fa-solid fa-paw"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
 <main>
     <div class="container">
         <h3>Ils attendent une famille</h3>

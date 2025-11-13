@@ -10,6 +10,7 @@ import './styles/app.scss';
 import { initCarousel } from './js/carousel.js';
 import { initSearchForm } from './js/searchForm.js';
 import { initCustomSelects } from './js/customSelects.js';
+import './js/auth.js';
 
 console.log('How I Met My Human - Application loaded! 🐾');
 

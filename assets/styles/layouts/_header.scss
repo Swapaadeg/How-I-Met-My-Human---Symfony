@@ -5,15 +5,12 @@
 .main-header {
     position: relative;
     background: transparent;
-    min-height: 100vh;
+    min-height: auto;
     display: flex;
     flex-direction: column;
     
     .navbar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
+        position: relative;
         z-index: 1000;
         display: flex;
         justify-content: space-between;
@@ -63,6 +60,10 @@
             padding: 0;
             font-family: v.$font-family-primary;
             
+            li {
+                background: transparent !important;
+            }
+            
             a {
                 color: v.$color-primary;
                 text-decoration: none;
@@ -71,6 +72,12 @@
                 padding: 0.5rem 1rem;
                 border-radius: 8px;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                background: transparent !important;
+                
+                &:link, &:visited, &:active {
+                    background: transparent !important;
+                    color: v.$color-primary;
+                }
                 
                 &::before {
                     content: '';
@@ -108,17 +115,48 @@
             .auth-link {
                 color: v.$color-primary;
                 text-decoration: none;
-                font-size: 1.5rem;
+                font-weight: 500;
                 position: relative;
-                padding: 0.3rem 0.8rem;
-                border-radius: 6px;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                background: transparent !important;
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
                 
+                &:link, &:visited, &:active {
+                    background: transparent !important;
+                    color: v.$color-primary;
+                }
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: linear-gradient(135deg, rgba(v.$color-secondary, 0.1), rgba(v.$color-accent, 0.1));
+                    border-radius: 8px;
+                    opacity: 0;
+                    transform: scale(0.8);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+                
+                &:hover {
+                    color: v.$color-secondary;
+                    transform: translateY(-2px);
+                    text-shadow: 0 0 10px rgba(v.$color-secondary, 0.5);
+                    
+                    &::before {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+                
                 i {
-                    font-size: 1.2rem;
+                    font-size: 1rem;
                 }
                 
                 &::after {
@@ -163,7 +201,7 @@
 // Carrousel Hero Section
 .hero-carousel {
     position: relative;
-    height: calc(100vh - 160px); // Ajusté pour tenir compte de la navbar et du filtre
+    height: calc(70vh - 160px); // Ajusté pour tenir compte de la navbar et du filtre
     overflow: hidden;
     flex-grow: 1; // Prend l'espace disponible
     
