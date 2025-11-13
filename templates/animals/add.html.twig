@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un animal{% endblock %}
+
+{% block body %}
+<main class="add-animal-page">
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-plus-circle"></i> Ajouter un nouvel animal</h1>
+            <p class="subtitle">Partagez l'histoire d'un animal qui cherche sa famille</p>
+        </div>
+
+        <div class="form-container">
+            {{ form_start(form, {'attr': {'class': 'animal-form', 'enctype': 'multipart/form-data'}}) }}
+            
+            <div class="form-grid">
+                <div class="form-section">
+                    <h3><i class="fas fa-paw"></i> Informations générales</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            {{ form_label(form.name) }}
+                            {{ form_widget(form.name) }}
+                            {{ form_errors(form.name) }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form_label(form.age) }}
+                            {{ form_widget(form.age) }}
+                            {{ form_errors(form.age) }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            {{ form_label(form.sexe) }}
+                            {{ form_widget(form.sexe) }}
+                            {{ form_errors(form.sexe) }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form_label(form.species) }}
+                            {{ form_widget(form.species) }}
+                            {{ form_errors(form.species) }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form_label(form.date_arrivee) }}
+                        {{ form_widget(form.date_arrivee) }}
+                        {{ form_errors(form.date_arrivee) }}
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3><i class="fas fa-heart"></i> Description & Photo</h3>
+                    
+                    <div class="form-group">
+                        {{ form_label(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form_label(form.imageFile) }}
+                        <div class="file-upload-wrapper">
+                            {{ form_widget(form.imageFile) }}
+                            <div class="file-upload-hint">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Formats acceptés: JPEG, PNG, WebP (max 5MB)</span>
+                            </div>
+                        </div>
+                        {{ form_errors(form.imageFile) }}
+                    </div>
+                </div>
+                
+                <div class="form-section full-width">
+                    <h3><i class="fas fa-tags"></i> Tags</h3>
+                    <div class="tags-wrapper">
+                        {{ form_widget(form.tag) }}
+                        {{ form_errors(form.tag) }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <a href="{{ path('animals') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Annuler
+                </a>
+                {{ form_widget(form.submit) }}
+            </div>
+            
+            {{ form_end(form) }}
+        </div>
+    </div>
+</main>
+{% endblock %}

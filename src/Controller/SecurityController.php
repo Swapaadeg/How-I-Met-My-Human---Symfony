@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\SubscriptionType;
+use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,8 +35,8 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    // SubscriptionType
-    #[Route(path: '/subscription', name: 'subscription')]
+    // RegisterType
+    #[Route(path: '/register', name: 'register')]
     public function register(Request $request,UserPasswordHasherInterface $passwordEncoder,EntityManagerInterface $entityManager): Response
     {
         // Vérification si l'objet existe via l'injection de dependance
@@ -46,7 +46,7 @@ class SecurityController extends AbstractController
         $user = new User;
       
         // Récupération du formulaire et association avec l'objet
-        $form = $this->createForm(SubscriptionType::class,$user);
+        $form = $this->createForm(RegisterType::class,$user);
 
         // Récupération des données POST du formulaire
         $form->handleRequest($request);
@@ -64,7 +64,7 @@ class SecurityController extends AbstractController
             // Redirection de l'utilisateur
             return $this->redirectToRoute('home');
         }
-        return $this->render('security/subscription.html.twig', [
+        return $this->render('security/register.html.twig', [
           'userForm' => $form->createView(), //envoie du formulaire en VUE
         ]);
         

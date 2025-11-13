@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}How I Met My Human{% endblock %}</title>
         <link rel="icon" href="{{ asset('favicon.ico') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -27,19 +28,31 @@
 
                 <div class="auth-section">
                     {% if not is_granted('ROLE_USER') %}
-                        <a href="{{ path('profile') }}" class="auth-link">
-                            <i class="user-icon"></i> Mon espace
+                        <a href="{{ path('login') }}" class="auth-link">
+                            <i class="fa-solid fa-sign-in-alt"></i> Connexion
                         </a>
                         <span class="separator">|</span>
-                        <a href="{{ path('subscription') }}" class="auth-link">Je suis une association</a>
+                        <a href="{{ path('register') }}" class="auth-link">
+                            <i class="fa-solid fa-user-plus"></i> Inscription
+                        </a>
                     {% else %}
+                        <a href="{{ path('profile') }}" class="auth-link">
+                            <i class="fa-solid fa-user"></i> Mon espace
+                        </a>
                         {% if app.user %}
-                            <span class="greeting">Bonjour {{ app.user.username }}!</span>
+                            <span class="greeting">Bonjour {{ app.user.name }}!</span>
+                        {% endif %}
+                        {% if is_granted('ROLE_ASSOCIATION') %}
+                            <a href="{{ path('animals_add') }}" class="auth-link">
+                                <i class="fas fa-plus"></i> Ajouter un animal
+                            </a>
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('admin') }}" target="_blank">Pannel Admin</a>
                         {% endif %}
-                        <a href="{{ path('logout') }}">Se déconnecter</a>
+                        <a href="{{ path('logout') }}" class="auth-link">
+                            <i class="fa-solid fa-sign-out-alt"></i> Se déconnecter
+                        </a>
                     {% endif %}
                 </div>
             </nav>
@@ -68,35 +81,6 @@
                     <div class="carousel-content">
                         <h1>HOW I MET MY HUMAN</h1>
                         <h2>Chaque animal a son humain</h2>
-                        
-                        <div class="search-form">
-                            <div class="search-field">
-                                <select id="type-select">
-                                    <option value="">Type</option>
-                                    <option value="chien">Chien</option>
-                                    <option value="chat">Chat</option>
-                                    <option value="autre">Autre</option>
-                                </select>
-                            </div>
-                            <div class="search-field">
-                                <select id="sexe-select">
-                                    <option value="">Sexe</option>
-                                    <option value="male">Mâle</option>
-                                    <option value="femelle">Femelle</option>
-                                </select>
-                            </div>
-                            <div class="search-field">
-                                <select id="age-select">
-                                    <option value="">Âge</option>
-                                    <option value="jeune">Jeune</option>
-                                    <option value="adulte">Adulte</option>
-                                    <option value="senior">Senior</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="search-btn">
-                                Votre compagnons idéal
-                            </button>
-                        </div>
                     </div>
                     
                     <button class="carousel-arrow carousel-prev" aria-label="Image précédente">
@@ -105,6 +89,40 @@
                     <button class="carousel-arrow carousel-next" aria-label="Image suivante">
                         <span>&rarr;</span>
                     </button>
+                </div>
+            </div>
+            
+            <!-- Rectangle de recherche -->
+            <div class="search-container">
+                <div class="search-rectangle">
+                    <div class="search-form">
+                        <div class="search-field">
+                            <select id="type-select">
+                                <option value="">Type</option>
+                                <option value="chien">Chien</option>
+                                <option value="chat">Chat</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="search-field">
+                            <select id="sexe-select">
+                                <option value="">Sexe</option>
+                                <option value="male">Mâle</option>
+                                <option value="femelle">Femelle</option>
+                            </select>
+                        </div>
+                        <div class="search-field">
+                            <select id="age-select">
+                                <option value="">Âge</option>
+                                <option value="jeune">Jeune</option>
+                                <option value="adulte">Adulte</option>
+                                <option value="senior">Senior</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="search-btn">
+                            Votre compagnon idéal <i class="fa-solid fa-paw"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>

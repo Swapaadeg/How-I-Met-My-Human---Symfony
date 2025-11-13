@@ -22,7 +22,6 @@ body {
 
 h1 {
     font-family: v.$font-family-courgette;
-    margin-bottom: 15px;
     color: v.$color-primary;
     text-align: center;
     font-size: 3rem;
@@ -45,4 +44,11 @@ h3 {
 h4 {
     font-family: v.$font-family-bold;
     font-size: 2rem;
+}
+
+a {
+    text-decoration: none;
+    font-family: v.$font-family-primary;
+    font-size: 1.5rem;
+    transition: opacity 0.3s ease;
 }

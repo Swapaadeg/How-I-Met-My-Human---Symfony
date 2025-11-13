@@ -62,9 +62,9 @@ class Animals
     private Collection $comments;
 
     /**
-     * @var Collection<int, tags>
+     * @var Collection<int, Tags>
      */
-    #[ORM\ManyToMany(targetEntity: tags::class, inversedBy: 'animals')]
+    #[ORM\ManyToMany(targetEntity: Tags::class, inversedBy: 'animals')]
     private Collection $tag;
 
     public function __construct()
@@ -262,14 +262,14 @@ class Animals
     }
 
     /**
-     * @return Collection<int, tags>
+     * @return Collection<int, Tags>
      */
     public function getTag(): Collection
     {
         return $this->tag;
     }
 
-    public function addTag(tags $tag): static
+    public function addTag(Tags $tag): static
     {
         if (!$this->tag->contains($tag)) {
             $this->tag->add($tag);
@@ -278,7 +278,7 @@ class Animals
         return $this;
     }
 
-    public function removeTag(tags $tag): static
+    public function removeTag(Tags $tag): static
     {
         $this->tag->removeElement($tag);
 

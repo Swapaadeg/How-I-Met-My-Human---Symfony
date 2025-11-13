@@ -1,4 +1,3 @@
-
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -7,91 +6,41 @@
  */
 import './styles/app.scss';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+// Import all functionality modules
+import { initCarousel } from './js/carousel.js';
+import { initSearchForm } from './js/searchForm.js';
+import { initCustomSelects } from './js/customSelects.js';
+import './controllers/authAnimation.js';
 
-// Carrousel functionality
+console.log('How I Met My Human - Application loaded! 🐾');
+
+// Initialize application when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const prevButton = document.querySelector('.carousel-prev');
-    const nextButton = document.querySelector('.carousel-next');
-    let currentSlide = 0;
-    let autoSlideInterval;
-
-    if (slides.length === 0) return;
-
-    function showSlide(index) {
-        // Remove active class from all slides
-        slides.forEach(slide => slide.classList.remove('active'));
-        
-        // Add active class to current slide
-        slides[index].classList.add('active');
+    
+    // Route 1: Homepage - Initialize carousel if carousel elements exist
+    if (document.querySelector('.hero-carousel')) {
+        console.log('🎠 Initializing carousel...');
+        initCarousel();
     }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
+    
+    // Route 2: Search form - Initialize if search form exists
+    if (document.querySelector('.search-form')) {
+        console.log('🔍 Initializing search form...');
+        initSearchForm();
     }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(currentSlide);
+    
+    // Route 3: Custom selects - Initialize if search fields exist
+    if (document.querySelector('.search-field')) {
+        console.log('📋 Initializing custom selects...');
+        initCustomSelects();
     }
-
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-    }
-
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-    }
-
-    // Event listeners for navigation buttons
-    if (nextButton) {
-        nextButton.addEventListener('click', () => {
-            stopAutoSlide();
-            nextSlide();
-            startAutoSlide(); // Restart auto-slide after manual navigation
-        });
-    }
-
-    if (prevButton) {
-        prevButton.addEventListener('click', () => {
-            stopAutoSlide();
-            prevSlide();
-            startAutoSlide(); // Restart auto-slide after manual navigation
-        });
-    }
-
-    // Pause auto-slide on hover
-    const carousel = document.querySelector('.hero-carousel');
-    if (carousel) {
-        carousel.addEventListener('mouseenter', stopAutoSlide);
-        carousel.addEventListener('mouseleave', startAutoSlide);
-    }
-
-    // Start the auto-slide
-    startAutoSlide();
-
-    // Search form functionality
-    const searchBtn = document.querySelector('.search-btn');
-    if (searchBtn) {
-        searchBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const type = document.getElementById('type-select').value;
-            const sexe = document.getElementById('sexe-select').value;
-            const age = document.getElementById('age-select').value;
-            
-            // Build query parameters
-            const params = new URLSearchParams();
-            if (type) params.set('type', type);
-            if (sexe) params.set('sexe', sexe);
-            if (age) params.set('age', age);
-            
-            // Redirect to animals page with filters
-            const queryString = params.toString();
-            const url = queryString ? `/animals?${queryString}` : '/animals';
-            window.location.href = url;
-        });
-    }
+    
+    // Add more routes here as needed for future features
+    // Route 4: Contact form
+    // if (document.querySelector('.contact-form')) { initContactForm(); }
+    
+    // Route 5: Animal listings  
+    // if (document.querySelector('.animals-grid')) { initAnimalGrid(); }
+    
+    console.log('✅ Application initialization complete!');
 });

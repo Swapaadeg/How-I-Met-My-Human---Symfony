@@ -1,0 +1,28 @@
+@use "../abstracts/variables" as v;
+
+.search-btn {
+    padding: 0.8rem 1.5rem;
+    background: v.$color-secondary;
+    color: v.$color-primary;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: v.$font-family-bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    
+    i {
+        font-size: 1.1rem;
+        order: 2;
+    }
+    
+    &:hover {
+        background: v.$color-accent;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.4);
+    }
+}
