@@ -82,13 +82,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Écouteurs d'événements pour les cartes latérales
+    // Écouteurs d'événements pour les cartes
     cards.forEach((card, index) => {
-        card.addEventListener('click', () => {
-            if (card.classList.contains('left') || card.classList.contains('right')) {
+        card.addEventListener('click', (e) => {
+            // Si ce n'est pas la carte centrale, empêcher toute navigation et aller vers cette carte
+            if (!card.classList.contains('center')) {
+                // Empêcher tous les comportements par défaut
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                
+                // Naviguer vers cette carte
                 goToSlide(index);
+                return false;
             }
+            // Si c'est la carte centrale, laisser les liens fonctionner normalement
         });
+        
+        // Intercepter tous les clics sur les éléments de la carte
+        card.addEventListener('click', (e) => {
+            if (!card.classList.contains('center')) {
+                // Vérifier si c'est un bouton d'action
+                const isActionBtn = e.target.closest('.action-btn');
+                if (!isActionBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    goToSlide(index);
+                    return false;
+                }
+            }
+        }, true); // Utiliser la phase de capture
     });
     
     // Navigation au clavier

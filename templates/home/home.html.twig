@@ -178,6 +178,9 @@
                                     <button class="action-btn share-btn" data-animal-id="{{ animal.id }}" title="Partager">
                                         <i class="fas fa-share-alt"></i>
                                     </button>
+                                    <a href="{{ path('animal_show', {'id': animal.id}) }}" class="action-btn view-btn" title="Voir la fiche complète">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                 </div>
                                 
                                 {% if animal.association %}
