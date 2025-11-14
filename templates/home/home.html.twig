@@ -3,222 +3,218 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<div class="homepage">
-<!-- Carrousel Hero Section -->
-<div class="hero-carousel">
-    <div class="carousel-container">
-        <div class="carousel-slides">
-            <div class="carousel-slide active">
-                <img src="{{ asset('carousel1.jpg') }}" alt="Chien et enfant jouant ensemble">
-            </div>
-            <div class="carousel-slide">
-                <img src="{{ asset('carousel2.jpg') }}" alt="Chat dans les bras d'une personne">
-            </div>
-            <div class="carousel-slide">
-                <img src="{{ asset('carousel3.jpg') }}" alt="Famille adoptant un animal">
-            </div>
-            <div class="carousel-slide">
-                <img src="{{ asset('carousel4.jpg') }}" alt="Animal de refuge heureux">
-            </div>
-            <div class="carousel-slide">
-                <img src="{{ asset('carousel5.jpg') }}" alt="Moment de complicité avec animal">
-            </div>
-        </div>
-        
-        <div class="carousel-content">
-            <h1>HOW I MET MY HUMAN</h1>
-            <h2>Chaque animal a son humain</h2>
-        </div>
-        
-        <button class="carousel-arrow carousel-prev" aria-label="Image précédente">
-            <span>&larr;</span>
-        </button>
-        <button class="carousel-arrow carousel-next" aria-label="Image suivante">
-            <span>&rarr;</span>
-        </button>
-    </div>
-</div>
-
-<!-- Rectangle de recherche -->
-<div class="search-container">
-    <div class="search-rectangle">
-        <div class="search-form">
-            <div class="search-field">
-                <select id="type-select">
-                    <option value="">Type</option>
-                    <option value="chien">Chien</option>
-                    <option value="chat">Chat</option>
-                    <option value="autre">Autre</option>
-                </select>
-            </div>
-            <div class="search-field">
-                <select id="sexe-select">
-                    <option value="">Sexe</option>
-                    <option value="male">Mâle</option>
-                    <option value="femelle">Femelle</option>
-                </select>
-            </div>
-            <div class="search-field">
-                <select id="age-select">
-                    <option value="">Âge</option>
-                    <option value="jeune">Jeune</option>
-                    <option value="adulte">Adulte</option>
-                    <option value="senior">Senior</option>
-                </select>
-            </div>
-            <button type="submit" class="search-btn">
-                Votre compagnon idéal <i class="fa-solid fa-paw"></i>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Section des animaux les plus anciens -->
-<section class="oldest-animals-section">
-    <div class="container">
-        <div class="section-header">
-            <h3><i class="fas fa-clock"></i> Nos pensionnaires de longue durée</h3>
-            <p class="subtitle">Ces compagnons attendent depuis le plus longtemps de trouver leur famille pour toujours</p>
-        </div>
-
-        {% if oldest_animals is not empty %}
-            <div class="animals-carousel-container">
-                <div class="animals-carousel">
-                    {% for animal in oldest_animals %}
-                        <div class="animal-card carousel-card" data-animal-id="{{ animal.id }}" data-index="{{ loop.index0 }}">
-                            <div class="card-image">
-                                {% if animal.imageName %}
-                                    <img src="{{ asset('uploads/images/' ~ animal.imageName) }}" alt="{{ animal.name }}">
-                                {% else %}
-                                    <div class="placeholder-image">
-                                        <i class="fas fa-paw"></i>
-                                    </div>
-                                {% endif %}
-                                <div class="duration-badge">
-                                    {% set daysSince = date().diff(animal.dateArrivee).days %}
-                                    {% if daysSince < 30 %}
-                                        {{ daysSince }} jour{{ daysSince > 1 ? 's' : '' }}
-                                    {% elseif daysSince < 365 %}
-                                        {{ (daysSince / 30.44)|round }} mois
-                                    {% else %}
-                                        {{ (daysSince / 365.25)|round(1) }} an{{ (daysSince / 365.25) > 1 ? 's' : '' }}
-                                    {% endif %}
-                                </div>
-                            </div>
-                            
-                            <div class="card-content">
-                                <div class="card-header">
-                                    <div class="name-and-special-tags">
-                                        <h3 class="animal-name">{{ animal.name }}</h3>
-                                        {% if animal.tag is not empty %}
-                                            {% for tag in animal.tag %}
-                                                {% if tag.type|lower == 'sos' or 'education' in tag.type|lower or tag.type|lower == 'fad' %}
-                                                    {% set tagClass = tag.type|lower|replace({' ': '-', '\'': '', 'é': 'e', 'è': 'e'}) %}
-                                                    {% set tagDescription = '' %}
-                                                    {% if tag.type|lower == 'sos' %}
-                                                        {% set tagDescription = 'Animal en situation d\'urgence nécessitant une adoption rapide' %}
-                                                    {% elseif 'education' in tag.type|lower %}
-                                                        {% set tagDescription = 'Animal en cours d\'apprentissage des règles de vie' %}
-                                                    {% elseif tag.type|lower == 'fad' %}
-                                                        {% set tagDescription = 'Famille d\'Accueil Durable - Placement long terme' %}
-                                                    {% endif %}
-                                                    
-                                                    <span class="tag-mini {{ tagClass }}" 
-                                                          data-tooltip="{{ tagDescription }}" 
-                                                          data-tag-name="{{ tag.type }}">
-                                                        {% if 'education' in tag.type|lower %}
-                                                            <i class="fas fa-graduation-cap"></i>
-                                                        {% elseif tag.type|lower == 'sos' %}
-                                                            SOS
-                                                        {% elseif tag.type|lower == 'fad' %}
-                                                            FAD
-                                                        {% endif %}
-                                                    </span>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="animal-badges">
-                                        {% if animal.species %}
-                                            <span class="badge species-badge">{{ animal.species.name }}</span>
-                                        {% endif %}
-                                        <span class="badge age-badge">{{ animal.age }}</span>
-                                        {% if animal.sexe == 'male' %}
-                                            <span class="badge gender-badge male">
-                                                <i class="fas fa-mars"></i> Mâle
-                                            </span>
-                                        {% else %}
-                                            <span class="badge gender-badge female">
-                                                <i class="fas fa-venus"></i> Femelle
-                                            </span>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                
-                                <div class="separator"></div>
-                                
-                                <div class="animal-description">
-                                    <p class="description-text" data-full-text="{{ animal.description }}">
-                                        {{ animal.description|length > 120 ? animal.description|slice(0, 120) ~ '...' : animal.description }}
-                                    </p>
-                                    {% if animal.description|length > 120 %}
-                                        <button class="see-more-btn" data-animal-id="{{ animal.id }}">
-                                            Voir plus
-                                        </button>
-                                    {% endif %}
-                                </div>
-                                
-                                <div class="card-actions">
-                                    <button class="action-btn favorite-btn" data-animal-id="{{ animal.id }}" title="Ajouter aux favoris">
-                                        <i class="far fa-heart"></i>
-                                    </button>
-                                    <button class="action-btn contact-btn" data-animal-id="{{ animal.id }}" title="Contacter l'association">
-                                        <i class="fas fa-envelope"></i>
-                                    </button>
-                                    <button class="action-btn share-btn" data-animal-id="{{ animal.id }}" title="Partager">
-                                        <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <a href="{{ path('animal_show', {'id': animal.id}) }}" class="action-btn view-btn" title="Voir la fiche complète">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                </div>
-                                
-                                {% if animal.association %}
-                                    <div class="association-info">
-                                        <span class="association-name">{{ animal.association.name }}</span>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endfor %}
+<main class="homepage">
+    <!-- Carrousel Hero Section -->
+        <div class="hero-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slides">
+                    <div class="carousel-slide active">
+                        <img src="{{ asset('carousel1.jpg') }}" alt="Chien et enfant jouant ensemble">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="{{ asset('carousel2.jpg') }}" alt="Chat dans les bras d'une personne">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="{{ asset('carousel3.jpg') }}" alt="Famille adoptant un animal">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="{{ asset('carousel4.jpg') }}" alt="Animal de refuge heureux">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="{{ asset('carousel5.jpg') }}" alt="Moment de complicité avec animal">
+                    </div>
                 </div>
                 
-                <!-- Indicateurs ronds -->
-                <div class="carousel-indicators">
-                    {% for animal in oldest_animals %}
-                        <button class="indicator-dot{{ loop.index0 == 0 ? ' active' : '' }}" 
-                                data-slide="{{ loop.index0 }}" 
-                                aria-label="Aller à l'animal {{ loop.index }}"></button>
-                    {% endfor %}
+                <div class="carousel-content">
+                    <h1>HOW I MET MY HUMAN</h1>
+                    <h2>Chaque animal a son humain</h2>
+                </div>
+                
+                <button class="carousel-arrow carousel-prev" aria-label="Image précédente">
+                    <span>&larr;</span>
+                </button>
+                <button class="carousel-arrow carousel-next" aria-label="Image suivante">
+                    <span>&rarr;</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Rectangle de recherche -->
+        <div class="search-container">
+            <div class="search-rectangle">
+                <div class="search-form">
+                    <div class="search-field">
+                        <select id="type-select">
+                            <option value="">Type</option>
+                            <option value="chien">Chien</option>
+                            <option value="chat">Chat</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="search-field">
+                        <select id="sexe-select">
+                            <option value="">Sexe</option>
+                            <option value="male">Mâle</option>
+                            <option value="femelle">Femelle</option>
+                        </select>
+                    </div>
+                    <div class="search-field">
+                        <select id="age-select">
+                            <option value="">Âge</option>
+                            <option value="jeune">Jeune</option>
+                            <option value="adulte">Adulte</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="search-btn">
+                        Votre compagnon idéal <i class="fa-solid fa-paw"></i>
+                    </button>
                 </div>
             </div>
-            
-            <a href="{{ path('animals') }}" class="btn-see-all">
-                Voir nos autres pensionnaires <i class="fas fa-arrow-right"></i>
-            </a>
-        {% else %}
-            <div class="empty-state">
-                <i class="fas fa-paw"></i>
-                <p>Aucun animal disponible pour le moment.</p>
-            </div>
-        {% endif %}
-    </div>
-</section>
+        </div>
 
-<main>
-    <div class="container">
-        <h3>Ils attendent une famille</h3>
-    </div>
+        <!-- Section des animaux les plus anciens -->
+        <section class="oldest-animals-section">
+            <div class="container">
+                <div class="section-header">
+                    <h3>Ils cherchent une famille</h3>
+                    <p class="subtitle">Découvrez ces compagnons qui espèrent trouver leur nouveau foyer</p>
+                </div>
+
+                {% if oldest_animals is not empty %}
+                    <div class="animals-carousel-container">
+                        <div class="animals-carousel">
+                            {% for animal in oldest_animals %}
+                                <div class="animal-card carousel-card" data-animal-id="{{ animal.id }}" data-index="{{ loop.index0 }}">
+                                    <div class="card-image">
+                                        {% if animal.imageName %}
+                                            <img src="{{ asset('uploads/images/' ~ animal.imageName) }}" alt="{{ animal.name }}">
+                                        {% else %}
+                                            <div class="placeholder-image">
+                                                <i class="fas fa-paw"></i>
+                                            </div>
+                                        {% endif %}
+                                        <div class="duration-badge">
+                                            {% set daysSince = date().diff(animal.dateArrivee).days %}
+                                            {% if daysSince < 30 %}
+                                                {{ daysSince }} jour{{ daysSince > 1 ? 's' : '' }}
+                                            {% elseif daysSince < 365 %}
+                                                {{ (daysSince / 30.44)|round }} mois
+                                            {% else %}
+                                                {{ (daysSince / 365.25)|round(1) }} an{{ (daysSince / 365.25) > 1 ? 's' : '' }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-content">
+                                        <div class="card-header">
+                                            <div class="name-and-special-tags">
+                                                <h3 class="animal-name">{{ animal.name }}</h3>
+                                                {% if animal.tag is not empty %}
+                                                    {% for tag in animal.tag %}
+                                                        {% if tag.type|lower == 'sos' or 'education' in tag.type|lower or tag.type|lower == 'fad' %}
+                                                            {% set tagClass = tag.type|lower|replace({' ': '-', '\'': '', 'é': 'e', 'è': 'e'}) %}
+                                                            {% set tagDescription = '' %}
+                                                            {% if tag.type|lower == 'sos' %}
+                                                                {% set tagDescription = 'Animal en situation d\'urgence nécessitant une adoption rapide' %}
+                                                            {% elseif 'education' in tag.type|lower %}
+                                                                {% set tagDescription = 'Animal en cours d\'apprentissage des règles de vie' %}
+                                                            {% elseif tag.type|lower == 'fad' %}
+                                                                {% set tagDescription = 'Famille d\'Accueil Durable - Placement long terme' %}
+                                                            {% endif %}
+                                                            
+                                                            <span class="tag-mini {{ tagClass }}" 
+                                                                data-tooltip="{{ tagDescription }}" 
+                                                                data-tag-name="{{ tag.type }}">
+                                                                {% if 'education' in tag.type|lower %}
+                                                                    <i class="fas fa-graduation-cap"></i>
+                                                                {% elseif tag.type|lower == 'sos' %}
+                                                                    SOS
+                                                                {% elseif tag.type|lower == 'fad' %}
+                                                                    FAD
+                                                                {% endif %}
+                                                            </span>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <div class="animal-badges">
+                                                {% if animal.species %}
+                                                    <span class="badge species-badge">{{ animal.species.name }}</span>
+                                                {% endif %}
+                                                <span class="badge age-badge">{{ animal.age }}</span>
+                                                {% if animal.sexe == 'male' %}
+                                                    <span class="badge gender-badge male">
+                                                        <i class="fas fa-mars"></i> Mâle
+                                                    </span>
+                                                {% else %}
+                                                    <span class="badge gender-badge female">
+                                                        <i class="fas fa-venus"></i> Femelle
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="separator"></div>
+                                        
+                                        <div class="animal-description">
+                                            <p class="description-text" data-full-text="{{ animal.description }}">
+                                                {{ animal.description|length > 120 ? animal.description|slice(0, 120) ~ '...' : animal.description }}
+                                            </p>
+                                            {% if animal.description|length > 120 %}
+                                                <button class="see-more-btn" data-animal-id="{{ animal.id }}">
+                                                    Voir plus
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <div class="card-actions">
+                                            <button class="action-btn favorite-btn" data-animal-id="{{ animal.id }}" title="Ajouter aux favoris">
+                                                <i class="far fa-heart"></i>
+                                            </button>
+                                            <button class="action-btn contact-btn" data-animal-id="{{ animal.id }}" title="Contacter l'association">
+                                                <i class="fas fa-envelope"></i>
+                                            </button>
+                                            <button class="action-btn share-btn" data-animal-id="{{ animal.id }}" title="Partager">
+                                                <i class="fas fa-share-alt"></i>
+                                            </button>
+                                            <a href="{{ path('animal_show', {'id': animal.id}) }}" class="action-btn view-btn" title="Voir la fiche complète">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                        
+                                        {% if animal.association %}
+                                            <div class="association-info">
+                                                <span class="association-name">{{ animal.association.name }}</span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Indicateurs ronds -->
+                        <div class="carousel-indicators">
+                            {% for animal in oldest_animals %}
+                                <button class="indicator-dot{{ loop.index0 == 0 ? ' active' : '' }}" 
+                                        data-slide="{{ loop.index0 }}" 
+                                        aria-label="Aller à l'animal {{ loop.index }}"></button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-footer">
+                        <a href="{{ path('animals') }}" class="btn-see-all">
+                            Découvrir tous nos compagnons <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-paw"></i>
+                        <p>Aucun animal disponible pour le moment.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
 </main>
-</div>
 {% endblock %}

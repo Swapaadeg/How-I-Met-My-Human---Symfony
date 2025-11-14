@@ -19,7 +19,7 @@ class AnimalsRepository extends ServiceEntityRepository
     /**
      * @return Animals[] Returns animals with the oldest arrival dates (longest in shelter)
      */
-    public function findOldestInShelter(int $limit = 6): array
+    public function findOldestInShelter(int $limit = 10): array
     {
         return $this->createQueryBuilder('a')
             ->orderBy('a.date_arrivee', 'ASC')

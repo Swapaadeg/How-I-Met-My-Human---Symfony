@@ -12,7 +12,7 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(AnimalsRepository $animalsRepository): Response
     {
-        $oldestAnimals = $animalsRepository->findOldestInShelter();
+        $oldestAnimals = $animalsRepository->findOldestInShelter(10);
         
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',

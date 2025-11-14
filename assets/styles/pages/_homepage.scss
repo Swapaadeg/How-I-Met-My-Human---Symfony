@@ -5,14 +5,77 @@
     margin-bottom: 250px; // Espace pour éviter le chevauchement avec le footer
     min-height: calc(100vh - 200px);
     
-    main {
-        padding: 3rem 0;
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    
+    // Section des animaux les plus anciens
+    .oldest-animals-section {
+        padding: 4rem 0;
         background: v.$color-background;
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            
+            h3 {
+                font-size: 2.5rem;
+                font-weight: 300;
+                color: v.$color-dark;
+                margin-bottom: 1rem;
+                letter-spacing: 1px;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+                color: v.$color-accent;
+                font-weight: 400;
+                max-width: 600px;
+                margin: 0 auto;
+                line-height: 1.6;
+            }
+        }
+        
+        .carousel-footer {
+            text-align: center;
+            margin-top: 3rem;
+            
+            .btn-see-all {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.8rem;
+                padding: 1rem 2.5rem;
+                background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: 500;
+                font-size: 1.1rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
+                
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.4);
+                    background: linear-gradient(135deg, v.$color-accent, v.$color-secondary);
+                    
+                    i {
+                        transform: translateX(3px);
+                    }
+                }
+                
+                i {
+                    transition: transform 0.3s ease;
+                }
+            }
         }
     }
 }
