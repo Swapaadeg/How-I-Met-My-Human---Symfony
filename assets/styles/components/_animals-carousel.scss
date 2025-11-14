@@ -1,0 +1,178 @@
+@use "../abstracts/variables" as v;
+@use "sass:color";
+
+.animals-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 2rem 0;
+    
+    .animals-carousel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: 600px;
+        
+        .carousel-card {
+            position: absolute;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: center;
+            cursor: pointer;
+            max-width: 340px;
+            width: 340px;
+            
+            // Carte du milieu (active)
+            &.center {
+                transform: translateX(0) scale(1);
+                z-index: 3;
+                opacity: 1;
+            }
+            
+            // Carte de gauche
+            &.left {
+                transform: translateX(-320px) scale(0.8);
+                z-index: 2;
+                opacity: 0.7;
+            }
+            
+            // Carte de droite  
+            &.right {
+                transform: translateX(320px) scale(0.8);
+                z-index: 2;
+                opacity: 0.7;
+            }
+            
+            // Cartes en arrière-plan (4ème position)
+            &.back-left {
+                transform: translateX(-480px) scale(0.6);
+                z-index: 1;
+                opacity: 0.4;
+                pointer-events: none;
+            }
+            
+            &.back-right {
+                transform: translateX(480px) scale(0.6);
+                z-index: 1;
+                opacity: 0.4;
+                pointer-events: none;
+            }
+            
+            // Cartes très en arrière (5ème position)
+            &.far-back-left {
+                transform: translateX(-600px) scale(0.45);
+                z-index: 0;
+                opacity: 0.2;
+                pointer-events: none;
+            }
+            
+            &.far-back-right {
+                transform: translateX(600px) scale(0.45);
+                z-index: 0;
+                opacity: 0.2;
+                pointer-events: none;
+            }
+            
+            // Cartes complètement cachées
+            &.hidden {
+                transform: translateX(-800px) scale(0.3);
+                z-index: 0;
+                opacity: 0;
+                pointer-events: none;
+            }
+            
+            &.hidden-right {
+                transform: translateX(800px) scale(0.3);
+                z-index: 0;
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+    }
+    
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.8rem;
+        margin-top: 2rem;
+        
+        .indicator-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid v.$color-primary;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: color.adjust(v.$color-primary, $lightness: 20%);
+                transform: scale(1.1);
+            }
+            
+            &.active {
+                background: v.$color-primary;
+                transform: scale(1.2);
+            }
+        }
+    }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .animals-carousel-container {
+        .animals-carousel {
+            height: 500px;
+            
+            .carousel-card {
+                &.left {
+                    transform: translateX(-200px) scale(0.7);
+                }
+                
+                &.right {
+                    transform: translateX(200px) scale(0.7);
+                }
+                
+                &.back-left {
+                    transform: translateX(-320px) scale(0.5);
+                }
+                
+                &.back-right {
+                    transform: translateX(320px) scale(0.5);
+                }
+                
+                &.far-back-left {
+                    transform: translateX(-420px) scale(0.4);
+                }
+                
+                &.far-back-right {
+                    transform: translateX(420px) scale(0.4);
+                }
+                
+                &.hidden {
+                    transform: translateX(-500px) scale(0.3);
+                }
+                
+                &.hidden-right {
+                    transform: translateX(500px) scale(0.3);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .animals-carousel-container {
+        .animals-carousel {
+            height: 450px;
+            
+            .carousel-card {
+                &.left,
+                &.right {
+                    display: none; // Cache les cartes latérales sur mobile
+                }
+            }
+        }
+    }
+}
