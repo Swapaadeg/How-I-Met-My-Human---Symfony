@@ -42,10 +42,9 @@ final class AnimalsController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            // Associer l'animal à l'association connectée
+
             $animal->setAssociation($this->getUser());
             
-            // Si aucune date d'arrivée n'est définie, utiliser la date actuelle
             if (!$animal->getDateArrivee()) {
                 $animal->setDateArrivee(new \DateTime());
             }
@@ -62,4 +61,6 @@ final class AnimalsController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 }

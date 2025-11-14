@@ -90,7 +90,7 @@ class AnimalFormType extends AbstractType
             ])
             ->add('tag', EntityType::class, [
                 'class' => Tags::class,
-                'choice_label' => 'name',
+                'choice_label' => 'type',
                 'label' => 'Tags',
                 'multiple' => true,
                 'expanded' => true,

@@ -24,6 +24,7 @@
         text-align: center;
         gap: 1rem;
         color: v.$color-primary;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2);
         a {
             display: flex;
             align-items: center;
@@ -44,7 +45,7 @@
 }
 
 // SECTION FOOTER (LIENS & CONTACT)
-// =========================
+
 .section-footer {
     display: flex;
     justify-content: space-between;
@@ -68,7 +69,6 @@
 
     .link-footer {
         &.right {
-            // Ajoute un h4 invisible pour aligner avec les autres colonnes
             &:before {
                 content: '';
                 display: block;

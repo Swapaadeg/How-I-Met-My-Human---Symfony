@@ -16,6 +16,18 @@ class AnimalsRepository extends ServiceEntityRepository
         parent::__construct($registry, Animals::class);
     }
 
+    /**
+     * @return Animals[] Returns animals with the oldest arrival dates (longest in shelter)
+     */
+    public function findOldestInShelter(int $limit = 6): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.date_arrivee', 'ASC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Animals[] Returns an array of Animals objects
 //     */
