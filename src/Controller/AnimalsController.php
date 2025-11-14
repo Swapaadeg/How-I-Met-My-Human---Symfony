@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Animals;
 use App\Form\AnimalFormType;
+use App\Repository\AnimalsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +15,20 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class AnimalsController extends AbstractController
 {
     #[Route('/animals', name: 'animals')]
-    public function index(): Response
+    public function index(AnimalsRepository $animalsRepository): Response
     {
+        $animals = $animalsRepository->findAll();
+        
         return $this->render('animals/index.html.twig', [
-            'controller_name' => 'AnimalsController',
+            'animals' => $animals,
+        ]);
+    }
+    
+    #[Route('/animals/{id}', name: 'animal_show')]
+    public function show(Animals $animal): Response
+    {
+        return $this->render('animals/show.html.twig', [
+            'animal' => $animal,
         ]);
     }
 

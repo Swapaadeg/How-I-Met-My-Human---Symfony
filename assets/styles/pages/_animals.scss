@@ -1,0 +1,854 @@
+@use "../abstracts/variables" as v;
+
+.animals-page {
+    padding: 2rem 0;
+    background: linear-gradient(135deg, v.$color-background 0%, rgba(v.$color-primary, 0.05) 100%);
+    min-height: calc(100vh - 200px);
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        
+        h1 {
+            font-size: 2.5rem;
+            font-family: v.$font-family-bold;
+            color: v.$color-dark;
+            margin-bottom: 1rem;
+            
+            i {
+                color: v.$color-secondary;
+                margin-right: 1rem;
+            }
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: v.$color-accent;
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 0;
+    
+    .empty-content {
+        i {
+            font-size: 4rem;
+            color: rgba(v.$color-secondary, 0.3);
+            margin-bottom: 1rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: v.$color-dark;
+            margin-bottom: 0.5rem;
+        }
+        
+        p {
+            color: v.$color-accent;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+.animals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.animal-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(v.$color-dark, 0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(v.$color-dark, 0.15);
+    }
+    
+    .card-image {
+        position: relative;
+        height: 250px;
+        overflow: hidden;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(v.$color-primary, 0.1), rgba(v.$color-secondary, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            i {
+                font-size: 3rem;
+                color: rgba(v.$color-secondary, 0.3);
+            }
+        }
+    }
+    
+    .card-content {
+        padding: 1.5rem;
+        
+        .card-header {
+            margin-bottom: 1rem;
+            
+            .name-and-special-tags {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                margin-bottom: 0.8rem;
+                flex-wrap: wrap;
+            }
+            
+            .animal-name {
+                font-size: 1.4rem;
+                font-family: v.$font-family-bold;
+                color: v.$color-dark;
+                margin: 0;
+            }
+            
+            .tag-mini {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.6rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                cursor: help;
+                transition: all 0.3s ease;
+                
+                // Couleur turquoise pour tous les tags spéciaux
+                background: v.$color-secondary;
+                color: white;
+                
+                &:hover {
+                    transform: scale(1.15);
+                    box-shadow: 0 3px 8px rgba(v.$color-secondary, 0.3);
+                }
+                
+                &.education,
+                &.education-en-cours {
+                    i {
+                        font-size: 0.8rem;
+                    }
+                }
+                
+                // Tooltips spécifiques pour les tags mini (redéfinition)
+                &[data-tooltip]::before {
+                    bottom: 140% !important;
+                    font-size: 0.75rem !important;
+                    padding: 0.6rem 0.8rem !important;
+                    max-width: 200px !important;
+                    white-space: normal !important;
+                }
+                
+                &[data-tooltip]::after {
+                    bottom: 132% !important;
+                }
+            }
+            
+            .animal-badges {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                
+                .badge {
+                    padding: 0.3rem 0.8rem;
+                    border-radius: 15px;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    
+                    &.species-badge {
+                        background: rgba(v.$color-secondary, 0.1);
+                        color: v.$color-secondary;
+                    }
+                    
+                    &.age-badge {
+                        background: rgba(v.$color-primary, 0.1);
+                        color: v.$color-primary;
+                    }
+                    
+                    &.gender-badge {
+                        &.male {
+                            background: rgba(#4A90E2, 0.1);
+                            color: #4A90E2;
+                        }
+                        
+                        &.female {
+                            background: rgba(#FF6B9D, 0.1);
+                            color: #FF6B9D;
+                        }
+                        
+                        i {
+                            margin-right: 0.3rem;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .separator {
+            height: 2px;
+            background: linear-gradient(90deg, v.$color-secondary, v.$color-primary);
+            margin: 1rem 0;
+            border-radius: 2px;
+        }
+        
+        .animal-description {
+            margin-bottom: 1rem;
+            
+            .description-text {
+                color: v.$color-accent;
+                line-height: 1.6;
+                margin: 0 0 0.5rem 0;
+                font-size: 0.9rem;
+            }
+            
+            .see-more-btn {
+                background: none;
+                border: none;
+                color: v.$color-secondary;
+                font-weight: 600;
+                cursor: pointer;
+                font-size: 0.85rem;
+                padding: 0;
+                text-decoration: underline;
+                transition: color 0.3s ease;
+                
+                &:hover {
+                    color: v.$color-primary;
+                }
+            }
+        }
+        
+        .animal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            
+            .tag {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                transition: all 0.3s ease;
+                border: none;
+                
+                // Tags par défaut
+                background: v.$color-secondary;
+                color: white;
+                
+                &:hover {
+                    transform: scale(1.1);
+                    box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.3);
+                }
+                
+                // Tag SOS
+                &.sos {
+                    background: v.$color-secondary;
+                    color: white;
+                    font-size: 0.65rem;
+                }
+                
+                // Tag Education avec icône
+                &.education,
+                &.education-en-cours {
+                    background: v.$color-secondary;
+                    color: white;
+                    
+                    i {
+                        font-size: 1.2rem;
+                    }
+                }
+                
+                // Tag FAD
+                &.fad {
+                    background: v.$color-secondary;
+                    color: white;
+                    font-size: 0.65rem;
+                }
+                
+                // Tags normaux (autres)
+                &:not(.sos):not(.education):not(.education-en-cours):not(.fad) {
+                    background: rgba(v.$color-accent, 0.1);
+                    color: v.$color-accent;
+                    font-size: 0.6rem;
+                    width: auto;
+                    min-width: 40px;
+                    padding: 0 0.5rem;
+                    border-radius: 20px;
+                    height: 30px;
+                }
+            }
+        }
+        
+        // Styles pour les tooltips (tags normaux et mini)
+        .tag,
+        .tag-mini {
+            position: relative;
+            cursor: help;
+            
+            &[data-tooltip]:hover::before,
+            &[data-tooltip]:hover::after {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            
+            &[data-tooltip]::before {
+                content: attr(data-tooltip);
+                position: absolute;
+                bottom: 120%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-10px);
+                background: rgba(v.$color-dark, 0.95);
+                color: white;
+                padding: 0.8rem 1rem;
+                border-radius: 8px;
+                font-size: 0.8rem;
+                font-weight: 400;
+                text-transform: none;
+                letter-spacing: normal;
+                white-space: nowrap;
+                max-width: 250px;
+                white-space: normal;
+                text-align: center;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+            
+            &[data-tooltip]::after {
+                content: '';
+                position: absolute;
+                bottom: 112%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-5px);
+                border: 5px solid transparent;
+                border-top-color: rgba(v.$color-dark, 0.95);
+                z-index: 1001;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+        }
+        
+        .card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            
+            .action-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 2px solid rgba(v.$color-accent, 0.2);
+                background: white;
+                color: v.$color-accent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 1rem;
+                
+                &:hover {
+                    transform: scale(1.1);
+                    border-color: v.$color-secondary;
+                    color: v.$color-secondary;
+                }
+                
+                &.favorite-btn {
+                    &:hover {
+                        color: v.$color-primary;
+                        border-color: v.$color-primary;
+                    }
+                    
+                    &.favorited {
+                        background: v.$color-primary;
+                        color: white;
+                        border-color: v.$color-primary;
+                        
+                        i {
+                            font-weight: 900;
+                        }
+                    }
+                }
+                
+                &.contact-btn:hover {
+                    color: #28a745;
+                    border-color: #28a745;
+                }
+                
+                &.share-btn:hover {
+                    color: #17a2b8;
+                    border-color: #17a2b8;
+                }
+            }
+        }
+        
+        .association-info {
+            text-align: center;
+            border-top: 1px solid rgba(v.$color-accent, 0.2);
+            padding-top: 0.8rem;
+            
+            .association-name {
+                font-size: 0.8rem;
+                color: v.$color-accent;
+                font-style: italic;
+            }
+        }
+    }
+}
+
+// Page de détail animal
+.animal-detail-page {
+    padding: 2rem 0;
+    background: v.$color-background;
+    min-height: calc(100vh - 200px);
+    
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    
+    .animal-detail {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(v.$color-dark, 0.1);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        margin-bottom: 2rem;
+        
+        .animal-image {
+            height: 400px;
+            
+            img, .placeholder-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            
+            .placeholder-image {
+                background: linear-gradient(135deg, rgba(v.$color-primary, 0.1), rgba(v.$color-secondary, 0.1));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+                i {
+                    font-size: 4rem;
+                    color: rgba(v.$color-secondary, 0.3);
+                }
+            }
+        }
+        
+        .animal-info {
+            padding: 2rem;
+            
+            .name-and-special-tags {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+                flex-wrap: wrap;
+                
+                .tag-mini {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.3px;
+                    cursor: help;
+                    transition: all 0.3s ease;
+                    
+                    background: v.$color-secondary;
+                    color: white;
+                    
+                    &:hover {
+                        transform: scale(1.1);
+                        box-shadow: 0 4px 10px rgba(v.$color-secondary, 0.3);
+                    }
+                    
+                    &.education,
+                    &.education-en-cours {
+                        i {
+                            font-size: 1rem;
+                        }
+                    }
+                    
+                    &[data-tooltip]::before {
+                        bottom: 150% !important;
+                        font-size: 0.8rem !important;
+                        padding: 0.8rem 1rem !important;
+                        max-width: 220px !important;
+                    }
+                    
+                    &[data-tooltip]::after {
+                        bottom: 142% !important;
+                    }
+                }
+            }
+            
+            h1 {
+                font-size: 2rem;
+                font-family: v.$font-family-bold;
+                color: v.$color-dark;
+                margin: 0;
+            }
+            
+            .animal-badges {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+                
+                .badge {
+                    padding: 0.4rem 1rem;
+                    border-radius: 20px;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    
+                    &.species-badge {
+                        background: rgba(v.$color-secondary, 0.1);
+                        color: v.$color-secondary;
+                    }
+                    
+                    &.age-badge {
+                        background: rgba(v.$color-primary, 0.1);
+                        color: v.$color-primary;
+                    }
+                    
+                    &.gender-badge {
+                        &.male {
+                            background: rgba(#4A90E2, 0.1);
+                            color: #4A90E2;
+                        }
+                        
+                        &.female {
+                            background: rgba(#FF6B9D, 0.1);
+                            color: #FF6B9D;
+                        }
+                        
+                        i {
+                            margin-right: 0.3rem;
+                        }
+                    }
+                }
+            }
+            
+            .description, .animal-tags, .contact-section {
+                margin-bottom: 2rem;
+                
+                h3 {
+                    font-size: 1.2rem;
+                    font-family: v.$font-family-bold;
+                    color: v.$color-dark;
+                    margin-bottom: 0.8rem;
+                }
+                
+                p {
+                    color: v.$color-accent;
+                    line-height: 1.6;
+                }
+            }
+            
+            .animal-tags {
+                .tag {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    margin: 0 0.8rem 0.8rem 0;
+                    transition: all 0.3s ease;
+                    border: none;
+                    
+                    // Tags par défaut
+                    background: v.$color-secondary;
+                    color: white;
+                    
+                    &:hover {
+                        transform: scale(1.05);
+                        box-shadow: 0 5px 15px rgba(v.$color-secondary, 0.3);
+                    }
+                    
+                    // Tag SOS
+                    &.sos {
+                        background: v.$color-secondary;
+                        color: white;
+                        font-size: 0.75rem;
+                    }
+                    
+                    // Tag Education avec icône
+                    &.education,
+                    &.education-en-cours {
+                        background: v.$color-secondary;
+                        color: white;
+                        
+                        i {
+                            font-size: 1.4rem;
+                        }
+                    }
+                    
+                    // Tag FAD
+                    &.fad {
+                        background: v.$color-secondary;
+                        color: white;
+                        font-size: 0.75rem;
+                    }
+                    
+                    // Tags normaux (autres)
+                    &:not(.sos):not(.education):not(.education-en-cours):not(.fad) {
+                        background: rgba(v.$color-accent, 0.1);
+                        color: v.$color-accent;
+                        font-size: 0.7rem;
+                        width: auto;
+                        min-width: 50px;
+                        padding: 0 0.8rem;
+                        border-radius: 25px;
+                        height: 40px;
+                        text-transform: none;
+                    }
+                    
+                    // Tooltips pour la page de détail (plus grands)
+                    &[data-tooltip]::before {
+                        font-size: 0.85rem;
+                        padding: 1rem 1.2rem;
+                        max-width: 280px;
+                        bottom: 130%;
+                    }
+                    
+                    &[data-tooltip]::after {
+                        bottom: 122%;
+                    }
+                }
+            }
+            
+            .contact-buttons {
+                display: flex;
+                gap: 1rem;
+                
+                .btn {
+                    padding: 0.8rem 1.5rem;
+                    font-weight: 600;
+                    border-radius: 12px;
+                    border: none;
+                    cursor: pointer;
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    transition: all 0.3s ease;
+                    
+                    &.btn-primary {
+                        background: linear-gradient(135deg, v.$color-primary, v.$color-secondary);
+                        color: white;
+                        
+                        &:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 5px 15px rgba(v.$color-primary, 0.4);
+                        }
+                    }
+                    
+                    &.btn-secondary {
+                        background: white;
+                        color: v.$color-accent;
+                        border: 2px solid rgba(v.$color-accent, 0.2);
+                        
+                        &:hover {
+                            border-color: v.$color-primary;
+                            color: v.$color-primary;
+                        }
+                        
+                        &.favorited {
+                            background: v.$color-primary;
+                            color: white;
+                            border-color: v.$color-primary;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .back-to-list {
+        text-align: center;
+        
+        .btn-outline {
+            background: transparent;
+            color: v.$color-primary;
+            border: 2px solid v.$color-primary;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: v.$color-primary;
+                color: white;
+                transform: translateY(-2px);
+            }
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .animals-page {
+        .container {
+            padding: 0 1rem;
+        }
+        
+        .page-header {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        .animals-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .animal-card {
+            .card-image {
+                height: 200px;
+            }
+            
+            .card-content {
+                padding: 1.2rem;
+            }
+        }
+    }
+    
+    .animal-detail-page {
+        .animal-detail {
+            grid-template-columns: 1fr;
+            
+            .animal-image {
+                height: 300px;
+            }
+            
+            .animal-info {
+                padding: 1.5rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .animals-page {
+        padding: 1rem 0;
+        
+        .page-header {
+            margin-bottom: 2rem;
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+        
+        .animals-grid {
+            gap: 1rem;
+        }
+        
+        .animal-card {
+            .card-image {
+                height: 180px;
+            }
+            
+            .card-content {
+                padding: 1rem;
+                
+                .card-header .animal-name {
+                    font-size: 1.2rem;
+                }
+                
+                .card-actions {
+                    .action-btn {
+                        width: 30px;
+                        height: 30px;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+    
+    .animal-detail-page {
+        .animal-detail .animal-info {
+            padding: 1rem;
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+            }
+        }
+    }
+}

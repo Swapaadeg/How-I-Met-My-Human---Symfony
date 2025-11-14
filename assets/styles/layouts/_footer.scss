@@ -1,8 +1,7 @@
+
 @use "../abstracts/variables" as v;
 
-// =========================
-// FOOTER GLOBAL WRAPPER
-// =========================
+// Footer global wrapper
 .footer-wrapper {
     position: relative;
     background-color: v.$color-dark;
@@ -11,10 +10,6 @@
     align-items: center;
     padding-top: 7rem;
 
-
-    // =========================
-    // LOGO & CONTACT BUTTON
-    // =========================
     .logo-footer {
         position: absolute;
         left: 50%;
@@ -29,7 +24,6 @@
         text-align: center;
         gap: 1rem;
         color: v.$color-primary;
-
         a {
             display: flex;
             align-items: center;
@@ -44,59 +38,80 @@
             font-size: 1rem;
             font-family: v.$font-family-bold;
             color: v.$color-dark;
+            text-transform: uppercase;
+        }
+    }
+}
+
+// SECTION FOOTER (LIENS & CONTACT)
+// =========================
+.section-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    position: relative;
+    width: 80%;
+    background-color: v.$color-secondary;
+    
+    margin-top: -200px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    padding: 4rem 7rem 1.5rem 7rem;
+
+    h4 {
+        margin: 0 0 0.5rem 0;
+        font-weight: bold;
+        line-height: 1.5;
+        min-height: 2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .link-footer {
+        &.right {
+            // Ajoute un h4 invisible pour aligner avec les autres colonnes
+            &:before {
+                content: '';
+                display: block;
+                min-height: 2rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        li {
+            list-style: inside;
+        }
+        a {
+            color: v.$color-black;
+            font-size: 1.2rem;
+            font-family: v.$font-family-bold;
+            transition: opacity 0.3s ease;
+            &:hover {
+                opacity: 0.7;
+            }
         }
     }
 
-    // =========================
-    // SECTION FOOTER (LIENS & CONTACT)
-    // =========================
-    .section-footer {
-        display: flex;
-        position: relative;
-        width: 80%;
-        background-color: v.$color-secondary;
-        margin-top: -200px;
-        box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-        padding: 2rem 2rem 1.5rem 2rem;
-
-        .link-footer {
-            flex: 1;
+    .contact-footer {
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
             li {
-                list-style: inside;
-            }
-            a {
-                color: v.$color-black;
-                font-size: 1.2rem;
-                transition: opacity 0.3s ease;
-                &:hover {
-                opacity: 0.7;
-                }
-            }
-        }
-
-        .contact-footer {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            h4 {
-                margin-bottom: 0.5rem;
-            }
-            ul {
-                padding: 0;
-                margin: 0;
-                list-style: none;
-                li {
                 margin-bottom: 0.5rem;
                 color: v.$color-black;
                 font-size: 1.1rem;
-                    i {
-                        margin-right: 8px;
-                        color: v.$color-primary;
-                    }
+                font-family: v.$font-family-bold;
+                i {
+                    margin-right: 8px;
+                    color: v.$color-primary;
                 }
             }
         }
     }
+}
+.copyright {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-family: v.$font-family-extralight;
+    color: v.$color-background;
 }

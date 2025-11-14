@@ -1,20 +1,170 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AnimalsController!{% endblock %}
+{% block title %}Nos rescapés{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="animals-page">
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-heart"></i> Ils attendent une famille</h1>
+            <p class="subtitle">Découvrez nos adorables pensionnaires qui rêvent de trouver leur foyer pour toujours</p>
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Projet_Symfony/HIMMH/src/Controller/AnimalsController.php</code></li>
-        <li>Your template at <code>C:/Projet_Symfony/HIMMH/templates/animals/index.html.twig</code></li>
-    </ul>
+        {% if animals is empty %}
+            <div class="empty-state">
+                <div class="empty-content">
+                    <i class="fas fa-paw"></i>
+                    <h3>Aucun animal pour le moment</h3>
+                    <p>Revenez bientôt pour découvrir nos nouveaux pensionnaires !</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="animals-grid">
+                {% for animal in animals %}
+                    <div class="animal-card" data-animal-id="{{ animal.id }}">
+                        <div class="card-image">
+                            {% if animal.imageName %}
+                                <img src="{{ asset('uploads/images/' ~ animal.imageName) }}" alt="{{ animal.name }}">
+                            {% else %}
+                                <div class="placeholder-image">
+                                    <i class="fas fa-paw"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="card-header">
+                                <div class="name-and-special-tags">
+                                    <h3 class="animal-name">{{ animal.name }}</h3>
+                                    {% if animal.tag is not empty %}
+                                        {% for tag in animal.tag %}
+                                            {% if tag.type|lower == 'sos' or 'education' in tag.type|lower or tag.type|lower == 'fad' %}
+                                                {% set tagClass = tag.type|lower|replace({' ': '-', '\'': '', 'é': 'e', 'è': 'e'}) %}
+                                                {% set tagDescription = '' %}
+                                                {% if tag.type|lower == 'sos' %}
+                                                    {% set tagDescription = 'Animal en situation d\'urgence nécessitant une adoption rapide' %}
+                                                {% elseif 'education' in tag.type|lower %}
+                                                    {% set tagDescription = 'Animal en cours d\'apprentissage des règles de vie' %}
+                                                {% elseif tag.type|lower == 'fad' %}
+                                                    {% set tagDescription = 'Famille d\'Accueil Durable - Placement long terme' %}
+                                                {% endif %}
+                                                
+                                                <span class="tag-mini {{ tagClass }}" 
+                                                      data-tooltip="{{ tagDescription }}" 
+                                                      data-tag-name="{{ tag.type }}">
+                                                    {% if 'education' in tag.type|lower %}
+                                                        <i class="fas fa-graduation-cap"></i>
+                                                    {% elseif tag.type|lower == 'sos' %}
+                                                        SOS
+                                                    {% elseif tag.type|lower == 'fad' %}
+                                                        FAD
+                                                    {% endif %}
+                                                </span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="animal-badges">
+                                    {% if animal.species %}
+                                        <span class="badge species-badge">{{ animal.species.name }}</span>
+                                    {% endif %}
+                                    <span class="badge age-badge">{{ animal.age }}</span>
+                                    {% if animal.sexe == 'male' %}
+                                        <span class="badge gender-badge male">
+                                            <i class="fas fa-mars"></i> Mâle
+                                        </span>
+                                    {% else %}
+                                        <span class="badge gender-badge female">
+                                            <i class="fas fa-venus"></i> Femelle
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="separator"></div>
+                            
+                            <div class="animal-description">
+                                <p class="description-text" data-full-text="{{ animal.description }}">
+                                    {{ animal.description|length > 120 ? animal.description|slice(0, 120) ~ '...' : animal.description }}
+                                </p>
+                                {% if animal.description|length > 120 %}
+                                    <button class="see-more-btn" data-animal-id="{{ animal.id }}">
+                                        Voir plus
+                                    </button>
+                                {% endif %}
+                            </div>
+                            
+                            {% set behavioralTags = [] %}
+                            {% if animal.tag is not empty %}
+                                {% for tag in animal.tag %}
+                                    {% if not (tag.type|lower == 'sos' or 'education' in tag.type|lower or tag.type|lower == 'fad') %}
+                                        {% set behavioralTags = behavioralTags|merge([tag]) %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            
+                            {% if behavioralTags is not empty %}
+                                <div class="animal-tags">
+                                    {% for tag in behavioralTags|slice(0, 3) %}
+                                        {% set tagClass = tag.type|lower|replace({' ': '-', '\'': '', 'é': 'e', 'è': 'e'}) %}
+                                        {% set tagDescription = '' %}
+                                        {% if tag.type|lower == 'sociable' %}
+                                            {% set tagDescription = 'Animal qui aime le contact et s\'entend bien avec tout le monde' %}
+                                        {% elseif tag.type|lower == 'calme' %}
+                                            {% set tagDescription = 'Animal posé et tranquille, idéal pour un foyer paisible' %}
+                                        {% elseif tag.type|lower == 'joueur' %}
+                                            {% set tagDescription = 'Animal énergique qui adore jouer et s\'amuser' %}
+                                        {% elseif tag.type|lower == 'câlin' or tag.type|lower == 'calin' %}
+                                            {% set tagDescription = 'Animal affectueux qui recherche les moments de tendresse' %}
+                                        {% elseif tag.type|lower == 'énergique' or tag.type|lower == 'energique' %}
+                                            {% set tagDescription = 'Animal plein de vitalité qui a besoin de beaucoup d\'exercice' %}
+                                        {% elseif 'enfants' in tag.type|lower %}
+                                            {% set tagDescription = 'Animal qui s\'entend parfaitement avec les enfants' %}
+                                        {% elseif 'chats' in tag.type|lower %}
+                                            {% set tagDescription = 'Animal compatible avec la présence d\'autres chats' %}
+                                        {% elseif 'chiens' in tag.type|lower %}
+                                            {% set tagDescription = 'Animal qui cohabite bien avec d\'autres chiens' %}
+                                        {% elseif tag.type|lower == 'propre' %}
+                                            {% set tagDescription = 'Animal qui maîtrise parfaitement la propreté' %}
+                                        {% elseif tag.type|lower == 'peureux' %}
+                                            {% set tagDescription = 'Animal timide qui a besoin de patience et de douceur' %}
+                                        {% elseif tag.type|lower == 'confiant' %}
+                                            {% set tagDescription = 'Animal sûr de lui qui s\'adapte facilement aux nouvelles situations' %}
+                                        {% else %}
+                                            {% set tagDescription = 'Caractéristique comportementale de ' ~ animal.name %}
+                                        {% endif %}
+                                        
+                                        <span class="tag {{ tagClass }}" 
+                                              data-tooltip="{{ tagDescription }}" 
+                                              data-tag-name="{{ tag.type }}">
+                                            {{ tag.type }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            
+                            <div class="card-actions">
+                                <button class="action-btn favorite-btn" data-animal-id="{{ animal.id }}" title="Ajouter aux favoris">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn contact-btn" data-animal-id="{{ animal.id }}" title="Contacter l'association">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="action-btn share-btn" data-animal-id="{{ animal.id }}" title="Partager">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                            
+                            {% if animal.association %}
+                                <div class="association-info">
+                                    <span class="association-name">{{ animal.association.name }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

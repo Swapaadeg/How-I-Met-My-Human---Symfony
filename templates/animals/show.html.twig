@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ animal.name }} - Nos rescapés{% endblock %}
+
+{% block body %}
+<div class="animal-detail-page">
+    <div class="container">
+        <div class="animal-detail">
+            <div class="animal-image">
+                {% if animal.imageName %}
+                    <img src="{{ asset('uploads/images/' ~ animal.imageName) }}" alt="{{ animal.name }}">
+                {% else %}
+                    <div class="placeholder-image">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="animal-info">
+                <div class="name-and-special-tags">
+                    <h1>{{ animal.name }}</h1>
+                    {% if animal.tag is not empty %}
+                        {% for tag in animal.tag %}
+                            {% if tag.type|lower == 'sos' or 'education' in tag.type|lower or tag.type|lower == 'fad' %}
+                                {% set tagClass = tag.type|lower|replace({' ': '-', '\'': '', 'é': 'e', 'è': 'e'}) %}
+                                {% set tagDescription = '' %}
+                                {% if tag.type|lower == 'sos' %}
+                                    {% set tagDescription = 'Animal en situation d\'urgence nécessitant une adoption rapide' %}
+                                {% elseif 'education' in tag.type|lower %}
+                                    {% set tagDescription = 'Animal en cours d\'apprentissage des règles de vie' %}
+                                {% elseif tag.type|lower == 'fad' %}
+                                    {% set tagDescription = 'Famille d\'Accueil Durable - Placement long terme' %}
+                                {% endif %}
+                                
+                                <span class="tag-mini {{ tagClass }}" 
+                                      data-tooltip="{{ tagDescription }}" 
+                                      data-tag-name="{{ tag.type }}">
+                                    {% if 'education' in tag.type|lower %}
+                                        <i class="fas fa-graduation-cap"></i>
+                                    {% elseif tag.type|lower == 'sos' %}
+                                        SOS
+                                    {% elseif tag.type|lower == 'fad' %}
+                                        FAD
+                                    {% endif %}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="animal-badges">
+                    {% if animal.species %}
+                        <span class="badge species-badge">{{ animal.species.name }}</span>
+                    {% endif %}
+                    <span class="badge age-badge">{{ animal.age }}</span>
+                    {% if animal.sexe == 'male' %}
+                        <span class="badge gender-badge male">
+                            <i class="fas fa-mars"></i> Mâle
+                        </span>
+                    {% else %}
+                        <span class="badge gender-badge female">
+                            <i class="fas fa-venus"></i> Femelle
+                        </span>
+                    {% endif %}
+                </div>
+                
+                <div class="description">
+                    <h3>Son histoire</h3>
+                    <p>{{ animal.description }}</p>
+                </div>
+                
+                {% set behavioralTags = [] %}
+                {% if animal.tag is not empty %}
+                    {% for tag in animal.tag %}
+                        {% if not (tag.type|lower == 'sos' or 'education' in tag.type|lower or tag.type|lower == 'fad') %}
+                            {% set behavioralTags = behavioralTags|merge([tag]) %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
+                {% if behavioralTags is not empty %}
+                    <div class="animal-tags">
+                        <h3>Son caractère</h3>
+                        {% for tag in behavioralTags %}
+                            {% set tagClass = tag.type|lower|replace({' ': '-', '\'': '', 'é': 'e', 'è': 'e'}) %}
+                            {% set tagDescription = '' %}
+                            {% if tag.type|lower == 'sociable' %}
+                                {% set tagDescription = 'Animal qui aime le contact et s\'entend bien avec tout le monde' %}
+                            {% elseif tag.type|lower == 'calme' %}
+                                {% set tagDescription = 'Animal posé et tranquille, idéal pour un foyer paisible' %}
+                            {% elseif tag.type|lower == 'joueur' %}
+                                {% set tagDescription = 'Animal énergique qui adore jouer et s\'amuser' %}
+                            {% elseif tag.type|lower == 'câlin' or tag.type|lower == 'calin' %}
+                                {% set tagDescription = 'Animal affectueux qui recherche les moments de tendresse' %}
+                            {% elseif tag.type|lower == 'énergique' or tag.type|lower == 'energique' %}
+                                {% set tagDescription = 'Animal plein de vitalité qui a besoin de beaucoup d\'exercice' %}
+                            {% elseif 'enfants' in tag.type|lower %}
+                                {% set tagDescription = 'Animal qui s\'entend parfaitement avec les enfants' %}
+                            {% elseif 'chats' in tag.type|lower %}
+                                {% set tagDescription = 'Animal compatible avec la présence d\'autres chats' %}
+                            {% elseif 'chiens' in tag.type|lower %}
+                                {% set tagDescription = 'Animal qui cohabite bien avec d\'autres chiens' %}
+                            {% elseif tag.type|lower == 'propre' %}
+                                {% set tagDescription = 'Animal qui maîtrise parfaitement la propreté' %}
+                            {% elseif tag.type|lower == 'peureux' %}
+                                {% set tagDescription = 'Animal timide qui a besoin de patience et de douceur' %}
+                            {% elseif tag.type|lower == 'confiant' %}
+                                {% set tagDescription = 'Animal sûr de lui qui s\'adapte facilement aux nouvelles situations' %}
+                            {% else %}
+                                {% set tagDescription = 'Caractéristique comportementale de ' ~ animal.name %}
+                            {% endif %}
+                            
+                            <span class="tag {{ tagClass }}" 
+                                  data-tooltip="{{ tagDescription }}" 
+                                  data-tag-name="{{ tag.type }}">
+                                {{ tag.type }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                <div class="contact-section">
+                    <h3>Intéressé(e) par {{ animal.name }} ?</h3>
+                    {% if animal.association %}
+                        <p>Contactez <strong>{{ animal.association.name }}</strong></p>
+                    {% endif %}
+                    <div class="contact-buttons">
+                        <button class="btn btn-primary contact-btn">
+                            <i class="fas fa-envelope"></i> Contacter
+                        </button>
+                        <button class="btn btn-secondary favorite-btn" data-animal-id="{{ animal.id }}">
+                            <i class="far fa-heart"></i> Favoris
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="back-to-list">
+            <a href="{{ path('animals') }}" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
