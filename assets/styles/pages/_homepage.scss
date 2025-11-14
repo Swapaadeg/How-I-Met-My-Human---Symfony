@@ -1,0 +1,18 @@
+@use "../abstracts/variables" as v;
+
+// Page d'accueil
+.homepage {
+    margin-bottom: 250px; // Espace pour éviter le chevauchement avec le footer
+    min-height: calc(100vh - 200px);
+    
+    main {
+        padding: 3rem 0;
+        background: v.$color-background;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+    }
+}

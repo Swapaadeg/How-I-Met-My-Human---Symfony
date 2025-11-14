@@ -4,6 +4,7 @@
     padding: 2rem 0;
     background: linear-gradient(135deg, v.$color-background 0%, rgba(v.$color-primary, 0.05) 100%);
     min-height: calc(100vh - 200px);
+    margin-bottom: 250px; // Espace pour éviter le chevauchement avec le footer
     
     .container {
         max-width: 1200px;
@@ -446,6 +447,7 @@
     padding: 2rem 0;
     background: v.$color-background;
     min-height: calc(100vh - 200px);
+    margin-bottom: 250px; // Espace pour éviter le chevauchement avec le footer
     
     .container {
         max-width: 1000px;
