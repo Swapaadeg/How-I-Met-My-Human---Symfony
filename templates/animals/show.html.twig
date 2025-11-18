@@ -23,14 +23,7 @@
                         {% for tag in animal.tag %}
                             {% if tag.type|lower == 'sos' or 'education' in tag.type|lower or tag.type|lower == 'fad' %}
                                 {% set tagClass = tag.type|lower|replace({' ': '-', '\'': '', 'é': 'e', 'è': 'e'}) %}
-                                {% set tagDescription = '' %}
-                                {% if tag.type|lower == 'sos' %}
-                                    {% set tagDescription = 'Animal en situation d\'urgence nécessitant une adoption rapide' %}
-                                {% elseif 'education' in tag.type|lower %}
-                                    {% set tagDescription = 'Animal en cours d\'apprentissage des règles de vie' %}
-                                {% elseif tag.type|lower == 'fad' %}
-                                    {% set tagDescription = 'Famille d\'Accueil Durable - Placement long terme' %}
-                                {% endif %}
+                                {% set tagDescription = tag.description ?: 'Description non disponible' %}
                                 
                                 <span class="tag-mini {{ tagClass }}" 
                                       data-tooltip="{{ tagDescription }}" 
