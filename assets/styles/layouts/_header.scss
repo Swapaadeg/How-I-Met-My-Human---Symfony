@@ -201,9 +201,8 @@
 // Carrousel Hero Section
 .hero-carousel {
     position: relative;
-    height: calc(70vh - 160px); // Ajusté pour tenir compte de la navbar et du filtre
+    height: calc(65vh);
     overflow: hidden;
-    flex-grow: 1; // Prend l'espace disponible
     
     .carousel-container {
         position: relative;

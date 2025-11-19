@@ -47,5 +47,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Animals functionality is auto-initialized in animals.js
     }
     
+    // Route 6: Scroll indicator - Make paw clickable to scroll to animals section
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            const targetSection = document.querySelector('.oldest-animals-section');
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+        // Make it visually clickable
+        scrollIndicator.style.cursor = 'pointer';
+    }
+    
     console.log('✅ Application initialization complete!');
 });

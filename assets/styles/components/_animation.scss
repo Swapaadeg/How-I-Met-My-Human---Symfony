@@ -1,0 +1,30 @@
+@use "../abstracts/variables" as v;
+
+// Scroll indicator - bouncing paw
+.scroll-indicator {
+    text-align: center;
+    padding: 2rem 0;
+    cursor: pointer;
+    
+    i {
+        font-size: 3rem;
+        color: v.$color-accent;
+        animation: pawBounce 2s infinite;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+        
+        &:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+    }
+}
+
+@keyframes pawBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}

@@ -18,6 +18,9 @@ class Tags
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $description = null;
+
     /**
      * @var Collection<int, Animals>
      */
@@ -42,6 +45,18 @@ class Tags
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }
