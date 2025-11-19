@@ -21,10 +21,10 @@ class Comments
     private ?string $text = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
-    private ?user $user = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
-    private ?animals $animals = null;
+    private ?Animals $animals = null;
 
     public function getId(): ?int
     {
@@ -55,24 +55,24 @@ class Comments
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getAnimals(): ?animals
+    public function getAnimals(): ?Animals
     {
         return $this->animals;
     }
 
-    public function setAnimals(?animals $animals): static
+    public function setAnimals(?Animals $animals): static
     {
         $this->animals = $animals;
 

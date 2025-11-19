@@ -15,34 +15,34 @@ class Favorites
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'favorites')]
-    private ?user $user = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'favorites')]
-    private ?animals $animals = null;
+    private ?Animals $animals = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getAnimals(): ?animals
+    public function getAnimals(): ?Animals
     {
         return $this->animals;
     }
 
-    public function setAnimals(?animals $animals): static
+    public function setAnimals(?Animals $animals): static
     {
         $this->animals = $animals;
 

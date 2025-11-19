@@ -38,15 +38,15 @@ class Association
     private ?\DateTime $updatedAt = null;
 
     /**
-     * @var Collection<int, user>
+     * @var Collection<int, User>
      */
-    #[ORM\OneToMany(targetEntity: user::class, mappedBy: 'association')]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'association')]
     private Collection $user;
 
     /**
-     * @var Collection<int, animals>
+     * @var Collection<int, Animals>
      */
-    #[ORM\OneToMany(targetEntity: animals::class, mappedBy: 'association')]
+    #[ORM\OneToMany(targetEntity: Animals::class, mappedBy: 'association')]
     private Collection $animals;
 
     #[ORM\ManyToOne(inversedBy: 'association')]
@@ -138,14 +138,14 @@ class Association
     }
 
     /**
-     * @return Collection<int, user>
+     * @return Collection<int, User>
      */
     public function getUser(): Collection
     {
         return $this->user;
     }
 
-    public function addUser(user $user): static
+    public function addUser(User $user): static
     {
         if (!$this->user->contains($user)) {
             $this->user->add($user);
@@ -155,7 +155,7 @@ class Association
         return $this;
     }
 
-    public function removeUser(user $user): static
+    public function removeUser(User $user): static
     {
         if ($this->user->removeElement($user)) {
             // set the owning side to null (unless already changed)
@@ -168,14 +168,14 @@ class Association
     }
 
     /**
-     * @return Collection<int, animals>
+     * @return Collection<int, Animals>
      */
     public function getAnimals(): Collection
     {
         return $this->animals;
     }
 
-    public function addAnimal(animals $animal): static
+    public function addAnimal(Animals $animal): static
     {
         if (!$this->animals->contains($animal)) {
             $this->animals->add($animal);
@@ -185,7 +185,7 @@ class Association
         return $this;
     }
 
-    public function removeAnimal(animals $animal): static
+    public function removeAnimal(Animals $animal): static
     {
         if ($this->animals->removeElement($animal)) {
             // set the owning side to null (unless already changed)

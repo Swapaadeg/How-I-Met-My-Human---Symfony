@@ -22,9 +22,9 @@ class Department
     private ?int $code = null;
 
     /**
-     * @var Collection<int, association>
+     * @var Collection<int, Association>
      */
-    #[ORM\OneToMany(targetEntity: association::class, mappedBy: 'department')]
+    #[ORM\OneToMany(targetEntity: Association::class, mappedBy: 'department')]
     private Collection $association;
 
     public function __construct()
@@ -62,14 +62,14 @@ class Department
     }
 
     /**
-     * @return Collection<int, association>
+     * @return Collection<int, Association>
      */
     public function getAssociation(): Collection
     {
         return $this->association;
     }
 
-    public function addAssociation(association $association): static
+    public function addAssociation(Association $association): static
     {
         if (!$this->association->contains($association)) {
             $this->association->add($association);
@@ -79,7 +79,7 @@ class Department
         return $this;
     }
 
-    public function removeAssociation(association $association): static
+    public function removeAssociation(Association $association): static
     {
         if ($this->association->removeElement($association)) {
             // set the owning side to null (unless already changed)
