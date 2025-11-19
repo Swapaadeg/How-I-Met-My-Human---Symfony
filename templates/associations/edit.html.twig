@@ -3,65 +3,67 @@
 {% block title %}Modifier {{ association.name }}{% endblock %}
 
 {% block body %}
-<div class="association-form__container">
-    <div class="association-form__card">
-        <div class="association-form__header">
-            <h4 class="association-form__title">
-                <i class="fas fa-edit"></i>
-                Modifier {{ association.name }}
-            </h4>
-            <a href="{{ path('associations_show', {id: association.id}) }}" class="association-form__back-btn">
+<div class="association-form">
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">
+                    <i class="fas fa-edit"></i>
+                    Modifier {{ association.name }}
+                </h4>
+                <a href="{{ path('associations_show', {id: association.id}) }}" class="back-btn">
                 <i class="fas fa-arrow-left"></i> Retour à l'association
             </a>
-        </div>
-        
-        <div class="association-form__body">
-            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-            
-            <div class="association-form__row">
-                <div class="association-form__field">
-                    {{ form_row(form.name) }}
-                </div>
-                <div class="association-form__field">
-                    {{ form_row(form.contact_email) }}
-                </div>
             </div>
             
-            <div class="association-form__row">
-                <div class="association-form__field">
-                    {{ form_row(form.code_postal) }}
-                </div>
-                <div class="association-form__field">
-                    {{ form_row(form.department) }}
-                </div>
-            </div>
-            
-            <div class="association-form__field">
-                {{ form_row(form.description) }}
-            </div>
-            
-            <div class="association-form__field">
-                {{ form_row(form.imageFile) }}
-                {% if association.imageName %}
-                    <div class="association-form__current-image">
-                        <img src="{{ vich_uploader_asset(association, 'imageFile') }}" 
-                             alt="{{ association.name }}" 
-                             style="max-width: 200px;">
-                        <small>Image actuelle</small>
+            <div class="body">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                
+                <div class="row">
+                    <div class="field">
+                        {{ form_row(form.name) }}
                     </div>
-                {% endif %}
+                    <div class="field">
+                        {{ form_row(form.contact_email) }}
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="field">
+                        {{ form_row(form.code_postal) }}
+                    </div>
+                    <div class="field">
+                        {{ form_row(form.department) }}
+                    </div>
+                </div>
+                
+                <div class="field">
+                    {{ form_row(form.description) }}
+                </div>
+                
+                <div class="field">
+                    {{ form_row(form.imageFile) }}
+                    {% if association.imageName %}
+                        <div class="current-image">
+                            <img src="{{ vich_uploader_asset(association, 'imageFile') }}" 
+                                 alt="{{ association.name }}" 
+                                 style="max-width: 200px;">
+                            <small>Image actuelle</small>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="actions">
+                    <a href="{{ path('associations_show', {id: association.id}) }}" class="btn cancel">
+                        <i class="fas fa-times"></i> Annuler
+                    </a>
+                    <button type="submit" class="btn edit">
+                        <i class="fas fa-save"></i> Enregistrer les modifications
+                    </button>
+                </div>
+                
+                {{ form_end(form) }}
             </div>
-            
-            <div class="association-form__actions">
-                <a href="{{ path('associations_show', {id: association.id}) }}" class="association-form__btn association-form__btn--cancel">
-                    <i class="fas fa-times"></i> Annuler
-                </a>
-                <button type="submit" class="association-form__btn association-form__btn--edit">
-                    <i class="fas fa-save"></i> Enregistrer les modifications
-                </button>
-            </div>
-            
-            {{ form_end(form) }}
         </div>
     </div>
 </div>

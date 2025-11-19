@@ -37,7 +37,7 @@
 }
 
 .form-container {
-    background: white;
+    background: v.$color-background;
     border-radius: 20px;
     padding: 3rem;
     box-shadow: 0 10px 30px rgba(v.$color-dark, 0.1);
@@ -232,39 +232,3 @@
     }
 }
 
-// Responsive
-@media (max-width: 768px) {
-    .add-animal-page .container {
-        padding: 0 1rem;
-    }
-    
-    .form-container {
-        padding: 2rem 1.5rem;
-    }
-    
-    .animal-form {
-        .form-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-        
-        .form-row {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-        
-        .tags-wrapper {
-            grid-template-columns: 1fr;
-        }
-        
-        .form-actions {
-            flex-direction: column;
-            gap: 1rem;
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    }
-}

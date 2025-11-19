@@ -210,66 +210,9 @@
             color: white;
             
             &:hover {
-                background: color.adjust(v.$color-primary, $lightness: -10%);
+                background: #e7c547;
             }
         }
     }
 }
 
-// Responsive
-@media (max-width: 768px) {
-    .animals-carousel-container {
-        .animals-carousel {
-            height: 500px;
-            
-            .carousel-card {
-                &.left {
-                    transform: translateX(-200px) scale(0.7);
-                }
-                
-                &.right {
-                    transform: translateX(200px) scale(0.7);
-                }
-                
-                &.back-left {
-                    transform: translateX(-320px) scale(0.5);
-                }
-                
-                &.back-right {
-                    transform: translateX(320px) scale(0.5);
-                }
-                
-                &.far-back-left {
-                    transform: translateX(-420px) scale(0.4);
-                }
-                
-                &.far-back-right {
-                    transform: translateX(420px) scale(0.4);
-                }
-                
-                &.hidden {
-                    transform: translateX(-500px) scale(0.3);
-                }
-                
-                &.hidden-right {
-                    transform: translateX(500px) scale(0.3);
-                }
-            }
-        }
-    }
-}
-
-@media (max-width: 480px) {
-    .animals-carousel-container {
-        .animals-carousel {
-            height: 450px;
-            
-            .carousel-card {
-                &.left,
-                &.right {
-                    display: none; // Cache les cartes latérales sur mobile
-                }
-            }
-        }
-    }
-}

@@ -176,15 +176,7 @@
         visibility: hidden;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    // Responsive: réduit la largeur sur mobile
-    @media (max-width: 600px) {
-        &::before {
-            max-width: 90vw;
-            min-width: 120px;
-            font-size: 0.8rem;
-            padding: 0.5rem 0.7rem;
-        }
-    }
+
 }
 
 // Tooltip spécifique pour les tags mini

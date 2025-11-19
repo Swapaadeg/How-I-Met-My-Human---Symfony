@@ -69,8 +69,8 @@
     margin-bottom: 3rem;
 }
 
-.animal-card {
-    background: white;
+  .animal-card {
+    background: v.$color-background;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(v.$color-dark, 0.08);
@@ -282,7 +282,7 @@
                 // Tag SOS
                 &.sos {
                     background: v.$color-secondary;
-                    color: white;
+                    color: v.$color-background;
                     font-size: 0.65rem;
                 }
                 
@@ -290,7 +290,7 @@
                 &.education,
                 &.education-en-cours {
                     background: v.$color-secondary;
-                    color: white;
+                    color: v.$color-background;
                     
                     i {
                         font-size: 1.2rem;
@@ -300,7 +300,7 @@
                 // Tag FAD
                 &.fad {
                     background: v.$color-secondary;
-                    color: white;
+                    color: v.$color-background;
                     font-size: 0.65rem;
                 }
                 
@@ -384,7 +384,7 @@
                 height: 40px;
                 border-radius: 50%;
                 border: 2px solid rgba(v.$color-accent, 0.2);
-                background: white;
+                background: v.$color-background;
                 color: v.$color-accent;
                 display: flex;
                 align-items: center;
@@ -407,7 +407,7 @@
                     
                     &.favorited {
                         background: v.$color-primary;
-                        color: white;
+                        color: v.$color-background;
                         border-color: v.$color-primary;
                         
                         i {
@@ -456,7 +456,7 @@
     }
     
     .animal-detail {
-        background: white;
+        background: v.$color-background;
         border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 10px 30px rgba(v.$color-dark, 0.1);
@@ -622,7 +622,7 @@
                     
                     // Tags par défaut
                     background: v.$color-secondary;
-                    color: white;
+                    color: v.$color-background;
                     
                     &:hover {
                         transform: scale(1.05);
@@ -632,7 +632,7 @@
                     // Tag SOS
                     &.sos {
                         background: v.$color-secondary;
-                        color: white;
+                        color: v.$color-background;
                         font-size: 0.75rem;
                     }
                     
@@ -640,7 +640,7 @@
                     &.education,
                     &.education-en-cours {
                         background: v.$color-secondary;
-                        color: white;
+                        color: v.$color-background;
                         
                         i {
                             font-size: 1.4rem;
@@ -650,7 +650,7 @@
                     // Tag FAD
                     &.fad {
                         background: v.$color-secondary;
-                        color: white;
+                        color: v.$color-background;
                         font-size: 0.75rem;
                     }
                     
@@ -699,7 +699,7 @@
                     
                     &.btn-primary {
                         background: linear-gradient(135deg, v.$color-primary, v.$color-secondary);
-                        color: white;
+                        color: v.$color-background;
                         
                         &:hover {
                             transform: translateY(-2px);
@@ -708,7 +708,7 @@
                     }
                     
                     &.btn-secondary {
-                        background: white;
+                        background: v.$color-background;
                         color: v.$color-accent;
                         border: 2px solid rgba(v.$color-accent, 0.2);
                         
@@ -719,7 +719,7 @@
                         
                         &.favorited {
                             background: v.$color-primary;
-                            color: white;
+                            color: v.$color-background;
                             border-color: v.$color-primary;
                         }
                     }
@@ -753,104 +753,3 @@
     }
 }
 
-// Responsive design
-@media (max-width: 768px) {
-    .animals-page {
-        .container {
-            padding: 0 1rem;
-        }
-        
-        .page-header {
-            h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        .animals-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-        
-        .animal-card {
-            .card-image {
-                height: 200px;
-            }
-            
-            .card-content {
-                padding: 1.2rem;
-            }
-        }
-    }
-    
-    .animal-detail-page {
-        .animal-detail {
-            grid-template-columns: 1fr;
-            
-            .animal-image {
-                height: 300px;
-            }
-            
-            .animal-info {
-                padding: 1.5rem;
-            }
-        }
-    }
-}
-
-@media (max-width: 480px) {
-    .animals-page {
-        padding: 1rem 0;
-        
-        .page-header {
-            margin-bottom: 2rem;
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-        }
-        
-        .animals-grid {
-            gap: 1rem;
-        }
-        
-        .animal-card {
-            .card-image {
-                height: 180px;
-            }
-            
-            .card-content {
-                padding: 1rem;
-                
-                .card-header .animal-name {
-                    font-size: 1.2rem;
-                }
-                
-                .card-actions {
-                    .action-btn {
-                        width: 30px;
-                        height: 30px;
-                        font-size: 0.8rem;
-                    }
-                }
-            }
-        }
-    }
-    
-    .animal-detail-page {
-        .animal-detail .animal-info {
-            padding: 1rem;
-            
-            h1 {
-                font-size: 1.6rem;
-            }
-            
-            .contact-buttons {
-                flex-direction: column;
-            }
-        }
-    }
-}

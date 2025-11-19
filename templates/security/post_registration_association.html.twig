@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer ou rejoindre une association{% endblock %}
+
+{% block body %}
+<div class="post-registration-association">
+    <div class="container">
+        <div class="registration-card">
+            <div class="card-header">
+                <h3>
+                    <i class="fas fa-users"></i>
+                    Félicitations {{ app.user.name }} !
+                </h3>
+                <p>Votre inscription s'est bien déroulée</p>
+            </div>
+            
+            <div class="card-body">
+                <div class="intro">
+                    <h4>Souhaitez-vous créer ou rejoindre une association ?</h4>
+                    <p>Cette étape est optionnelle, vous pouvez toujours le faire plus tard.</p>
+                </div>
+
+                <form method="post" id="associationForm">
+                    <!-- Option 1: Rester simple visiteur -->
+                    <div class="step-option visitor-option">
+                        <div class="option-content">
+                            <div class="option-info">
+                                <h5>
+                                    <i class="fas fa-eye"></i>
+                                    Je suis là pour explorer en tant que visiteur
+                                </h5>
+                                <p>Je ne fais partie d'aucune association.</p>
+                            </div>
+                            <button type="submit" name="action" value="skip" class="btn btn-secondary">
+                                <i class="fas fa-arrow-right"></i>
+                                Continuer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Option 2: Créer une nouvelle association -->
+                    <div class="step-option create-option">
+                        <div class="option-content">
+                            <div class="option-info">
+                                <h5>
+                                    <i class="fas fa-plus-circle"></i>
+                                    Créer une nouvelle association
+                                </h5>
+                                <p>Créer votre propre association pour mettre en ligne les animaux à l'adoption.</p>
+                            </div>
+                            <button type="submit" name="action" value="create" class="btn btn-success">
+                                <i class="fas fa-plus"></i>
+                                Créer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Option 3: Rejoindre une association existante -->
+                    <div class="step-option join-option">
+                        <h5>
+                            <i class="fas fa-handshake"></i>
+                            Je suis bénévole au sein d'une association existante
+                        </h5>
+                        <p>Sélectionnez l'association dans laquelle vous êtes bénévole (Votre rôle au sein de l'association sera validé par un administrateur).</p>
+                        
+                        {% if associations %}
+                            <div class="association-list">
+                                {% for association in associations %}
+                                    <div class="association-item">
+                                        <div class="radio-wrapper">
+                                            <input type="radio" name="association_id" value="{{ association.id }}" id="association_{{ association.id }}">
+                                            <label for="association_{{ association.id }}">
+                                                <div class="association-details">
+                                                    <div class="association-info">
+                                                        <strong class="association-name">{{ association.name }}</strong>
+                                                        {% if association.codePostal %}
+                                                            <small class="association-location">{{ association.codePostal }}{% if association.department %} - {{ association.department.name }}{% endif %}</small>
+                                                        {% endif %}
+                                                        {% if association.description %}
+                                                            <small class="association-description">{{ association.description|slice(0, 100) }}{% if association.description|length > 100 %}...{% endif %}</small>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="join-action">
+                                <button type="submit" name="action" value="join" class="btn btn-primary" id="joinBtn" disabled>
+                                    <i class="fas fa-paper-plane"></i>
+                                    Envoyer ma demande
+                                </button>
+                            </div>
+                        {% else %}
+                            <div class="no-associations">
+                                <i class="fas fa-info-circle"></i>
+                                Aucune association n'est encore disponible. Vous pouvez être le premier à en créer une !
+                            </div>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            
+            <div class="card-footer">
+                <small>
+                    <i class="fas fa-info-circle"></i>
+                    Vous pourrez toujours rejoindre une association plus tard depuis votre profil
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const associationRadios = document.querySelectorAll('input[name="association_id"]');
+    const joinBtn = document.getElementById('joinBtn');
+    
+    associationRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            joinBtn.disabled = false;
+        });
+    });
+});
+</script>
+{% endblock %}

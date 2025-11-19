@@ -119,6 +119,38 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Gestion de l'affichage conditionnel des champs d'association
+    const associationRadios = document.querySelectorAll('input[name="register_form[association_choice]"]');
+    const existingAssociationSelect = document.querySelector('.association-select');
+    const newAssociationField = document.querySelector('.new-association-field');
+
+    if (associationRadios.length > 0) {
+        associationRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const selectedValue = this.value;
+                
+                // Masquer tous les champs par défaut
+                if (existingAssociationSelect) {
+                    existingAssociationSelect.style.display = 'none';
+                    existingAssociationSelect.removeAttribute('required');
+                }
+                if (newAssociationField) {
+                    newAssociationField.style.display = 'none';
+                    newAssociationField.removeAttribute('required');
+                }
+
+                // Afficher le champ approprié selon le choix
+                if (selectedValue === 'join' && existingAssociationSelect) {
+                    existingAssociationSelect.style.display = 'block';
+                    existingAssociationSelect.setAttribute('required', 'required');
+                } else if (selectedValue === 'create' && newAssociationField) {
+                    newAssociationField.style.display = 'block';
+                    newAssociationField.setAttribute('required', 'required');
+                }
+            });
+        });
+    }
 });
 
 // Animation CSS pour la disparition des éléments

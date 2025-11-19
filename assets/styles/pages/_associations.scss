@@ -2,74 +2,54 @@
 
 // Association pages styles
 .associations {
-  &__container {
+  .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1rem 5rem;
-
-    @media (max-width: 768px) {
-      padding: 1rem 0.5rem 5rem;
-    }
+    padding: 2rem 1rem 10rem;
   }
 
-  &__header {
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-    
-    @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 1rem;
-      align-items: stretch;
+
+    .title {
+      color: $color-dark;
+      font-family: $font-family-bold;
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    .create-btn {
+      background-color: $color-secondary;
+      color: $color-background;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-family: $font-family-primary;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $color-accent;
+        color: $color-background;
+      }
+
+      i {
+        margin-right: 0.5rem;
+      }
     }
   }
 
-  &__title {
-    color: $color-dark;
-    font-family: $font-family-bold;
-    font-size: 2.5rem;
-    margin: 0;
-
-    @media (max-width: 768px) {
-      font-size: 2rem;
-      text-align: center;
-    }
-  }
-
-  &__create-btn {
-    background-color: $color-secondary;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    text-decoration: none;
-    border-radius: 0.5rem;
-    font-family: $font-family-primary;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: $color-accent;
-      color: white;
-    }
-
-    i {
-      margin-right: 0.5rem;
-    }
-  }
-
-  &__grid {
+  .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
     margin-bottom: 2rem;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
   }
 
-  &__card {
+  .card {
     background: white;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -83,81 +63,81 @@
       transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
-  }
 
-  &__card-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
+    .image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
 
-  &__card-body {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-
-  &__card-title {
-    color: $color-dark;
-    font-family: $font-family-bold;
-    font-size: 1.25rem;
-    margin: 0 0 1rem 0;
-  }
-
-  &__card-description {
-    color: #666;
-    font-family: $font-family-primary;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    flex-grow: 1;
-  }
-
-  &__card-info {
-    margin-bottom: 1rem;
-  }
-
-  &__card-location {
-    color: #888;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  &__card-stats {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 1rem;
-
-    span {
+    .body {
+      padding: 1.5rem;
       display: flex;
-      align-items: center;
-      gap: 0.25rem;
+      flex-direction: column;
+      flex-grow: 1;
+
+      .title {
+        color: $color-dark;
+        font-family: $font-family-bold;
+        font-size: 1.25rem;
+        margin: 0 0 1rem 0;
+      }
+
+      .description {
+        color: #666;
+        font-family: $font-family-primary;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        flex-grow: 1;
+      }
+
+      .info {
+        margin-bottom: 1rem;
+
+        .location {
+          color: #888;
+          font-size: 0.9rem;
+          margin-bottom: 0.5rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .stats {
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.9rem;
+          color: #888;
+          margin-bottom: 1rem;
+
+          span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+          }
+        }
+      }
+
+      .btn {
+        background-color: $color-primary;
+        color: $color-dark;
+        padding: 0.75rem 1rem;
+        text-decoration: none;
+        text-align: center;
+        border-radius: 0.5rem;
+        font-family: $font-family-primary;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #e7c547;
+          color: $color-dark;
+        }
+      }
     }
   }
 
-  &__card-btn {
-    background-color: $color-primary;
-    color: $color-dark;
-    padding: 0.75rem 1rem;
-    text-decoration: none;
-    text-align: center;
-    border-radius: 0.5rem;
-    font-family: $font-family-primary;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: darken($color-primary, 10%);
-      color: $color-dark;
-    }
-  }
-
-  &__empty-state {
+  .empty-state {
     background-color: rgba($color-primary, 0.3);
     border: 2px solid $color-primary;
     border-radius: 1rem;
@@ -181,60 +161,53 @@
 
 // Association detail page
 .association-detail {
-  &__container {
+  .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1rem 5rem;
+    padding: 2rem 1rem 10rem;
   }
 
-  &__header-card {
-    background: white;
+  .header-card {
+    background: $color-background;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     margin-bottom: 2rem;
-  }
 
-  &__content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    align-items: start;
-
-    @media (max-width: 992px) {
-      grid-template-columns: 1fr;
+    .title {
+      color: $color-dark;
+      font-family: $font-family-bold;
+      font-size: 2.5rem;
+      margin: 0 0 1rem 0;
     }
-  }
 
-  &__title {
-    color: $color-dark;
-    font-family: $font-family-bold;
-    font-size: 2.5rem;
-    margin: 0 0 1rem 0;
+    .location, 
+    .email {
+      color: #666;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
 
-    @media (max-width: 768px) {
-      font-size: 2rem;
-    }
-  }
+      a {
+        color: $color-secondary;
+        text-decoration: none;
 
-  &__location, &__email {
-    color: #666;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    a {
-      color: $color-secondary;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
 
-  &__role-badge {
+  .content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .role-badge {
     background-color: $color-primary;
     color: $color-dark;
     padding: 0.5rem 1rem;
@@ -247,161 +220,163 @@
     margin: 1rem 0.5rem 1rem 0;
   }
 
-  &__actions {
+  .actions {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
-  }
 
-  &__btn {
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: none;
-    cursor: pointer;
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
 
-    &--join {
-      background-color: $color-secondary;
-      color: white;
-
-      &:hover {
-        background-color: $color-accent;
-        color: white;
-      }
-    }
-
-    &--manage {
-      background-color: #ffc107;
-      color: #000;
-
-      &:hover {
-        background-color: darken(#ffc107, 10%);
-      }
-    }
-
-    &--edit {
-      background-color: transparent;
-      color: $color-secondary;
-      border: 2px solid $color-secondary;
-
-      &:hover {
+      &.join {
         background-color: $color-secondary;
-        color: white;
+        color: $color-background;
+
+        &:hover {
+          background-color: $color-accent;
+          color: $color-background;
+        }
+      }
+
+      &.manage {
+        background-color: #ffc107;
+        color: #000;
+
+        &:hover {
+          background-color: #e0a800;
+        }
+      }
+
+      &.edit {
+        background-color: transparent;
+        color: $color-secondary;
+        border: 2px solid $color-secondary;
+
+        &:hover {
+          background-color: $color-secondary;
+          color: $color-background;
+        }
       }
     }
   }
 
-  &__image {
+  .image {
     width: 100%;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  &__description-card, &__stats-row, &__animals-card {
-    background: white;
+  .description-card, 
+  .stats-row, 
+  .animals-card {
+    background: $color-background;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     margin-bottom: 2rem;
+
+    .card-title {
+      color: $color-dark;
+      font-family: $font-family-bold;
+      font-size: 1.5rem;
+      margin: 0 0 1rem 0;
+    }
   }
 
-  &__card-title {
-    color: $color-dark;
-    font-family: $font-family-bold;
-    font-size: 1.5rem;
-    margin: 0 0 1rem 0;
-  }
-
-  &__description {
+  .description {
     color: #666;
     font-family: $font-family-primary;
     line-height: 1.6;
     white-space: pre-line;
   }
 
-  &__stats {
+  .stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
-  }
 
-  &__stat-card {
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    text-align: center;
-  }
+    .stat-card {
+      background: $color-background;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      text-align: center;
 
-  &__stat-number {
-    font-size: 3rem;
-    font-family: $font-family-bold;
-    margin: 0;
+      .number {
+        font-size: 3rem;
+        font-family: $font-family-bold;
+        margin: 0;
 
-    &--primary {
-      color: $color-secondary;
+        &.primary {
+          color: $color-secondary;
+        }
+
+        &.success {
+          color: #28a745;
+        }
+      }
+
+      .label {
+        color: #666;
+        font-family: $font-family-primary;
+        margin: 0.5rem 0 0 0;
+      }
     }
-
-    &--success {
-      color: #28a745;
-    }
   }
 
-  &__stat-label {
-    color: #666;
-    font-family: $font-family-primary;
-    margin: 0.5rem 0 0 0;
-  }
-
-  &__animals-grid {
+  .animals-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     margin-bottom: 2rem;
-  }
 
-  &__animal-card {
-    background: white;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    .animal-card {
+      background: $color-background;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
 
-    &:hover {
-      transform: translateY(-3px);
+      &:hover {
+        transform: translateY(-3px);
+      }
+
+      .image {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+      }
+
+      .info {
+        padding: 0.75rem;
+
+        .name {
+          font-family: $font-family-bold;
+          color: $color-dark;
+          margin: 0 0 0.25rem 0;
+          font-size: 1rem;
+        }
+
+        .species {
+          color: #666;
+          font-size: 0.85rem;
+          margin: 0;
+        }
+      }
     }
   }
 
-  &__animal-image {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-  }
-
-  &__animal-info {
-    padding: 0.75rem;
-  }
-
-  &__animal-name {
-    font-family: $font-family-bold;
-    color: $color-dark;
-    margin: 0 0 0.25rem 0;
-    font-size: 1rem;
-  }
-
-  &__animal-species {
-    color: #666;
-    font-size: 0.85rem;
-    margin: 0;
-  }
-
-  &__view-all-btn {
+  .view-all-btn {
     background-color: transparent;
     color: $color-secondary;
     border: 2px solid $color-secondary;
@@ -414,11 +389,11 @@
 
     &:hover {
       background-color: $color-secondary;
-      color: white;
+      color: $color-background;
     }
   }
 
-  &__no-animals {
+  .no-animals {
     background-color: rgba($color-primary, 0.3);
     border: 2px solid $color-primary;
     border-radius: 1rem;
@@ -441,260 +416,241 @@
 
 // Association forms (new/edit)
 .association-form {
-  &__container {
+  .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1rem 5rem;
   }
 
-  &__card {
-    background: white;
+  .card {
+    background: $color-background;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+
+    .header {
+      background-color: $color-primary;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .title {
+        color: $color-dark;
+        font-family: $font-family-bold;
+        font-size: 1.5rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        i {
+          color: $color-secondary;
+        }
+      }
+
+      .back-btn {
+        background-color: transparent;
+        color: $color-dark;
+        border: 2px solid $color-dark;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &:hover {
+          background-color: $color-dark;
+          color: white;
+        }
+      }
+    }
   }
 
-  &__header {
-    background-color: $color-primary;
+  .body {
     padding: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    @media (max-width: 768px) {
-      flex-direction: column;
+    .row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .field {
+      margin-bottom: 1.5rem;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
       gap: 1rem;
-    }
-  }
+      margin-top: 2rem;
 
-  &__title {
-    color: $color-dark;
-    font-family: $font-family-bold;
-    font-size: 1.5rem;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+      .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: none;
+        cursor: pointer;
+        font-family: $font-family-primary;
 
-    i {
-      color: $color-secondary;
-    }
-  }
+        &.cancel {
+          background-color: #6c757d;
+          color: $color-background;
 
-  &__back-btn {
-    background-color: transparent;
-    color: $color-dark;
-    border: 2px solid $color-dark;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+          &:hover {
+            background-color: #5a6268;
+            color: $color-background;
+          }
+        }
 
-    &:hover {
-      background-color: $color-dark;
-      color: white;
-    }
-  }
+        &.submit {
+          background-color: $color-secondary;
+          color: $color-background;
 
-  &__body {
-    padding: 2rem;
-  }
+          &:hover {
+            background-color: $color-accent;
+            color: $color-background;
+          }
+        }
 
-  &__row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
+        &.edit {
+          background-color: #ffc107;
+          color: #000;
 
-  &__field {
-    margin-bottom: 1.5rem;
-  }
-
-  &__actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-top: 2rem;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-  }
-
-  &__btn {
-    padding: 0.75rem 2rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: none;
-    cursor: pointer;
-    font-family: $font-family-primary;
-
-    &--cancel {
-      background-color: #6c757d;
-      color: white;
-
-      &:hover {
-        background-color: darken(#6c757d, 10%);
-        color: white;
+          &:hover {
+            background-color: #e0a800;
+          }
+        }
       }
     }
 
-    &--submit {
-      background-color: $color-secondary;
-      color: white;
-
-      &:hover {
-        background-color: $color-accent;
-      }
-    }
-
-    &--edit {
-      background-color: #ffc107;
-      color: #000;
-
-      &:hover {
-        background-color: darken(#ffc107, 10%);
-      }
-    }
-  }
-
-  &__note {
-    background-color: rgba($color-primary, 0.3);
-    border-left: 4px solid $color-secondary;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-top: 2rem;
-    color: $color-dark;
-
-    i {
-      color: $color-secondary;
-      margin-right: 0.5rem;
-    }
-
-    strong {
-      font-family: $font-family-bold;
-    }
-
-    p {
-      margin: 0;
-      font-family: $font-family-primary;
-    }
-  }
-
-  &__current-image {
-    margin-top: 1rem;
-
-    img {
+    .note {
+      background-color: rgba($color-primary, 0.3);
+      border-left: 4px solid $color-secondary;
       border-radius: 0.5rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      margin-top: 2rem;
+      color: $color-dark;
+
+      i {
+        color: $color-secondary;
+        margin-right: 0.5rem;
+      }
+
+      strong {
+        font-family: $font-family-bold;
+      }
+
+      p {
+        margin: 0;
+        font-family: $font-family-primary;
+      }
     }
 
-    small {
-      color: #666;
-      font-style: italic;
+    .current-image {
+      margin-top: 1rem;
+
+      img {
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      small {
+        color: #666;
+        font-style: italic;
+      }
     }
   }
 }
 
 // Association management page
 .association-manage {
-  &__container {
+  .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem 1rem 5rem;
   }
 
-  &__header {
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
 
-    @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 1rem;
-      align-items: stretch;
-    }
-  }
-
-  &__title {
-    color: $color-dark;
-    font-family: $font-family-bold;
-    font-size: 2rem;
-    margin: 0;
-
-    @media (max-width: 768px) {
-      text-align: center;
-      font-size: 1.5rem;
-    }
-  }
-
-  &__back-btn {
-    background-color: transparent;
-    color: $color-dark;
-    border: 2px solid $color-dark;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    &:hover {
-      background-color: $color-dark;
-      color: white;
-    }
-  }
-
-  &__card {
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-  }
-
-  &__card-header {
-    background-color: $color-primary;
-    padding: 1.5rem 2rem;
-    border-radius: 1rem 1rem 0 0;
-
-    h5 {
+    .title {
       color: $color-dark;
       font-family: $font-family-bold;
-      font-size: 1.25rem;
+      font-size: 2rem;
       margin: 0;
+    }
+
+    .back-btn {
+      background-color: transparent;
+      color: $color-dark;
+      border: 2px solid $color-dark;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 0.5rem;
 
-      i {
-        &.text-warning {
-          color: #ffc107;
-        }
-        &.text-success {
-          color: #28a745;
-        }
+      &:hover {
+        background-color: $color-dark;
+        color: white;
       }
     }
   }
 
-  &__card-body {
-    padding: 2rem;
+  .card {
+    background: $color-background;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+
+    .card-header {
+      background-color: $color-primary;
+      padding: 1.5rem 2rem;
+      border-radius: 1rem 1rem 0 0;
+
+      h5 {
+        color: $color-dark;
+        font-family: $font-family-bold;
+        font-size: 1.25rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        i {
+          &.text-warning {
+            color: #ffc107;
+          }
+          &.text-success {
+            color: #28a745;
+          }
+        }
+      }
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
   }
 
-  &__table {
+  .table {
     width: 100%;
     border-collapse: collapse;
     font-family: $font-family-primary;
@@ -719,7 +675,7 @@
     }
   }
 
-  &__badge {
+  .badge {
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     font-size: 0.85rem;
@@ -728,18 +684,18 @@
     align-items: center;
     gap: 0.5rem;
 
-    &--manager {
+    &.manager {
       background-color: #ffc107;
       color: #000;
     }
 
-    &--member {
+    &.member {
       background-color: $color-secondary;
       color: white;
     }
   }
 
-  &__btn {
+  .btn {
     padding: 0.5rem 0.75rem;
     border-radius: 0.25rem;
     border: none;
@@ -748,44 +704,44 @@
     margin: 0 0.25rem;
     transition: all 0.3s ease;
 
-    &--success {
+    &.success {
       background-color: #28a745;
-      color: white;
+      color: $color-background;
 
       &:hover {
-        background-color: darken(#28a745, 10%);
+        background-color: #218838;
       }
     }
 
-    &--danger {
+    &.danger {
       background-color: #dc3545;
-      color: white;
+      color: $color-background;
 
       &:hover {
-        background-color: darken(#dc3545, 10%);
+        background-color: #c82333;
       }
     }
 
-    &--warning {
+    &.warning {
       background-color: #ffc107;
       color: #000;
 
       &:hover {
-        background-color: darken(#ffc107, 10%);
+        background-color: #e0a800;
       }
     }
 
-    &--secondary {
+    &.secondary {
       background-color: #6c757d;
-      color: white;
+      color: $color-background;
 
       &:hover {
-        background-color: darken(#6c757d, 10%);
+        background-color: #5a6268;
       }
     }
   }
 
-  &__alert {
+  .alert {
     padding: 1.5rem;
     border-radius: 0.5rem;
     margin-bottom: 2rem;
@@ -793,13 +749,13 @@
     align-items: center;
     gap: 0.5rem;
 
-    &--info {
+    &.info {
       background-color: rgba($color-primary, 0.3);
       border-left: 4px solid $color-secondary;
       color: $color-dark;
     }
 
-    &--warning {
+    &.warning {
       background-color: rgba(#ffc107, 0.2);
       border-left: 4px solid #ffc107;
       color: #000;
@@ -815,7 +771,7 @@
     }
   }
 
-  &__table-responsive {
+  .table-responsive {
     overflow-x: auto;
     margin: -1rem;
     padding: 1rem;

@@ -1,0 +1,462 @@
+@use "../abstracts/variables" as *;
+
+/*
+================================================================================
+RESPONSIVE BREAKPOINTS OPTIMIZATION
+================================================================================
+*/
+
+/* 992px and below */
+@media (max-width: 992px) {
+  .association-detail {
+    .content {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+/* 768px and below */
+@media (max-width: 768px) {
+  /*
+  ================================================================================
+  ASSOCIATIONS PAGES
+  ================================================================================
+  */
+  
+  /* Main associations listing page */
+  .associations {
+    .container {
+      padding: 1rem 0.5rem 5rem;
+    }
+
+    .header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+
+      .title {
+        font-size: 2rem;
+        text-align: center;
+      }
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  /* Association detail page */
+  .association-detail {
+    .header-card .title {
+      font-size: 2rem;
+    }
+  }
+
+  /* Association forms (new/edit) */
+  .association-form {
+    .card .header {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .body .actions {
+      flex-direction: column;
+    }
+  }
+
+  /* Association management page */
+  .association-manage {
+    .header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+
+      .title {
+        text-align: center;
+        font-size: 1.5rem;
+      }
+    }
+
+    .table-responsive {
+      font-size: 0.9rem;
+    }
+
+    .table {
+      th, td {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  /*
+  ================================================================================
+  ANIMALS PAGES
+  ================================================================================
+  */
+  
+  /* Animals listing page */
+  .animals-page {
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .page-header {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    .animals-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .animal-card {
+      .card-image {
+        height: 200px;
+      }
+      
+      .card-content {
+        padding: 1.2rem;
+      }
+    }
+  }
+
+  /* Animal detail page */
+  .animal-detail-page {
+    .animal-detail {
+      grid-template-columns: 1fr;
+      
+      .animal-image {
+        height: 300px;
+      }
+      
+      .animal-info {
+        padding: 1.5rem;
+      }
+    }
+  }
+
+  /*
+  ================================================================================
+  ADD ANIMAL PAGE
+  ================================================================================
+  */
+  
+  .add-animal-page {
+    .container {
+      padding: 0 1rem;
+    }
+  }
+
+  .form-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .animal-form {
+    .form-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .tags-wrapper {
+      grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+      gap: 1rem;
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+
+  /*
+  ================================================================================
+  AUTH PAGES
+  ================================================================================
+  */
+  
+  .auth-form-section {
+    padding: 80px 10px 40px;
+  }
+
+  .auth-wrapper {
+    width: 95%;
+    height: 500px;
+    flex-direction: column;
+  }
+
+  .auth-panel {
+    width: 100%;
+    height: 50%;
+    position: relative;
+  }
+
+  .info-panel {
+    width: 100%;
+    height: 50%;
+    left: 0;
+    top: 50%;
+  }
+
+  .auth-wrapper.sign-up-mode .info-panel {
+    transform: translateY(-100%);
+  }
+
+  /*
+  ================================================================================
+  COMPONENTS
+  ================================================================================
+  */
+  
+  /* Animals Carousel */
+  .animals-carousel-container {
+    .animals-carousel {
+      height: 500px;
+      
+      .carousel-card {
+        &.left {
+          transform: translateX(-200px) scale(0.7);
+        }
+        
+        &.right {
+          transform: translateX(200px) scale(0.7);
+        }
+        
+        &.back-left {
+          transform: translateX(-320px) scale(0.5);
+        }
+        
+        &.back-right {
+          transform: translateX(320px) scale(0.5);
+        }
+        
+        &.far-back-left {
+          transform: translateX(-420px) scale(0.4);
+        }
+        
+        &.far-back-right {
+          transform: translateX(420px) scale(0.4);
+        }
+        
+        &.hidden {
+          transform: translateX(-500px) scale(0.3);
+        }
+        
+        &.hidden-right {
+          transform: translateX(500px) scale(0.3);
+        }
+      }
+    }
+  }
+
+  /*
+  ================================================================================
+  HOMEPAGE
+  ================================================================================
+  */
+  
+  /* Header and Navigation */
+  .main-header .navbar {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    
+    .nav-links {
+      gap: 1rem;
+    }
+    
+    .auth-section {
+      gap: 0.5rem;
+    }
+  }
+
+  /* Hero Carousel */
+  .hero-carousel {
+    .carousel-content {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .search-form {
+        flex-direction: column;
+        gap: 0.5rem;
+        
+        .search-field select,
+        .search-btn {
+          width: 100%;
+          max-width: 250px;
+        }
+      }
+    }
+    
+    .carousel-arrow {
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+      
+      &.carousel-prev {
+        left: 1rem;
+      }
+      
+      &.carousel-next {
+        right: 1rem;
+      }
+    }
+  }
+
+  /*
+  ================================================================================
+  GLOBAL UTILITIES
+  ================================================================================
+  */
+  
+  /* Hide elements on mobile */
+  .d-none-mobile {
+    display: none !important;
+  }
+
+  /* Text alignment utilities */
+  .text-center-mobile {
+    text-align: center !important;
+  }
+  
+  .text-left-mobile {
+    text-align: left !important;
+  }
+
+  /* Spacing utilities */
+  .p-mobile-1 {
+    padding: 0.5rem !important;
+  }
+  
+  .p-mobile-2 {
+    padding: 1rem !important;
+  }
+  
+  .m-mobile-1 {
+    margin: 0.5rem !important;
+  }
+  
+  .m-mobile-2 {
+    margin: 1rem !important;
+  }
+
+  /* Flex utilities */
+  .flex-column-mobile {
+    flex-direction: column !important;
+  }
+  
+  .flex-row-mobile {
+    flex-direction: row !important;
+  }
+}
+
+/* 600px and below */
+@media (max-width: 600px) {
+  /* Modal tooltips */
+  [data-tooltip] {
+    &::before {
+      max-width: 90vw !important;
+      min-width: 120px !important;
+      font-size: 0.8rem !important;
+      padding: 0.5rem 0.7rem !important;
+    }
+  }
+}
+
+/* 480px and below */
+@media (max-width: 480px) {
+  .animals-page {
+    padding: 1rem 0;
+    
+    .page-header {
+      margin-bottom: 2rem;
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
+    }
+    
+    .animals-grid {
+      gap: 1rem;
+    }
+    
+    .animal-card {
+      .card-image {
+        height: 180px;
+      }
+      
+      .card-content {
+        padding: 1rem;
+        
+        .card-header .animal-name {
+          font-size: 1.2rem;
+        }
+        
+        .card-actions {
+          .action-btn {
+            width: 30px;
+            height: 30px;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+
+  .animal-detail-page {
+    .animal-detail .animal-info {
+      padding: 1rem;
+      
+      h1 {
+        font-size: 1.6rem;
+      }
+      
+      .contact-buttons {
+        flex-direction: column;
+      }
+    }
+  }
+
+  .animals-carousel-container {
+    .animals-carousel {
+      height: 450px;
+      
+      .carousel-card {
+        &.left,
+        &.right {
+          display: none; // Cache les cartes latérales sur mobile
+        }
+      }
+    }
+  }
+
+  .hero-carousel {
+    .carousel-content h1 {
+      font-size: 2rem;
+    }
+  }
+}
+
+/* Desktop only utilities */
+@media (min-width: 769px) {
+  .d-none-desktop {
+    display: none !important;
+  }
+}

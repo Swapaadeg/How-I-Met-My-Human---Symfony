@@ -3,67 +3,69 @@
 {% block title %}Associations{% endblock %}
 
 {% block body %}
-<div class="associations__container">
-    <div class="associations__header">
-        <h1 class="associations__title">Liste des associations</h1>
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ASSOCIATION_MANAGER') %}
-            <a href="{{ path('associations_new') }}" class="associations__create-btn">
-                <i class="fas fa-plus"></i> Créer une association
-            </a>
-        {% endif %}
-    </div>
-    
-    {% if associations is empty %}
-        <div class="associations__empty-state">
-            <i class="fas fa-info-circle"></i>
-            <p>Aucune association enregistrée pour le moment.</p>
+<div class="associations">
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Liste des associations</h1>
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ASSOCIATION_MANAGER') %}
+                <a href="{{ path('associations_new') }}" class="create-btn">
+                    <i class="fas fa-plus"></i> Créer une association
+                </a>
+            {% endif %}
         </div>
-    {% else %}
-        <div class="associations__grid">
-            {% for association in associations %}
-                <div class="associations__card">
-                    {% if association.imageName %}
-                        <img src="{{ vich_uploader_asset(association, 'imageFile') }}" 
-                             class="associations__card-image" alt="{{ association.name }}">
-                    {% endif %}
+    
+        {% if associations is empty %}
+            <div class="empty-state">
+                <i class="fas fa-info-circle"></i>
+                <p>Aucune association enregistrée pour le moment.</p>
+            </div>
+        {% else %}
+            <div class="grid">
+                {% for association in associations %}
+                    <div class="card">
+                        {% if association.imageName %}
+                            <img src="{{ vich_uploader_asset(association, 'imageFile') }}" 
+                                 class="image" alt="{{ association.name }}">
+                        {% endif %}
                     
-                    <div class="associations__card-body">
-                        <h5 class="associations__card-title">{{ association.name }}</h5>
-                        <p class="associations__card-description">
-                            {{ association.description|length > 150 ? 
-                               association.description|slice(0, 150) ~ '...' : 
-                               association.description }}
-                        </p>
-                        
-                        <div class="associations__card-info">
-                            <div class="associations__card-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                {{ association.codePostal }}
-                                {% if association.department %}
-                                    - {{ association.department.name }}
-                                {% endif %}
+                        <div class="body">
+                            <h5 class="title">{{ association.name }}</h5>
+                            <p class="description">
+                                {{ association.description|length > 150 ? 
+                                   association.description|slice(0, 150) ~ '...' : 
+                                   association.description }}
+                            </p>
+                            
+                            <div class="info">
+                                <div class="location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    {{ association.codePostal }}
+                                    {% if association.department %}
+                                        - {{ association.department.name }}
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="stats">
+                                    <span>
+                                        <i class="fas fa-paw"></i>
+                                        {{ association.animals|length }} animaux
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-users"></i>
+                                        {{ association.approvedMembers|length }} membres
+                                    </span>
+                                </div>
                             </div>
                             
-                            <div class="associations__card-stats">
-                                <span>
-                                    <i class="fas fa-paw"></i>
-                                    {{ association.animals|length }} animaux
-                                </span>
-                                <span>
-                                    <i class="fas fa-users"></i>
-                                    {{ association.approvedMembers|length }} membres
-                                </span>
-                            </div>
+                            <a href="{{ path('associations_show', {id: association.id}) }}" 
+                               class="btn">
+                                Voir les détails
+                            </a>
                         </div>
-                        
-                        <a href="{{ path('associations_show', {id: association.id}) }}" 
-                           class="associations__card-btn">
-                            Voir les détails
-                        </a>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

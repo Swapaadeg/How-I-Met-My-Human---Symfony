@@ -304,32 +304,125 @@
     text-decoration: underline;
 }
 
-// Responsive
-@media (max-width: 768px) {
-    .auth-form-section {
-        padding: 80px 10px 40px;
+// === ASSOCIATION SECTION STYLES ===
+.association-section {
+    width: 100%;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(54, 143, 139, 0.05), rgba(54, 143, 139, 0.1));
+    border: 2px solid rgba(54, 143, 139, 0.2);
+    position: relative;
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 20px;
+
+        i {
+            font-size: 24px;
+            color: v.$color-secondary;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: v.$color-dark;
+            margin: 0 0 5px 0;
+            font-weight: 600;
+        }
+
+        .section-description {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+            margin: 0;
+        }
     }
-    
-    .auth-wrapper {
-        width: 95%;
-        height: 500px;
-        flex-direction: column;
+
+    .association-choice-container {
+        margin: 15px 0;
+        
+        div {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            position: relative;
+
+            &:before {
+                content: '';
+                width: 18px;
+                height: 18px;
+                border: 2px solid #ddd;
+                border-radius: 50%;
+                margin-right: 12px;
+                transition: all 0.3s ease;
+            }
+
+            &:hover {
+                border-color: v.$color-secondary;
+                background: rgba(54, 143, 139, 0.03);
+            }
+        }
+
+        input[type="radio"]:checked + label {
+            border-color: v.$color-secondary;
+            background: rgba(54, 143, 139, 0.1);
+            color: v.$color-dark;
+
+            &:before {
+                border-color: v.$color-secondary;
+                background: v.$color-secondary;
+                box-shadow: inset 0 0 0 3px white;
+            }
+        }
     }
-    
-    .auth-panel {
-        width: 100%;
-        height: 50%;
-        position: relative;
-    }
-    
-    .info-panel {
-        width: 100%;
-        height: 50%;
-        left: 0;
-        top: 50%;
-    }
-    
-    .auth-wrapper.sign-up-mode .info-panel {
-        transform: translateY(-100%);
+
+    .association-fields {
+        margin-top: 15px;
+
+        select, input[type="text"] {
+            width: 100%;
+            height: 45px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            color: v.$color-dark;
+            padding: 0 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+
+            &:focus {
+                border-color: v.$color-secondary;
+                box-shadow: 0 0 0 3px rgba(54, 143, 139, 0.1);
+            }
+        }
+
+        .new-association-field {
+            display: none;
+        }
+
+        .association-select {
+            display: none;
+        }
     }
 }
+

@@ -39,7 +39,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid lighten(v.$color-dark, 80%);
+  border-bottom: 1px solid #e9ecef;
 
   h3 {
     margin: 0;
@@ -54,7 +54,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: lighten(v.$color-dark, 40%);
+  color: #6c757d;
   padding: 0;
   width: 30px;
   height: 30px;
@@ -73,7 +73,7 @@
 
   p {
     margin: 0;
-    color: lighten(v.$color-dark, 30%);
+    color: #495057;
     line-height: 1.5;
     font-size: 0.9rem;
     font-family: v.$font-family-primary;
