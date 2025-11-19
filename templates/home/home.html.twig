@@ -218,10 +218,21 @@
         <section class="info-section">
             <div class="info-container">
                 <div class="photo-info">
-                    <img src="" alt="">
+                    <img src="{{asset ('info.jpg')}}" alt="Femme qui se promène avec son chien lors d'un coucher de soleil">
+                </div>
+                <div class="text-info">
+                    <h4>Qui sommes-nous?</h4>
+                    <p>Notre plateforme réunit un ensemble d'associations engagées dans la protection et le bien-être animal. Chaque structure partenaire œuvre quotidiennement pour recueillir, soigner et accompagner des animaux issus d'abandons, de maltraitances ou de situations d'urgence. Grâce à un réseau solide de bénévoles, de familles d'accueil et de professionnels, ces associations travaillent ensemble pour offrir à chaque animal à une seconde chance, dans un environnement adapté et sécurisé.</p>
+
+                    <p>Nos partenaires couvrent un large territoire et disposent chacun de leurs propres spécialités : chiens, chats, équidés, nouveaux animaux de compagnie (NAC) ou encore structures polyvalentes capables d'accueillir plusieurs espèces. Cette diversité permet de répondre au mieux aux besoins spécifiques de chaque animal, avec un suivi attentif et un accompagnement personnalisé jusqu'à l'adoption.</p>
+                    
+                    <a href="{{ path('associations') }}" class="btn-associations">
+                        <i class="fas fa-paw"></i>
+                        Les associations
+                    </a>
                 </div>
             </div>
-
         </section>
+
 </main>
 {% endblock %}
