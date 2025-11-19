@@ -28,6 +28,9 @@ class Association
     #[ORM\Column]
     private ?int $code_postal = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $contact_email = null;
+
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
@@ -44,6 +47,12 @@ class Association
     private Collection $user;
 
     /**
+     * @var Collection<int, AssociationMember>
+     */
+    #[ORM\OneToMany(targetEntity: AssociationMember::class, mappedBy: 'association')]
+    private Collection $associationMembers;
+
+    /**
      * @var Collection<int, Animals>
      */
     #[ORM\OneToMany(targetEntity: Animals::class, mappedBy: 'association')]
@@ -55,6 +64,7 @@ class Association
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->associationMembers = new ArrayCollection();
         $this->animals = new ArrayCollection();
     }
 
@@ -95,6 +105,18 @@ class Association
     public function setCodePostal(int $code_postal): static
     {
         $this->code_postal = $code_postal;
+
+        return $this;
+    }
+
+    public function getContactEmail(): ?string
+    {
+        return $this->contact_email;
+    }
+
+    public function setContactEmail(string $contact_email): static
+    {
+        $this->contact_email = $contact_email;
 
         return $this;
     }
@@ -165,6 +187,78 @@ class Association
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, AssociationMember>
+     */
+    public function getAssociationMembers(): Collection
+    {
+        return $this->associationMembers;
+    }
+
+    public function addAssociationMember(AssociationMember $associationMember): static
+    {
+        if (!$this->associationMembers->contains($associationMember)) {
+            $this->associationMembers->add($associationMember);
+            $associationMember->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssociationMember(AssociationMember $associationMember): static
+    {
+        if ($this->associationMembers->removeElement($associationMember)) {
+            // set the owning side to null (unless already changed)
+            if ($associationMember->getAssociation() === $this) {
+                $associationMember->setAssociation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get all approved members
+     */
+    public function getApprovedMembers(): array
+    {
+        $approvedMembers = [];
+        foreach ($this->associationMembers as $membership) {
+            if ($membership->isApproved()) {
+                $approvedMembers[] = $membership;
+            }
+        }
+        return $approvedMembers;
+    }
+
+    /**
+     * Get all pending members
+     */
+    public function getPendingMembers(): array
+    {
+        $pendingMembers = [];
+        foreach ($this->associationMembers as $membership) {
+            if ($membership->isPending()) {
+                $pendingMembers[] = $membership;
+            }
+        }
+        return $pendingMembers;
+    }
+
+    /**
+     * Get all managers
+     */
+    public function getManagers(): array
+    {
+        $managers = [];
+        foreach ($this->associationMembers as $membership) {
+            if ($membership->isApproved() && $membership->isManager()) {
+                $managers[] = $membership;
+            }
+        }
+        return $managers;
     }
 
     /**

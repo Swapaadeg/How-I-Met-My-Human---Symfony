@@ -1,20 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AssociationsController!{% endblock %}
+{% block title %}Associations{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Projet_Symfony/HIMMH/src/Controller/AssociationsController.php</code></li>
-        <li>Your template at <code>C:/Projet_Symfony/HIMMH/templates/associations/index.html.twig</code></li>
-    </ul>
+<div class="associations__container">
+    <div class="associations__header">
+        <h1 class="associations__title">Liste des associations</h1>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ASSOCIATION_MANAGER') %}
+            <a href="{{ path('associations_new') }}" class="associations__create-btn">
+                <i class="fas fa-plus"></i> Créer une association
+            </a>
+        {% endif %}
+    </div>
+    
+    {% if associations is empty %}
+        <div class="associations__empty-state">
+            <i class="fas fa-info-circle"></i>
+            <p>Aucune association enregistrée pour le moment.</p>
+        </div>
+    {% else %}
+        <div class="associations__grid">
+            {% for association in associations %}
+                <div class="associations__card">
+                    {% if association.imageName %}
+                        <img src="{{ vich_uploader_asset(association, 'imageFile') }}" 
+                             class="associations__card-image" alt="{{ association.name }}">
+                    {% endif %}
+                    
+                    <div class="associations__card-body">
+                        <h5 class="associations__card-title">{{ association.name }}</h5>
+                        <p class="associations__card-description">
+                            {{ association.description|length > 150 ? 
+                               association.description|slice(0, 150) ~ '...' : 
+                               association.description }}
+                        </p>
+                        
+                        <div class="associations__card-info">
+                            <div class="associations__card-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{ association.codePostal }}
+                                {% if association.department %}
+                                    - {{ association.department.name }}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="associations__card-stats">
+                                <span>
+                                    <i class="fas fa-paw"></i>
+                                    {{ association.animals|length }} animaux
+                                </span>
+                                <span>
+                                    <i class="fas fa-users"></i>
+                                    {{ association.approvedMembers|length }} membres
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <a href="{{ path('associations_show', {id: association.id}) }}" 
+                           class="associations__card-btn">
+                            Voir les détails
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

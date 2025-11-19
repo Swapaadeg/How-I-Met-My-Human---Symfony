@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ association.name }} - Association{% endblock %}
+
+{% block body %}
+<div class="association-detail__container">
+    <!-- En-tête de l'association -->
+    <div class="association-detail__header-card">
+        <div class="association-detail__content">
+            <div>
+                <h1 class="association-detail__title">{{ association.name }}</h1>
+                <p class="association-detail__location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ association.codePostal }}
+                    {% if association.department %}
+                        - {{ association.department.name }}
+                    {% endif %}
+                </p>
+                
+                {% if association.contactEmail %}
+                    <p class="association-detail__email">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:{{ association.contactEmail }}">{{ association.contactEmail }}</a>
+                    </p>
+                {% endif %}
+                
+                <div class="association-detail__role-badge">
+                    <i class="fas fa-user"></i> {{ user_role }}
+                </div>
+                
+                {% if app.user %}
+                    <div class="association-detail__actions">
+                        {% if can_join %}
+                            <form method="post" action="{{ path('associations_join', {id: association.id}) }}">
+                                <button type="submit" class="association-detail__btn association-detail__btn--join">
+                                    <i class="fas fa-plus"></i> Rejoindre l'association
+                                </button>
+                            </form>
+                        {% endif %}
+                        
+                        {% if can_manage %}
+                            <a href="{{ path('associations_manage', {id: association.id}) }}" class="association-detail__btn association-detail__btn--manage">
+                                <i class="fas fa-cog"></i> Gérer les membres
+                            </a>
+                            <a href="{{ path('associations_edit', {id: association.id}) }}" class="association-detail__btn association-detail__btn--edit">
+                                <i class="fas fa-edit"></i> Modifier l'association
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            {% if association.imageName %}
+                <div>
+                    <img src="{{ vich_uploader_asset(association, 'imageFile') }}" 
+                         class="association-detail__image" alt="{{ association.name }}">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="association-detail__description-card">
+        <h5 class="association-detail__card-title">À propos de l'association</h5>
+        <p class="association-detail__description">{{ association.description|nl2br }}</p>
+    </div>
+
+    <!-- Statistiques -->
+    <div class="association-detail__stats">
+        <div class="association-detail__stat-card">
+            <h2 class="association-detail__stat-number association-detail__stat-number--primary">{{ association.animals|length }}</h2>
+            <p class="association-detail__stat-label">Animaux à adopter</p>
+        </div>
+        <div class="association-detail__stat-card">
+            <h2 class="association-detail__stat-number association-detail__stat-number--success">{{ association.approvedMembers|length }}</h2>
+            <p class="association-detail__stat-label">Membres actifs</p>
+        </div>
+    </div>
+
+    <!-- Animaux de l'association -->
+    {% if association.animals is not empty %}
+        <div class="association-detail__animals-card">
+            <h5 class="association-detail__card-title">Animaux à adopter</h5>
+            <div class="association-detail__animals-grid">
+                {% for animal in association.animals|slice(0, 6) %}
+                    <div class="association-detail__animal-card">
+                        {% if animal.imageName %}
+                            <img src="{{ vich_uploader_asset(animal, 'imageFile') }}" 
+                                 class="association-detail__animal-image" alt="{{ animal.name }}">
+                        {% endif %}
+                        <div class="association-detail__animal-info">
+                            <h6 class="association-detail__animal-name">{{ animal.name }}</h6>
+                            <small class="association-detail__animal-species">{{ animal.species ? animal.species.name : 'Non spécifié' }}</small>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            {% if association.animals|length > 6 %}
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="{{ path('animals') }}?association={{ association.id }}" class="association-detail__view-all-btn">
+                        Voir tous les animaux ({{ association.animals|length }})
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="association-detail__no-animals">
+            <i class="fas fa-info-circle"></i>
+            <p>Cette association n'a pas encore d'animaux à adopter.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

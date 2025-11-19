@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion - {{ association.name }}{% endblock %}
+
+{% block body %}
+<div class="association-manage__container">
+    <div class="association-manage__header">
+        <h1 class="association-manage__title">Gestion de {{ association.name }}</h1>
+        <a href="{{ path('associations_show', {id: association.id}) }}" class="association-manage__back-btn">
+            <i class="fas fa-arrow-left"></i> Retour à l'association
+        </a>
+    </div>
+
+    <!-- Demandes en attente -->
+    {% if pending_members is not empty %}
+        <div class="association-manage__card">
+            <div class="association-manage__card-header">
+                <h5>
+                    <i class="fas fa-clock text-warning"></i>
+                    Demandes d'adhésion en attente ({{ pending_members|length }})
+                </h5>
+            </div>
+            <div class="association-manage__card-body">
+                <div class="association-manage__table-responsive">
+                    <table class="association-manage__table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Date de demande</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for membership in pending_members %}
+                                <tr>
+                                    <td>{{ membership.user.name }}</td>
+                                    <td>{{ membership.user.email }}</td>
+                                    <td>{{ membership.createdAt|date('d/m/Y H:i') }}</td>
+                                    <td>
+                                        <form method="post" action="{{ path('associations_membership_approve', {id: membership.id}) }}" style="display: inline;">
+                                            <button type="submit" class="association-manage__btn association-manage__btn--success" 
+                                                    onclick="return confirm('Approuver cette demande ?')">
+                                                <i class="fas fa-check"></i> Approuver
+                                            </button>
+                                        </form>
+                                        <form method="post" action="{{ path('associations_membership_reject', {id: membership.id}) }}" style="display: inline;">
+                                            <button type="submit" class="association-manage__btn association-manage__btn--danger" 
+                                                    onclick="return confirm('Rejeter cette demande ?')">
+                                                <i class="fas fa-times"></i> Rejeter
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="association-manage__alert association-manage__alert--info">
+            <i class="fas fa-info-circle"></i>
+            <p>Aucune demande d'adhésion en attente.</p>
+        </div>
+    {% endif %}
+
+    <!-- Membres approuvés -->
+    {% if approved_members is not empty %}
+        <div class="association-manage__card">
+            <div class="association-manage__card-header">
+                <h5>
+                    <i class="fas fa-users text-success"></i>
+                    Membres de l'association ({{ approved_members|length }})
+                </h5>
+            </div>
+            <div class="association-manage__card-body">
+                <div class="association-manage__table-responsive">
+                    <table class="association-manage__table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Rôle</th>
+                                <th>Approuvé le</th>
+                                <th>Approuvé par</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for membership in approved_members %}
+                                <tr>
+                                    <td>{{ membership.user.name }}</td>
+                                    <td>{{ membership.user.email }}</td>
+                                    <td>
+                                        {% if membership.isManager %}
+                                            <span class="association-manage__badge association-manage__badge--manager">
+                                                <i class="fas fa-crown"></i> Gérant
+                                            </span>
+                                        {% else %}
+                                            <span class="association-manage__badge association-manage__badge--member">
+                                                <i class="fas fa-user"></i> Membre
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ membership.approvedAt|date('d/m/Y H:i') }}</td>
+                                    <td>{{ membership.approvedBy ? membership.approvedBy.name : 'N/A' }}</td>
+                                    <td>
+                                        {% if not membership.isManager %}
+                                            <form method="post" action="{{ path('associations_membership_promote', {id: membership.id}) }}" style="display: inline;">
+                                                <button type="submit" class="association-manage__btn association-manage__btn--warning" 
+                                                        onclick="return confirm('Promouvoir ce membre en gérant ?')" 
+                                                        title="Promouvoir en gérant">
+                                                    <i class="fas fa-arrow-up"></i>
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form method="post" action="{{ path('associations_membership_demote', {id: membership.id}) }}" style="display: inline;">
+                                                <button type="submit" class="association-manage__btn association-manage__btn--secondary" 
+                                                        onclick="return confirm('Rétrograder ce gérant en membre ?')" 
+                                                        title="Rétrograder en membre">
+                                                    <i class="fas fa-arrow-down"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        
+                                        {% if not membership.isManager or is_granted('ROLE_ADMIN') %}
+                                            <form method="post" action="{{ path('associations_membership_remove', {id: membership.id}) }}" style="display: inline;">
+                                                <button type="submit" class="association-manage__btn association-manage__btn--danger" 
+                                                        onclick="return confirm('Retirer ce membre de l\'association ?')" 
+                                                        title="Retirer de l'association">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="association-manage__alert association-manage__alert--warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Aucun membre approuvé dans cette association.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

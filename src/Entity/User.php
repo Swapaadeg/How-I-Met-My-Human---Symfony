@@ -59,6 +59,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Association $association = null;
 
     /**
+     * @var Collection<int, AssociationMember>
+     */
+    #[ORM\OneToMany(targetEntity: AssociationMember::class, mappedBy: 'user')]
+    private Collection $associationMembers;
+
+    /**
      * @var Collection<int, Favorites>
      */
     #[ORM\OneToMany(targetEntity: Favorites::class, mappedBy: 'user')]
@@ -72,6 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
+        $this->associationMembers = new ArrayCollection();
         $this->favorites = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -235,6 +242,174 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->association = $association;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, AssociationMember>
+     */
+    public function getAssociationMembers(): Collection
+    {
+        return $this->associationMembers;
+    }
+
+    public function addAssociationMember(AssociationMember $associationMember): static
+    {
+        if (!$this->associationMembers->contains($associationMember)) {
+            $this->associationMembers->add($associationMember);
+            $associationMember->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssociationMember(AssociationMember $associationMember): static
+    {
+        if ($this->associationMembers->removeElement($associationMember)) {
+            // set the owning side to null (unless already changed)
+            if ($associationMember->getUser() === $this) {
+                $associationMember->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if user has admin role
+     */
+    public function isAdmin(): bool
+    {
+        return in_array(UserRole::ROLE_ADMIN, $this->roles);
+    }
+
+    /**
+     * Check if user is a visitor (basic user without association)
+     */
+    public function isVisitor(): bool
+    {
+        return in_array(UserRole::ROLE_VISITOR, $this->roles) || 
+               (count($this->getApprovedAssociations()) === 0 && !$this->isAdmin());
+    }
+
+    /**
+     * Add admin role
+     */
+    public function setAsAdmin(): static
+    {
+        if (!in_array(UserRole::ROLE_ADMIN, $this->roles)) {
+            $this->roles[] = UserRole::ROLE_ADMIN;
+        }
+        return $this;
+    }
+
+    /**
+     * Add visitor role
+     */
+    public function setAsVisitor(): static
+    {
+        if (!in_array(UserRole::ROLE_VISITOR, $this->roles)) {
+            $this->roles[] = UserRole::ROLE_VISITOR;
+        }
+        return $this;
+    }
+
+    /**
+     * Update user roles based on association memberships
+     */
+    public function updateRolesFromMemberships(): static
+    {
+        // Remove association-related roles first
+        $this->roles = array_filter($this->roles, function($role) {
+            return !in_array($role, [
+                UserRole::ROLE_ASSOCIATION_MANAGER,
+                UserRole::ROLE_ASSOCIATION_MEMBER,
+                UserRole::ROLE_VISITOR
+            ]);
+        });
+
+        // Don't touch admin role
+        if ($this->isAdmin()) {
+            return $this;
+        }
+
+        $hasApprovedMembership = false;
+        $isManager = false;
+
+        foreach ($this->associationMembers as $membership) {
+            if ($membership->isApproved()) {
+                $hasApprovedMembership = true;
+                if ($membership->isManager()) {
+                    $isManager = true;
+                }
+            }
+        }
+
+        if ($hasApprovedMembership) {
+            if ($isManager) {
+                $this->roles[] = UserRole::ROLE_ASSOCIATION_MANAGER;
+            } else {
+                $this->roles[] = UserRole::ROLE_ASSOCIATION_MEMBER;
+            }
+        } else {
+            $this->roles[] = UserRole::ROLE_VISITOR;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if user is manager of at least one association
+     */
+    public function isAssociationManager(): bool
+    {
+        foreach ($this->associationMembers as $membership) {
+            if ($membership->isApproved() && $membership->isManager()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if user is manager of a specific association
+     */
+    public function isManagerOfAssociation(Association $association): bool
+    {
+        foreach ($this->associationMembers as $membership) {
+            if ($membership->getAssociation() === $association 
+                && $membership->isApproved() 
+                && $membership->isManager()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if user is member (approved) of a specific association
+     */
+    public function isMemberOfAssociation(Association $association): bool
+    {
+        foreach ($this->associationMembers as $membership) {
+            if ($membership->getAssociation() === $association && $membership->isApproved()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get all associations where user is approved member
+     */
+    public function getApprovedAssociations(): array
+    {
+        $associations = [];
+        foreach ($this->associationMembers as $membership) {
+            if ($membership->isApproved()) {
+                $associations[] = $membership->getAssociation();
+            }
+        }
+        return $associations;
     }
 
     /**

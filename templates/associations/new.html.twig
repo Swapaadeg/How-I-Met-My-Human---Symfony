@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une association{% endblock %}
+
+{% block body %}
+<div class="association-form__container">
+    <div class="association-form__card">
+        <div class="association-form__header">
+            <h4 class="association-form__title">
+                <i class="fas fa-plus-circle"></i>
+                Créer une nouvelle association
+            </h4>
+            <a href="{{ path('associations') }}" class="association-form__back-btn">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+        
+        <div class="association-form__body">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            
+            <div class="association-form__row">
+                <div class="association-form__field">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="association-form__field">
+                    {{ form_row(form.contact_email) }}
+                </div>
+            </div>
+            
+            <div class="association-form__row">
+                <div class="association-form__field">
+                    {{ form_row(form.code_postal) }}
+                </div>
+                <div class="association-form__field">
+                    {{ form_row(form.department) }}
+                </div>
+            </div>
+            
+            <div class="association-form__field">
+                {{ form_row(form.description) }}
+            </div>
+            
+            <div class="association-form__field">
+                {{ form_row(form.imageFile) }}
+            </div>
+            
+            <div class="association-form__actions">
+                <a href="{{ path('associations') }}" class="association-form__btn association-form__btn--cancel">
+                    <i class="fas fa-times"></i> Annuler
+                </a>
+                <button type="submit" class="association-form__btn association-form__btn--submit">
+                    <i class="fas fa-save"></i> Créer l'association
+                </button>
+            </div>
+            
+            {{ form_end(form) }}
+        </div>
+    </div>
+    
+    <div class="association-form__note">
+        <i class="fas fa-info-circle"></i>
+        <p><strong>Note :</strong> Après la création, vous deviendrez automatiquement gérant de cette association et pourrez inviter des membres.</p>
+    </div>
+</div>
+{% endblock %}

@@ -2,6 +2,22 @@ security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+    
+    # Hiérarchie des rôles
+    role_hierarchy:
+        ROLE_ADMIN: 
+            - ROLE_ASSOCIATION_MANAGER
+            - ROLE_ASSOCIATION_MEMBER
+            - ROLE_VISITOR
+            - ROLE_USER
+        ROLE_ASSOCIATION_MANAGER:
+            - ROLE_ASSOCIATION_MEMBER
+            - ROLE_USER
+        ROLE_ASSOCIATION_MEMBER:
+            - ROLE_USER
+        ROLE_VISITOR:
+            - ROLE_USER
+            
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -35,7 +51,18 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        # Admin routes - accès réservé aux administrateurs
         - { path: ^/admin, roles: ROLE_ADMIN }
+        
+        # Association management routes - accès aux gérants d'associations
+        - { path: ^/associations/.*/(manage|membership), roles: ROLE_ASSOCIATION_MANAGER }
+        
+        # Animals management routes - accès aux membres d'associations et admin
+        - { path: ^/animals/new, roles: ROLE_ASSOCIATION_MEMBER }
+        - { path: ^/animals/edit, roles: ROLE_ASSOCIATION_MEMBER }
+        - { path: ^/animals/delete, roles: ROLE_ASSOCIATION_MEMBER }
+        
+        # Profile routes - accès à tous les utilisateurs connectés
         - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

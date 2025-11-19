@@ -284,4 +284,23 @@ class Animals
 
         return $this;
     }
+
+    /**
+     * Check if a user can manage this animal
+     */
+    public function canUserManage(User $user): bool
+    {
+        // Admin can manage all animals
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        // Check if user is manager or member of the animal's association
+        if ($this->association) {
+            return $user->isManagerOfAssociation($this->association) || 
+                   $user->isMemberOfAssociation($this->association);
+        }
+
+        return false;
+    }
 }
