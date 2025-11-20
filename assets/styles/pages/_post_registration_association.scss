@@ -246,7 +246,7 @@
                     
                     > p {
                         margin: 0 0 25px 0;
-                        color: lighten($color-dark, 30%);
+                        color: color.adjust($color-dark, $lightness: 30%);
                     }
                     
                     .association-list {

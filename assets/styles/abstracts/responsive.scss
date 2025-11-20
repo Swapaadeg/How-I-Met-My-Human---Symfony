@@ -316,6 +316,70 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     }
   }
 
+  /* Info Section */
+  .info-section {
+    padding: 3rem 0;
+    
+    .info-container {
+      flex-direction: column;
+      gap: 2rem;
+      
+      .photo-info {
+        flex: none;
+        width: 100%;
+        
+        img {
+          max-width: 400px;
+          margin: 0 auto;
+          display: block;
+        }
+      }
+      
+      .text-info {
+        text-align: center;
+        
+        h4 {
+          font-size: 2rem;
+        }
+        
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  /* Stats Section */
+  .stats-section {
+    padding: 3rem 0;
+    
+    .stats-container {
+      flex-direction: column;
+      gap: 3rem;
+      
+      .stat-item {
+        .stat-icon {
+          width: 70px;
+          height: 70px;
+          
+          i {
+            font-size: 1.8rem;
+          }
+        }
+        
+        .stat-content {
+          h3 {
+            font-size: 2rem;
+          }
+          
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+
   /*
   ================================================================================
   GLOBAL UTILITIES
