@@ -371,5 +371,49 @@
             {% endif %}
         </section>
 
+        <!-- Section Pourquoi adopter -->
+        <section class="why-adopt-section">
+            <div class="why-adopt-container">
+                <div class="why-adopt-text">
+                    <h4>Pourquoi adopter ?</h4>
+                    <p>Adopter un animal, c'est offrir une seconde chance à un compagnon qui n'a souvent connu que l'incertitude. En choisissant l'adoption, vous contribuez à réduire la surpopulation dans les refuges et soutenez une démarche responsable et bienveillante. Chaque animal a son histoire, son caractère et son potentiel : en lui offrant un foyer, vous lui permettez de s'épanouir dans un environnement stable, tout en accueillant dans votre quotidien une présence fidèle et affectueuse. C'est un engagement précieux, fondé sur le respect, la patience et l'envie de construire une relation durable.</p>
+
+                    <a href="{{ path('animals') }}" class="btn-adopt">
+                        Je veux adopter
+                        <i class="fas fa-paw"></i>
+                    </a>
+                </div>
+                <div class="why-adopt-image">
+                    <img src="{{ asset('man&dog.jpg') }}" alt="Homme et son chien marchant ensemble">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Associations Partenaires -->
+        <section class="partners-section">
+            <div class="partners-container">
+                <h3>Nos Associations Partenaires</h3>
+
+                {% if all_associations is not empty %}
+                    <div class="partners-grid">
+                        {% for association in all_associations %}
+                            <a href="{{ path('associations_show', {'id': association.id}) }}" class="partner-card" title="{{ association.name }}">
+                                {% if association.imageName %}
+                                    <img src="{{ asset('uploads/images/' ~ association.imageName) }}" alt="Logo {{ association.name }}">
+                                {% else %}
+                                    <div class="partner-placeholder">
+                                        <i class="fas fa-home"></i>
+                                        <span>{{ association.name }}</span>
+                                    </div>
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="no-partners">Aucune association partenaire pour le moment.</p>
+                {% endif %}
+            </div>
+        </section>
+
 </main>
 {% endblock %}

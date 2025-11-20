@@ -333,3 +333,186 @@
         }
     }
 }
+
+// Section Pourquoi adopter
+.why-adopt-section {
+    padding: 4rem 0;
+    position: relative;
+
+    // Séparateur en bas de la section
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        max-width: 1000px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, v.$color-dark 20%, v.$color-dark 80%, transparent);
+        opacity: 0.2;
+    }
+
+    .why-adopt-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem 4rem 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+    }
+
+    .why-adopt-text {
+        h4 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: v.$color-dark;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: v.$color-dark;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .btn-adopt {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: v.$color-secondary;
+            color: v.$color-primary;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
+
+            &:hover {
+                background: v.$color-accent;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.4);
+
+                i {
+                    transform: scale(1.1);
+                }
+            }
+
+            i {
+                font-size: 1rem;
+                transition: transform 0.3s ease;
+            }
+        }
+    }
+
+    .why-adopt-image {
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.02);
+            }
+        }
+    }
+}
+
+// Section Associations Partenaires
+.partners-section {
+    padding: 6rem 0;
+    background: v.$color-background;
+
+    .partners-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+
+        h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: v.$color-dark;
+            margin-bottom: 4rem;
+            letter-spacing: 1px;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 3rem;
+            justify-items: center;
+        }
+
+        .partner-card {
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: v.$color-background;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+            &:hover {
+                transform: translateY(-5px);
+                border-color: v.$color-secondary;
+                box-shadow: 0 8px 25px rgba(v.$color-secondary, 0.3);
+
+                img {
+                    transform: scale(1.05);
+                }
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                transition: transform 0.3s ease;
+            }
+
+            .partner-placeholder {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                text-align: center;
+                color: v.$color-secondary;
+
+                i {
+                    font-size: 3rem;
+                    color: v.$color-secondary;
+                }
+
+                span {
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    color: v.$color-dark;
+                    line-height: 1.3;
+                    word-wrap: break-word;
+                    max-width: 100%;
+                }
+            }
+        }
+
+        .no-partners {
+            text-align: center;
+            color: v.$color-dark;
+            font-size: 1.2rem;
+            padding: 3rem 0;
+        }
+    }
+}

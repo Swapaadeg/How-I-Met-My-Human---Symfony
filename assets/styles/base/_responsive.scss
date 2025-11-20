@@ -516,6 +516,105 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
             font-size: 2rem;
         }
     }
+
+    /*
+    ================================================================================
+    HOMEPAGE
+    ================================================================================
+    */
+
+    .homepage {
+        .why-adopt-section {
+            .why-adopt-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    }
+
+    /*
+    ================================================================================
+    HOMEPAGE - Why Adopt Section
+    ================================================================================
+    */
+    .homepage {
+        .why-adopt-section {
+            .why-adopt-container {
+                gap: 2rem;
+            }
+
+            .why-adopt-text {
+                h4 {
+                    font-size: 1.8rem;
+                }
+
+                p {
+                    font-size: 1rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                .btn-adopt {
+                    padding: 0.8rem 1.5rem;
+                    font-size: 0.9rem;
+                }
+            }
+
+            .why-adopt-image {
+                img {
+                    max-width: 300px;
+                }
+            }
+        }
+    }
+}
+
+/* 576px and below */
+@media (max-width: 576px) {
+    /*
+    ================================================================================
+    HOMEPAGE - Why Adopt Section Mobile
+    ================================================================================
+    */
+    .homepage {
+        .why-adopt-section {
+            padding: 3rem 0;
+
+            .why-adopt-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .why-adopt-text {
+                order: 2;
+
+                h4 {
+                    font-size: 1.6rem;
+                    margin-bottom: 1rem;
+                }
+
+                p {
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    margin-bottom: 1.5rem;
+                    max-width: none;
+                }
+
+                .btn-adopt {
+                    padding: 0.8rem 1.5rem;
+                    font-size: 0.9rem;
+                }
+            }
+
+            .why-adopt-image {
+                order: 1;
+
+                img {
+                    max-width: 250px;
+                }
+            }
+        }
+    }
 }
 
 /* Desktop only utilities */

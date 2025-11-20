@@ -21,6 +21,7 @@ final class HomeController extends AbstractController
         $oldestAnimals = $animalsRepository->findOldestInShelter(10);
         $totalAnimals = $animalsRepository->count([]);
         $totalAssociations = $associationRepository->count([]);
+        $allAssociations = $associationRepository->findAll();
         $latestNews = $adopterNewsRepository->findLatest(20);
 
         return $this->render('home/home.html.twig', [
@@ -28,6 +29,7 @@ final class HomeController extends AbstractController
             'oldest_animals' => $oldestAnimals,
             'total_animals' => $totalAnimals,
             'total_associations' => $totalAssociations,
+            'all_associations' => $allAssociations,
             'latest_news' => $latestNews,
         ]);
     }
