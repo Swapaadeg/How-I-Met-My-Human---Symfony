@@ -129,6 +129,30 @@
 }
 
 // ----------------
+// 6. Animations de rotation pour la page animal
+// ----------------
+
+// Rotation dans le sens horaire (pour cercle extérieur)
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+// Rotation dans le sens antihoraire (pour cercle intérieur)
+@keyframes spinReverse {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+// ----------------
 // Composant : Scroll indicator
 // ----------------
 

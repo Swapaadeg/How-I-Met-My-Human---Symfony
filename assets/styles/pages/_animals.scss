@@ -69,17 +69,29 @@
     margin-bottom: 3rem;
 }
 
-  .animal-card {
+.animal-card {
     background: v.$color-background;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(v.$color-dark, 0.08);
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
     cursor: pointer;
-    
+
     &:hover {
-        transform: translateY(-8px);
         box-shadow: 0 15px 40px rgba(v.$color-dark, 0.15);
+    }
+
+    // Animation fadeIn uniquement sur la page animals (pas sur la homepage)
+    .animals-page & {
+        animation: fadeIn 0.5s ease forwards;
+        opacity: 0;
+
+        // Stagger animation pour chaque carte
+        @for $i from 1 through 20 {
+            &:nth-child(#{$i}) {
+                animation-delay: #{$i * 0.1}s;
+            }
+        }
     }
     
     .card-image {
@@ -149,7 +161,6 @@
                 color: white;
                 
                 &:hover {
-                    transform: scale(1.15);
                     box-shadow: 0 3px 8px rgba(v.$color-secondary, 0.3);
                 }
                 
@@ -273,9 +284,9 @@
                 // Tags par défaut
                 background: v.$color-secondary;
                 color: white;
-                
+
+
                 &:hover {
-                    transform: scale(1.1);
                     box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.3);
                 }
                 
@@ -390,11 +401,10 @@
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                transition: all 0.3s ease;
+                transition: color 0.3s ease, border-color 0.3s ease;
                 font-size: 1rem;
-                
+
                 &:hover {
-                    transform: scale(1.1);
                     border-color: v.$color-secondary;
                     color: v.$color-secondary;
                 }
@@ -442,312 +452,321 @@
     }
 }
 
-// Page de détail animal
-.animal-detail-page {
-    padding: 2rem 0;
-    background: v.$color-background;
-    min-height: calc(100vh - 200px);
-    margin-bottom: 250px; // Espace pour éviter le chevauchement avec le footer
-    
-    .container {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 0 2rem;
+// Page de détail avec design circulaire
+.animal-show-page {
+    margin: 0;
+    font-family: v.$font-family-primary;
+    background: v.$color-dark;
+    color: v.$color-background;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 4rem 2rem;
+
+    .animal-show-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        max-width: 900px;
+        width: 100%;
+        padding-bottom: 12rem;
     }
-    
-    .animal-detail {
-        background: v.$color-background;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(v.$color-dark, 0.1);
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0;
+
+    .animal-profile-wrapper {
+        position: relative;
+        width: 400px;
+        height: 400px;
         margin-bottom: 2rem;
-        
-        .animal-image {
-            height: 400px;
-            
-            img, .placeholder-image {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-            
-            .placeholder-image {
-                background: linear-gradient(135deg, rgba(v.$color-primary, 0.1), rgba(v.$color-secondary, 0.1));
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                
-                i {
-                    font-size: 4rem;
-                    color: rgba(v.$color-secondary, 0.3);
-                }
+    }
+
+    .circle-container {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .circle-rotate, .circle-rotate2 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    .circle-rotate {
+        border: 4px solid transparent;
+        border-top: 4px solid v.$color-secondary;
+        animation: spin 10s linear infinite;
+    }
+
+    .circle-rotate2 {
+        border: 4px solid transparent;
+        border-bottom: 4px solid v.$color-accent;
+        animation: spinReverse 16s linear infinite;
+    }
+
+    .profile-img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        overflow: hidden;
+        z-index: 2;
+        border: 5px solid white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            i {
+                font-size: 4rem;
+                color: v.$color-background;
+                opacity: 0.7;
             }
         }
-        
-        .animal-info {
-            padding: 2rem;
-            
-            .name-and-special-tags {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                margin-bottom: 1.5rem;
-                flex-wrap: wrap;
-                
-                .tag-mini {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 0.7rem;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                    letter-spacing: 0.3px;
-                    cursor: help;
-                    transition: all 0.3s ease;
-                    
-                    background: v.$color-secondary;
-                    color: white;
-                    
-                    &:hover {
-                        transform: scale(1.1);
-                        box-shadow: 0 4px 10px rgba(v.$color-secondary, 0.3);
-                    }
-                    
-                    &.education,
-                    &.education-en-cours {
-                        i {
-                            font-size: 1rem;
-                        }
-                    }
-                    
-                    &[data-tooltip]::before {
-                        bottom: 150% !important;
-                        font-size: 0.8rem !important;
-                        padding: 0.8rem 1rem !important;
-                        max-width: 220px !important;
-                    }
-                    
-                    &[data-tooltip]::after {
-                        bottom: 142% !important;
-                    }
-                }
+    }
+
+    .info-box {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(6px);
+        padding: 8px 12px;
+        border-radius: 12px;
+        font-size: 1rem;
+        text-align: center;
+        z-index: 3;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+
+        i {
+            margin-right: 0.3rem;
+        }
+    }
+
+    .info-nom {
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: v.$font-family-courgette;
+        font-size: 2rem;
+        background: transparent;
+        color: v.$color-primary;
+        border: none;
+        box-shadow: none;
+    }
+
+    .info-sexe {
+        top: 50%;
+        left: -190px;
+        transform: translateY(-50%);
+        width: 180px;
+    }
+
+    .info-age {
+        top: 80px;
+        left: -130px;
+        width: 120px;
+    }
+
+    .info-arrivee {
+        top: 80px;
+        right: -140px;
+        width: 130px;
+    }
+
+    .info-asso {
+        top: 50%;
+        right: -170px;
+        transform: translateY(-50%);
+        width: 160px;
+    }
+
+    .info-ville {
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 160px;
+    }
+
+    .fav-button {
+        position: relative;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 28px;
+        color: #f25c54;
+        transition: all 0.3s ease;
+        padding: 1rem;
+
+        &:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 4px 8px rgba(242, 92, 84, 0.4));
+        }
+
+        &::after {
+            content: "Ajoute moi dans tes favoris";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(0, 0, 0, 0.8);
+            color: v.$color-background;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            font-family: v.$font-family-primary;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            margin-top: 0.5rem;
+        }
+
+        &:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        &.favorited {
+            color: #ff3333;
+
+            i {
+                font-weight: 900;
             }
-            
-            h1 {
-                font-size: 2rem;
-                font-family: v.$font-family-bold;
-                color: v.$color-dark;
-                margin: 0;
-            }
-            
-            .animal-badges {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                margin-bottom: 1.5rem;
-                
-                .badge {
-                    padding: 0.4rem 1rem;
-                    border-radius: 20px;
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                    
-                    &.species-badge {
-                        background: rgba(v.$color-secondary, 0.1);
-                        color: v.$color-secondary;
-                    }
-                    
-                    &.age-badge {
-                        background: rgba(#27ae60, 0.15);
-                        color: #27ae60;
-                    }
-                    
-                    &.gender-badge {
-                        &.male {
-                            background: rgba(#4A90E2, 0.1);
-                            color: #4A90E2;
-                        }
-                        
-                        &.female {
-                            background: rgba(#FF6B9D, 0.1);
-                            color: #FF6B9D;
-                        }
-                        
-                        i {
-                            margin-right: 0.3rem;
-                        }
-                    }
-                }
-            }
-            
-            .description, .animal-tags, .contact-section {
-                margin-bottom: 2rem;
-                
-                h3 {
-                    font-size: 1.2rem;
-                    font-family: v.$font-family-bold;
-                    color: v.$color-dark;
-                    margin-bottom: 0.8rem;
-                }
-                
-                p {
-                    color: v.$color-accent;
-                    line-height: 1.6;
-                }
-            }
-            
-            .animal-tags {
-                .tag {
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                    margin: 0 0.8rem 0.8rem 0;
-                    transition: all 0.3s ease;
-                    border: none;
-                    
-                    // Tags par défaut
-                    background: v.$color-secondary;
-                    color: v.$color-background;
-                    
-                    &:hover {
-                        transform: scale(1.05);
-                        box-shadow: 0 5px 15px rgba(v.$color-secondary, 0.3);
-                    }
-                    
-                    // Tag SOS
-                    &.sos {
-                        background: v.$color-secondary;
-                        color: v.$color-background;
-                        font-size: 0.75rem;
-                    }
-                    
-                    // Tag Education avec icône
-                    &.education,
-                    &.education-en-cours {
-                        background: v.$color-secondary;
-                        color: v.$color-background;
-                        
-                        i {
-                            font-size: 1.4rem;
-                        }
-                    }
-                    
-                    // Tag FAD
-                    &.fad {
-                        background: v.$color-secondary;
-                        color: v.$color-background;
-                        font-size: 0.75rem;
-                    }
-                    
-                    // Tags normaux (autres)
-                    &:not(.sos):not(.education):not(.education-en-cours):not(.fad) {
-                        background: rgba(v.$color-accent, 0.1);
-                        color: v.$color-accent;
-                        font-size: 0.7rem;
-                        width: auto;
-                        min-width: 50px;
-                        padding: 0 0.8rem;
-                        border-radius: 25px;
-                        height: 40px;
-                        text-transform: none;
-                    }
-                    
-                    // Tooltips pour la page de détail (plus grands)
-                    &[data-tooltip]::before {
-                        font-size: 0.85rem;
-                        padding: 1rem 1.2rem;
-                        max-width: 280px;
-                        bottom: 130%;
-                    }
-                    
-                    &[data-tooltip]::after {
-                        bottom: 122%;
-                    }
-                }
-            }
-            
-            .contact-buttons {
-                display: flex;
-                gap: 1rem;
-                
-                .btn {
-                    padding: 0.8rem 1.5rem;
-                    font-weight: 600;
-                    border-radius: 12px;
-                    border: none;
-                    cursor: pointer;
-                    text-decoration: none;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    transition: all 0.3s ease;
-                    
-                    &.btn-primary {
-                        background: linear-gradient(135deg, v.$color-primary, v.$color-secondary);
-                        color: v.$color-background;
-                        
-                        &:hover {
-                            transform: translateY(-2px);
-                            box-shadow: 0 5px 15px rgba(v.$color-primary, 0.4);
-                        }
-                    }
-                    
-                    &.btn-secondary {
-                        background: v.$color-background;
-                        color: v.$color-accent;
-                        border: 2px solid rgba(v.$color-accent, 0.2);
-                        
-                        &:hover {
-                            border-color: v.$color-primary;
-                            color: v.$color-primary;
-                        }
-                        
-                        &.favorited {
-                            background: v.$color-primary;
-                            color: v.$color-background;
-                            border-color: v.$color-primary;
-                        }
-                    }
+        }
+    }
+
+    .animal-description-box {
+        max-width: 700px;
+        text-align: center;
+        font-size: 16px;
+        line-height: 1.6;
+        color: v.$color-dark;
+        background: white;
+        padding: 24px 28px;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .animal-tags-section {
+        max-width: 700px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(6px);
+        padding: 1.5rem 2rem;
+        border-radius: 16px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        h3 {
+            color: v.$color-primary;
+            margin-bottom: 1rem;
+            font-family: v.$font-family-bold;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+
+            .tag {
+                padding: 0.6rem 1.2rem;
+                background: v.$color-secondary;
+                color: v.$color-background;
+                border-radius: 20px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: v.$color-accent;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.4);
                 }
             }
         }
     }
-    
-    .back-to-list {
-        text-align: center;
-        
-        .btn-outline {
+
+    .action-buttons {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .btn-back, .btn-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: v.$font-family-primary;
+
+            i {
+                font-size: 1.1rem;
+            }
+        }
+
+        .btn-back {
             background: transparent;
             color: v.$color-primary;
             border: 2px solid v.$color-primary;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            
+
             &:hover {
                 background: v.$color-primary;
-                color: white;
+                color: v.$color-dark;
                 transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(v.$color-primary, 0.4);
+            }
+        }
+
+        .btn-contact {
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+            color: v.$color-background;
+            box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.5);
             }
         }
     }
