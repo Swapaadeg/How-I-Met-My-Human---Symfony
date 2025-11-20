@@ -47,7 +47,7 @@
                             <div class="favorite-card" data-animal-id="{{ favorite.animals.id }}">
                                 <div class="card-image">
                                     {% if favorite.animals.imageName %}
-                                        <img src="{{ vich_uploader_asset(favorite.animals, 'imageFile') }}" alt="{{ favorite.animals.nom }}">
+                                        <img src="{{ vich_uploader_asset(favorite.animals, 'imageFile') }}" alt="{{ favorite.animals.name }}">
                                     {% else %}
                                         <div class="image-placeholder">
                                             <i class="fas fa-paw"></i>
@@ -58,9 +58,15 @@
                                     </button>
                                 </div>
                                 <div class="card-content">
-                                    <h3>{{ favorite.animals.nom }}</h3>
-                                    <p class="species">{{ favorite.animals.species.nom }}</p>
-                                    <p class="age">{{ favorite.animals.age }} ans</p>
+                                    <h3>{{ favorite.animals.name }}</h3>
+                                    <p class="species">{{ favorite.animals.species.name }}</p>
+                                    <p class="age">
+                                        {% if 'ans' in favorite.animals.age %}
+                                            {{ favorite.animals.age }}
+                                        {% else %}
+                                            {{ favorite.animals.age }} ans
+                                        {% endif %}
+                                    </p>
                                     <div class="card-actions">
                                         <a href="{{ path('animal_show', {id: favorite.animals.id}) }}" class="btn btn-outline">
                                             <i class="fas fa-eye"></i>

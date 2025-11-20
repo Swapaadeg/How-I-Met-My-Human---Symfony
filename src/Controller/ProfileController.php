@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\UserProfileType;
+use App\Repository\FavoritesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,13 +15,20 @@ final class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'profile')]
     #[IsGranted('ROLE_USER')]
-    public function index(): Response
+    public function index(FavoritesRepository $favoritesRepository): Response
     {
         $user = $this->getUser();
 
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+
+        // Récupérer les favoris avec les animaux chargés
+        $favorites = $favoritesRepository->findByUserWithAnimals($user);
+
         return $this->render('profile/index.html.twig', [
             'user' => $user,
-            'favorites' => $user->getFavorites(),
+            'favorites' => $favorites,
         ]);
     }
 

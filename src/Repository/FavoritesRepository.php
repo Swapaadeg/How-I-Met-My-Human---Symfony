@@ -31,6 +31,22 @@ class FavoritesRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+    /**
+     * @return Favorites[] Returns an array of Favorites objects with animals loaded
+     */
+    public function findByUserWithAnimals($user): array
+    {
+        return $this->createQueryBuilder('f')
+            ->leftJoin('f.animals', 'a')
+            ->addSelect('a')
+            ->andWhere('f.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('f.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    public function findOneBySomeField($value): ?Favorites
     //    {
     //        return $this->createQueryBuilder('f')
