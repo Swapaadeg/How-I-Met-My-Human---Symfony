@@ -87,7 +87,21 @@
                         <i class="fa-solid fa-lock"></i>
                     </div>
 
-                    <button type="submit" class="btn animation" style="--i: 5; --j: 25;">
+                    {% if registerForm.imageFile is defined %}
+                        <div class="profile-photo-box animation" style="--i: 5; --j: 25;">
+                            {{ form_label(registerForm.imageFile, 'Photo de profil (optionnel)') }}
+                            <div class="vich-file">
+                                <label for="register_imageFile_file" class="custom-file-upload">
+                                    <i class="fas fa-camera"></i>
+                                    Choisir une photo
+                                </label>
+                                {{ form_widget(registerForm.imageFile) }}
+                                <span class="file-name" id="file-name-display">Aucun fichier</span>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn animation" style="--i: 6; --j: 26;">
                         S'inscrire <i class="fa-solid fa-paw"></i>
                     </button>
                 {{ form_end(registerForm) }}
@@ -125,4 +139,22 @@
         </div>
     {% endif %}
 {% endfor %}
+
+<script>
+// Script pour afficher le nom du fichier sélectionné
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('register_imageFile_file');
+    const fileNameDisplay = document.getElementById('file-name-display');
+
+    if (fileInput && fileNameDisplay) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                fileNameDisplay.textContent = this.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'Aucun fichier';
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

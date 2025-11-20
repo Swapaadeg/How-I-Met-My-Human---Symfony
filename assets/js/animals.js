@@ -130,51 +130,49 @@ function initializeActionButtons() {
 function addFavorite(animalId) {
     console.log(`Adding animal ${animalId} to favorites`);
     
-    // Show notification
-    showNotification('Ajouté aux favoris !', 'success');
-    
-    // Here you would make an AJAX request to your Symfony backend
-    // fetch('/api/favorites', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-Requested-With': 'XMLHttpRequest'
-    //     },
-    //     body: JSON.stringify({ animalId: animalId })
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     if (data.success) {
-    //         showNotification('Ajouté aux favoris !', 'success');
-    //     }
-    // })
-    // .catch(error => {
-    //     showNotification('Erreur lors de l\\'ajout aux favoris', 'error');
-    // });
+    fetch('/api/favorites', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ animalId: animalId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Ajouté aux favoris !', 'success');
+        } else {
+            showNotification(data.message || 'Erreur lors de l\'ajout aux favoris', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Erreur lors de l\'ajout aux favoris', 'error');
+    });
 }
 
 function removeFavorite(animalId) {
     console.log(`Removing animal ${animalId} from favorites`);
     
-    // Show notification
-    showNotification('Retiré des favoris', 'info');
-    
-    // Here you would make an AJAX request to your Symfony backend
-    // fetch(`/api/favorites/${animalId}`, {
-    //     method: 'DELETE',
-    //     headers: {
-    //         'X-Requested-With': 'XMLHttpRequest'
-    //     }
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     if (data.success) {
-    //         showNotification('Retiré des favoris', 'info');
-    //     }
-    // })
-    // .catch(error => {
-    //     showNotification('Erreur lors de la suppression', 'error');
-    // });
+    fetch(`/api/favorites/${animalId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Retiré des favoris', 'info');
+        } else {
+            showNotification(data.message || 'Erreur lors de la suppression', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Erreur lors de la suppression', 'error');
+    });
 }
 
 function handleContact(animalId) {

@@ -76,11 +76,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'user')]
     private Collection $comments;
 
+    /**
+     * @var Collection<int, AdopterNews>
+     */
+    #[ORM\OneToMany(targetEntity: AdopterNews::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $adopterNews;
+
     public function __construct()
     {
         $this->associationMembers = new ArrayCollection();
         $this->favorites = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->adopterNews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -466,6 +473,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AdopterNews>
+     */
+    public function getAdopterNews(): Collection
+    {
+        return $this->adopterNews;
+    }
+
+    public function addAdopterNews(AdopterNews $adopterNews): static
+    {
+        if (!$this->adopterNews->contains($adopterNews)) {
+            $this->adopterNews->add($adopterNews);
+            $adopterNews->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdopterNews(AdopterNews $adopterNews): static
+    {
+        if ($this->adopterNews->removeElement($adopterNews)) {
+            // set the owning side to null (unless already changed)
+            if ($adopterNews->getUser() === $this) {
+                $adopterNews->setUser(null);
             }
         }
 

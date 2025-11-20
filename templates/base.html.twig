@@ -41,6 +41,9 @@
                         <a href="{{ path('profile') }}" class="auth-link">
                             <i class="fa-solid fa-user"></i> Mon espace
                         </a>
+                        <a href="{{ path('adopter_news_new') }}" class="auth-link share-news-btn">
+                            <i class="fas fa-heart"></i> Partager des nouvelles
+                        </a>
                         {% if is_granted('ROLE_ASSOCIATION') %}
                             <a href="{{ path('animals_add') }}" class="auth-link">
                                 <i class="fas fa-plus"></i> Ajouter un animal

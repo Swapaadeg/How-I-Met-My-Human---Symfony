@@ -56,6 +56,8 @@ class SecurityController extends AbstractController
             // Vérifier si l'email existe déjà
             $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
             if ($existingUser) {
+                // Nettoyer l'objet File pour éviter les erreurs de sérialisation
+                $user->setImageFile(null);
                 $this->addFlash('error', 'Cette adresse email est déjà utilisée. Veuillez utiliser une autre adresse email ou vous connecter si vous avez déjà un compte.');
                 return $this->render('security/auth.html.twig', [
                     'last_username' => $lastUsername,
@@ -82,10 +84,17 @@ class SecurityController extends AbstractController
                 // Redirection vers l'étape optionnelle d'association
                 return $this->redirectToRoute('post_registration_association');
             } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+                $user->setImageFile(null);
                 $this->addFlash('error', 'Cette adresse email est déjà utilisée. Veuillez utiliser une autre adresse email.');
             } catch (\Exception $e) {
+                $user->setImageFile(null);
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'inscription. Veuillez réessayer.');
             }
+        }
+
+        // Nettoyer l'objet File avant de rendre le formulaire pour éviter les erreurs de sérialisation
+        if ($registerForm->isSubmitted() && !$registerForm->isValid()) {
+            $user->setImageFile(null);
         }
 
         return $this->render('security/auth.html.twig', [

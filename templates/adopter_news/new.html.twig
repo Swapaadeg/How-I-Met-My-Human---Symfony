@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partager des nouvelles{% endblock %}
+
+{% block body %}
+<div class="adopter-news-form-page">
+    <div class="container">
+        <div class="form-header">
+            <h1>Partager des nouvelles de votre adopté</h1>
+            <p class="subtitle">Racontez-nous comment se porte votre compagnon et partagez votre joie avec la communauté !</p>
+        </div>
+
+        <div class="form-container">
+            {{ form_start(form, {'attr': {'class': 'adopter-news-form'}}) }}
+                <div class="form-group">
+                    {{ form_label(form.content, 'Votre message') }}
+                    {{ form_widget(form.content, {'attr': {'placeholder': 'Partagez des nouvelles de votre animal adopté...'}}) }}
+                    {{ form_errors(form.content) }}
+                </div>
+
+                <div class="form-group image-upload-group">
+                    {{ form_label(form.imageFile, 'Photo de votre animal (optionnel)') }}
+                    <div class="vich-image-upload">
+                        <label for="adopter_news_imageFile_file" class="custom-file-upload">
+                            <i class="fas fa-camera"></i>
+                            Choisir une photo
+                        </label>
+                        {{ form_widget(form.imageFile) }}
+                        <span class="file-name" id="news-file-name-display">Aucun fichier</span>
+                    </div>
+                    {{ form_errors(form.imageFile) }}
+                </div>
+
+                <div class="form-actions">
+                    <a href="{{ path('home') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Annuler
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Publier
+                    </button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('adopter_news_imageFile_file');
+    const fileNameDisplay = document.getElementById('news-file-name-display');
+
+    if (fileInput && fileNameDisplay) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                fileNameDisplay.textContent = this.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'Aucun fichier';
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -190,19 +190,7 @@
             }
         }
     }
-    
-    // Animation de pulsation
-    @keyframes pulse {
-        0%, 100% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-        50% {
-            transform: translate(-50%, -50%) scale(1.2);
-            opacity: 0.8;
-        }
-    }
-    
+
     // Style pour le bouton "voir la fiche" spécifique au carrousel
     .animals-carousel {
         .view-btn {

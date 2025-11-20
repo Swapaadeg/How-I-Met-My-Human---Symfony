@@ -268,5 +268,108 @@
             </div>
         </section>
 
+        <!-- Section Avis des Adoptants -->
+        <section class="adopter-news-section">
+            <h3>Ils ont trouvé leur humain</h3>
+
+            {% if latest_news|length > 0 %}
+                {# Premier carousel - défile vers la droite #}
+                <div class="news-carousel news-carousel-right">
+                    <div class="news-track">
+                        {% for news in latest_news[:10] %}
+                            <div class="news-card">
+                                <div class="news-image">
+                                    {% if news.imageName %}
+                                        <img src="{{ vich_uploader_asset(news, 'imageFile') }}" alt="Photo partagée par {{ news.user.name }}">
+                                    {% else %}
+                                        <div class="news-image-placeholder">
+                                            <i class="fas fa-paw"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="news-content">
+                                    <p class="news-text">{{ news.content }}</p>
+                                    <div class="news-meta">
+                                        <span class="news-author"><i class="fas fa-user"></i> {{ news.user.name }}</span>
+                                        <span class="news-date"><i class="fas fa-calendar"></i> {{ news.createdAt|date('d/m/Y') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {# Duplicate for infinite scroll #}
+                        {% for news in latest_news[:10] %}
+                            <div class="news-card">
+                                <div class="news-image">
+                                    {% if news.imageName %}
+                                        <img src="{{ vich_uploader_asset(news, 'imageFile') }}" alt="Photo partagée par {{ news.user.name }}">
+                                    {% else %}
+                                        <div class="news-image-placeholder">
+                                            <i class="fas fa-paw"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="news-content">
+                                    <p class="news-text">{{ news.content }}</p>
+                                    <div class="news-meta">
+                                        <span class="news-author"><i class="fas fa-user"></i> {{ news.user.name }}</span>
+                                        <span class="news-date"><i class="fas fa-calendar"></i> {{ news.createdAt|date('d/m/Y') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {# Deuxième carousel - défile vers la gauche #}
+                <div class="news-carousel news-carousel-left">
+                    <div class="news-track">
+                        {% for news in latest_news[10:] %}
+                            <div class="news-card">
+                                <div class="news-image">
+                                    {% if news.imageName %}
+                                        <img src="{{ vich_uploader_asset(news, 'imageFile') }}" alt="Photo partagée par {{ news.user.name }}">
+                                    {% else %}
+                                        <div class="news-image-placeholder">
+                                            <i class="fas fa-paw"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="news-content">
+                                    <p class="news-text">{{ news.content }}</p>
+                                    <div class="news-meta">
+                                        <span class="news-author"><i class="fas fa-user"></i> {{ news.user.name }}</span>
+                                        <span class="news-date"><i class="fas fa-calendar"></i> {{ news.createdAt|date('d/m/Y') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {# Duplicate for infinite scroll #}
+                        {% for news in latest_news[10:] %}
+                            <div class="news-card">
+                                <div class="news-image">
+                                    {% if news.imageName %}
+                                        <img src="{{ vich_uploader_asset(news, 'imageFile') }}" alt="Photo partagée par {{ news.user.name }}">
+                                    {% else %}
+                                        <div class="news-image-placeholder">
+                                            <i class="fas fa-paw"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="news-content">
+                                    <p class="news-text">{{ news.content }}</p>
+                                    <div class="news-meta">
+                                        <span class="news-author"><i class="fas fa-user"></i> {{ news.user.name }}</span>
+                                        <span class="news-date"><i class="fas fa-calendar"></i> {{ news.createdAt|date('d/m/Y') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <p class="no-news">Aucune nouvelle pour le moment.</p>
+            {% endif %}
+        </section>
+
 </main>
 {% endblock %}

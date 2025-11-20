@@ -1,0 +1,159 @@
+@use "../abstracts/variables" as v;
+
+// Page de formulaire pour partager des nouvelles
+.adopter-news-form-page {
+    min-height: calc(100vh - 200px);
+    padding : 4rem 0 12rem;
+    background-color: v.$color-background;
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 3rem;
+
+        h1 {
+            font-family: v.$font-family-bold;
+            font-size: 2.5rem;
+            color: v.$color-dark;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: v.$color-accent;
+            line-height: 1.6;
+        }
+    }
+
+    .form-container {
+        background: v.$color-background;
+        border-radius: 15px;
+        padding: 3rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .adopter-news-form {
+        .form-group {
+            margin-bottom: 2rem;
+
+            label {
+                display: block;
+                font-family: v.$font-family-bold;
+                font-size: 1.1rem;
+                color: v.$color-dark;
+                margin-bottom: 0.5rem;
+            }
+
+            textarea {
+                width: 100%;
+                min-height: 200px;
+                padding: 1rem;
+                border: 2px solid v.$color-primary;
+                border-radius: 10px;
+                font-family: v.$font-family-primary;
+                font-size: 1rem;
+                line-height: 1.6;
+                resize: vertical;
+                transition: border-color 0.3s;
+
+                &:focus {
+                    outline: none;
+                    border-color: v.$color-secondary;
+                }
+            }
+
+            .form-error {
+                color: #dc3545;
+                font-size: 0.9rem;
+                margin-top: 0.5rem;
+            }
+        }
+
+        .image-upload-group {
+            .vich-image-upload {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                input[type="file"] {
+                    display: none;
+                }
+
+                .custom-file-upload {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.8rem 1.5rem;
+                    background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                    color: v.$color-background;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    transition: all 0.3s ease;
+                    border: none;
+
+                    i {
+                        font-size: 1.1rem;
+                    }
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.4);
+                    }
+                }
+
+                .file-name {
+                    font-size: 0.95rem;
+                    color: #666;
+                    font-style: italic;
+                }
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+
+            .btn {
+                padding: 1rem 2rem;
+                border-radius: 50px;
+                font-family: v.$font-family-bold;
+                font-size: 1rem;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: all 0.3s;
+                cursor: pointer;
+                border: none;
+
+                &.btn-primary {
+                    background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                    color: v.$color-background;
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.4);
+                    }
+                }
+
+                &.btn-secondary {
+                    background: v.$color-background;
+                    color: v.$color-dark;
+                    border: 2px solid v.$color-primary;
+
+                    &:hover {
+                        background: v.$color-primary;
+                    }
+                }
+            }
+        }
+    }
+}

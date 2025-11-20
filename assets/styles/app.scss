@@ -26,7 +26,9 @@
 @use "pages/auth";
 @use "pages/associations";
 @use "pages/post_registration_association";
+@use "pages/adopter_news_form";
+@use "pages/profile";
 
 // IMPORT RESPONSIVE SCSS
-@use "abstracts/responsive";
+@use "base/responsive";
 

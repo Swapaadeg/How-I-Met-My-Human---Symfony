@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Animals;
+use App\Entity\Favorites;
 use App\Form\AnimalFormType;
 use App\Repository\AnimalsRepository;
+use App\Repository\FavoritesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -62,5 +65,67 @@ final class AnimalsController extends AbstractController
         ]);
     }
 
+    #[Route('/api/favorites', name: 'favorites_add', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function addFavorite(Request $request, EntityManagerInterface $entityManager, AnimalsRepository $animalsRepository): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $animalId = $data['animalId'] ?? null;
 
+        if (!$animalId) {
+            return new JsonResponse(['success' => false, 'message' => 'ID animal manquant'], 400);
+        }
+
+        $animal = $animalsRepository->find($animalId);
+        if (!$animal) {
+            return new JsonResponse(['success' => false, 'message' => 'Animal non trouvé'], 404);
+        }
+
+        $user = $this->getUser();
+
+        // Check if already favorited
+        $existingFavorite = $entityManager->getRepository(Favorites::class)->findOneBy([
+            'user' => $user,
+            'animals' => $animal
+        ]);
+
+        if ($existingFavorite) {
+            return new JsonResponse(['success' => false, 'message' => 'Déjà en favoris'], 400);
+        }
+
+        $favorite = new Favorites();
+        $favorite->setUser($user);
+        $favorite->setAnimals($animal);
+
+        $entityManager->persist($favorite);
+        $entityManager->flush();
+
+        return new JsonResponse(['success' => true, 'message' => 'Ajouté aux favoris']);
+    }
+
+    #[Route('/api/favorites/{animalId}', name: 'favorites_remove', methods: ['DELETE'])]
+    #[IsGranted('ROLE_USER')]
+    public function removeFavorite(int $animalId, EntityManagerInterface $entityManager, AnimalsRepository $animalsRepository): JsonResponse
+    {
+        $animal = $animalsRepository->find($animalId);
+        if (!$animal) {
+            return new JsonResponse(['success' => false, 'message' => 'Animal non trouvé'], 404);
+        }
+
+        $user = $this->getUser();
+
+        $favorite = $entityManager->getRepository(Favorites::class)->findOneBy([
+            'user' => $user,
+            'animals' => $animal
+        ]);
+
+        if (!$favorite) {
+            return new JsonResponse(['success' => false, 'message' => 'Pas en favoris'], 400);
+        }
+
+        $entityManager->remove($favorite);
+        $entityManager->flush();
+
+        return new JsonResponse(['success' => true, 'message' => 'Retiré des favoris']);
+    }
 }

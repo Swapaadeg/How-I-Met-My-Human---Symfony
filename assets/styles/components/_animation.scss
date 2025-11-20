@@ -1,30 +1,152 @@
 @use "../abstracts/variables" as v;
 
-// Scroll indicator - bouncing paw
-.scroll-indicator {
-    text-align: center;
-    padding: 2rem 0;
-    cursor: pointer;
-    
-    i {
-        font-size: 3rem;
-        color: v.$color-accent;
-        animation: pawBounce 2s infinite;
-        opacity: 0.8;
-        transition: opacity 0.3s ease;
-        
-        &:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
+// ====================================
+// ANIMATIONS GLOBALES
+// ====================================
+
+// ----------------
+// 1. Animations de modal et fade
+// ----------------
+
+// Animation d'apparition avec fondu et zoom
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
+// Animation de disparition avec fondu et zoom
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+// ----------------
+// 2. Animations de carousel
+// ----------------
+
+// Défilement horizontal vers la droite
+@keyframes scrollRight {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+// Défilement horizontal vers la gauche
+@keyframes scrollLeft {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+// Animation de pulsation pour les éléments de carousel
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+// ----------------
+// 3. Animations d'authentification
+// ----------------
+
+// Animation d'entrée pour le panneau de connexion
+@keyframes animate {
+    0% {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateX(calc(var(--i) * 40px));
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateX(0);
+    }
+}
+
+// Animation d'entrée pour le panneau d'inscription
+@keyframes animate2 {
+    0% {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateX(calc(var(--j) * -40px));
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateX(0);
+    }
+}
+
+// ----------------
+// 4. Animations de chargement
+// ----------------
+
+// Effet shimmer pour les états de chargement
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(200%) rotate(45deg);
+    }
+}
+
+// ----------------
+// 5. Animations UI et interactions
+// ----------------
+
+// Rebond de patte pour l'indicateur de scroll
 @keyframes pawBounce {
     0%, 100% {
         transform: translateY(0);
     }
     50% {
         transform: translateY(-15px);
+    }
+}
+
+// ----------------
+// Composant : Scroll indicator
+// ----------------
+
+.scroll-indicator {
+    text-align: center;
+    padding: 2rem 0;
+    cursor: pointer;
+
+    i {
+        font-size: 3rem;
+        color: v.$color-accent;
+        animation: pawBounce 2s infinite;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
     }
 }

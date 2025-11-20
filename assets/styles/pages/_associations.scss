@@ -2,778 +2,778 @@
 
 // Association pages styles
 .associations {
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem 10rem;
-  }
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-
-    .title {
-      color: $color-dark;
-      font-family: $font-family-bold;
-      font-size: 2.5rem;
-      margin: 0;
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem 10rem;
     }
 
-    .create-btn {
-      background-color: $color-secondary;
-      color: $color-background;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      border-radius: 0.5rem;
-      font-family: $font-family-primary;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
 
-      &:hover {
-        background-color: $color-accent;
-        color: $color-background;
-      }
-
-      i {
-        margin-right: 0.5rem;
-      }
-    }
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .card {
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    .image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .body {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-
-      .title {
-        color: $color-dark;
-        font-family: $font-family-bold;
-        font-size: 1.25rem;
-        margin: 0 0 1rem 0;
-      }
-
-      .description {
-        color: #666;
-        font-family: $font-family-primary;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-        flex-grow: 1;
-      }
-
-      .info {
-        margin-bottom: 1rem;
-
-        .location {
-          color: #888;
-          font-size: 0.9rem;
-          margin-bottom: 0.5rem;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
+        .title {
+            color: $color-dark;
+            font-family: $font-family-bold;
+            font-size: 2.5rem;
+            margin: 0;
         }
 
-        .stats {
-          display: flex;
-          justify-content: space-between;
-          font-size: 0.9rem;
-          color: #888;
-          margin-bottom: 1rem;
+        .create-btn {
+            background-color: $color-secondary;
+            color: $color-background;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-family: $font-family-primary;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
 
-          span {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-          }
+            &:hover {
+                background-color: $color-accent;
+                color: $color-background;
+            }
+
+            i {
+                margin-right: 0.5rem;
+            }
         }
-      }
+    }
 
-      .btn {
-        background-color: $color-primary;
-        color: $color-dark;
-        padding: 0.75rem 1rem;
-        text-decoration: none;
-        text-align: center;
-        border-radius: 0.5rem;
-        font-family: $font-family-primary;
-        font-weight: 600;
-        transition: background-color 0.3s ease;
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .card {
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
 
         &:hover {
-          background-color: #e7c547;
-          color: $color-dark;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
-      }
-    }
-  }
 
-  .empty-state {
-    background-color: rgba($color-primary, 0.3);
-    border: 2px solid $color-primary;
-    border-radius: 1rem;
-    padding: 3rem 2rem;
-    text-align: center;
-    color: $color-dark;
+        .image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-    i {
-      font-size: 3rem;
-      color: $color-secondary;
-      margin-bottom: 1rem;
+        .body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+
+            .title {
+                color: $color-dark;
+                font-family: $font-family-bold;
+                font-size: 1.25rem;
+                margin: 0 0 1rem 0;
+            }
+
+            .description {
+                color: #666;
+                font-family: $font-family-primary;
+                line-height: 1.6;
+                margin-bottom: 1rem;
+                flex-grow: 1;
+            }
+
+            .info {
+                margin-bottom: 1rem;
+
+                .location {
+                    color: #888;
+                    font-size: 0.9rem;
+                    margin-bottom: 0.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+
+                .stats {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 0.9rem;
+                    color: #888;
+                    margin-bottom: 1rem;
+
+                    span {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.25rem;
+                    }
+                }
+            }
+
+            .btn {
+                background-color: $color-primary;
+                color: $color-dark;
+                padding: 0.75rem 1rem;
+                text-decoration: none;
+                text-align: center;
+                border-radius: 0.5rem;
+                font-family: $font-family-primary;
+                font-weight: 600;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: #e7c547;
+                    color: $color-dark;
+                }
+            }
+        }
     }
 
-    p {
-      font-family: $font-family-primary;
-      font-size: 1.1rem;
-      margin: 0;
+    .empty-state {
+        background-color: rgba($color-primary, 0.3);
+        border: 2px solid $color-primary;
+        border-radius: 1rem;
+        padding: 3rem 2rem;
+        text-align: center;
+        color: $color-dark;
+
+        i {
+            font-size: 3rem;
+            color: $color-secondary;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-family: $font-family-primary;
+            font-size: 1.1rem;
+            margin: 0;
+        }
     }
-  }
 }
 
 // Association detail page
 .association-detail {
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem 10rem;
-  }
-
-  .header-card {
-    background: $color-background;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    margin-bottom: 2rem;
-
-    .title {
-      color: $color-dark;
-      font-family: $font-family-bold;
-      font-size: 2.5rem;
-      margin: 0 0 1rem 0;
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem 10rem;
     }
 
-    .location, 
-    .email {
-      color: #666;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .header-card {
+        background: $color-background;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
 
-      a {
-        color: $color-secondary;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-
-  .content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    align-items: start;
-  }
-
-  .role-badge {
-    background-color: $color-primary;
-    color: $color-dark;
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 1rem 0.5rem 1rem 0;
-  }
-
-  .actions {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-
-    .btn {
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      border: none;
-      cursor: pointer;
-
-      &.join {
-        background-color: $color-secondary;
-        color: $color-background;
-
-        &:hover {
-          background-color: $color-accent;
-          color: $color-background;
-        }
-      }
-
-      &.manage {
-        background-color: #ffc107;
-        color: #000;
-
-        &:hover {
-          background-color: #e0a800;
-        }
-      }
-
-      &.edit {
-        background-color: transparent;
-        color: $color-secondary;
-        border: 2px solid $color-secondary;
-
-        &:hover {
-          background-color: $color-secondary;
-          color: $color-background;
-        }
-      }
-    }
-  }
-
-  .image {
-    width: 100%;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .description-card, 
-  .stats-row, 
-  .animals-card {
-    background: $color-background;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    margin-bottom: 2rem;
-
-    .card-title {
-      color: $color-dark;
-      font-family: $font-family-bold;
-      font-size: 1.5rem;
-      margin: 0 0 1rem 0;
-    }
-  }
-
-  .description {
-    color: #666;
-    font-family: $font-family-primary;
-    line-height: 1.6;
-    white-space: pre-line;
-  }
-
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-
-    .stat-card {
-      background: $color-background;
-      border-radius: 1rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      text-align: center;
-
-      .number {
-        font-size: 3rem;
-        font-family: $font-family-bold;
-        margin: 0;
-
-        &.primary {
-          color: $color-secondary;
+        .title {
+            color: $color-dark;
+            font-family: $font-family-bold;
+            font-size: 2.5rem;
+            margin: 0 0 1rem 0;
         }
 
-        &.success {
-          color: #28a745;
+        .location, 
+        .email {
+            color: #666;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            a {
+                color: $color-secondary;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
-      }
-
-      .label {
-        color: #666;
-        font-family: $font-family-primary;
-        margin: 0.5rem 0 0 0;
-      }
-    }
-  }
-
-  .animals-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-
-    .animal-card {
-      background: $color-background;
-      border-radius: 0.5rem;
-      overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-
-      &:hover {
-        transform: translateY(-3px);
-      }
-
-      .image {
-        width: 100%;
-        height: 120px;
-        object-fit: cover;
-      }
-
-      .info {
-        padding: 0.75rem;
-
-        .name {
-          font-family: $font-family-bold;
-          color: $color-dark;
-          margin: 0 0 0.25rem 0;
-          font-size: 1rem;
-        }
-
-        .species {
-          color: #666;
-          font-size: 0.85rem;
-          margin: 0;
-        }
-      }
-    }
-  }
-
-  .view-all-btn {
-    background-color: transparent;
-    color: $color-secondary;
-    border: 2px solid $color-secondary;
-    padding: 0.75rem 2rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: inline-block;
-
-    &:hover {
-      background-color: $color-secondary;
-      color: $color-background;
-    }
-  }
-
-  .no-animals {
-    background-color: rgba($color-primary, 0.3);
-    border: 2px solid $color-primary;
-    border-radius: 1rem;
-    padding: 2rem;
-    text-align: center;
-    color: $color-dark;
-
-    i {
-      font-size: 2rem;
-      color: $color-secondary;
-      margin-bottom: 1rem;
     }
 
-    p {
-      font-family: $font-family-primary;
-      margin: 0;
+    .content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        align-items: start;
     }
-  }
-}
 
-// Association forms (new/edit)
-.association-form {
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem 5rem;
-  }
-
-  .card {
-    background: $color-background;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-
-    .header {
-      background-color: $color-primary;
-      padding: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .title {
+    .role-badge {
+        background-color: $color-primary;
         color: $color-dark;
-        font-family: $font-family-bold;
-        font-size: 1.5rem;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-
-        i {
-          color: $color-secondary;
-        }
-      }
-
-      .back-btn {
-        background-color: transparent;
-        color: $color-dark;
-        border: 2px solid $color-dark;
         padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        text-decoration: none;
+        border-radius: 2rem;
+        font-size: 0.9rem;
         font-weight: 600;
-        transition: all 0.3s ease;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-
-        &:hover {
-          background-color: $color-dark;
-          color: white;
-        }
-      }
-    }
-  }
-
-  .body {
-    padding: 2rem;
-
-    .row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .field {
-      margin-bottom: 1.5rem;
+        margin: 1rem 0.5rem 1rem 0;
     }
 
     .actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-top: 2rem;
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
 
-      .btn {
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+
+            &.join {
+                background-color: $color-secondary;
+                color: $color-background;
+
+                &:hover {
+                    background-color: $color-accent;
+                    color: $color-background;
+                }
+            }
+
+            &.manage {
+                background-color: #ffc107;
+                color: #000;
+
+                &:hover {
+                    background-color: #e0a800;
+                }
+            }
+
+            &.edit {
+                background-color: transparent;
+                color: $color-secondary;
+                border: 2px solid $color-secondary;
+
+                &:hover {
+                    background-color: $color-secondary;
+                    color: $color-background;
+                }
+            }
+        }
+    }
+
+    .image {
+        width: 100%;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .description-card, 
+    .stats-row, 
+    .animals-card {
+        background: $color-background;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
+
+        .card-title {
+            color: $color-dark;
+            font-family: $font-family-bold;
+            font-size: 1.5rem;
+            margin: 0 0 1rem 0;
+        }
+    }
+
+    .description {
+        color: #666;
+        font-family: $font-family-primary;
+        line-height: 1.6;
+        white-space: pre-line;
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+
+        .stat-card {
+            background: $color-background;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+
+            .number {
+                font-size: 3rem;
+                font-family: $font-family-bold;
+                margin: 0;
+
+                &.primary {
+                    color: $color-secondary;
+                }
+
+                &.success {
+                    color: #28a745;
+                }
+            }
+
+            .label {
+                color: #666;
+                font-family: $font-family-primary;
+                margin: 0.5rem 0 0 0;
+            }
+        }
+    }
+
+    .animals-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+
+        .animal-card {
+            background: $color-background;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: translateY(-3px);
+            }
+
+            .image {
+                width: 100%;
+                height: 120px;
+                object-fit: cover;
+            }
+
+            .info {
+                padding: 0.75rem;
+
+                .name {
+                    font-family: $font-family-bold;
+                    color: $color-dark;
+                    margin: 0 0 0.25rem 0;
+                    font-size: 1rem;
+                }
+
+                .species {
+                    color: #666;
+                    font-size: 0.85rem;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    .view-all-btn {
+        background-color: transparent;
+        color: $color-secondary;
+        border: 2px solid $color-secondary;
         padding: 0.75rem 2rem;
         border-radius: 0.5rem;
         text-decoration: none;
         font-weight: 600;
         transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        border: none;
-        cursor: pointer;
-        font-family: $font-family-primary;
+        display: inline-block;
 
-        &.cancel {
-          background-color: #6c757d;
-          color: $color-background;
-
-          &:hover {
-            background-color: #5a6268;
+        &:hover {
+            background-color: $color-secondary;
             color: $color-background;
-          }
         }
-
-        &.submit {
-          background-color: $color-secondary;
-          color: $color-background;
-
-          &:hover {
-            background-color: $color-accent;
-            color: $color-background;
-          }
-        }
-
-        &.edit {
-          background-color: #ffc107;
-          color: #000;
-
-          &:hover {
-            background-color: #e0a800;
-          }
-        }
-      }
     }
 
-    .note {
-      background-color: rgba($color-primary, 0.3);
-      border-left: 4px solid $color-secondary;
-      border-radius: 0.5rem;
-      padding: 1rem;
-      margin-top: 2rem;
-      color: $color-dark;
+    .no-animals {
+        background-color: rgba($color-primary, 0.3);
+        border: 2px solid $color-primary;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        color: $color-dark;
 
-      i {
-        color: $color-secondary;
-        margin-right: 0.5rem;
-      }
+        i {
+            font-size: 2rem;
+            color: $color-secondary;
+            margin-bottom: 1rem;
+        }
 
-      strong {
-        font-family: $font-family-bold;
-      }
+        p {
+            font-family: $font-family-primary;
+            margin: 0;
+        }
+    }
+}
 
-      p {
-        margin: 0;
-        font-family: $font-family-primary;
-      }
+// Association forms (new/edit)
+.association-form {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem 5rem;
     }
 
-    .current-image {
-      margin-top: 1rem;
+    .card {
+        background: $color-background;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
 
-      img {
-        border-radius: 0.5rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
+        .header {
+            background-color: $color-primary;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-      small {
-        color: #666;
-        font-style: italic;
-      }
+            .title {
+                color: $color-dark;
+                font-family: $font-family-bold;
+                font-size: 1.5rem;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                i {
+                    color: $color-secondary;
+                }
+            }
+
+            .back-btn {
+                background-color: transparent;
+                color: $color-dark;
+                border: 2px solid $color-dark;
+                padding: 0.5rem 1rem;
+                border-radius: 0.5rem;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                &:hover {
+                    background-color: $color-dark;
+                    color: white;
+                }
+            }
+        }
     }
-  }
+
+    .body {
+        padding: 2rem;
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .field {
+            margin-bottom: 1.5rem;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+
+            .btn {
+                padding: 0.75rem 2rem;
+                border-radius: 0.5rem;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                border: none;
+                cursor: pointer;
+                font-family: $font-family-primary;
+
+                &.cancel {
+                    background-color: #6c757d;
+                    color: $color-background;
+
+                    &:hover {
+                        background-color: #5a6268;
+                        color: $color-background;
+                    }
+                }
+
+                &.submit {
+                    background-color: $color-secondary;
+                    color: $color-background;
+
+                    &:hover {
+                        background-color: $color-accent;
+                        color: $color-background;
+                    }
+                }
+
+                &.edit {
+                    background-color: #ffc107;
+                    color: #000;
+
+                    &:hover {
+                        background-color: #e0a800;
+                    }
+                }
+            }
+        }
+
+        .note {
+            background-color: rgba($color-primary, 0.3);
+            border-left: 4px solid $color-secondary;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 2rem;
+            color: $color-dark;
+
+            i {
+                color: $color-secondary;
+                margin-right: 0.5rem;
+            }
+
+            strong {
+                font-family: $font-family-bold;
+            }
+
+            p {
+                margin: 0;
+                font-family: $font-family-primary;
+            }
+        }
+
+        .current-image {
+            margin-top: 1rem;
+
+            img {
+                border-radius: 0.5rem;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            small {
+                color: #666;
+                font-style: italic;
+            }
+        }
+    }
 }
 
 // Association management page
 .association-manage {
-  .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 1rem 5rem;
-  }
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-
-    .title {
-      color: $color-dark;
-      font-family: $font-family-bold;
-      font-size: 2rem;
-      margin: 0;
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem 1rem 5rem;
     }
 
-    .back-btn {
-      background-color: transparent;
-      color: $color-dark;
-      border: 2px solid $color-dark;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
 
-      &:hover {
-        background-color: $color-dark;
-        color: white;
-      }
+        .title {
+            color: $color-dark;
+            font-family: $font-family-bold;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .back-btn {
+            background-color: transparent;
+            color: $color-dark;
+            border: 2px solid $color-dark;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            &:hover {
+                background-color: $color-dark;
+                color: white;
+            }
+        }
     }
-  }
 
-  .card {
-    background: $color-background;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+    .card {
+        background: $color-background;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
 
-    .card-header {
-      background-color: $color-primary;
-      padding: 1.5rem 2rem;
-      border-radius: 1rem 1rem 0 0;
+        .card-header {
+            background-color: $color-primary;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem 1rem 0 0;
 
-      h5 {
-        color: $color-dark;
-        font-family: $font-family-bold;
-        font-size: 1.25rem;
-        margin: 0;
+            h5 {
+                color: $color-dark;
+                font-family: $font-family-bold;
+                font-size: 1.25rem;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                i {
+                    &.text-warning {
+                        color: #ffc107;
+                    }
+                    &.text-success {
+                        color: #28a745;
+                    }
+                }
+            }
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: $font-family-primary;
+
+        th {
+            background-color: $color-background;
+            color: $color-dark;
+            font-family: $font-family-bold;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid $color-primary;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background-color: rgba($color-primary, 0.1);
+        }
+    }
+
+    .badge {
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &.manager {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        &.member {
+            background-color: $color-secondary;
+            color: white;
+        }
+    }
+
+    .btn {
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.25rem;
+        border: none;
+        cursor: pointer;
+        font-size: 0.85rem;
+        margin: 0 0.25rem;
+        transition: all 0.3s ease;
+
+        &.success {
+            background-color: #28a745;
+            color: $color-background;
+
+            &:hover {
+                background-color: #218838;
+            }
+        }
+
+        &.danger {
+            background-color: #dc3545;
+            color: $color-background;
+
+            &:hover {
+                background-color: #c82333;
+            }
+        }
+
+        &.warning {
+            background-color: #ffc107;
+            color: #000;
+
+            &:hover {
+                background-color: #e0a800;
+            }
+        }
+
+        &.secondary {
+            background-color: #6c757d;
+            color: $color-background;
+
+            &:hover {
+                background-color: #5a6268;
+            }
+        }
+    }
+
+    .alert {
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
 
-        i {
-          &.text-warning {
-            color: #ffc107;
-          }
-          &.text-success {
-            color: #28a745;
-          }
+        &.info {
+            background-color: rgba($color-primary, 0.3);
+            border-left: 4px solid $color-secondary;
+            color: $color-dark;
         }
-      }
+
+        &.warning {
+            background-color: rgba(#ffc107, 0.2);
+            border-left: 4px solid #ffc107;
+            color: #000;
+        }
+
+        i {
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin: 0;
+            font-family: $font-family-primary;
+        }
     }
 
-    .card-body {
-      padding: 2rem;
+    .table-responsive {
+        overflow-x: auto;
+        margin: -1rem;
+        padding: 1rem;
     }
-  }
-
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: $font-family-primary;
-
-    th {
-      background-color: $color-background;
-      color: $color-dark;
-      font-family: $font-family-bold;
-      padding: 1rem;
-      text-align: left;
-      border-bottom: 2px solid $color-primary;
-    }
-
-    td {
-      padding: 1rem;
-      border-bottom: 1px solid #eee;
-      vertical-align: middle;
-    }
-
-    tr:hover {
-      background-color: rgba($color-primary, 0.1);
-    }
-  }
-
-  .badge {
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    &.manager {
-      background-color: #ffc107;
-      color: #000;
-    }
-
-    &.member {
-      background-color: $color-secondary;
-      color: white;
-    }
-  }
-
-  .btn {
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
-    border: none;
-    cursor: pointer;
-    font-size: 0.85rem;
-    margin: 0 0.25rem;
-    transition: all 0.3s ease;
-
-    &.success {
-      background-color: #28a745;
-      color: $color-background;
-
-      &:hover {
-        background-color: #218838;
-      }
-    }
-
-    &.danger {
-      background-color: #dc3545;
-      color: $color-background;
-
-      &:hover {
-        background-color: #c82333;
-      }
-    }
-
-    &.warning {
-      background-color: #ffc107;
-      color: #000;
-
-      &:hover {
-        background-color: #e0a800;
-      }
-    }
-
-    &.secondary {
-      background-color: #6c757d;
-      color: $color-background;
-
-      &:hover {
-        background-color: #5a6268;
-      }
-    }
-  }
-
-  .alert {
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    &.info {
-      background-color: rgba($color-primary, 0.3);
-      border-left: 4px solid $color-secondary;
-      color: $color-dark;
-    }
-
-    &.warning {
-      background-color: rgba(#ffc107, 0.2);
-      border-left: 4px solid #ffc107;
-      color: #000;
-    }
-
-    i {
-      font-size: 1.25rem;
-    }
-
-    p {
-      margin: 0;
-      font-family: $font-family-primary;
-    }
-  }
-
-  .table-responsive {
-    overflow-x: auto;
-    margin: -1rem;
-    padding: 1rem;
-  }
 }

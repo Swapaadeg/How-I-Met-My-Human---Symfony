@@ -1,0 +1,443 @@
+@use "../abstracts/variables" as v;
+
+.profile-page {
+    padding: 2rem 0 12rem;
+    background: v.$color-background;
+    min-height: calc(100vh - 200px);
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .profile-header {
+        background: v.$color-background;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+
+            .profile-avatar {
+                flex-shrink: 0;
+
+                img {
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 4px solid v.$color-primary;
+                }
+
+                .avatar-placeholder {
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    background: v.$color-secondary;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: v.$color-primary;
+                    font-size: 3rem;
+                    border: 4px solid v.$color-primary;
+                }
+            }
+
+            .profile-details {
+                flex: 1;
+
+                h1 {
+                    font-size: 2.5rem;
+                    color: v.$color-dark;
+                    margin-bottom: 0.5rem;
+                    font-family: v.$font-family-bold;
+                }
+
+                .email {
+                    font-size: 1.1rem;
+                    color: v.$color-accent;
+                    margin-bottom: 1.5rem;
+                }
+
+                .profile-actions {
+                    .btn {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 50%;
+                        gap: 0.4rem;
+                        padding: 0.5rem 1rem;
+                        background: v.$color-secondary;
+                        color: v.$color-primary;
+                        text-decoration: none;
+                        border-radius: 18px;
+                        font-weight: 500;
+                        font-size: 0.85rem;
+                        transition: all 0.3s ease;
+                        min-height: 36px;
+
+                        i {
+                            font-size: 0.85rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        &:hover {
+                            background: v.$color-accent;
+                            transform: translateY(-2px);
+                            box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.4);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .profile-content {
+        .favorites-section {
+            background: v.$color-background;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+            h2 {
+                font-size: 2rem;
+                color: v.$color-dark;
+                margin-bottom: 2rem;
+                font-family: v.$font-family-bold;
+                text-align: center;
+            }
+
+            .no-favorites {
+                text-align: center;
+                padding: 3rem;
+                color: v.$color-accent;
+
+                i {
+                    font-size: 4rem;
+                    margin-bottom: 1rem;
+                    opacity: 0.5;
+                }
+
+                p {
+                    font-size: 1.2rem;
+                    margin-bottom: 2rem;
+                }
+
+                .btn {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 50%;
+                    gap: 0.4rem;
+                    padding: 0.6rem 1.2rem;
+                    background: v.$color-secondary;
+                    color: v.$color-primary;
+                    text-decoration: none;
+                    border-radius: 18px;
+                    font-weight: 500;
+                    font-size: 0.85rem;
+                    transition: all 0.3s ease;
+                    min-height: 36px;
+
+                    i {
+                        font-size: 0.85rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    &:hover {
+                        background: v.$color-accent;
+                        transform: translateY(-2px);
+                    }
+                }
+            }
+
+            .favorites-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 2rem;
+
+                .favorite-card {
+                    background: v.$color-background;
+                    border-radius: 15px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s ease;
+
+                    &:hover {
+                        transform: translateY(-5px);
+                    }
+
+                    .card-image {
+                        position: relative;
+                        height: 200px;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+
+                        .image-placeholder {
+                            width: 100%;
+                            height: 100%;
+                            background: v.$color-primary;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: v.$color-secondary;
+                            font-size: 3rem;
+                        }
+
+                        .favorite-btn {
+                            position: absolute;
+                            top: 1rem;
+                            right: 1rem;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            background: rgba(255, 255, 255, 0.9);
+                            border: none;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: all 0.3s ease;
+                            color: #e74c3c;
+
+                            &:hover {
+                                transform: scale(1.1);
+                                background: v.$color-background;
+                            }
+
+                            &.favorited {
+                                color: #e74c3c;
+                            }
+                        }
+                    }
+
+                    .card-content {
+                        padding: 1.5rem;
+
+                        h3 {
+                            font-size: 1.5rem;
+                            color: v.$color-dark;
+                            margin-bottom: 0.5rem;
+                            font-family: v.$font-family-bold;
+                        }
+
+                        .species {
+                            color: v.$color-accent;
+                            font-weight: 500;
+                            margin-bottom: 0.5rem;
+                        }
+
+                        .age {
+                            color: v.$color-dark;
+                            opacity: 0.7;
+                            margin-bottom: 1rem;
+                        }
+
+                        .card-actions {
+                            .btn {
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 0.4rem;
+                                padding: 0.4rem 0.8rem;
+                                background: v.$color-secondary;
+                                color: v.$color-primary;
+                                text-decoration: none;
+                                border-radius: 16px;
+                                font-size: 0.8rem;
+                                font-weight: 500;
+                                transition: all 0.3s ease;
+                                min-height: 32px;
+
+                                i {
+                                    font-size: 0.8rem;
+                                    flex-shrink: 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+
+                                &:hover {
+                                    background: v.$color-accent;
+                                    transform: translateY(-2px);
+                                }
+                            }
+
+                            &.btn-outline {
+                                background: transparent;
+                                border: 2px solid v.$color-secondary;
+                                color: v.$color-secondary;
+
+                                &:hover {
+                                    background: v.$color-secondary;
+                                    color: v.$color-primary;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.profile-edit-page {
+    padding: 2rem 0 12rem;
+    background: v.$color-background;
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .edit-form-container {
+        background: v.$color-background;
+        border-radius: 15px;
+        padding: 3rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+        h1 {
+            text-align: center;
+            color: v.$color-dark;
+            margin-bottom: 2rem;
+            font-family: v.$font-family-bold;
+        }
+
+        .profile-form {
+            .form-group {
+                margin-bottom: 2rem;
+
+                label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    color: v.$color-dark;
+                    font-weight: 500;
+                }
+
+                .form-control {
+                    width: 100%;
+                    padding: 0.8rem;
+                    border: 2px solid v.$color-background;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: border-color 0.3s ease;
+
+                    &:focus {
+                        outline: none;
+                        border-color: v.$color-secondary;
+                    }
+
+                    // Styles spécifiques pour VichUploaderBundle
+                    &[type="file"] {
+                        padding: 0.5rem;
+                        border-style: dashed;
+                        background: rgba(v.$color-primary, 0.1);
+
+                        &:hover {
+                            border-color: v.$color-secondary;
+                            background: rgba(v.$color-primary, 0.2);
+                        }
+                    }
+                }
+
+                // Styles pour la preview d'image de VichUploaderBundle
+                .vich-image {
+                    margin-top: 1rem;
+
+                    img {
+                        max-width: 200px;
+                        max-height: 200px;
+                        border-radius: 8px;
+                        border: 2px solid v.$color-primary;
+                        object-fit: cover;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .vich-image-delete {
+                        display: inline-block;
+                        margin-top: 0.5rem;
+                        padding: 0.5rem 1rem;
+                        background: #e74c3c;
+                        color: v.$color-background;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                        transition: background-color 0.3s ease;
+
+                        &:hover {
+                            background: #c0392b;
+                        }
+                    }
+                }
+            }
+
+            .form-actions {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                margin-top: 2rem;
+
+                .btn {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.4rem;
+                    padding: 0.6rem 1.5rem;
+                    border: none;
+                    border-radius: 20px;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    min-height: 36px;
+
+                    i {
+                        font-size: 0.9rem;
+                        flex-shrink: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    &.btn-primary {
+                        background: v.$color-secondary;
+                        color: v.$color-primary;
+
+                        &:hover {
+                            background: v.$color-accent;
+                            transform: translateY(-2px);
+                        }
+                    }
+
+                    &.btn-outline {
+                        background: transparent;
+                        border: 2px solid v.$color-secondary;
+                        color: v.$color-secondary;
+                        text-decoration: none;
+
+                        &:hover {
+                            background: v.$color-secondary;
+                            color: v.$color-primary;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
