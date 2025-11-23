@@ -152,6 +152,78 @@
     }
 }
 
+// Animation de glissement vers le haut
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// ----------------
+// 7. Animations du menu burger
+// ----------------
+
+// Animation de menu burger (ligne du haut)
+@keyframes burgerTop {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(8px) rotate(45deg);
+    }
+}
+
+// Animation de menu burger (ligne du milieu)
+@keyframes burgerMiddle {
+    0% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+}
+
+// Animation de menu burger (ligne du bas)
+@keyframes burgerBottom {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+// Animation du menu mobile (glissement)
+@keyframes slideInMenu {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+// Animation de l'overlay du menu
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(5px);
+    }
+}
+
 // ----------------
 // Composant : Scroll indicator
 // ----------------

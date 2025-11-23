@@ -33,10 +33,11 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: login
-                check_path: login
+                login_path: auth
+                check_path: auth
                 enable_csrf: true
                 default_target_path: home
+                failure_path: auth
             logout:
                 path: logout
                 # where to redirect after logout

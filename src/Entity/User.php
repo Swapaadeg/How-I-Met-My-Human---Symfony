@@ -126,6 +126,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
+        // Add roles based on association membership
+        foreach ($this->associationMembers as $membership) {
+            if ($membership->isApproved()) {
+                $roles[] = 'ROLE_ASSOCIATION_MEMBER';
+
+                if ($membership->isManager()) {
+                    $roles[] = 'ROLE_ASSOCIATION_MANAGER';
+                }
+            }
+        }
+
         return array_unique($roles);
     }
 

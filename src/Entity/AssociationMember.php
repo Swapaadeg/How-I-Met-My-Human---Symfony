@@ -44,6 +44,9 @@ class AssociationMember
     #[ORM\ManyToOne]
     private ?User $approved_by = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $message = null;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -163,5 +166,17 @@ class AssociationMember
     public function reject(): void
     {
         $this->status = self::STATUS_REJECTED;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(?string $message): static
+    {
+        $this->message = $message;
+
+        return $this;
     }
 }

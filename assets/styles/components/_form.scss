@@ -1,0 +1,88 @@
+@use "../abstracts/variables" as v;
+
+// Styles globaux des formulaires
+form {
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: v.$color-dark;
+        font-weight: 500;
+        font-family: v.$font-family-primary;
+        font-size: 0.95rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="tel"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: v.$font-family-primary;
+        color: v.$color-dark;
+        background-color: v.$color-background;
+        transition: all 0.3s ease;
+
+        &:focus {
+            outline: none;
+            border-color: v.$color-secondary;
+            box-shadow: 0 0 0 3px rgba(v.$color-secondary, 0.1);
+        }
+
+        &::placeholder {
+            color: #999;
+        }
+
+        &.is-invalid,
+        &:invalid:not(:placeholder-shown) {
+            border-color: #e0e0e0;
+        }
+    }
+
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    input[type="file"] {
+        padding: 0.5rem;
+        border: 2px dashed #e0e0e0;
+        border-radius: 8px;
+        background: rgba(v.$color-primary, 0.05);
+        cursor: pointer;
+        font-family: v.$font-family-primary;
+        transition: all 0.3s ease;
+
+        &:hover {
+            border-color: v.$color-secondary;
+            background: rgba(v.$color-primary, 0.1);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: v.$color-secondary;
+        }
+    }
+
+    .invalid-feedback,
+    .form-error-message {
+        display: block;
+        margin-top: 0.5rem;
+        color: #dc3545;
+        font-size: 0.875rem;
+        font-family: v.$font-family-primary;
+    }
+
+    .form-help {
+        display: block;
+        margin-top: 0.5rem;
+        color: #6c757d;
+        font-size: 0.875rem;
+        font-style: italic;
+    }
+}

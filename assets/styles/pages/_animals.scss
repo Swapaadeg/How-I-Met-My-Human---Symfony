@@ -772,3 +772,271 @@
     }
 }
 
+// Page d'ajout d'animal
+.add-animal-page {
+    padding: 2rem 0 12rem;
+    background: linear-gradient(135deg, rgba(v.$color-primary, 0.1), rgba(v.$color-secondary, 0.05));
+    min-height: calc(100vh - 200px);
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+
+        h1 {
+            font-size: 2.5rem;
+            font-family: v.$font-family-bold;
+            color: v.$color-dark;
+            margin-bottom: 0.5rem;
+
+            i {
+                color: v.$color-secondary;
+                margin-right: 0.5rem;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: v.$color-accent;
+            font-style: italic;
+        }
+    }
+
+    .form-container {
+        background: v.$color-background;
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .animal-form {
+        .form-grid {
+            display: grid;
+            gap: 2.5rem;
+        }
+
+        .form-section {
+            background: linear-gradient(135deg, rgba(v.$color-secondary, 0.03), rgba(v.$color-accent, 0.03));
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid rgba(v.$color-secondary, 0.1);
+
+            &.full-width {
+                grid-column: 1 / -1;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                font-family: v.$font-family-bold;
+                color: v.$color-dark;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                i {
+                    color: v.$color-secondary;
+                }
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+
+            label {
+                display: block;
+                margin-bottom: 0.5rem;
+                color: v.$color-dark;
+                font-weight: 600;
+                font-size: 1rem;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            select,
+            textarea {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 2px solid rgba(v.$color-secondary, 0.2);
+                border-radius: 10px;
+                font-size: 1rem;
+                font-family: v.$font-family-primary;
+                transition: all 0.3s ease;
+                background: v.$color-background;
+
+                &:focus {
+                    outline: none;
+                    border-color: v.$color-secondary;
+                    box-shadow: 0 0 0 3px rgba(v.$color-secondary, 0.1);
+                }
+            }
+
+            textarea {
+                resize: vertical;
+                min-height: 120px;
+            }
+        }
+
+        .file-upload-wrapper {
+            border: 2px dashed rgba(v.$color-secondary, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(v.$color-primary, 0.05);
+            transition: all 0.3s ease;
+
+            &:hover {
+                border-color: v.$color-secondary;
+                background: rgba(v.$color-primary, 0.08);
+            }
+
+            input[type="file"] {
+                margin-bottom: 1rem;
+            }
+
+            .file-upload-hint {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                color: v.$color-accent;
+                font-size: 0.9rem;
+
+                i {
+                    font-size: 2rem;
+                    color: v.$color-secondary;
+                    margin-bottom: 0.5rem;
+                }
+            }
+        }
+
+        .tags-wrapper {
+            // Conteneur principal avec grille
+            > div {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 0.875rem;
+            }
+
+            // Styling des labels comme des tags sélectionnables
+            label {
+                display: inline-flex !important;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+                padding: 0.75rem 1.25rem;
+                cursor: pointer;
+                font-weight: 500;
+                color: v.$color-dark;
+                font-size: 0.9375rem;
+                background: white;
+                border: 2px solid #e5e7eb;
+                border-radius: 25px;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+                position: relative;
+                text-align: center;
+
+                &:hover {
+                    border-color: v.$color-secondary;
+                    background: rgba(v.$color-secondary, 0.05);
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(v.$color-secondary, 0.15);
+                }
+
+                // État checked - Tag sélectionné
+                &:has(input[type="checkbox"]:checked) {
+                    background: linear-gradient(135deg, v.$color-secondary, #a98568);
+                    border-color: v.$color-secondary;
+                    color: white;
+                    box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.3);
+                    transform: translateY(-1px);
+                    font-weight: 600;
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 16px rgba(v.$color-secondary, 0.4);
+                    }
+                }
+
+                // Cacher complètement la checkbox
+                input[type="checkbox"] {
+                    position: absolute;
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                    margin: 0 !important;
+                    pointer-events: none;
+                }
+
+                // Le texte du label (span généré par Symfony)
+                span {
+                    user-select: none;
+                }
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(v.$color-secondary, 0.1);
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                padding: 1rem 2.5rem;
+                border-radius: 25px;
+                font-weight: 600;
+                font-size: 1rem;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+                font-family: v.$font-family-primary;
+
+                i {
+                    font-size: 1rem;
+                }
+
+                &.btn-secondary {
+                    background: transparent;
+                    color: v.$color-accent;
+                    border: 2px solid v.$color-accent;
+
+                    &:hover {
+                        background: v.$color-accent;
+                        color: v.$color-background;
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 15px rgba(v.$color-accent, 0.3);
+                    }
+                }
+
+                &.btn-primary {
+                    background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                    color: v.$color-background;
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.4);
+                    }
+                }
+            }
+        }
+    }
+}

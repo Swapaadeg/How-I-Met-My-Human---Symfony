@@ -4,11 +4,11 @@
 
 {% block body %}
     {# MODALE FLASH #}
-    <h2 class="mb-4">Réinitialisez votre mot de passe</h2>
     {% for label, messages in app.flashes %}
         {% if label == 'success' %}
             <div class="modale-flash" id="modale-flash">
                 <div class="modale-content">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: #28a745; margin-bottom: 1rem;"></i>
                     {% for message in messages %}
                         <p>{{ message }}</p>
                     {% endfor %}
@@ -17,25 +17,36 @@
             </div>
         {% endif %}
     {% endfor %}
-<section class="bouteille-form-container">
 
+    <section class="bouteille-form-container">
+        <h2>Réinitialisez votre mot de passe</h2>
 
-    {{ form_start(resetForm, {'attr': {'class': 'form-grid'}}) }}
-        <div class="form-group full-width">
-            {{ form_label(resetForm.plainPassword.first, null, {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'form-input'}}) }}
-            {{ form_errors(resetForm.plainPassword.first) }}
+        {{ form_start(resetForm, {'attr': {'class': 'form-grid'}}) }}
+            <div class="form-group full-width">
+                {{ form_label(resetForm.plainPassword.first, 'Nouveau mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'form-input', 'placeholder': 'Entrez votre nouveau mot de passe'}}) }}
+                {{ form_errors(resetForm.plainPassword.first) }}
+            </div>
+
+            <div class="form-group full-width">
+                {{ form_label(resetForm.plainPassword.second, 'Confirmer le mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'form-input', 'placeholder': 'Confirmez votre nouveau mot de passe'}}) }}
+                {{ form_errors(resetForm.plainPassword.second) }}
+            </div>
+
+            <div class="form-actions full-width">
+                <button type="submit" class="btn">Mettre à jour le mot de passe</button>
+            </div>
+        {{ form_end(resetForm) }}
+
+        <div class="info-text">
+            <a href="{{ path('login') }}"><i class="fas fa-arrow-left"></i> Retour à la connexion</a>
         </div>
+    </section>
 
-        <div class="form-group full-width">
-            {{ form_label(resetForm.plainPassword.second, null, {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'form-input'}}) }}
-            {{ form_errors(resetForm.plainPassword.second) }}
-        </div>
-
-        <div class="form-actions full-width">
-            <button type="submit" class="btn">Mettre à jour le mot de passe</button>
-        </div>
-    {{ form_end(resetForm) }}
-</section>
+    <script>
+        function fermerModale() {
+            document.getElementById('modale-flash').style.display = 'none';
+        }
+    </script>
 {% endblock %}

@@ -31,14 +31,17 @@
                 
                 {% if app.user %}
                     <div class="actions">
-                        {% if can_join %}
-                            <form method="post" action="{{ path('associations_join', {id: association.id}) }}">
-                                <button type="submit" class="btn join">
-                                    <i class="fas fa-plus"></i> Rejoindre l'association
-                                </button>
-                            </form>
+                        {% if pending_membership %}
+                            <div class="pending-status-alert">
+                                <i class="fas fa-hourglass-half"></i>
+                                <span>Votre candidature est en cours d'acceptation par le gérant de l'association</span>
+                            </div>
+                        {% elseif can_join %}
+                            <a href="{{ path('associations_join', {id: association.id}) }}" class="btn join">
+                                <i class="fas fa-plus"></i> Rejoindre l'association
+                            </a>
                         {% endif %}
-                        
+
                         {% if can_manage %}
                             <a href="{{ path('associations_manage', {id: association.id}) }}" class="btn manage">
                                 <i class="fas fa-cog"></i> Gérer les membres

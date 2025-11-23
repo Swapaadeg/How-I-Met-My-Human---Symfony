@@ -106,6 +106,123 @@
                 <i class="fas fa-envelope"></i> Contacter l'association
             </button>
         </div>
+
+        {# Section commentaires #}
+        <div class="comments-section">
+            <h3>Commentaires ({{ animal.comments|length }})</h3>
+
+            {% if comment_form %}
+                <div class="add-comment-form">
+                    <div class="comment-user-info">
+                        {% if app.user.profileImageName %}
+                            <img src="{{ asset('uploads/profile/' ~ app.user.profileImageName) }}" alt="{{ app.user.name }}" class="comment-avatar">
+                        {% else %}
+                            <div class="comment-avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        {% endif %}
+                        <span class="comment-username">{{ app.user.name }}</span>
+                    </div>
+
+                    {{ form_start(comment_form, {'action': path('animal_comment_add', {'id': animal.id}), 'method': 'POST'}) }}
+                    {{ form_widget(comment_form.text) }}
+                    <button type="submit" class="btn-comment-submit">
+                        <i class="fas fa-paper-plane"></i> Commenter
+                    </button>
+                    {{ form_end(comment_form) }}
+                </div>
+            {% else %}
+                <p class="login-to-comment">
+                    <a href="{{ path('app_login') }}">Connectez-vous</a> pour laisser un commentaire
+                </p>
+            {% endif %}
+
+            {# Affichage des commentaires #}
+            <div class="comments-list">
+                {% for comment in animal.comments %}
+                    {% if comment.parent is null %}
+                        <div class="comment comment-level-0" data-comment-id="{{ comment.id }}">
+                            <div class="comment-header">
+                                {% if comment.user.profileImageName %}
+                                    <img src="{{ asset('uploads/profile/' ~ comment.user.profileImageName) }}" alt="{{ comment.user.name }}" class="comment-avatar">
+                                {% else %}
+                                    <div class="comment-avatar-placeholder">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="comment-meta">
+                                    <strong class="comment-author">{{ comment.user.name }}</strong>
+                                    <span class="comment-date">{{ comment.dateAjout|date('d/m/Y à H:i') }}</span>
+                                </div>
+                            </div>
+                            <div class="comment-content">
+                                {{ comment.text }}
+                            </div>
+
+                            {# Affichage des réponses imbriquées #}
+                            {% if comment.replies|length > 0 %}
+                                <div class="comment-replies">
+                                    {% for reply in comment.replies %}
+                                        <div class="comment comment-level-1" data-comment-id="{{ reply.id }}">
+                                            <div class="comment-header">
+                                                {% if reply.user.profileImageName %}
+                                                    <img src="{{ asset('uploads/profile/' ~ reply.user.profileImageName) }}" alt="{{ reply.user.name }}" class="comment-avatar">
+                                                {% else %}
+                                                    <div class="comment-avatar-placeholder">
+                                                        <i class="fas fa-user"></i>
+                                                    </div>
+                                                {% endif %}
+                                                <div class="comment-meta">
+                                                    <strong class="comment-author">{{ reply.user.name }}</strong>
+                                                    <span class="comment-date">{{ reply.dateAjout|date('d/m/Y à H:i') }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="comment-content">
+                                                {{ reply.text }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            {# Bouton pour répondre #}
+                            {% if app.user %}
+                                <div class="comment-actions">
+                                    <button class="btn-reply" data-toggle-reply="{{ comment.id }}">
+                                        <i class="fas fa-reply"></i> Répondre
+                                    </button>
+                                </div>
+
+                                {# Formulaire de réponse (caché par défaut) #}
+                                <div class="reply-form-container" id="reply-form-{{ comment.id }}" style="display: none;">
+                                    <div class="reply-form-content">
+                                        <form method="POST" action="{{ path('animal_comment_reply', {'id': animal.id, 'commentId': comment.id}) }}">
+                                            <textarea name="comment_form_type[text]" placeholder="Écrivez votre réponse..." rows="2" class="comment-textarea"></textarea>
+                                            <button type="submit" class="btn-comment-submit">
+                                                <i class="fas fa-paper-plane"></i> Envoyer
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+document.querySelectorAll('[data-toggle-reply]').forEach(button => {
+    button.addEventListener('click', function() {
+        const commentId = this.dataset.toggleReply;
+        const form = document.getElementById('reply-form-' + commentId);
+        if (form) {
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+    });
+});
+</script>
+
 {% endblock %}

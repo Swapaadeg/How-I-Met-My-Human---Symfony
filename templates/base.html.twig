@@ -57,7 +57,55 @@
                         </a>
                     {% endif %}
                 </div>
+
+                {# Bouton menu burger #}
+                <button class="burger-menu" id="burgerToggle" aria-label="Menu">
+                    <span class="burger-line burger-line-top"></span>
+                    <span class="burger-line burger-line-middle"></span>
+                    <span class="burger-line burger-line-bottom"></span>
+                </button>
             </nav>
+
+            {# Menu mobile #}
+            <div class="mobile-menu" id="mobileMenu">
+                <div class="mobile-menu-overlay"></div>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <button class="close-menu" id="closeMenu" aria-label="Fermer">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <ul class="mobile-nav-links">
+                        <li><a href="{{ path('animals') }}">Nos rescapés</a></li>
+                        <li><a href="{{ path('associations') }}">Les associations</a></li>
+                    </ul>
+                    <div class="mobile-auth-section">
+                        {% if not is_granted('ROLE_USER') %}
+                            <a href="{{ path('auth') }}" class="mobile-auth-link">
+                                <i class="fa-solid fa-sign-in-alt"></i> Connexion / Inscription
+                            </a>
+                        {% else %}
+                            <a href="{{ path('profile') }}" class="mobile-auth-link">
+                                <i class="fa-solid fa-user"></i> Mon espace
+                            </a>
+                            <a href="{{ path('adopter_news_new') }}" class="mobile-auth-link">
+                                <i class="fas fa-heart"></i> Partager des nouvelles
+                            </a>
+                            {% if is_granted('ROLE_ASSOCIATION') %}
+                                <a href="{{ path('animals_add') }}" class="mobile-auth-link">
+                                    <i class="fas fa-plus"></i> Ajouter un animal
+                                </a>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('admin') }}" class="mobile-auth-link" target="_blank">Pannel Admin</a>
+                            {% endif %}
+                            <a href="{{ path('logout') }}" class="mobile-auth-link">
+                                <i class="fa-solid fa-sign-out-alt"></i> Se déconnecter
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </header>
 
         <main>
@@ -102,5 +150,36 @@
             {{ encore_entry_script_tags('app') }}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const burgerToggle = document.getElementById('burgerToggle');
+                const mobileMenu = document.getElementById('mobileMenu');
+                const closeMenu = document.getElementById('closeMenu');
+                const mobileMenuContent = document.querySelector('.mobile-menu-content');
+                const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+                const mobileLinks = document.querySelectorAll('.mobile-nav-links a, .mobile-auth-link');
+
+                function toggleMenu() {
+                    burgerToggle.classList.toggle('active');
+                    mobileMenu.classList.toggle('active');
+                    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+                }
+
+                function closeMenuHandler() {
+                    burgerToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+
+                burgerToggle.addEventListener('click', toggleMenu);
+                closeMenu.addEventListener('click', closeMenuHandler);
+                mobileMenuOverlay.addEventListener('click', closeMenuHandler);
+
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', closeMenuHandler);
+                });
+            });
+        </script>
     </body>
 </html>

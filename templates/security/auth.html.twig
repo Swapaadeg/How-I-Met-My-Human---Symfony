@@ -13,13 +13,19 @@
             <div class="auth-panel login-panel" id="loginPanel">
                 <div class="auth-content">
                     <h2>Se connecter</h2>
-                    
-                    <form method="post" action="{{ path('login') }}" class="auth-form" id="loginForm">
+
+                    <form method="post" action="{{ path('auth') }}" class="auth-form" id="loginForm">
                     {% if error %}
                         <div class="form-error">
                             {{ error.messageKey|trans(error.messageData, 'security') }}
                         </div>
                     {% endif %}
+
+                    {% for message in app.flashes('error') %}
+                        <div class="form-error">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
 
                     <div class="input-box animation" style="--i: 1; --j: 21;">
                         <input type="email" value="{{ last_username }}" name="_username" id="username" required>

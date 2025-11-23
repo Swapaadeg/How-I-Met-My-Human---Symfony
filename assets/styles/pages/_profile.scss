@@ -100,6 +100,139 @@
     }
 
     .profile-content {
+        .association-section {
+            background: v.$color-background;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+
+            h2 {
+                font-size: 2rem;
+                color: v.$color-dark;
+                margin-bottom: 2rem;
+                font-family: v.$font-family-bold;
+                text-align: center;
+            }
+
+            .association-card {
+                background: linear-gradient(135deg, rgba(v.$color-secondary, 0.1), rgba(v.$color-accent, 0.1));
+                border-radius: 15px;
+                padding: 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 2rem;
+                flex-wrap: wrap;
+
+                .association-info {
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                    flex: 1;
+
+                    .association-logo {
+                        flex-shrink: 0;
+
+                        img {
+                            width: 80px;
+                            height: 80px;
+                            border-radius: 12px;
+                            object-fit: cover;
+                            border: 3px solid v.$color-secondary;
+                            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                        }
+                    }
+
+                    .association-details {
+                        h3 {
+                            font-size: 1.5rem;
+                            color: v.$color-dark;
+                            margin-bottom: 0.5rem;
+                            font-family: v.$font-family-bold;
+                        }
+
+                        p {
+                            margin: 0.3rem 0;
+                            color: v.$color-accent;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+
+                            i {
+                                color: v.$color-secondary;
+                            }
+                        }
+
+                        .association-role {
+                            font-weight: 600;
+                            color: v.$color-dark;
+                        }
+                    }
+                }
+
+                .association-actions {
+                    display: flex;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+
+                    .btn {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.5rem;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 18px;
+                        font-weight: 500;
+                        font-size: 0.9rem;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        white-space: nowrap;
+
+                        i {
+                            font-size: 0.9rem;
+                        }
+
+                        &.btn-outline {
+                            background: v.$color-background;
+                            border: 2px solid v.$color-secondary;
+                            color: v.$color-secondary;
+
+                            &:hover {
+                                background: v.$color-secondary;
+                                color: v.$color-background;
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
+                            }
+                        }
+
+                        &.btn-primary {
+                            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                            color: v.$color-background;
+                            border: none;
+
+                            &:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.4);
+                            }
+                        }
+
+                        &.btn-secondary {
+                            background: v.$color-primary;
+                            color: v.$color-dark;
+                            border: none;
+
+                            &:hover {
+                                background: #d4b637;
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 15px rgba(v.$color-primary, 0.4);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         .favorites-section {
             background: v.$color-background;
             border-radius: 15px;

@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rejoindre {{ association.name }} - How I Met My Human{% endblock %}
+
+{% block body %}
+<div class="join-association-container">
+    <div class="container">
+        <div class="join-section">
+            <div class="join-header">
+                <h1>Rejoindre {{ association.name }}</h1>
+                <p class="lead">Complétez votre demande d'adhésion à l'association</p>
+            </div>
+
+            <div class="join-content">
+                <div class="association-info">
+                    {% if association.imageName %}
+                        <img src="{{ vich_uploader_asset(association, 'imageFile') }}" alt="{{ association.name }}" class="association-logo">
+                    {% endif %}
+                    <h2>{{ association.name }}</h2>
+                    <p class="description">{{ association.description }}</p>
+                </div>
+
+                <div class="join-form-section">
+                    <h3>Formulaire de demande</h3>
+
+                    {{ form_start(form, {
+                        'action': path('associations_join_submit', {'id': association.id}),
+                        'method': 'POST',
+                        'attr': {'class': 'join-form'}
+                    }) }}
+
+                    <div class="form-group">
+                        <label class="form-label">Qui êtes-vous ?</label>
+                        <div class="user-info-display">
+                            <strong>{{ app.user.name }}</strong><br>
+                            <small>{{ app.user.email }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_widget(form.message, {'attr': {'class': 'form-control form-textarea'}}) }}
+                        {{ form_help(form.message) }}
+                        {% if form.message.vars.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.message.vars.errors %}
+                                    <span>{{ error.message }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="icon-send"></i> Envoyer ma demande
+                        </button>
+                        <a href="{{ path('associations_show', {'id': association.id}) }}" class="btn btn-secondary">
+                            Annuler
+                        </a>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+
+            <div class="join-info-box">
+                <h4>Qu'est-ce qui se passe ensuite ?</h4>
+                <ul>
+                    <li>Votre demande sera examinée par les gestionnaires de l'association</li>
+                    <li>Vous recevrez une notification une fois votre demande traitée</li>
+                    <li>Si approuvée, vous pourrez accéder à tous les privilèges de membre</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Messages flash #}
+{% for label, messages in app.flashes %}
+    {% if label == 'success' %}
+        <div class="modale-flash" id="modale-flash">
+            <div class="modale-content">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+                <button class="modale-close" onclick="fermerModale()">Fermer</button>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+<script>
+function fermerModale() {
+    const modale = document.getElementById('modale-flash');
+    if (modale) {
+        modale.style.display = 'none';
+    }
+}
+</script>
+
+{% endblock %}

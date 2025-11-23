@@ -25,7 +25,7 @@
     position: relative;
     width: 850px;
     height: 550px;
-    background: #ffffff;
+    background: v.$color-background;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     display: flex;
@@ -79,7 +79,7 @@
 .input-box input {
     width: 100%;
     height: 100%;
-    background: #ffffff;
+    background: v.$color-background;
     border: 1px solid #e0e0e0;
     border-radius: 15px;
     font-size: 16px;
@@ -113,7 +113,7 @@
 .input-box input:focus ~ label,
 .input-box input:valid ~ label {
     top: -5px;
-    background: #ffffff;
+    background: v.$color-background;
     padding: 0 10px;
     border-radius: 5px;
     font-size: 14px;
@@ -179,7 +179,7 @@
 
 .info-content h2 {
     font-size: 28px;
-    color: #fff;
+    color: v.$color-background;
     line-height: 1.3;
     text-transform: none;
     margin-bottom: 15px;
@@ -187,7 +187,7 @@
 
 .info-content p {
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(v.$color-background, 0.8);
     margin-bottom: 30px;
     line-height: 1.5;
 }
@@ -331,7 +331,7 @@
             display: flex;
             align-items: center;
             padding: 12px 15px;
-            background: white;
+            background: v.$color-background;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             cursor: pointer;
@@ -363,7 +363,7 @@
             &:before {
                 border-color: v.$color-secondary;
                 background: v.$color-secondary;
-                box-shadow: inset 0 0 0 3px white;
+                box-shadow: inset 0 0 0 3px v.$color-background;
             }
         }
     }
@@ -374,7 +374,7 @@
         select, input[type="text"] {
             width: 100%;
             height: 45px;
-            background: white;
+            background: v.$color-background;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             font-size: 14px;
@@ -469,3 +469,188 @@
         margin-top: 15px;
     }
 }
+
+// === MOT DE PASSE OUBLIÉ / RESET STYLES ===
+.bouteille-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: calc(100vh - 300px);
+    padding: 4rem 2rem;
+    background: v.$color-background url('../../img/bg-auth.jpg') center/cover no-repeat;
+    background-attachment: fixed;
+
+    h2 {
+        text-align: center;
+        font-size: 2rem;
+        color: v.$color-dark;
+        margin-bottom: 3rem;
+        font-family: v.$font-family-courgette;
+    }
+
+    .form-grid {
+        width: 100%;
+        max-width: 500px;
+        background: v.$color-background;
+        padding: 3rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+
+        &.full-width {
+            width: 100%;
+        }
+    }
+
+    .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: v.$color-dark;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-input {
+        width: 100%;
+        height: 50px;
+        background: v.$color-background;
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        font-size: 16px;
+        color: v.$color-dark;
+        padding: 0 20px;
+        outline: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(22, 15, 41, 0.1);
+
+        &::placeholder {
+            color: #999;
+        }
+
+        &:focus {
+            border-color: v.$color-secondary;
+            box-shadow: 0 2px 8px rgba(22, 15, 41, 0.15), 0 0 0 3px rgba(54, 143, 139, 0.1);
+        }
+
+        &:invalid {
+            border-color: #e0e0e0;
+        }
+    }
+
+    .form-actions {
+        margin-top: 2rem;
+
+        &.full-width {
+            width: 100%;
+        }
+
+        .btn {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+            color: v.$color-background;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.5);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+    }
+
+    // Messages d'erreur
+    .invalid-feedback {
+        display: block;
+        color: #ff6b6b;
+        font-size: 13px;
+        margin-top: 0.5rem;
+        font-weight: 500;
+    }
+
+    // Lien retour
+    .info-text {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 1.1rem;
+
+        a {
+            color: v.$color-secondary;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+
+            &:hover {
+                color: v.$color-accent;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// Modale de confirmation
+.modale-flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+
+    .modale-content {
+        background: v.$color-background;
+        padding: 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        animation: slideUp 0.4s ease;
+
+        p {
+            font-size: 1.1rem;
+            color: v.$color-dark;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .modale-close {
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+            color: v.$color-background;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 15px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.5);
+            }
+        }
+    }
+}
+

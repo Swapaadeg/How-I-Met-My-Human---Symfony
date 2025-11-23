@@ -3,15 +3,14 @@
 {% block title %}Mot de passe oublié{% endblock %}
 
 {% block body %}
-    <h2 class="mb-4">Mot de passe oublié</h2>
     <section class="bouteille-form-container">
-
+        <h2>Mot de passe oublié</h2>
 
         {# FORMULAIRE DE DEMANDE DE MDP #}
         {{ form_start(requestForm, {'attr': {'class': 'form-grid'}}) }}
             <div class="form-group full-width">
-                {{ form_label(requestForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(requestForm.email, {'attr': {'class': 'form-input'}}) }}
+                {{ form_label(requestForm.email, 'Adresse email', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(requestForm.email, {'attr': {'class': 'form-input', 'placeholder': 'Entrez votre adresse email'}}) }}
                 {{ form_errors(requestForm.email) }}
             </div>
 
@@ -19,5 +18,9 @@
                 <button type="submit" class="btn">Envoyer le lien de réinitialisation</button>
             </div>
         {{ form_end(requestForm) }}
+
+        <div class="info-text">
+            <a href="{{ path('login') }}"><i class="fas fa-arrow-left"></i> Retour à la connexion</a>
+        </div>
     </section>
 {% endblock %}

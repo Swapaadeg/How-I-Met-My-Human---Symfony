@@ -6,6 +6,7 @@ use App\Entity\Association;
 use App\Entity\AssociationMember;
 use App\Entity\User;
 use App\Form\AssociationType;
+use App\Form\AssociationJoinRequestType;
 use App\Service\AssociationMembershipService;
 use App\Service\PermissionService;
 use App\Repository\AssociationRepository;
@@ -104,14 +105,25 @@ final class AssociationsController extends AbstractController
         $user = $this->getUser();
         $canJoin = $user && $this->permissionService->canUserJoinAssociation($user, $association);
         $canManage = $user && $this->permissionService->canUserManageAssociationMembers($user, $association);
-        
+
         $userRole = $user ? $this->permissionService->getUserRoleInAssociation($user, $association) : 'Visiteur';
+
+        // Check if user has a pending membership request
+        $pendingMembership = null;
+        if ($user) {
+            $pendingMembership = $this->associationMemberRepository->findOneBy([
+                'user' => $user,
+                'association' => $association,
+                'status' => AssociationMember::STATUS_PENDING
+            ]);
+        }
 
         return $this->render('associations/show.html.twig', [
             'association' => $association,
             'can_join' => $canJoin,
             'can_manage' => $canManage,
             'user_role' => $userRole,
+            'pending_membership' => $pendingMembership,
         ]);
     }
 
@@ -147,23 +159,68 @@ final class AssociationsController extends AbstractController
     }
 
     /**
-     * Request to join an association
+     * Show form to request joining an association
      */
-    #[Route('/associations/{id}/join', name: 'associations_join', methods: ['POST'])]
+    #[Route('/associations/{id}/join', name: 'associations_join', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
     public function join(Association $association): Response
     {
         $user = $this->getUser();
-        
-        $membership = $this->membershipService->requestMembership($user, $association);
-        
-        if ($membership) {
-            $this->addFlash('success', 'Votre demande d\'adhésion à l\'association a été envoyée.');
-        } else {
-            $this->addFlash('error', 'Impossible de rejoindre cette association.');
+
+        // Check if user can join this association
+        if (!$this->permissionService->canUserJoinAssociation($user, $association)) {
+            throw $this->createAccessDeniedException('Vous ne pouvez pas rejoindre cette association.');
         }
 
-        return $this->redirectToRoute('associations_show', ['id' => $association->getId()]);
+        $form = $this->createForm(AssociationJoinRequestType::class);
+
+        return $this->render('associations/join.html.twig', [
+            'association' => $association,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * Submit join request with message
+     */
+    #[Route('/associations/{id}/join-request', name: 'associations_join_submit', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function submitJoinRequest(Request $request, Association $association): Response
+    {
+        $user = $this->getUser();
+
+        // Check if user can join this association
+        if (!$this->permissionService->canUserJoinAssociation($user, $association)) {
+            throw $this->createAccessDeniedException('Vous ne pouvez pas rejoindre cette association.');
+        }
+
+        $form = $this->createForm(AssociationJoinRequestType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $message = $data['message'] ?? null;
+
+            // Create membership with message
+            $membership = new AssociationMember();
+            $membership->setUser($user);
+            $membership->setAssociation($association);
+            $membership->setMessage($message);
+            $membership->setStatus(AssociationMember::STATUS_PENDING);
+            $membership->setRole(AssociationMember::ROLE_MEMBER);
+
+            $this->entityManager->persist($membership);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', sprintf('Votre demande a bien été envoyée à l\'association %s', $association->getName()));
+
+            return $this->redirectToRoute('associations_show', ['id' => $association->getId()]);
+        }
+
+        return $this->render('associations/join.html.twig', [
+            'association' => $association,
+            'form' => $form,
+        ]);
     }
 
     /**

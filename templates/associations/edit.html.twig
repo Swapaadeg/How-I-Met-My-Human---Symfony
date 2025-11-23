@@ -7,13 +7,13 @@
     <div class="container">
         <div class="card">
             <div class="header">
-                <h4 class="title">
+                <h1 class="title">
                     <i class="fas fa-edit"></i>
                     Modifier {{ association.name }}
-                </h4>
+                </h1>
                 <a href="{{ path('associations_show', {id: association.id}) }}" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Retour à l'association
-            </a>
+                    <i class="fas fa-arrow-left"></i> Retour à l'association
+                </a>
             </div>
             
             <div class="body">
@@ -41,14 +41,13 @@
                     {{ form_row(form.description) }}
                 </div>
                 
-                <div class="field">
+                <div class="field image-field">
                     {{ form_row(form.imageFile) }}
                     {% if association.imageName %}
                         <div class="current-image">
-                            <img src="{{ vich_uploader_asset(association, 'imageFile') }}" 
-                                 alt="{{ association.name }}" 
-                                 style="max-width: 200px;">
-                            <small>Image actuelle</small>
+                            <p><strong>Image actuelle :</strong></p>
+                            <img src="{{ vich_uploader_asset(association, 'imageFile') }}"
+                                 alt="{{ association.name }}">
                         </div>
                     {% endif %}
                 </div>

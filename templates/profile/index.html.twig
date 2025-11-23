@@ -30,6 +30,58 @@
         </div>
 
         <div class="profile-content">
+            {# Section Association #}
+            {% set approvedMembership = null %}
+            {% for membership in user.associationMembers %}
+                {% if membership.isApproved() %}
+                    {% set approvedMembership = membership %}
+                {% endif %}
+            {% endfor %}
+
+            {% if approvedMembership %}
+                <div class="association-section">
+                    <h2>Mon Association</h2>
+                    <div class="association-card">
+                        <div class="association-info">
+                            {% if approvedMembership.association.imageName %}
+                                <div class="association-logo">
+                                    <img src="{{ asset('uploads/images/' ~ approvedMembership.association.imageName) }}" alt="Logo {{ approvedMembership.association.name }}">
+                                </div>
+                            {% endif %}
+                            <div class="association-details">
+                                <h3>{{ approvedMembership.association.name }}</h3>
+                                <p class="association-role">
+                                    {% if approvedMembership.isManager() %}
+                                        <i class="fas fa-crown"></i> Gérant
+                                    {% else %}
+                                        <i class="fas fa-user"></i> Membre
+                                    {% endif %}
+                                </p>
+                                <p class="association-location">
+                                    <i class="fas fa-map-marker-alt"></i> {{ approvedMembership.association.codePostal }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="association-actions">
+                            <a href="{{ path('associations_show', {id: approvedMembership.association.id}) }}" class="btn btn-outline">
+                                <i class="fas fa-eye"></i>
+                                Voir l'association
+                            </a>
+                            <a href="{{ path('animals_add') }}" class="btn btn-secondary">
+                                <i class="fas fa-plus"></i>
+                                Ajouter un animal
+                            </a>
+                            {% if approvedMembership.isManager() %}
+                                <a href="{{ path('associations_manage', {id: approvedMembership.association.id}) }}" class="btn btn-primary">
+                                    <i class="fas fa-cog"></i>
+                                    Gérer l'association
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
             <div class="favorites-section">
                 <h2>Mes Favoris</h2>
                 {% if favorites is empty %}

@@ -7,10 +7,15 @@
     <div class="container">
         <div class="header">
             <h1 class="title">Gestion de {{ association.name }}</h1>
-            <a href="{{ path('associations_show', {id: association.id}) }}" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Retour à l'association
-        </a>
-    </div>
+            <div class="header-actions">
+                <a href="{{ path('animals_add') }}" class="add-animal-btn">
+                    <i class="fas fa-plus"></i> Ajouter un animal
+                </a>
+                <a href="{{ path('associations_show', {id: association.id}) }}" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Retour à l'association
+                </a>
+            </div>
+        </div>
 
         <!-- Demandes en attente -->
         {% if pending_members is not empty %}
@@ -22,41 +27,41 @@
                 </h5>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Email</th>
-                                <th>Date de demande</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for membership in pending_members %}
-                                <tr>
-                                    <td>{{ membership.user.name }}</td>
-                                    <td>{{ membership.user.email }}</td>
-                                    <td>{{ membership.createdAt|date('d/m/Y H:i') }}</td>
-                                    <td>
-                                        <form method="post" action="{{ path('associations_membership_approve', {id: membership.id}) }}" style="display: inline;">
-                                            <button type="submit" class="btn success" 
-                                                    onclick="return confirm('Approuver cette demande ?')">
-                                                <i class="fas fa-check"></i> Approuver
-                                            </button>
-                                        </form>
-                                        <form method="post" action="{{ path('associations_membership_reject', {id: membership.id}) }}" style="display: inline;">
-                                            <button type="submit" class="btn danger" 
-                                                    onclick="return confirm('Rejeter cette demande ?')">
-                                                <i class="fas fa-times"></i> Rejeter
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                        </table>
-                    </div>
+                <div class="pending-members-list">
+                    {% for membership in pending_members %}
+                        <div class="pending-member-card">
+                            <div class="member-header">
+                                <div class="member-info">
+                                    <h5 class="member-name">{{ membership.user.name }}</h5>
+                                    <p class="member-email">{{ membership.user.email }}</p>
+                                    <small class="member-date">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        Demande du {{ membership.createdAt|date('d/m/Y à H:i') }}
+                                    </small>
+                                </div>
+                                <div class="member-actions">
+                                    <form method="post" action="{{ path('associations_membership_approve', {id: membership.id}) }}" style="display: inline;">
+                                        <button type="submit" class="btn btn-success"
+                                                onclick="return confirm('Approuver cette demande ?')">
+                                            <i class="fas fa-check"></i> Approuver
+                                        </button>
+                                    </form>
+                                    <form method="post" action="{{ path('associations_membership_reject', {id: membership.id}) }}" style="display: inline;">
+                                        <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Rejeter cette demande ?')">
+                                            <i class="fas fa-times"></i> Rejeter
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% if membership.message %}
+                                <div class="member-message">
+                                    <strong><i class="fas fa-comment"></i> Message de présentation :</strong>
+                                    <p>{{ membership.message }}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         {% else %}
