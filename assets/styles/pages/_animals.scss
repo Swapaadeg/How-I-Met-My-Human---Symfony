@@ -558,12 +558,6 @@
         z-index: 3;
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-
-        &:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: scale(1.05);
-        }
 
         i {
             margin-right: 0.3rem;
@@ -596,16 +590,17 @@
     }
 
     .info-arrivee {
-        top: 80px;
+        top: 60px;
         right: -140px;
         width: 130px;
     }
 
     .info-asso {
         top: 50%;
-        right: -170px;
+        right: -200px;
         transform: translateY(-50%);
-        width: 160px;
+        width: 190px;
+        margin-top: 20px;
     }
 
     .info-ville {
