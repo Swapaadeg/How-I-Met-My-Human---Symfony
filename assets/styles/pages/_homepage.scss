@@ -203,14 +203,14 @@
 
 // Section des nouvelles des adoptants
 .adopter-news-section {
-    padding: 8rem 0;
+    padding: 2.5rem 0 4rem;
     background-color: v.$color-secondary;
     overflow: hidden;
 
     h3 {
         text-align: center;
         color: v.$color-primary;
-        margin-bottom: 5rem;
+        margin-bottom: 2.5rem;
     }
 
     .no-news {
@@ -233,22 +233,8 @@
 .news-track {
     display: flex;
     gap: 4rem;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-
-    .news-carousel-right & {
-        animation-name: scrollRight;
-        animation-duration: 40s;
-    }
-
-    .news-carousel-left & {
-        animation-name: scrollLeft;
-        animation-duration: 40s;
-    }
-
-    .news-carousel:hover & {
-        animation-play-state: paused;
-    }
+    will-change: transform;
+    transition: none;
 }
 
 .news-card {

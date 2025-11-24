@@ -411,7 +411,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     /* Stats Section */
     .stats-section {
         padding: 3rem 0;
-        
+
         .stats-container {
             flex-direction: column;
             gap: 3rem;
@@ -434,6 +434,33 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
                     p {
                         font-size: 1rem;
                     }
+                }
+            }
+        }
+    }
+
+    /* Adopter News Section */
+    .adopter-news-section {
+        padding: 2.5rem 0;
+
+        h3 {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .news-card {
+            width: 450px;
+            padding: 1rem;
+            gap: 1.5rem;
+
+            .news-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .news-content {
+                .news-text {
+                    font-size: 1rem;
                 }
             }
         }
@@ -616,6 +643,41 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     .hero-carousel {
         .carousel-content h1 {
             font-size: 2rem;
+        }
+    }
+
+    /* Adopter News Section - Small Screens */
+    .adopter-news-section {
+        padding: 2rem 0;
+
+        h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .news-card {
+            width: 350px;
+            padding: 0.8rem;
+            gap: 1rem;
+            flex-direction: column;
+            text-align: center;
+
+            .news-image {
+                width: 70px;
+                height: 70px;
+                margin: 0 auto;
+            }
+
+            .news-content {
+                .news-text {
+                    font-size: 0.95rem;
+                }
+
+                .news-meta {
+                    font-size: 0.7rem;
+                    justify-content: center;
+                }
+            }
         }
     }
 

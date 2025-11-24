@@ -13,6 +13,7 @@ import { initCustomSelects } from './js/customSelects.js';
 import './js/auth.js';
 import './js/animals.js';
 import './js/animals-carousel.js';
+import './js/news-carousel.js';
 
 console.log('How I Met My Human - Application loaded! 🐾');
 
