@@ -9,6 +9,7 @@ use App\Form\AnimalFormType;
 use App\Form\CommentFormType;
 use App\Repository\AnimalsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +20,17 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class AnimalsController extends AbstractController
 {
     #[Route('/animals', name: 'animals')]
-    public function index(AnimalsRepository $animalsRepository): Response
+    public function index(Request $request, AnimalsRepository $animalsRepository, PaginatorInterface $paginator): Response
     {
-        $animals = $animalsRepository->findAll();
+        $query = $animalsRepository->createQueryBuilder('a')
+            ->orderBy('a.date_arrivee', 'DESC')
+            ->getQuery();
+
+        $animals = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            9
+        );
 
         return $this->render('animals/index.html.twig', [
             'animals' => $animals,
@@ -79,15 +88,25 @@ final class AnimalsController extends AbstractController
     {
         $user = $this->getUser();
         $form = null;
+        $replyForms = [];
 
         if ($user) {
             $comment = new Comments();
             $form = $this->createForm(CommentFormType::class, $comment);
+
+            // Create a reply form for each parent comment
+            foreach ($animal->getComments() as $comment) {
+                if ($comment->getParent() === null) {
+                    $reply = new Comments();
+                    $replyForms[$comment->getId()] = $this->createForm(CommentFormType::class, $reply)->createView();
+                }
+            }
         }
 
         return $this->render('animals/show.html.twig', [
             'animal' => $animal,
             'comment_form' => $form,
+            'reply_forms' => $replyForms,
         ]);
     }
 
@@ -138,6 +157,36 @@ final class AnimalsController extends AbstractController
 
             $this->addFlash('success', 'Réponse ajoutée avec succès !');
         }
+
+        return $this->redirectToRoute('animal_show', ['id' => $animal->getId()]);
+    }
+
+    #[Route('/animals/{id}/comment/{commentId}/delete', name: 'animal_comment_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function deleteComment(Animals $animal, int $commentId, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $comment = $entityManager->getRepository(Comments::class)->find($commentId);
+
+        if (!$comment || $comment->getAnimals()->getId() !== $animal->getId()) {
+            throw $this->createNotFoundException('Commentaire non trouvé');
+        }
+
+        // Check if the user is the owner of the comment
+        if ($comment->getUser()->getId() !== $user->getId()) {
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer ce commentaire.');
+            return $this->redirectToRoute('animal_show', ['id' => $animal->getId()]);
+        }
+
+        // Delete replies first
+        foreach ($comment->getReplies() as $reply) {
+            $entityManager->remove($reply);
+        }
+
+        $entityManager->remove($comment);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Commentaire supprimé avec succès !');
 
         return $this->redirectToRoute('animal_show', ['id' => $animal->getId()]);
     }
