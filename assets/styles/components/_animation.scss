@@ -128,6 +128,16 @@
     }
 }
 
+// Animation clignotante pour la flèche chevron (changement de couleur)
+@keyframes blinkColor {
+    0%, 100% {
+        color: v.$color-secondary;
+    }
+    50% {
+        color: v.$color-dark;
+    }
+}
+
 // ----------------
 // 6. Animations de rotation pour la page animal
 // ----------------
@@ -232,17 +242,33 @@
     text-align: center;
     padding: 2rem 0;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
 
-    i {
+    i.fa-paw {
         font-size: 3rem;
         color: v.$color-accent;
         animation: pawBounce 2s infinite;
         opacity: 0.8;
         transition: opacity 0.3s ease;
+    }
 
-        &:hover {
+    .scroll-chevron {
+        font-size: 1.5rem;
+        color: v.$color-secondary;
+        animation: blinkColor 1s infinite ease-in-out;
+    }
+
+    &:hover {
+        i.fa-paw {
             opacity: 1;
             transform: scale(1.1);
+        }
+
+        .scroll-chevron {
+            animation-play-state: paused;
         }
     }
 }
