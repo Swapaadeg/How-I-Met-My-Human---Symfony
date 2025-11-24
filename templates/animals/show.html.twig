@@ -114,8 +114,8 @@
             {% if comment_form %}
                 <div class="add-comment-form">
                     <div class="comment-user-info">
-                        {% if app.user.profileImageName %}
-                            <img src="{{ asset('uploads/profile/' ~ app.user.profileImageName) }}" alt="{{ app.user.name }}" class="comment-avatar">
+                        {% if app.user.imageName %}
+                            <img src="{{ asset('uploads/images/' ~ app.user.imageName) }}" alt="{{ app.user.name }}" class="comment-avatar">
                         {% else %}
                             <div class="comment-avatar-placeholder">
                                 <i class="fas fa-user"></i>
@@ -143,8 +143,8 @@
                     {% if comment.parent is null %}
                         <div class="comment comment-level-0" data-comment-id="{{ comment.id }}">
                             <div class="comment-header">
-                                {% if comment.user.profileImageName %}
-                                    <img src="{{ asset('uploads/profile/' ~ comment.user.profileImageName) }}" alt="{{ comment.user.name }}" class="comment-avatar">
+                                {% if comment.user.imageName %}
+                                    <img src="{{ asset('uploads/images/' ~ comment.user.imageName) }}" alt="{{ comment.user.name }}" class="comment-avatar">
                                 {% else %}
                                     <div class="comment-avatar-placeholder">
                                         <i class="fas fa-user"></i>
@@ -165,8 +165,8 @@
                                     {% for reply in comment.replies %}
                                         <div class="comment comment-level-1" data-comment-id="{{ reply.id }}">
                                             <div class="comment-header">
-                                                {% if reply.user.profileImageName %}
-                                                    <img src="{{ asset('uploads/profile/' ~ reply.user.profileImageName) }}" alt="{{ reply.user.name }}" class="comment-avatar">
+                                                {% if reply.user.imageName %}
+                                                    <img src="{{ asset('uploads/images/' ~ reply.user.imageName) }}" alt="{{ reply.user.name }}" class="comment-avatar">
                                                 {% else %}
                                                     <div class="comment-avatar-placeholder">
                                                         <i class="fas fa-user"></i>
