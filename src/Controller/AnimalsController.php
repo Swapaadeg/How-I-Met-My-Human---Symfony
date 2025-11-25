@@ -8,6 +8,8 @@ use App\Entity\Favorites;
 use App\Form\AnimalFormType;
 use App\Form\CommentFormType;
 use App\Repository\AnimalsRepository;
+use App\Repository\SpeciesRepository;
+use App\Repository\DepartmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,11 +22,40 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class AnimalsController extends AbstractController
 {
     #[Route('/animals', name: 'animals')]
-    public function index(Request $request, AnimalsRepository $animalsRepository, PaginatorInterface $paginator): Response
+    public function index(
+        Request $request,
+        AnimalsRepository $animalsRepository,
+        SpeciesRepository $speciesRepository,
+        DepartmentRepository $departmentRepository,
+        PaginatorInterface $paginator
+    ): Response
     {
-        $query = $animalsRepository->createQueryBuilder('a')
-            ->orderBy('a.date_arrivee', 'DESC')
-            ->getQuery();
+        // Récupérer les filtres depuis la requête
+        $speciesId = $request->query->get('species') ? (int)$request->query->get('species') : null;
+        $departmentId = $request->query->get('department') ? (int)$request->query->get('department') : null;
+        $sexe = $request->query->get('sexe');
+
+        // Construire la requête avec filtres
+        $qb = $animalsRepository->createQueryBuilder('a')
+            ->orderBy('a.date_arrivee', 'DESC');
+
+        if ($speciesId) {
+            $qb->andWhere('a.species = :species')
+               ->setParameter('species', $speciesId);
+        }
+
+        if ($departmentId) {
+            $qb->leftJoin('a.association', 'assoc')
+               ->andWhere('assoc.department = :department')
+               ->setParameter('department', $departmentId);
+        }
+
+        if ($sexe) {
+            $qb->andWhere('a.sexe = :sexe')
+               ->setParameter('sexe', $sexe);
+        }
+
+        $query = $qb->getQuery();
 
         $animals = $paginator->paginate(
             $query,
@@ -32,8 +63,17 @@ final class AnimalsController extends AbstractController
             9
         );
 
+        // Récupérer toutes les espèces et départements pour les filtres
+        $allSpecies = $speciesRepository->findAll();
+        $allDepartments = $departmentRepository->findAll();
+
         return $this->render('animals/index.html.twig', [
             'animals' => $animals,
+            'allSpecies' => $allSpecies,
+            'allDepartments' => $allDepartments,
+            'currentSpecies' => $speciesId,
+            'currentDepartment' => $departmentId,
+            'currentSexe' => $sexe,
         ]);
     }
 

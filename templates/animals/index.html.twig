@@ -10,6 +10,51 @@
             <p class="subtitle">Découvrez nos adorables pensionnaires qui rêvent de trouver leur foyer pour toujours</p>
         </div>
 
+        {# Section de filtres #}
+        <div class="filters-section">
+            <form method="GET" action="{{ path('animals') }}" class="filters-form">
+                <div class="filter-field">
+                    <select name="species" id="species-select">
+                        <option value="">Type</option>
+                        {% for species in allSpecies %}
+                            <option value="{{ species.id }}" {% if currentSpecies == species.id %}selected{% endif %}>
+                                {{ species.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <select name="sexe" id="sexe-select">
+                        <option value="">Sexe</option>
+                        <option value="male" {% if currentSexe == 'male' %}selected{% endif %}>Mâle</option>
+                        <option value="femelle" {% if currentSexe == 'femelle' %}selected{% endif %}>Femelle</option>
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <select name="department" id="department-select">
+                        <option value="">Département</option>
+                        {% for department in allDepartments %}
+                            <option value="{{ department.id }}" {% if currentDepartment == department.id %}selected{% endif %}>
+                                {{ department.code }} - {{ department.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="filter-btn">
+                    <i class="fas fa-filter"></i> Filtrer
+                </button>
+
+                {% if currentSpecies or currentSexe or currentDepartment %}
+                    <a href="{{ path('animals') }}" class="reset-btn">
+                        <i class="fas fa-times"></i> Réinitialiser
+                    </a>
+                {% endif %}
+            </form>
+        </div>
+
         {% if animals is empty %}
             <div class="empty-state">
                 <div class="empty-content">

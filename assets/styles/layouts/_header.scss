@@ -13,7 +13,7 @@
         position: relative;
         z-index: 1000;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         padding: 1rem 3rem;
         background: v.$color-dark;
@@ -28,26 +28,11 @@
             display: flex;
             align-items: center;
             gap: 1.5rem;
-            
+
             .logo {
                 img {
                     height: 100px;
                     width: 100%;
-                }
-            }
-            
-            .user-greeting {
-                .greeting-text {
-                    font-family: v.$font-family-primary;
-                    font-size: 1.4rem;
-                    font-weight: 600;
-                    color: v.$color-primary;
-                    text-shadow: 0 0 10px rgba(v.$color-primary, 0.5);
-                    background: linear-gradient(135deg, v.$color-primary, #f8da6b);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                    white-space: nowrap;
                 }
             }
         }
@@ -57,25 +42,26 @@
             list-style: none;
             gap: 2rem;
             margin: 0;
+            margin-left: 0.5rem;
             padding: 0;
             font-family: v.$font-family-primary;
             
             li {
-                background: transparent !important;
+                background: transparent;
             }
             
             a {
                 color: v.$color-primary;
                 text-decoration: none;
-                font-weight: 500;
                 position: relative;
                 padding: 0.5rem 1rem;
                 border-radius: 8px;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                background: transparent !important;
+                background: transparent;
+                font-size: 1.2rem;
                 
                 &:link, &:visited, &:active {
-                    background: transparent !important;
+                    background: transparent;
                     color: v.$color-primary;
                 }
                 
@@ -109,24 +95,57 @@
         .auth-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
             font-family: v.$font-family-primary;
-            
+
+            .auth-group {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .user-disconnect-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.3rem;
+
+                .greeting-text {
+                    font-family: v.$font-family-primary;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    color: v.$color-primary;
+                    text-shadow: 0 0 10px rgba(v.$color-primary, 0.5);
+                    background: linear-gradient(135deg, v.$color-primary, #f8da6b);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    white-space: nowrap;
+                }
+
+                .separator {
+                    width: 100%;
+                    height: 1px;
+                    background: linear-gradient(90deg, transparent, v.$color-primary, transparent);
+                    opacity: 0.6;
+                }
+            }
+
             .auth-link {
                 color: v.$color-primary;
                 text-decoration: none;
-                font-weight: 500;
                 position: relative;
                 padding: 0.5rem 1rem;
+                font-size: 1.2rem;
                 border-radius: 8px;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                background: transparent !important;
+                background: transparent;
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
                 
                 &:link, &:visited, &:active {
-                    background: transparent !important;
+                    background: transparent;
                     color: v.$color-primary;
                 }
                 
@@ -181,17 +200,6 @@
                         width: 100%;
                     }
                 }
-            }
-            
-            .separator {
-                color: v.$color-primary;
-                opacity: 0.6;
-                font-size: 1.8rem;
-            }
-            
-            .greeting {
-                color: v.$color-primary;
-                font-size: 0.9rem;
             }
         }
     }
@@ -513,15 +521,10 @@
             align-items: center;
             flex-wrap: wrap;
             
-            // Style pour le select personnalisé qui s'ouvre vers le haut
             .search-field {
                 position: relative;
-                
+
                 select {
-                    display: none;
-                }
-                
-                .custom-select-button {
                     padding: 0.6rem 0.8rem;
                     border: none;
                     border-radius: 5px;
@@ -531,66 +534,21 @@
                     font-family: v.$font-family-primary;
                     min-width: 120px;
                     cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    text-align: left;
-                    width: 100%;
-                    
+                    transition: all 0.3s ease;
+
                     &:focus {
                         outline: none;
                         background-color: v.$color-primary;
                         box-shadow: 0 0 0 2px rgba(v.$color-secondary, 0.5);
                     }
-                    
-                    .arrow {
-                        transform: rotate(180deg); // Flèche vers le haut
-                        transition: transform 0.3s ease;
-                        
-                        &.open {
-                            transform: rotate(0deg); // Flèche vers le bas quand ouvert
-                        }
+
+                    &:hover {
+                        background: rgba(v.$color-primary, 0.8);
                     }
-                }
-                
-                // Style pour la liste déroulante qui s'ouvre vers le haut
-                .custom-dropdown {
-                    position: absolute;
-                    bottom: 100%;
-                    left: 0;
-                    right: 0;
-                    background: rgba(v.$color-background, 0.95);
-                    border: 1px solid rgba(v.$color-secondary, 0.3);
-                    border-radius: 5px 5px 0 0;
-                    max-height: 200px;
-                    overflow-y: auto;
-                    z-index: 1000;
-                    opacity: 0;
-                    visibility: hidden;
-                    transform: translateY(10px);
-                    transition: all 0.3s ease;
-                    
-                    &.open {
-                        opacity: 1;
-                        visibility: visible;
-                        transform: translateY(0);
-                    }
-                    
-                    .dropdown-option {
-                        padding: 0.5rem 0.8rem;
-                        cursor: pointer;
-                        color: v.$color-dark;
-                        font-family: v.$font-family-primary;
-                        transition: background 0.2s ease;
-                        
-                        &:hover {
-                            background: rgba(v.$color-secondary, 0.1);
-                        }
-                        
-                        &.selected {
-                            background: rgba(v.$color-secondary, 0.2);
-                            font-weight: 500;
-                        }
+
+                    // Style spécifique pour le département (plus large)
+                    &#department-select {
+                        min-width: 200px;
                     }
                 }
             }

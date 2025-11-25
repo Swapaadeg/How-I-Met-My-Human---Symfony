@@ -1,21 +1,21 @@
 // Search form functionality
 export function initSearchForm() {
     const searchBtn = document.querySelector('.search-btn');
-    
+
     if (searchBtn) {
         searchBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            const type = document.getElementById('type-select').value;
+
+            const species = document.getElementById('type-select').value;
             const sexe = document.getElementById('sexe-select').value;
-            const age = document.getElementById('age-select').value;
-            
+            const department = document.getElementById('department-select').value;
+
             // Build query parameters
             const params = new URLSearchParams();
-            if (type) params.set('type', type);
+            if (species) params.set('species', species);
             if (sexe) params.set('sexe', sexe);
-            if (age) params.set('age', age);
-            
+            if (department) params.set('department', department);
+
             // Redirect to animals page with filters
             const queryString = params.toString();
             const url = queryString ? `/animals?${queryString}` : '/animals';
