@@ -9,7 +9,6 @@ import './styles/app.scss';
 // Import all functionality modules
 import { initCarousel } from './js/carousel.js';
 import { initSearchForm } from './js/searchForm.js';
-import { initCustomSelects } from './js/customSelects.js';
 import './js/auth.js';
 import './js/animals.js';
 import './js/animals-carousel.js';
@@ -31,13 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Initializing search form...');
         initSearchForm();
     }
-    
-    // Route 3: Custom selects - Initialize if search fields exist
-    if (document.querySelector('.search-field')) {
-        console.log('Initializing custom selects...');
-        initCustomSelects();
-    }
-    
+
     // Add more routes here as needed for future features
     // Route 4: Contact form
     // if (document.querySelector('.contact-form')) { initContactForm(); }

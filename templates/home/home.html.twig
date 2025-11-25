@@ -42,34 +42,34 @@
         <!-- Rectangle de recherche -->
         <div class="search-container">
             <div class="search-rectangle">
-                <div class="search-form">
+                <form method="GET" action="{{ path('animals') }}" class="search-form">
                     <div class="search-field">
-                        <select id="type-select">
+                        <select name="species" id="type-select">
                             <option value="">Type</option>
-                            <option value="chien">Chien</option>
-                            <option value="chat">Chat</option>
-                            <option value="autre">Autre</option>
+                            {% for species in allSpecies %}
+                                <option value="{{ species.id }}">{{ species.name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="search-field">
-                        <select id="sexe-select">
+                        <select name="sexe" id="sexe-select">
                             <option value="">Sexe</option>
                             <option value="male">Mâle</option>
                             <option value="femelle">Femelle</option>
                         </select>
                     </div>
                     <div class="search-field">
-                        <select id="age-select">
-                            <option value="">Âge</option>
-                            <option value="jeune">Jeune</option>
-                            <option value="adulte">Adulte</option>
-                            <option value="senior">Senior</option>
+                        <select name="department" id="department-select">
+                            <option value="">Département</option>
+                            {% for department in allDepartments %}
+                                <option value="{{ department.id }}">{{ department.code }} - {{ department.name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <button type="submit" class="search-btn">
                         Votre compagnon idéal <i class="fa-solid fa-paw"></i>
                     </button>
-                </div>
+                </form>
             </div>
         </div>
 
