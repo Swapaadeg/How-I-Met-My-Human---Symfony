@@ -20,11 +20,6 @@
                             <img src="{{ asset('logo.png') }}" alt="How I Met My Human Logo">
                         </a>
                     </div>
-                    {% if is_granted('ROLE_USER') and app.user %}
-                        <div class="user-greeting">
-                            <span class="greeting-text">Bonjour {{ app.user.name }}!</span>
-                        </div>
-                    {% endif %}
                 </div>
 
                 <ul class="nav-links">
@@ -50,11 +45,17 @@
                             </a>
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('admin') }}" target="_blank">Pannel Admin</a>
+                            <a href="{{ path('admin') }}" class="auth-link" target="_blank">
+                                <i class="fas fa-cog"></i> Panel Admin
+                            </a>
                         {% endif %}
-                        <a href="{{ path('logout') }}" class="auth-link">
-                            <i class="fa-solid fa-sign-out-alt"></i> Se déconnecter
-                        </a>
+                        <div class="user-disconnect-section">
+                            <span class="greeting-text">Bonjour {{ app.user.name }}!</span>
+                            <div class="separator"></div>
+                            <a href="{{ path('logout') }}" class="auth-link">
+                                <i class="fa-solid fa-sign-out-alt"></i> Se déconnecter
+                            </a>
+                        </div>
                     {% endif %}
                 </div>
 

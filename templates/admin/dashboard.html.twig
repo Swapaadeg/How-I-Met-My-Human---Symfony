@@ -1,0 +1,524 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}
+    <h1 class="admin-title">
+        <i class="fa fa-tachometer-alt"></i>
+        Tableau de bord
+    </h1>
+{% endblock %}
+
+{% block main %}
+    <div class="admin-dashboard">
+        {# Statistiques #}
+        <div class="stats-grid">
+            <div class="stat-card stat-users">
+                <div class="stat-icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>{{ stats.users }}</h3>
+                    <p>Utilisateurs</p>
+                </div>
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\UserCrudController').setAction('index') }}" class="stat-link">
+                    Voir tout <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="stat-card stat-animals">
+                <div class="stat-icon">
+                    <i class="fa fa-paw"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>{{ stats.animals }}</h3>
+                    <p>Animaux</p>
+                </div>
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\AnimalsCrudController').setAction('index') }}" class="stat-link">
+                    Voir tout <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="stat-card stat-associations">
+                <div class="stat-icon">
+                    <i class="fa fa-building"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>{{ stats.associations }}</h3>
+                    <p>Associations</p>
+                </div>
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\AssociationCrudController').setAction('index') }}" class="stat-link">
+                    Voir tout <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="stat-card stat-comments">
+                <div class="stat-icon">
+                    <i class="fa fa-comments"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>{{ stats.comments }}</h3>
+                    <p>Commentaires</p>
+                </div>
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\CommentsCrudController').setAction('index') }}" class="stat-link">
+                    Voir tout <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="stat-card stat-news">
+                <div class="stat-icon">
+                    <i class="fa fa-heart"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>{{ stats.adopter_news }}</h3>
+                    <p>Nouvelles des adoptants</p>
+                </div>
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\AdopterNewsCrudController').setAction('index') }}" class="stat-link">
+                    Voir tout <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="stat-card stat-species">
+                <div class="stat-icon">
+                    <i class="fa fa-cat"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>{{ stats.species }}</h3>
+                    <p>Espèces</p>
+                </div>
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\SpeciesCrudController').setAction('index') }}" class="stat-link">
+                    Voir tout <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        {# Bouton retour au site - En haut #}
+        <div class="back-to-site-top">
+            <a href="{{ path('home') }}" class="btn-back-site" target="_blank">
+                <i class="fa fa-arrow-left"></i>
+                <span>Retour au site</span>
+            </a>
+        </div>
+
+        {# Actions rapides #}
+        <div class="quick-actions">
+            <h2><i class="fa fa-bolt"></i> Actions rapides</h2>
+            <div class="actions-grid">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\AnimalsCrudController').setAction('new') }}" class="action-btn action-animal">
+                    <i class="fa fa-plus-circle"></i>
+                    <span>Ajouter un animal</span>
+                </a>
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\AssociationCrudController').setAction('new') }}" class="action-btn action-association">
+                    <i class="fa fa-plus-circle"></i>
+                    <span>Ajouter une association</span>
+                </a>
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\UserCrudController').setAction('new') }}" class="action-btn action-user">
+                    <i class="fa fa-user-plus"></i>
+                    <span>Ajouter un utilisateur</span>
+                </a>
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\AnimalsCrudController').setAction('index') }}" class="action-btn action-manage">
+                    <i class="fa fa-list"></i>
+                    <span>Gérer les animaux</span>
+                </a>
+            </div>
+        </div>
+
+        {# Activité récente #}
+        <div class="recent-activity">
+            <h2><i class="fa fa-clock"></i> Activité récente</h2>
+
+            <div class="activity-section">
+                <h3><i class="fa fa-paw"></i> Derniers animaux ajoutés</h3>
+                <div class="activity-list">
+                    {% if recent_animals is empty %}
+                        <p class="no-data">Aucun animal récent</p>
+                    {% else %}
+                        {% for animal in recent_animals %}
+                            <div class="activity-item">
+                                <div class="activity-info">
+                                    <strong>{{ animal.name }}</strong>
+                                    <span class="activity-meta">
+                                        {{ animal.species.name }} -
+                                        {{ animal.dateArrivee|date('d/m/Y') }}
+                                    </span>
+                                </div>
+                                <a href="{{ ea_url().setController('App\\Controller\\Admin\\AnimalsCrudController').setAction('edit').setEntityId(animal.id) }}" class="activity-link">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="activity-section">
+                <h3><i class="fa fa-comments"></i> Derniers commentaires</h3>
+                <div class="activity-list">
+                    {% if recent_comments is empty %}
+                        <p class="no-data">Aucun commentaire récent</p>
+                    {% else %}
+                        {% for comment in recent_comments %}
+                            <div class="activity-item">
+                                <div class="activity-info">
+                                    <strong>{{ comment.user.name }}</strong>
+                                    <span class="activity-meta">
+                                        {{ comment.text|length > 50 ? comment.text|slice(0, 50) ~ '...' : comment.text }}
+                                    </span>
+                                    <span class="activity-date">{{ comment.dateAjout|date('d/m/Y H:i') }}</span>
+                                </div>
+                                <a href="{{ ea_url().setController('App\\Controller\\Admin\\CommentsCrudController').setAction('edit').setEntityId(comment.id) }}" class="activity-link">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .admin-title {
+            color: #f8c630;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-family: 'Courgette', cursive;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-title i {
+            color: #f67e7d;
+        }
+
+        .admin-dashboard {
+            padding: 1rem;
+        }
+
+        /* Bouton retour au site */
+        .back-to-site-top {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn-back-site {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(29, 53, 87, 0.3);
+        }
+
+        .btn-back-site:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(29, 53, 87, 0.5);
+            color: white;
+        }
+
+        .btn-back-site i {
+            font-size: 1.3rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(248, 198, 48, 0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(248, 198, 48, 0.2);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: currentColor;
+        }
+
+        .stat-users { color: #f8c630; }
+        .stat-animals { color: #f67e7d; }
+        .stat-associations { color: #1d3557; }
+        .stat-comments { color: #457b9d; }
+        .stat-news { color: #f67e7d; }
+        .stat-species { color: #f8961e; }
+
+        .stat-icon {
+            font-size: 3rem;
+            opacity: 0.2;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .stat-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-content h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0 0 0.5rem 0;
+            color: #1d3557;
+        }
+
+        .stat-content p {
+            font-size: 1rem;
+            color: #457b9d;
+            margin: 0 0 1rem 0;
+            font-weight: 500;
+        }
+
+        .stat-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: currentColor;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: gap 0.3s ease;
+        }
+
+        .stat-link:hover {
+            gap: 0.8rem;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-actions h2 {
+            color: #1d3557;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .quick-actions h2 i {
+            color: #f8c630;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8c630 0%, #f8961e 100%);
+            color: white;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(248, 198, 48, 0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(248, 198, 48, 0.5);
+            color: white;
+        }
+
+        .action-btn i {
+            font-size: 2rem;
+        }
+
+        .action-animal {
+            background: linear-gradient(135deg, #f67e7d 0%, #f3722c 100%);
+            box-shadow: 0 4px 15px rgba(246, 126, 125, 0.3);
+        }
+
+        .action-animal:hover {
+            box-shadow: 0 8px 25px rgba(246, 126, 125, 0.5);
+        }
+
+        .action-association {
+            background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
+            box-shadow: 0 4px 15px rgba(29, 53, 87, 0.3);
+        }
+
+        .action-association:hover {
+            box-shadow: 0 8px 25px rgba(29, 53, 87, 0.5);
+        }
+
+        .action-user {
+            background: linear-gradient(135deg, #f8c630 0%, #f8961e 100%);
+            box-shadow: 0 4px 15px rgba(248, 198, 48, 0.3);
+        }
+
+        .action-user:hover {
+            box-shadow: 0 8px 25px rgba(248, 198, 48, 0.5);
+        }
+
+        .action-site {
+            background: linear-gradient(135deg, #457b9d 0%, #1d3557 100%);
+            box-shadow: 0 4px 15px rgba(69, 123, 157, 0.3);
+        }
+
+        .action-site:hover {
+            box-shadow: 0 8px 25px rgba(69, 123, 157, 0.5);
+        }
+
+        .action-manage {
+            background: linear-gradient(135deg, #457b9d 0%, #a8dadc 100%);
+            box-shadow: 0 4px 15px rgba(69, 123, 157, 0.3);
+        }
+
+        .action-manage:hover {
+            box-shadow: 0 8px 25px rgba(69, 123, 157, 0.5);
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .recent-activity > h2 {
+            color: #1d3557;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .recent-activity > h2 i {
+            color: #f8c630;
+        }
+
+        .activity-section {
+            margin-bottom: 2rem;
+        }
+
+        .activity-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .activity-section h3 {
+            color: #1d3557;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(248, 198, 48, 0.2);
+        }
+
+        .activity-section h3 i {
+            color: #f8c630;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background: #e9ecef;
+        }
+
+        .activity-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex: 1;
+        }
+
+        .activity-info strong {
+            color: #1d3557;
+            font-size: 1rem;
+        }
+
+        .activity-meta {
+            color: #457b9d;
+            font-size: 0.9rem;
+        }
+
+        .activity-date {
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+
+        .activity-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #f8c630, #f8961e);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 2px 8px rgba(248, 198, 48, 0.3);
+        }
+
+        .activity-link:hover {
+            background: linear-gradient(135deg, #f8961e, #f3722c);
+            transform: scale(1.1);
+            color: white;
+            box-shadow: 0 4px 12px rgba(248, 198, 48, 0.5);
+        }
+
+        .no-data {
+            text-align: center;
+            color: #95a5a6;
+            padding: 2rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+{% endblock %}
