@@ -67,6 +67,18 @@ final class AnimalsController extends AbstractController
         $allSpecies = $speciesRepository->findAll();
         $allDepartments = $departmentRepository->findAll();
 
+        // Check if user is member of an association
+        $user = $this->getUser();
+        $isMember = false;
+        if ($user) {
+            foreach ($user->getAssociationMembers() as $membership) {
+                if ($membership->isApproved()) {
+                    $isMember = true;
+                    break;
+                }
+            }
+        }
+
         return $this->render('animals/index.html.twig', [
             'animals' => $animals,
             'allSpecies' => $allSpecies,
@@ -74,6 +86,7 @@ final class AnimalsController extends AbstractController
             'currentSpecies' => $speciesId,
             'currentDepartment' => $departmentId,
             'currentSexe' => $sexe,
+            'is_member' => $isMember,
         ]);
     }
 

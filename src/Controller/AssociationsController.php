@@ -11,6 +11,7 @@ use App\Service\AssociationMembershipService;
 use App\Service\PermissionService;
 use App\Repository\AssociationRepository;
 use App\Repository\AssociationMemberRepository;
+use App\Repository\DepartmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +26,7 @@ final class AssociationsController extends AbstractController
         private PermissionService $permissionService,
         private AssociationRepository $associationRepository,
         private AssociationMemberRepository $associationMemberRepository,
+        private DepartmentRepository $departmentRepository,
         private EntityManagerInterface $entityManager
     ) {
     }
@@ -33,12 +35,47 @@ final class AssociationsController extends AbstractController
      * List all associations (public)
      */
     #[Route('/associations', name: 'associations')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $associations = $this->associationRepository->findAll();
+        // Get department filter from query parameter
+        $departmentId = $request->query->get('department');
+
+        // Filter associations by department if specified
+        if ($departmentId) {
+            $associations = $this->associationRepository->findBy(['department' => $departmentId]);
+        } else {
+            $associations = $this->associationRepository->findAll();
+        }
+
+        // Get all departments for the filter dropdown
+        $departments = $this->departmentRepository->findBy([], ['name' => 'ASC']);
+
+        // Sort associations: user's associations first
+        $user = $this->getUser();
+        $userAssociationIds = [];
+        if ($user) {
+            foreach ($user->getAssociationMembers() as $membership) {
+                if ($membership->isApproved()) {
+                    $userAssociationIds[] = $membership->getAssociation()->getId();
+                }
+            }
+        }
+
+        // Sort: user's associations first, then others
+        usort($associations, function($a, $b) use ($userAssociationIds) {
+            $aIsUser = in_array($a->getId(), $userAssociationIds);
+            $bIsUser = in_array($b->getId(), $userAssociationIds);
+
+            if ($aIsUser && !$bIsUser) return -1;
+            if (!$aIsUser && $bIsUser) return 1;
+            return 0;
+        });
 
         return $this->render('associations/index.html.twig', [
             'associations' => $associations,
+            'departments' => $departments,
+            'selected_department' => $departmentId,
+            'user_association_ids' => $userAssociationIds,
         ]);
     }
 

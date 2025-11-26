@@ -13,21 +13,54 @@
                 </a>
             {% endif %}
         </div>
-    
-        {% if associations is empty %}
-            <div class="empty-state">
-                <i class="fas fa-info-circle"></i>
-                <p>Aucune association enregistrée pour le moment.</p>
-            </div>
-        {% else %}
-            <div class="grid">
+
+        {# Filter by department #}
+        <div class="filter-section">
+            <form method="get" action="{{ path('associations') }}" class="filter-form">
+                <div class="filter-group">
+                    <label for="department-filter">
+                        <i class="fas fa-map-marker-alt"></i> Filtrer par département
+                    </label>
+                    <select name="department" id="department-filter" class="department-select" onchange="this.form.submit()">
+                        <option value="">Tous les départements</option>
+                        {% for department in departments %}
+                            <option value="{{ department.id }}" {% if selected_department == department.id %}selected{% endif %}>
+                                {{ department.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% if selected_department %}
+                    <a href="{{ path('associations') }}" class="clear-filter-btn">
+                        <i class="fas fa-times"></i> Effacer le filtre
+                    </a>
+                {% endif %}
+            </form>
+        </div>
+
+        <div class="grid">
+            {% if associations is empty %}
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <i class="fas fa-info-circle"></i>
+                    {% if selected_department %}
+                        <p>Aucune association trouvée pour ce département.</p>
+                    {% else %}
+                        <p>Aucune association enregistrée pour le moment.</p>
+                    {% endif %}
+                </div>
+            {% else %}
                 {% for association in associations %}
-                    <div class="card">
+                    <div class="card {% if association.id in user_association_ids %}user-association{% endif %}">
+                        {% if association.id in user_association_ids %}
+                            <div class="member-badge">
+                                <i class="fas fa-star"></i> Mon association
+                            </div>
+                        {% endif %}
                         {% if association.imageName %}
-                            <img src="{{ vich_uploader_asset(association, 'imageFile') }}" 
+                            <img src="{{ vich_uploader_asset(association, 'imageFile') }}"
                                  class="image" alt="{{ association.name }}">
                         {% endif %}
-                    
+
                         <div class="body">
                             <h5 class="title">{{ association.name }}</h5>
                             <p class="description">
@@ -64,8 +97,8 @@
                         </div>
                     </div>
                 {% endfor %}
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

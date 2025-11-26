@@ -103,9 +103,9 @@
                 <i class="fas fa-arrow-left"></i> Retour à la liste
             </a>
             {% if animal.association and animal.association.contactEmail %}
-                <a href="mailto:{{ animal.association.contactEmail }}?subject=Demande d'information concernant {{ animal.name }}" class="btn-contact">
+                <button class="btn-contact contact-btn" data-animal-id="{{ animal.id }}">
                     <i class="fas fa-envelope"></i> Contacter l'association
-                </a>
+                </button>
             {% else %}
                 <button class="btn-contact disabled" disabled>
                     <i class="fas fa-envelope"></i> Aucun contact disponible
