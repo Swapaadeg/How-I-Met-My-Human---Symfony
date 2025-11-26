@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notre équipe{% endblock %}
+
+{% block body %}
+<div class="static-page our-team">
+    <div class="page-hero">
+        <div class="container">
+            <h1><i class="fas fa-users"></i> Notre équipe</h1>
+            <p class="subtitle">Les compagnons qui font vivre ce projet</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="intro-section">
+            <p class="lead-text">
+                How I Met My Human est bien plus qu'un simple site web, c'est un projet de cœur porté par une équipe... un peu particulière ! Découvrez les trois adorables compagnons qui sont l'inspiration et la motivation derrière cette plateforme.
+            </p>
+        </div>
+
+        {# Naiko #}
+        <div class="team-member left">
+            <div class="member-image">
+                <img src="{{ asset('naiko.jpg') }}" alt="Naiko, husky sibérien" />
+            </div>
+            <div class="member-content">
+                <h2>Naïko</h2>
+                <p class="member-role">Le husky libre</p>
+                <p class="member-description">
+                    Naïko est un husky sibérien né en 2017, indépendant et aventurier dans l'âme dès qu'il est à l'extérieur.  Par contre c'est un vrai pantouflard quand il s'agit de sortir du lit, il aime dormir tard le matin et se blottir contre vous sur le canapé. Aussi doux de poils que de regard, il sait séduire n'importe qui.
+                </p>
+                <div class="member-stats">
+                    <div class="stat">
+                        <i class="fas fa-paw"></i>
+                        <span>Indépendant</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-heart"></i>
+                        <span>Doux</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Loony #}
+        <div class="team-member right">
+            <div class="member-content">
+                <h2>Loony</h2>
+                <p class="member-role">Chat gastronome</p>
+                <p class="member-description">
+                    Loony est une chatte européenne née en 2023 et adoptée à ses deux mois au sein de l'association Pattes En Cavale. Curieuse et espiègle, elle adore explorer son environnement et jouer avec tout ce qui bouge. C'est aussi une grande gourmande qui ne dit jamais non à une friandise ou un bon repas. Dormir sur les jambes et contre Ziha est son activité favorite.
+                </p>
+                <div class="member-stats">
+                    <div class="stat">
+                        <i class="fas fa-paw"></i>
+                        <span>Miaulement puissant</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-heart"></i>
+                        <span>Gentillesse et patience</span>
+                    </div>
+                </div>
+            </div>
+            <div class="member-image">
+                <img src="{{ asset('images/team-member-2.jpg') }}" alt="Membre de l'équipe 2" />
+            </div>
+        </div>
+
+        {# Team Member 3 - Image à gauche #}
+        <div class="team-member left">
+            <div class="member-image">
+                <img src="{{ asset('images/team-member-3.jpg') }}" alt="Membre de l'équipe 3" />
+            </div>
+            <div class="member-content">
+                <h2>Prénom de l'animal 3</h2>
+                <p class="member-role">Rôle ou titre</p>
+                <p class="member-description">
+                    Décrivez votre troisième compagnon : son tempérament, ce qui le/la rend spécial(e),
+                    son rôle dans votre quotidien. Expliquez pourquoi il/elle complète parfaitement
+                    cette équipe extraordinaire.
+                </p>
+                <p class="member-description">
+                    Partagez son histoire, les défis qu'il/elle a peut-être surmontés, et comment il/elle
+                    vous inspire chaque jour à continuer ce projet d'aide aux animaux abandonnés.
+                    Votre animal est la preuve vivante que chaque rescapé mérite une seconde chance.
+                </p>
+                <div class="member-stats">
+                    <div class="stat">
+                        <i class="fas fa-paw"></i>
+                        <span>Caractéristique 1</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-heart"></i>
+                        <span>Caractéristique 2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Mission Statement #}
+        <div class="mission-section">
+            <h2><i class="fas fa-bullseye"></i> Notre mission</h2>
+            <p>
+                Inspirés par nos propres compagnons et leur histoire, nous avons créé How I Met My Human
+                pour faciliter la rencontre entre les animaux abandonnés et leurs futures familles.
+                Chaque animal mérite de connaître le bonheur d'un foyer aimant, et nous mettons tout
+                en œuvre pour que ces belles histoires se multiplient.
+            </p>
+            <div class="mission-values">
+                <div class="value">
+                    <i class="fas fa-heart"></i>
+                    <h4>Compassion</h4>
+                    <p>Chaque animal compte et mérite notre attention</p>
+                </div>
+                <div class="value">
+                    <i class="fas fa-hands-helping"></i>
+                    <h4>Engagement</h4>
+                    <p>Nous soutenons les associations au quotidien</p>
+                </div>
+                <div class="value">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Innovation</h4>
+                    <p>Des outils modernes pour faciliter l'adoption</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h3>Rejoignez notre cause</h3>
+            <p>Ensemble, donnons à chaque animal la chance de rencontrer son humain</p>
+            <div class="cta-buttons">
+                <a href="{{ path('animals') }}" class="btn-primary">
+                    <i class="fas fa-paw"></i> Découvrir les animaux
+                </a>
+                <a href="{{ path('become_volunteer') }}" class="btn-secondary">
+                    <i class="fas fa-hands-helping"></i> Devenir bénévole
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

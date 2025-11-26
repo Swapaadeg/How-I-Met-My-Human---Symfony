@@ -22,22 +22,29 @@
         }
 
         .create-btn {
-            background-color: $color-secondary;
+            background: linear-gradient(135deg, $color-secondary, $color-accent);
             color: $color-background;
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.25rem;
             text-decoration: none;
-            border-radius: 0.5rem;
+            border-radius: 25px;
             font-family: $font-family-primary;
             font-weight: 600;
-            transition: background-color 0.3s ease;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba($color-secondary, 0.3);
+            white-space: nowrap;
 
             &:hover {
-                background-color: $color-accent;
-                color: $color-background;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 25px rgba($color-secondary, 0.5);
             }
 
             i {
-                margin-right: 0.5rem;
+                order: 2;
+                font-size: 0.85rem;
             }
         }
     }

@@ -1,0 +1,600 @@
+@use "../abstracts/variables" as v;
+
+.static-page {
+    background: v.$color-background;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+
+    .page-hero {
+        background: v.$color-secondary;
+        color: v.$color-background;
+        padding: 4rem 0 3rem;
+        text-align: center;
+        margin-bottom: 3rem;
+
+        h1 {
+            font-family: v.$font-family-bold;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+
+            i {
+                margin-right: 1rem;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            font-family: v.$font-family-primary;
+        }
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .intro-section {
+        text-align: center;
+        margin-bottom: 4rem;
+
+        .lead-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: v.$color-dark;
+            max-width: 900px;
+            margin: 0 auto;
+            font-family: v.$font-family-primary;
+        }
+    }
+
+    .content-section {
+        margin-bottom: 4rem;
+
+        h2 {
+            font-family: v.$font-family-bold;
+            font-size: 2rem;
+            color: v.$color-dark;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            i {
+                color: v.$color-secondary;
+            }
+        }
+
+        h3 {
+            font-family: v.$font-family-bold;
+            font-size: 1.5rem;
+            color: v.$color-dark;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            i {
+                color: v.$color-secondary;
+                font-size: 1.2rem;
+            }
+        }
+
+        p {
+            font-family: v.$font-family-primary;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+// Adoption Conditions Page
+.adoption-conditions {
+    .content-section {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 3rem;
+        align-items: start;
+
+        @media (max-width: 992px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .text-content {
+        h2 {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    .conditions-list,
+    .procedure-list {
+        list-style: none;
+        padding: 0;
+
+        li {
+            background: v.$color-background;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid v.$color-secondary;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            font-family: v.$font-family-primary;
+            line-height: 1.6;
+
+            strong {
+                color: v.$color-dark;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .procedure-list {
+        counter-reset: procedure-counter;
+
+        li {
+            counter-increment: procedure-counter;
+            position: relative;
+            padding-left: 3.5rem;
+
+            &::before {
+                content: counter(procedure-counter);
+                position: absolute;
+                left: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                background: v.$color-secondary;
+                color: v.$color-background;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    .info-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin: 2rem 0;
+
+        h4 {
+            color: #856404;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: v.$font-family-bold;
+        }
+
+        p {
+            color: #856404;
+            margin: 0;
+        }
+    }
+
+    .image-content {
+        position: sticky;
+        top: 2rem;
+
+        .image-placeholder {
+            background: v.$color-background;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            .image-caption {
+                padding: 1rem;
+                text-align: center;
+                font-style: italic;
+                color: #666;
+                font-family: v.$font-family-primary;
+                margin: 0;
+            }
+        }
+    }
+}
+
+// Become Volunteer Page
+.become-volunteer {
+    .reasons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+
+        .reason-card {
+            background: v.$color-background;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+
+            .icon {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 1.5rem;
+                background: v.$color-secondary;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                i {
+                    font-size: 2rem;
+                    color: v.$color-background;
+                }
+            }
+
+            h3 {
+                color: v.$color-dark;
+                margin-bottom: 1rem;
+                font-size: 1.3rem;
+                justify-content: center;
+            }
+
+            p {
+                color: #666;
+                line-height: 1.6;
+                margin: 0;
+            }
+        }
+    }
+
+    .volunteer-types {
+        display: grid;
+        gap: 2rem;
+    }
+
+    .volunteer-type {
+        background: v.$color-background;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+        .type-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+
+            i {
+                font-size: 2rem;
+                color: v.$color-secondary;
+            }
+
+            h3 {
+                margin: 0;
+                color: v.$color-dark;
+            }
+        }
+
+        p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 0.5rem 0 0.5rem 1.5rem;
+                position: relative;
+                color: #666;
+
+                &::before {
+                    content: "✓";
+                    position: absolute;
+                    left: 0;
+                    color: v.$color-secondary;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    .steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0 3rem;
+
+        .step {
+            background: v.$color-background;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            padding-top: 4rem;
+
+            .step-number {
+                position: absolute;
+                top: -1.5rem;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 3rem;
+                height: 3rem;
+                background: v.$color-secondary;
+                color: v.$color-background;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.4);
+            }
+
+            h4 {
+                color: v.$color-dark;
+                margin-bottom: 0.75rem;
+                text-align: center;
+                font-family: v.$font-family-bold;
+            }
+
+            p {
+                text-align: center;
+                margin: 0;
+                color: #666;
+            }
+        }
+    }
+}
+
+// Our Team Page
+.our-team {
+    .team-member {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        margin-bottom: 5rem;
+        background: v.$color-background;
+        border-radius: 1.5rem;
+        padding: 3rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+        @media (max-width: 992px) {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        &.right {
+            .member-image {
+                order: 2;
+            }
+
+            .member-content {
+                order: 1;
+            }
+
+            @media (max-width: 992px) {
+                .member-image {
+                    order: 1;
+                }
+
+                .member-content {
+                    order: 2;
+                }
+            }
+        }
+
+        .member-image {
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 1rem;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        .member-content {
+            h2 {
+                font-family: v.$font-family-bold;
+                font-size: 2.2rem;
+                color: v.$color-dark;
+                margin-bottom: 0.5rem;
+            }
+
+            .member-role {
+                color: v.$color-secondary;
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin-bottom: 1.5rem;
+                font-family: v.$font-family-primary;
+            }
+
+            .member-description {
+                color: #555;
+                line-height: 1.8;
+                margin-bottom: 1.5rem;
+                font-family: v.$font-family-primary;
+            }
+
+            .member-stats {
+                display: flex;
+                gap: 2rem;
+                margin-top: 2rem;
+
+                .stat {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    color: v.$color-dark;
+                    font-family: v.$font-family-primary;
+
+                    i {
+                        color: v.$color-secondary;
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .mission-section {
+        background: v.$color-background;
+        padding: 3rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        margin-bottom: 3rem;
+
+        h2 {
+            text-align: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        > p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .mission-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+
+            .value {
+                text-align: center;
+                padding: 2rem;
+
+                i {
+                    font-size: 3rem;
+                    color: v.$color-secondary;
+                    margin-bottom: 1rem;
+                }
+
+                h4 {
+                    color: v.$color-dark;
+                    margin-bottom: 0.75rem;
+                    font-family: v.$font-family-bold;
+                    font-size: 1.3rem;
+                }
+
+                p {
+                    color: #666;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+
+// Common CTA Section
+.cta-section {
+    text-align: center;
+    background: v.$color-secondary;
+    padding: 3rem;
+    border-radius: 1.5rem;
+    color: v.$color-background;
+    margin-top: 3rem;
+
+    h3 {
+        font-family: v.$font-family-bold;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: v.$color-background;
+    }
+
+    p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+        color: v.$color-background;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+.cta-box {
+    background: v.$color-secondary;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    margin-top: 3rem;
+
+    h3,
+    h4 {
+        color: v.$color-background;
+        margin-bottom: 1rem;
+        font-family: v.$font-family-bold;
+    }
+
+    p {
+        color: v.$color-background;
+        margin-bottom: 1.5rem;
+        opacity: 0.95;
+    }
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-family: v.$font-family-primary;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.btn-primary {
+    background: v.$color-background;
+    color: v.$color-secondary;
+
+    &:hover {
+        background: v.$color-background;
+    }
+}
+
+.btn-secondary {
+    background: transparent;
+    color: v.$color-background;
+    border: 2px solid v.$color-background;
+
+    &:hover {
+        background: v.$color-background;
+        color: v.$color-secondary;
+    }
+}
