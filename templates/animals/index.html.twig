@@ -6,8 +6,15 @@
 <div class="animals-page">
     <div class="container">
         <div class="page-header">
-            <h1><i class="fas fa-heart"></i> Ils attendent une famille</h1>
-            <p class="subtitle">Découvrez nos adorables pensionnaires qui rêvent de trouver leur foyer pour toujours</p>
+            <div class="header-content">
+                <h1><i class="fas fa-heart"></i> Ils attendent une famille</h1>
+                <p class="subtitle">Découvrez nos adorables pensionnaires qui rêvent de trouver leur foyer pour toujours</p>
+            </div>
+            {% if is_member %}
+                <a href="{{ path('animals_add') }}" class="add-animal-btn">
+                    <i class="fas fa-plus"></i> Ajouter un animal
+                </a>
+            {% endif %}
         </div>
 
         {# Section de filtres #}

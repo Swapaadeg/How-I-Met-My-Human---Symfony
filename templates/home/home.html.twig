@@ -172,9 +172,9 @@
                                                 <i class="far fa-heart"></i>
                                             </button>
                                             {% if animal.association and animal.association.contactEmail %}
-                                                <a href="mailto:{{ animal.association.contactEmail }}?subject=Demande d'information concernant {{ animal.name }}" class="action-btn contact-btn" title="Contacter l'association">
+                                                <button class="action-btn contact-btn" data-animal-id="{{ animal.id }}" title="Contacter l'association">
                                                     <i class="fas fa-envelope"></i>
-                                                </a>
+                                                </button>
                                             {% else %}
                                                 <button class="action-btn contact-btn disabled" disabled title="Aucun contact disponible">
                                                     <i class="fas fa-envelope"></i>

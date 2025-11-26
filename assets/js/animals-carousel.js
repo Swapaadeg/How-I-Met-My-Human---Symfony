@@ -85,34 +85,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Écouteurs d'événements pour les cartes
     cards.forEach((card, index) => {
         card.addEventListener('click', (e) => {
-            // Si ce n'est pas la carte centrale, empêcher toute navigation et aller vers cette carte
+            // Vérifier si c'est un lien ou un bouton
+            const clickedElement = e.target;
+            const isLink = clickedElement.closest('a[href]');
+            const isButton = clickedElement.closest('button');
+
+            // Si c'est un lien ou un bouton, toujours les laisser fonctionner
+            if (isLink || isButton) {
+                // Ne rien faire, laisser le navigateur gérer l'action
+                return;
+            }
+
+            // Si ce n'est pas la carte centrale, naviguer vers cette carte
             if (!card.classList.contains('center')) {
-                // Empêcher tous les comportements par défaut
                 e.preventDefault();
                 e.stopPropagation();
-                e.stopImmediatePropagation();
-                
-                // Naviguer vers cette carte
                 goToSlide(index);
                 return false;
             }
-            // Si c'est la carte centrale, laisser les liens fonctionner normalement
         });
-        
-        // Intercepter tous les clics sur les éléments de la carte
-        card.addEventListener('click', (e) => {
-            if (!card.classList.contains('center')) {
-                // Vérifier si c'est un bouton d'action
-                const isActionBtn = e.target.closest('.action-btn');
-                if (!isActionBtn) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    goToSlide(index);
-                    return false;
-                }
-            }
-        }, true); // Utiliser la phase de capture
     });
     
     // Navigation au clavier

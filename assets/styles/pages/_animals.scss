@@ -13,27 +13,62 @@
     }
     
     .page-header {
-        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 3rem;
-        
-        h1 {
-            font-size: 2.5rem;
-            font-family: v.$font-family-bold;
-            color: v.$color-dark;
-            margin-bottom: 1rem;
-            
-            i {
-                color: v.$color-secondary;
-                margin-right: 1rem;
+        gap: 2rem;
+        flex-wrap: wrap;
+
+        .header-content {
+            text-align: center;
+            flex: 1;
+
+            h1 {
+                font-size: 2.5rem;
+                font-family: v.$font-family-bold;
+                color: v.$color-dark;
+                margin-bottom: 1rem;
+
+                i {
+                    color: v.$color-secondary;
+                    margin-right: 1rem;
+                }
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                color: v.$color-accent;
+                font-style: italic;
+                max-width: 600px;
+                margin: 0 auto;
             }
         }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            color: v.$color-accent;
-            font-style: italic;
-            max-width: 600px;
-            margin: 0 auto;
+
+        .add-animal-btn {
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+            color: v.$color-background;
+            padding: 0.85rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: v.$font-family-primary;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
+            white-space: nowrap;
+
+            i {
+                font-size: 0.9rem;
+            }
+
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 25px rgba(v.$color-secondary, 0.5);
+            }
         }
     }
 

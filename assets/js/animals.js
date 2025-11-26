@@ -102,25 +102,15 @@ function initializeSeeMoreButtons() {
 }
 
 function initializeActionButtons() {
-    // Contact buttons
-    const contactButtons = document.querySelectorAll('.contact-btn');
-    contactButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const animalId = this.dataset.animalId;
-            handleContact(animalId);
-        });
-    });
-    
+    // Contact buttons are now handled by contact-modal.js
+
     // Share buttons
     const shareButtons = document.querySelectorAll('.share-btn');
     shareButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const animalId = this.dataset.animalId;
             handleShare(animalId);
         });
@@ -175,17 +165,7 @@ function removeFavorite(animalId) {
     });
 }
 
-function handleContact(animalId) {
-    console.log(`Contacting for animal ${animalId}`);
-    
-    // Show modal or redirect to contact form
-    showNotification('Redirection vers le formulaire de contact...', 'info');
-    
-    // You could open a modal or redirect to a contact page
-    // setTimeout(() => {
-    //     window.location.href = `/contact/animal/${animalId}`;
-    // }, 1000);
-}
+// handleContact function removed - Contact now uses direct mailto: links
 
 function handleShare(animalId) {
     console.log(`Sharing animal ${animalId}`);
@@ -409,7 +389,6 @@ window.AnimalCards = {
     addFavorite,
     removeFavorite,
     showNotification,
-    handleContact,
     handleShare,
     initializeTooltips
 };
