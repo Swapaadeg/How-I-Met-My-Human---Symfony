@@ -171,9 +171,15 @@
                                             <button class="action-btn favorite-btn" data-animal-id="{{ animal.id }}" title="Ajouter aux favoris">
                                                 <i class="far fa-heart"></i>
                                             </button>
-                                            <button class="action-btn contact-btn" data-animal-id="{{ animal.id }}" title="Contacter l'association">
-                                                <i class="fas fa-envelope"></i>
-                                            </button>
+                                            {% if animal.association and animal.association.contactEmail %}
+                                                <a href="mailto:{{ animal.association.contactEmail }}?subject=Demande d'information concernant {{ animal.name }}" class="action-btn contact-btn" title="Contacter l'association">
+                                                    <i class="fas fa-envelope"></i>
+                                                </a>
+                                            {% else %}
+                                                <button class="action-btn contact-btn disabled" disabled title="Aucun contact disponible">
+                                                    <i class="fas fa-envelope"></i>
+                                                </button>
+                                            {% endif %}
                                             <button class="action-btn share-btn" data-animal-id="{{ animal.id }}" title="Partager">
                                                 <i class="fas fa-share-alt"></i>
                                             </button>

@@ -25,7 +25,7 @@ class AssociationCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Association')
             ->setEntityLabelInPlural('Associations')
-            ->setSearchFields(['id', 'name', 'email'])
+            ->setSearchFields(['id', 'name', 'contact_email'])
             ->setDefaultSort(['name' => 'ASC']);
     }
 
@@ -33,7 +33,7 @@ class AssociationCrudController extends AbstractCrudController
     {
         yield IdField::new('id')->hideOnForm();
         yield TextField::new('name', 'Nom');
-        yield EmailField::new('email', 'Email');
+        yield EmailField::new('contactEmail', 'Email');
         yield TextField::new('phone', 'Téléphone');
         yield TextareaField::new('address', 'Adresse')->hideOnIndex();
         yield AssociationField::new('department', 'Département');
