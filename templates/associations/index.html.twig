@@ -7,9 +7,9 @@
     <div class="container">
         <div class="header">
             <h1 class="title">Liste des associations</h1>
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ASSOCIATION_MANAGER') %}
+            {% if is_granted('ROLE_USER') %}
                 <a href="{{ path('associations_new') }}" class="create-btn">
-                    <i class="fas fa-plus"></i> Créer une association
+                    Créer mon association <i class="fas fa-paw"></i>
                 </a>
             {% endif %}
         </div>

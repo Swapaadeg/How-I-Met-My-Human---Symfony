@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conditions d'adoption{% endblock %}
+
+{% block body %}
+<div class="static-page adoption-conditions">
+    <div class="page-hero">
+        <div class="container">
+            <h1><i class="fas fa-file-contract"></i> Conditions d'adoption</h1>
+            <p class="subtitle">Ce qu'il faut savoir avant d'adopter un animal</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-section">
+            <div class="text-content">
+                <h2>Cadre légal de l'adoption</h2>
+                <p>En France, l'adoption d'un animal de compagnie est encadrée par la loi pour garantir le bien-être de l'animal et responsabiliser l'adoptant. Voici les principales conditions à respecter :</p>
+
+                <h3><i class="fas fa-check-circle"></i> Conditions légales</h3>
+                <ul class="conditions-list">
+                    <li>
+                        <strong>Âge minimum :</strong> L'adoptant doit être majeur (18 ans révolus) ou avoir l'autorisation parentale.
+                    </li>
+                    <li>
+                        <strong>Certificat d'engagement et de connaissance :</strong> Depuis le 1er octobre 2022, tout adoptant doit signer un certificat attestant qu'il s'engage à répondre aux besoins de l'animal et qu'il a pris connaissance des obligations et responsabilités liées à la possession d'un animal.
+                    </li>
+                    <li>
+                        <strong>Délai de réflexion :</strong> Un délai de réflexion de 7 jours est obligatoire avant la remise effective de l'animal. Ce délai permet de mûrir sa décision d'adoption.
+                    </li>
+                    <li>
+                        <strong>Identification :</strong> Tout chien ou chat doit être identifié par puce électronique ou tatouage avant sa cession. L'identification est à la charge de l'association.
+                    </li>
+                    <li>
+                        <strong>Carnet de santé :</strong> L'animal doit être accompagné de son carnet de santé à jour, mentionnant les vaccinations et les éventuels traitements vétérinaires.
+                    </li>
+                </ul>
+
+                <h3><i class="fas fa-heart"></i> Conditions d'accueil</h3>
+                <ul class="conditions-list">
+                    <li>
+                        <strong>Logement adapté :</strong> Disposer d'un logement adapté aux besoins de l'animal (espace suffisant, sécurisé, etc.).
+                    </li>
+                    <li>
+                        <strong>Accord du propriétaire :</strong> Si vous êtes locataire, vérifiez que votre bail autorise la détention d'animaux.
+                    </li>
+                    <li>
+                        <strong>Moyens financiers :</strong> Être en capacité de subvenir aux besoins de l'animal (alimentation, soins vétérinaires, accessoires).
+                    </li>
+                    <li>
+                        <strong>Disponibilité :</strong> Avoir du temps à consacrer à son animal pour son éducation, ses sorties et son épanouissement.
+                    </li>
+                    <li>
+                        <strong>Famille d'accord :</strong> Tous les membres du foyer doivent être d'accord avec l'adoption et ne pas présenter d'allergies incompatibles.
+                    </li>
+                </ul>
+
+                <h3><i class="fas fa-info-circle"></i> Procédure d'adoption</h3>
+                <ol class="procedure-list">
+                    <li>Visite préalable de l'animal dans son lieu d'accueil (refuge ou famille d'accueil)</li>
+                    <li>Entretien avec l'association pour évaluer la compatibilité</li>
+                    <li>Signature du certificat d'engagement et de connaissance</li>
+                    <li>Respect du délai de réflexion de 7 jours</li>
+                    <li>Versement des frais d'adoption (participation aux frais vétérinaires)</li>
+                    <li>Signature du contrat d'adoption</li>
+                    <li>Remise de l'animal avec ses documents (carte d'identification, carnet de santé, contrat)</li>
+                </ol>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-gavel"></i> Sanctions en cas de maltraitance</h4>
+                    <p>La maltraitance animale est un délit puni par la loi. Selon l'article 521-1 du Code pénal, les actes de cruauté envers les animaux sont passibles de 3 ans d'emprisonnement et 45 000€ d'amende. L'abandon d'un animal est également puni de 3 ans de prison et 45 000€ d'amende.</p>
+                </div>
+
+                <div class="cta-box">
+                    <h4>Prêt à adopter ?</h4>
+                    <p>Si vous remplissez toutes ces conditions et que vous êtes prêt à offrir un foyer aimant à un animal, n'hésitez pas à contacter les associations partenaires.</p>
+                    <a href="{{ path('associations') }}" class="btn-primary">
+                        <i class="fas fa-paw"></i> Voir les associations
+                    </a>
+                </div>
+            </div>
+
+            <div class="image-content">
+                <div class="image-placeholder">
+                    <img src="{{ asset('images/adoption-conditions.jpg') }}" alt="Conditions d'adoption" />
+                    <p class="image-caption">L'adoption est un engagement sur le long terme</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
