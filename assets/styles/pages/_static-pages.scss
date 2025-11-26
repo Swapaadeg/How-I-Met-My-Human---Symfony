@@ -215,6 +215,12 @@
 .become-volunteer {
     padding-bottom: 12rem;
 
+    .page-hero {
+        background-image: linear-gradient(rgba(v.$color-secondary, 0.7), rgba(v.$color-secondary, 0.7)), url('../../../public/benevole.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
     .reasons-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -371,6 +377,12 @@
 // Our Team Page
 .our-team {
     padding-bottom: 12rem;
+
+    .page-hero {
+        background-image: linear-gradient(rgba(v.$color-secondary, 0.7), rgba(v.$color-secondary, 0.7)), url('../../../public/chiens.jpg');
+        background-size: cover;
+        background-position: center;
+    }
 
     .team-member {
         display: grid;
