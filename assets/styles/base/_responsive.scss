@@ -27,9 +27,26 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         .navbar {
             padding: 1rem;
 
-            .nav-links,
-            .auth-section {
+            .nav-links {
                 display: none;
+            }
+
+            .auth-section {
+                gap: 0.5rem;
+
+                .action-menu-toggle {
+                    padding: 0.5rem;
+
+                    .action-label {
+                        display: none;
+                    }
+                }
+
+                .logout-link {
+                    font-size: 1.2rem;
+                    padding: 0.4rem 0.6rem;
+                    margin-left: 0.25rem;
+                }
             }
 
             .burger-menu {
