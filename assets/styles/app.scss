@@ -1,6 +1,6 @@
 // IMPORT ABSTRACTS SCSS
-@use "abstracts/variables" as *;
-@use "abstracts/mixins" as *;
+@use "abstracts/variables" as v;
+@use "abstracts/mixins" as m;
 
 // IMPORT BASE SCSS
 @use "base/base";

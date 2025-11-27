@@ -1,4 +1,4 @@
-@use "../abstracts/variables" as *;
+@use "../abstracts/variables" as v;
 
 // Association pages styles
 .associations {
@@ -15,31 +15,31 @@
         margin-bottom: 2rem;
 
         .title {
-            color: $color-dark;
-            font-family: $font-family-bold;
+            color: v.$color-dark;
+            font-family: v.$font-family-bold;
             font-size: 2.5rem;
             margin: 0;
         }
 
         .create-btn {
-            background: linear-gradient(135deg, $color-secondary, $color-accent);
-            color: $color-background;
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+            color: v.$color-background;
             padding: 0.75rem 1.25rem;
             text-decoration: none;
             border-radius: 25px;
-            font-family: $font-family-primary;
+            font-family: v.$font-family-primary;
             font-weight: 600;
             font-size: 0.95rem;
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba($color-secondary, 0.3);
+            box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
             white-space: nowrap;
 
             &:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 25px rgba($color-secondary, 0.5);
+                box-shadow: 0 6px 25px rgba(v.$color-secondary, 0.5);
             }
 
             i {
@@ -50,7 +50,7 @@
     }
 
     .filter-section {
-        background: white;
+        background: v.$color-background;
         border-radius: 1rem;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         padding: 1.5rem;
@@ -69,14 +69,14 @@
 
             label {
                 display: block;
-                color: $color-dark;
-                font-family: $font-family-primary;
+                color: v.$color-dark;
+                font-family: v.$font-family-primary;
                 font-weight: 600;
                 margin-bottom: 0.5rem;
                 font-size: 0.95rem;
 
                 i {
-                    color: $color-secondary;
+                    color: v.$color-secondary;
                     margin-right: 0.5rem;
                 }
             }
@@ -86,21 +86,21 @@
                 padding: 0.75rem 1rem;
                 border: 2px solid #e5e7eb;
                 border-radius: 0.5rem;
-                font-family: $font-family-primary;
+                font-family: v.$font-family-primary;
                 font-size: 1rem;
                 background-color: white;
-                color: $color-dark;
+                color: v.$color-dark;
                 cursor: pointer;
                 transition: all 0.3s ease;
 
                 &:hover {
-                    border-color: $color-secondary;
+                    border-color: v.$color-secondary;
                 }
 
                 &:focus {
                     outline: none;
-                    border-color: $color-secondary;
-                    box-shadow: 0 0 0 3px rgba($color-secondary, 0.1);
+                    border-color: v.$color-secondary;
+                    box-shadow: 0 0 0 3px rgba(v.$color-secondary, 0.1);
                 }
 
                 option {
@@ -116,7 +116,7 @@
             padding: 0.75rem 1.25rem;
             text-decoration: none;
             border-radius: 0.5rem;
-            font-family: $font-family-primary;
+            font-family: v.$font-family-primary;
             font-weight: 600;
             font-size: 0.9rem;
             transition: all 0.3s ease;
@@ -146,7 +146,7 @@
     }
 
     .card {
-        background: white;
+        background: v.$color-background;
         border-radius: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         overflow: hidden;
@@ -164,11 +164,11 @@
         }
 
         &.user-association {
-            border: 3px solid $color-secondary;
-            box-shadow: 0 4px 15px rgba($color-secondary, 0.3);
+            border: 3px solid v.$color-secondary;
+            box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
 
             &:hover {
-                box-shadow: 0 8px 30px rgba($color-secondary, 0.5);
+                box-shadow: 0 8px 30px rgba(v.$color-secondary, 0.5);
             }
         }
 
@@ -176,17 +176,17 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: linear-gradient(135deg, $color-secondary, $color-accent);
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 20px;
-            font-family: $font-family-primary;
+            font-family: v.$font-family-primary;
             font-weight: 600;
             font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            box-shadow: 0 4px 12px rgba($color-secondary, 0.4);
+            box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.4);
             z-index: 10;
             animation: pulseGlow 2s ease-in-out infinite;
 
@@ -197,10 +197,10 @@
 
         @keyframes pulseGlow {
             0%, 100% {
-                box-shadow: 0 4px 12px rgba($color-secondary, 0.4);
+                box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.4);
             }
             50% {
-                box-shadow: 0 4px 20px rgba($color-secondary, 0.7);
+                box-shadow: 0 4px 20px rgba(v.$color-secondary, 0.7);
             }
         }
 
@@ -217,15 +217,15 @@
             flex-grow: 1;
 
             .title {
-                color: $color-dark;
-                font-family: $font-family-bold;
+                color: v.$color-dark;
+                font-family: v.$font-family-bold;
                 font-size: 1.25rem;
                 margin: 0 0 1rem 0;
             }
 
             .description {
                 color: #666;
-                font-family: $font-family-primary;
+                font-family: v.$font-family-primary;
                 line-height: 1.6;
                 margin-bottom: 1rem;
                 flex-grow: 1;
@@ -259,40 +259,40 @@
             }
 
             .btn {
-                background-color: $color-primary;
-                color: $color-dark;
+                background-color: v.$color-primary;
+                color: v.$color-dark;
                 padding: 0.75rem 1rem;
                 text-decoration: none;
                 text-align: center;
                 border-radius: 0.5rem;
-                font-family: $font-family-primary;
+                font-family: v.$font-family-primary;
                 font-weight: 600;
                 transition: background-color 0.3s ease;
 
                 &:hover {
                     background-color: #e7c547;
-                    color: $color-dark;
+                    color: v.$color-dark;
                 }
             }
         }
     }
 
     .empty-state {
-        background-color: rgba($color-primary, 0.3);
-        border: 2px solid $color-primary;
+        background-color: rgba(v.$color-primary, 0.3);
+        border: 2px solid v.$color-primary;
         border-radius: 1rem;
         padding: 3rem 2rem;
         text-align: center;
-        color: $color-dark;
+        color: v.$color-dark;
 
         i {
             font-size: 3rem;
-            color: $color-secondary;
+            color: v.$color-secondary;
             margin-bottom: 1rem;
         }
 
         p {
-            font-family: $font-family-primary;
+            font-family: v.$font-family-primary;
             font-size: 1.1rem;
             margin: 0;
         }
@@ -308,15 +308,15 @@
     }
 
     .header-card {
-        background: $color-background;
+        background: v.$color-background;
         border-radius: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         padding: 2rem;
         margin-bottom: 2rem;
 
         .title {
-            color: $color-dark;
-            font-family: $font-family-bold;
+            color: v.$color-dark;
+            font-family: v.$font-family-bold;
             font-size: 2.5rem;
             margin: 0 0 1rem 0;
         }
@@ -330,7 +330,7 @@
             gap: 0.5rem;
 
             a {
-                color: $color-secondary;
+                color: v.$color-secondary;
                 text-decoration: none;
 
                 &:hover {
@@ -348,8 +348,8 @@
     }
 
     .role-badge {
-        background-color: $color-primary;
-        color: $color-dark;
+        background-color: v.$color-primary;
+        color: v.$color-dark;
         padding: 0.5rem 1rem;
         border-radius: 2rem;
         font-size: 0.9rem;
@@ -367,21 +367,21 @@
         align-items: center;
 
         .pending-status-alert {
-            background: rgba($color-secondary, 0.1);
-            border-left: 4px solid $color-secondary;
+            background: rgba(v.$color-secondary, 0.1);
+            border-left: 4px solid v.$color-secondary;
             padding: 1rem 1.25rem;
             border-radius: 6px;
             display: flex;
             align-items: center;
             gap: 0.75rem;
             font-weight: 500;
-            color: $color-dark;
-            font-family: $font-family-primary;
+            color: v.$color-dark;
+            font-family: v.$font-family-primary;
             flex: 1;
             min-width: 100%;
 
             i {
-                color: $color-secondary;
+                color: v.$color-secondary;
                 font-size: 1.1rem;
                 animation: spin 2s linear infinite;
             }
@@ -405,12 +405,12 @@
             cursor: pointer;
 
             &.join {
-                background-color: $color-secondary;
-                color: $color-background;
+                background-color: v.$color-secondary;
+                color: v.$color-background;
 
                 &:hover {
-                    background-color: $color-accent;
-                    color: $color-background;
+                    background-color: v.$color-accent;
+                    color: v.$color-background;
                 }
             }
 
@@ -425,12 +425,12 @@
 
             &.edit {
                 background-color: transparent;
-                color: $color-secondary;
-                border: 2px solid $color-secondary;
+                color: v.$color-secondary;
+                border: 2px solid v.$color-secondary;
 
                 &:hover {
-                    background-color: $color-secondary;
-                    color: $color-background;
+                    background-color: v.$color-secondary;
+                    color: v.$color-background;
                 }
             }
         }
@@ -445,15 +445,15 @@
     .description-card, 
     .stats-row, 
     .animals-card {
-        background: $color-background;
+        background: v.$color-background;
         border-radius: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         padding: 2rem;
         margin-bottom: 2rem;
 
         .card-title {
-            color: $color-dark;
-            font-family: $font-family-bold;
+            color: v.$color-dark;
+            font-family: v.$font-family-bold;
             font-size: 1.5rem;
             margin: 0 0 1rem 0;
         }
@@ -461,7 +461,7 @@
 
     .description {
         color: #666;
-        font-family: $font-family-primary;
+        font-family: v.$font-family-primary;
         line-height: 1.6;
         white-space: pre-line;
     }
@@ -472,7 +472,7 @@
         gap: 2rem;
 
         .stat-card {
-            background: $color-background;
+            background: v.$color-background;
             border-radius: 1rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 2rem;
@@ -480,11 +480,11 @@
 
             .number {
                 font-size: 3rem;
-                font-family: $font-family-bold;
+                font-family: v.$font-family-bold;
                 margin: 0;
 
                 &.primary {
-                    color: $color-secondary;
+                    color: v.$color-secondary;
                 }
 
                 &.success {
@@ -494,7 +494,7 @@
 
             .label {
                 color: #666;
-                font-family: $font-family-primary;
+                font-family: v.$font-family-primary;
                 margin: 0.5rem 0 0 0;
             }
         }
@@ -507,7 +507,7 @@
         margin-bottom: 2rem;
 
         .animal-card {
-            background: $color-background;
+            background: v.$color-background;
             border-radius: 0.5rem;
             overflow: hidden;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -527,8 +527,8 @@
                 padding: 0.75rem;
 
                 .name {
-                    font-family: $font-family-bold;
-                    color: $color-dark;
+                    font-family: v.$font-family-bold;
+                    color: v.$color-dark;
                     margin: 0 0 0.25rem 0;
                     font-size: 1rem;
                 }
@@ -544,8 +544,8 @@
 
     .view-all-btn {
         background-color: transparent;
-        color: $color-secondary;
-        border: 2px solid $color-secondary;
+        color: v.$color-secondary;
+        border: 2px solid v.$color-secondary;
         padding: 0.75rem 2rem;
         border-radius: 0.5rem;
         text-decoration: none;
@@ -554,27 +554,27 @@
         display: inline-block;
 
         &:hover {
-            background-color: $color-secondary;
-            color: $color-background;
+            background-color: v.$color-secondary;
+            color: v.$color-background;
         }
     }
 
     .no-animals {
-        background-color: rgba($color-primary, 0.3);
-        border: 2px solid $color-primary;
+        background-color: rgba(v.$color-primary, 0.3);
+        border: 2px solid v.$color-primary;
         border-radius: 1rem;
         padding: 2rem;
         text-align: center;
-        color: $color-dark;
+        color: v.$color-dark;
 
         i {
             font-size: 2rem;
-            color: $color-secondary;
+            color: v.$color-secondary;
             margin-bottom: 1rem;
         }
 
         p {
-            font-family: $font-family-primary;
+            font-family: v.$font-family-primary;
             margin: 0;
         }
     }
@@ -583,7 +583,7 @@
 // Association forms (new/edit)
 .association-form {
     padding: 2rem 0 12rem;
-    background: linear-gradient(135deg, rgba($color-primary, 0.1), rgba($color-secondary, 0.05));
+    background: linear-gradient(135deg, rgba(v.$color-primary, 0.1), rgba(v.$color-secondary, 0.05));
     min-height: calc(100vh - 200px);
 
     .container {
@@ -593,13 +593,13 @@
     }
 
     .card {
-        background: $color-background;
+        background: v.$color-background;
         border-radius: 15px;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         overflow: hidden;
 
         .header {
-            background: linear-gradient(135deg, $color-secondary, $color-accent);
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
             padding: 2rem 2.5rem;
             display: flex;
             justify-content: space-between;
@@ -608,8 +608,8 @@
             gap: 1rem;
 
             .title {
-                color: $color-background;
-                font-family: $font-family-bold;
+                color: v.$color-background;
+                font-family: v.$font-family-bold;
                 font-size: 1.8rem;
                 margin: 0;
                 display: flex;
@@ -622,9 +622,9 @@
             }
 
             .back-btn {
-                background-color: rgba($color-background, 0.2);
-                color: $color-background;
-                border: 2px solid $color-background;
+                background-color: rgba(v.$color-background, 0.2);
+                color: v.$color-background;
+                border: 2px solid v.$color-background;
                 padding: 0.6rem 1.2rem;
                 border-radius: 20px;
                 text-decoration: none;
@@ -636,8 +636,8 @@
                 gap: 0.5rem;
 
                 &:hover {
-                    background-color: $color-background;
-                    color: $color-secondary;
+                    background-color: v.$color-background;
+                    color: v.$color-secondary;
                     transform: translateY(-2px);
                     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
                 }
@@ -661,17 +661,17 @@
             label {
                 display: block;
                 margin-bottom: 0.6rem;
-                color: $color-dark;
+                color: v.$color-dark;
                 font-weight: 600;
-                font-family: $font-family-primary;
+                font-family: v.$font-family-primary;
                 font-size: 1rem;
             }
 
             &.image-field {
-                background: rgba($color-primary, 0.05);
+                background: rgba(v.$color-primary, 0.05);
                 padding: 1.5rem;
                 border-radius: 12px;
-                border: 2px dashed rgba($color-secondary, 0.3);
+                border: 2px dashed rgba(v.$color-secondary, 0.3);
 
                 // Masquer l'image automatique de VichUploader (on affiche la nôtre dans .current-image)
                 img {
@@ -690,7 +690,7 @@
             gap: 1rem;
             margin-top: 3rem;
             padding-top: 2rem;
-            border-top: 2px solid rgba($color-primary, 0.2);
+            border-top: 2px solid rgba(v.$color-primary, 0.2);
             flex-wrap: wrap;
 
             .btn {
@@ -705,7 +705,7 @@
                 gap: 0.6rem;
                 border: none;
                 cursor: pointer;
-                font-family: $font-family-primary;
+                font-family: v.$font-family-primary;
                 flex: 1;
                 justify-content: center;
                 min-width: 180px;
@@ -721,54 +721,54 @@
 
                     &:hover {
                         background-color: #6c757d;
-                        color: $color-background;
+                        color: v.$color-background;
                         transform: translateY(-2px);
                         box-shadow: 0 4px 15px rgba(#6c757d, 0.3);
                     }
                 }
 
                 &.submit {
-                    background: linear-gradient(135deg, $color-secondary, $color-accent);
-                    color: $color-background;
+                    background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                    color: v.$color-background;
 
                     &:hover {
                         transform: translateY(-2px);
-                        box-shadow: 0 6px 20px rgba($color-secondary, 0.4);
+                        box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.4);
                     }
                 }
 
                 &.edit {
-                    background: linear-gradient(135deg, $color-secondary, $color-accent);
-                    color: $color-background;
+                    background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                    color: v.$color-background;
 
                     &:hover {
                         transform: translateY(-2px);
-                        box-shadow: 0 6px 20px rgba($color-secondary, 0.4);
+                        box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.4);
                     }
                 }
             }
         }
 
         .note {
-            background: linear-gradient(135deg, rgba($color-primary, 0.2), rgba($color-secondary, 0.1));
-            border-left: 4px solid $color-secondary;
+            background: linear-gradient(135deg, rgba(v.$color-primary, 0.2), rgba(v.$color-secondary, 0.1));
+            border-left: 4px solid v.$color-secondary;
             border-radius: 12px;
             padding: 1.5rem;
             margin-top: 2rem;
-            color: $color-dark;
+            color: v.$color-dark;
 
             i {
-                color: $color-secondary;
+                color: v.$color-secondary;
                 margin-right: 0.5rem;
             }
 
             strong {
-                font-family: $font-family-bold;
+                font-family: v.$font-family-bold;
             }
 
             p {
                 margin: 0.5rem 0 0 0;
-                font-family: $font-family-primary;
+                font-family: v.$font-family-primary;
                 line-height: 1.6;
             }
         }
@@ -776,16 +776,16 @@
         .current-image {
             margin-top: 1.5rem;
             padding: 1rem;
-            background: rgba($color-background, 0.5);
+            background: rgba(v.$color-background, 0.5);
             border-radius: 8px;
 
             p {
                 margin: 0 0 1rem 0;
-                color: $color-dark;
-                font-family: $font-family-primary;
+                color: v.$color-dark;
+                font-family: v.$font-family-primary;
 
                 strong {
-                    font-family: $font-family-bold;
+                    font-family: v.$font-family-bold;
                 }
             }
 
@@ -796,7 +796,7 @@
                 height: auto;
                 border-radius: 12px;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-                border: 3px solid $color-secondary;
+                border: 3px solid v.$color-secondary;
             }
         }
     }
@@ -819,8 +819,8 @@
         gap: 1rem;
 
         .title {
-            color: $color-dark;
-            font-family: $font-family-bold;
+            color: v.$color-dark;
+            font-family: v.$font-family-bold;
             font-size: 2rem;
             margin: 0;
         }
@@ -832,8 +832,8 @@
         }
 
         .add-animal-btn {
-            background: linear-gradient(135deg, $color-secondary, $color-accent);
-            color: $color-background;
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+            color: v.$color-background;
             border: none;
             padding: 0.75rem 1.5rem;
             border-radius: 20px;
@@ -847,7 +847,7 @@
 
             &:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba($color-secondary, 0.4);
+                box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.4);
             }
 
             i {
@@ -857,8 +857,8 @@
 
         .back-btn {
             background-color: transparent;
-            color: $color-dark;
-            border: 2px solid $color-dark;
+            color: v.$color-dark;
+            border: 2px solid v.$color-dark;
             padding: 0.75rem 1.5rem;
             border-radius: 20px;
             text-decoration: none;
@@ -870,10 +870,10 @@
             font-size: 0.95rem;
 
             &:hover {
-                background-color: $color-dark;
-                color: $color-background;
+                background-color: v.$color-dark;
+                color: v.$color-background;
                 transform: translateY(-2px);
-                box-shadow: 0 4px 15px rgba($color-dark, 0.3);
+                box-shadow: 0 4px 15px rgba(v.$color-dark, 0.3);
             }
 
             i {
@@ -883,19 +883,19 @@
     }
 
     .card {
-        background: $color-background;
+        background: v.$color-background;
         border-radius: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         margin-bottom: 2rem;
 
         .card-header {
-            background-color: $color-primary;
+            background-color: v.$color-primary;
             padding: 1.5rem 2rem;
             border-radius: 1rem 1rem 0 0;
 
             h5 {
-                color: $color-dark;
-                font-family: $font-family-bold;
+                color: v.$color-dark;
+                font-family: v.$font-family-bold;
                 font-size: 1.25rem;
                 margin: 0;
                 display: flex;
@@ -921,15 +921,15 @@
     .table {
         width: 100%;
         border-collapse: collapse;
-        font-family: $font-family-primary;
+        font-family: v.$font-family-primary;
 
         th {
-            background-color: $color-background;
-            color: $color-dark;
-            font-family: $font-family-bold;
+            background-color: v.$color-background;
+            color: v.$color-dark;
+            font-family: v.$font-family-bold;
             padding: 1rem;
             text-align: left;
-            border-bottom: 2px solid $color-primary;
+            border-bottom: 2px solid v.$color-primary;
         }
 
         td {
@@ -939,7 +939,7 @@
         }
 
         tr:hover {
-            background-color: rgba($color-primary, 0.1);
+            background-color: rgba(v.$color-primary, 0.1);
         }
     }
 
@@ -958,7 +958,7 @@
         }
 
         &.member {
-            background-color: $color-secondary;
+            background-color: v.$color-secondary;
             color: white;
         }
     }
@@ -974,7 +974,7 @@
 
         &.success {
             background-color: #28a745;
-            color: $color-background;
+            color: v.$color-background;
 
             &:hover {
                 background-color: #218838;
@@ -983,7 +983,7 @@
 
         &.danger {
             background-color: #dc3545;
-            color: $color-background;
+            color: v.$color-background;
 
             &:hover {
                 background-color: #c82333;
@@ -1001,7 +1001,7 @@
 
         &.secondary {
             background-color: #6c757d;
-            color: $color-background;
+            color: v.$color-background;
 
             &:hover {
                 background-color: #5a6268;
@@ -1018,9 +1018,9 @@
         gap: 0.5rem;
 
         &.info {
-            background-color: rgba($color-primary, 0.3);
-            border-left: 4px solid $color-secondary;
-            color: $color-dark;
+            background-color: rgba(v.$color-primary, 0.3);
+            border-left: 4px solid v.$color-secondary;
+            color: v.$color-dark;
         }
 
         &.warning {
@@ -1035,7 +1035,7 @@
 
         p {
             margin: 0;
-            font-family: $font-family-primary;
+            font-family: v.$font-family-primary;
         }
     }
 
@@ -1053,15 +1053,15 @@
     }
 
     .pending-member-card {
-        background: white;
+        background: v.$color-background;
         border: 2px solid #e5e7eb;
         border-radius: 12px;
         padding: 1.5rem;
         transition: all 0.3s ease;
 
         &:hover {
-            border-color: $color-secondary;
-            box-shadow: 0 8px 16px rgba($color-secondary, 0.15);
+            border-color: v.$color-secondary;
+            box-shadow: 0 8px 16px rgba(v.$color-secondary, 0.15);
         }
 
         .member-header {
@@ -1081,8 +1081,8 @@
             flex: 1;
 
             .member-name {
-                color: $color-dark;
-                font-family: $font-family-bold;
+                color: v.$color-dark;
+                font-family: v.$font-family-bold;
                 font-size: 1.15rem;
                 margin: 0 0 0.25rem;
             }
@@ -1158,22 +1158,22 @@
         }
 
         .member-message {
-            background: rgba($color-secondary, 0.08);
-            border-left: 4px solid $color-secondary;
+            background: rgba(v.$color-secondary, 0.08);
+            border-left: 4px solid v.$color-secondary;
             padding: 1rem;
             border-radius: 6px;
             margin-top: 1rem;
 
             strong {
-                color: $color-dark;
+                color: v.$color-dark;
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
                 margin-bottom: 0.5rem;
-                font-family: $font-family-bold;
+                font-family: v.$font-family-bold;
 
                 i {
-                    color: $color-secondary;
+                    color: v.$color-secondary;
                     font-size: 0.9rem;
                 }
             }
