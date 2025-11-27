@@ -205,6 +205,109 @@
     }
 
     // ----------------
+    // Menu Actions (Ellipsis)
+    // ----------------
+    .action-menu-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .action-menu-toggle {
+            background: none;
+            border: none;
+            color: v.$color-primary;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                color: v.$color-secondary;
+                background: rgba(v.$color-secondary, 0.1);
+                transform: scale(1.1);
+            }
+
+            &.active {
+                color: v.$color-secondary;
+                background: rgba(v.$color-secondary, 0.2);
+            }
+        }
+
+        .action-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+            background: v.$color-dark;
+            border: 2px solid rgba(v.$color-secondary, 0.3);
+            border-radius: 12px;
+            min-width: 240px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            z-index: 1001;
+            overflow: hidden;
+
+            &.active {
+                display: flex;
+            }
+
+            .action-link,
+            .action-separator {
+                padding: 0.75rem 1rem;
+                color: v.$color-primary;
+                text-decoration: none;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                transition: all 0.2s ease;
+                font-family: v.$font-family-primary;
+
+                i {
+                    font-size: 1.1rem;
+                    width: 20px;
+                    text-align: center;
+                }
+
+                &:not(.action-separator):not(:last-child) {
+                    border-bottom: 1px solid rgba(v.$color-secondary, 0.1);
+                }
+            }
+
+            .action-link {
+                cursor: pointer;
+
+                &:hover {
+                    background: rgba(v.$color-secondary, 0.1);
+                    color: v.$color-secondary;
+                    padding-left: 1.25rem;
+                }
+
+                &.admin-link {
+                    color: #ff6b6b;
+
+                    &:hover {
+                        background: rgba(255, 107, 107, 0.1);
+                        color: #ff8787;
+                    }
+                }
+            }
+
+            .action-separator {
+                padding: 0.5rem 1rem;
+                margin: 0.25rem 0;
+                background: rgba(v.$color-secondary, 0.1);
+                cursor: default;
+            }
+        }
+    }
+
+    // ----------------
     // Menu Burger
     // ----------------
     .burger-menu {

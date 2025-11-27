@@ -36,19 +36,6 @@
                         <a href="{{ path('profile') }}" class="auth-link">
                             <i class="fa-solid fa-user"></i> Mon espace
                         </a>
-                        <a href="{{ path('adopter_news_new') }}" class="auth-link share-news-btn">
-                            <i class="fas fa-heart"></i> Partager des nouvelles
-                        </a>
-                        {% if is_granted('ROLE_ASSOCIATION') %}
-                            <a href="{{ path('animals_add') }}" class="auth-link">
-                                <i class="fas fa-plus"></i> Ajouter un animal
-                            </a>
-                        {% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('admin') }}" class="auth-link" target="_blank">
-                                <i class="fas fa-cog"></i> Panel Admin
-                            </a>
-                        {% endif %}
                         <div class="user-disconnect-section">
                             <span class="greeting-text">Bonjour {{ app.user.name }}!</span>
                             <div class="separator"></div>
@@ -58,6 +45,45 @@
                         </div>
                     {% endif %}
                 </div>
+
+                {# Menu burger actions (desktop + mobile) #}
+                {% if is_granted('ROLE_USER') %}
+                    <div class="action-menu-wrapper">
+                        <button class="action-menu-toggle" id="actionMenuToggle" aria-label="Actions">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="action-menu" id="actionMenu">
+                            <a href="{{ path('adopter_news_new') }}" class="action-link">
+                                <i class="fas fa-heart"></i> Partager des nouvelles
+                            </a>
+                            {% if is_granted('ROLE_ASSOCIATION') %}
+                                <a href="{{ path('animals_add') }}" class="action-link">
+                                    <i class="fas fa-plus"></i> Ajouter un animal
+                                </a>
+                                {% if app.user.association %}
+                                    <a href="{{ path('association_detail', {'id': app.user.association.id}) }}" class="action-link">
+                                        <i class="fas fa-home"></i> Mon association
+                                    </a>
+                                {% elseif app.user.associationMembers|length > 0 %}
+                                    {% set firstAssociation = app.user.associationMembers|first %}
+                                    <a href="{{ path('association_detail', {'id': firstAssociation.association.id}) }}" class="action-link">
+                                        <i class="fas fa-home"></i> Mon association
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ path('associations') }}" class="action-link">
+                                    <i class="fas fa-plus"></i> Ajouter mon association
+                                </a>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="action-separator"></div>
+                                <a href="{{ path('admin') }}" class="action-link admin-link" target="_blank">
+                                    <i class="fas fa-cog"></i> Panel Admin
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
 
                 {# Bouton menu burger #}
                 <button class="burger-menu" id="burgerToggle" aria-label="Menu">
@@ -160,6 +186,9 @@
                 const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
                 const mobileLinks = document.querySelectorAll('.mobile-nav-links a, .mobile-auth-link');
 
+                const actionMenuToggle = document.getElementById('actionMenuToggle');
+                const actionMenu = document.getElementById('actionMenu');
+
                 function toggleMenu() {
                     burgerToggle.classList.toggle('active');
                     mobileMenu.classList.toggle('active');
@@ -170,6 +199,21 @@
                     burgerToggle.classList.remove('active');
                     mobileMenu.classList.remove('active');
                     document.body.style.overflow = '';
+                    closeActionMenu();
+                }
+
+                function toggleActionMenu() {
+                    if (actionMenu) {
+                        actionMenu.classList.toggle('active');
+                        actionMenuToggle.classList.toggle('active');
+                    }
+                }
+
+                function closeActionMenu() {
+                    if (actionMenu) {
+                        actionMenu.classList.remove('active');
+                        actionMenuToggle.classList.remove('active');
+                    }
                 }
 
                 burgerToggle.addEventListener('click', toggleMenu);
@@ -179,6 +223,25 @@
                 mobileLinks.forEach(link => {
                     link.addEventListener('click', closeMenuHandler);
                 });
+
+                // Action menu
+                if (actionMenuToggle) {
+                    actionMenuToggle.addEventListener('click', toggleActionMenu);
+                }
+
+                // Close action menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (actionMenu && !event.target.closest('.action-menu-wrapper')) {
+                        closeActionMenu();
+                    }
+                });
+
+                // Close action menu when clicking on a link inside
+                if (actionMenu) {
+                    actionMenu.querySelectorAll('a').forEach(link => {
+                        link.addEventListener('click', closeActionMenu);
+                    });
+                }
             });
         </script>
     </body>
