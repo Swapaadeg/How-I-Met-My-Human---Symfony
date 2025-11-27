@@ -155,35 +155,48 @@
     }
     
     .tags-wrapper {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+
         .form-check {
-            display: flex;
-            align-items: center;
-            padding: 0.8rem 1rem;
-            background: rgba(v.$color-secondary, 0.05);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            
-            &:hover {
-                background: rgba(v.$color-secondary, 0.1);
-            }
-            
+            display: contents;
+
             input[type="checkbox"] {
-                margin-right: 0.8rem;
-                width: 18px;
-                height: 18px;
-                accent-color: v.$color-secondary;
+                display: none;
+
+                &:checked + label {
+                    background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                    color: v.$color-background;
+                    border-color: v.$color-secondary;
+                    box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.4);
+                    transform: scale(1.05);
+                }
             }
-            
+
             label {
-                margin: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.6rem 1.2rem;
+                background: rgba(v.$color-secondary, 0.1);
+                border: 2px solid rgba(v.$color-secondary, 0.3);
+                border-radius: 20px;
+                color: v.$color-dark;
                 font-weight: 500;
+                font-size: 0.95rem;
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                margin: 0;
                 text-transform: none;
                 letter-spacing: normal;
-                cursor: pointer;
+                white-space: nowrap;
+
+                &:hover {
+                    border-color: v.$color-secondary;
+                    background: rgba(v.$color-secondary, 0.15);
+                    transform: translateY(-2px);
+                }
             }
         }
     }

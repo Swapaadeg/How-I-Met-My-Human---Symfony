@@ -93,10 +93,10 @@ class AnimalFormType extends AbstractType
                 'choice_label' => 'type',
                 'label' => 'Tags',
                 'multiple' => true,
-                'expanded' => false,
+                'expanded' => true,
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'tags-input'
                 ]
             ])
             ->add('submit', SubmitType::class, [
