@@ -163,7 +163,8 @@
             display: contents;
 
             input[type="checkbox"] {
-                display: none;
+                position: absolute;
+                left: -999px;
 
                 &:checked + label {
                     background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
