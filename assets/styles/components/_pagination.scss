@@ -1,0 +1,146 @@
+@use "../abstracts/variables" as v;
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+    padding: 2rem 1rem;
+
+    .pagination {
+        display: flex;
+        list-style: none;
+        gap: 0.5rem;
+        padding: 0;
+        margin: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+        li {
+            margin: 0;
+
+            a,
+            span {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 40px;
+                height: 40px;
+                padding: 0 0.75rem;
+                border: 2px solid v.$color-secondary;
+                border-radius: 8px;
+                color: v.$color-dark;
+                font-weight: 500;
+                font-family: v.$font-family-primary;
+                font-size: 0.95rem;
+                text-decoration: none;
+                transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                cursor: pointer;
+            }
+
+            a {
+                background: v.$color-background;
+
+                &:hover {
+                    background: v.$color-secondary;
+                    color: v.$color-background;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.3);
+                }
+            }
+
+            span {
+                background: v.$color-background;
+            }
+
+            &.active {
+                a,
+                span {
+                    background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                    color: v.$color-background;
+                    border-color: transparent;
+                    box-shadow: 0 6px 16px rgba(v.$color-secondary, 0.4);
+                }
+            }
+
+            &.disabled {
+                a,
+                span {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    background: rgba(v.$color-secondary, 0.1);
+                }
+            }
+
+            &.prev,
+            &.next {
+                a,
+                span {
+                    min-width: auto;
+                    padding: 0 1rem;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        margin: 2rem 0;
+        padding: 1.5rem 0.75rem;
+
+        .pagination {
+            gap: 0.375rem;
+
+            li {
+                a,
+                span {
+                    min-width: 36px;
+                    height: 36px;
+                    padding: 0 0.5rem;
+                    font-size: 0.9rem;
+                }
+
+                &:not(.prev):not(.next):not(.active) {
+                    display: none;
+                }
+
+                &.prev,
+                &.next {
+                    display: flex;
+                }
+
+                &.active {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        margin: 1.5rem 0;
+        padding: 1rem 0.5rem;
+
+        .pagination {
+            gap: 0.25rem;
+
+            li {
+                a,
+                span {
+                    min-width: 32px;
+                    height: 32px;
+                    padding: 0 0.375rem;
+                    font-size: 0.85rem;
+                }
+
+                &.prev,
+                &.next {
+                    a,
+                    span {
+                        min-width: auto;
+                        padding: 0 0.75rem;
+                    }
+                }
+            }
+        }
+    }
+}
