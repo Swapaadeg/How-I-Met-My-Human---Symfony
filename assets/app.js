@@ -80,9 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollIndicator.style.cursor = 'pointer';
     }
 
-    // ==================== ANIMALS PAGE ====================
+    // ==================== ANIMALS PAGE & HOMEPAGE ====================
     // Animal cards grid with favorites, sharing, etc.
-    if (document.querySelector('.animals-grid')) {
+    // Works on both /animals page (animals-grid) and homepage (animals-carousel)
+    if (document.querySelector('.animals-grid') || document.querySelector('.animals-carousel')) {
         console.log('  ✓ Initializing animal cards...');
         initializeAnimals();
     }
