@@ -1,0 +1,237 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mentions Légales - How I Met My Human{% endblock %}
+
+{% block body %}
+<div class="legal-container">
+    <div class="legal-header">
+        <h1>Mentions Légales</h1>
+        <p class="legal-subtitle">Informations légales relatives au site</p>
+    </div>
+
+    <div class="legal-content">
+        <!-- Editeur du site -->
+        <section class="legal-section">
+            <h2>1. Éditeur du site</h2>
+            <div class="legal-card">
+                <p><strong>Dénomination :</strong> How I Met My Human</p>
+                <p><strong>Type :</strong> Plateforme web d'adoption d'animaux</p>
+                <p><strong>Adresse :</strong> France</p>
+                <p><strong>Contact :</strong> <a href="mailto:contact@howimetmyhuman.fr">contact@howimetmyhuman.fr</a></p>
+            </div>
+        </section>
+
+        <!-- Hébergement -->
+        <section class="legal-section">
+            <h2>2. Hébergement</h2>
+            <div class="legal-card">
+                <p><strong>Hébergeur :</strong> O2Switch</p>
+                <p><strong>Adresse :</strong> 222-224 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand, France</p>
+                <p><strong>Téléphone :</strong> +33 (0)4 73 28 00 11</p>
+                <p><strong>Site web :</strong> <a href="https://www.o2switch.fr" target="_blank" rel="noopener">www.o2switch.fr</a></p>
+            </div>
+        </section>
+
+        <!-- Propriété intellectuelle -->
+        <section class="legal-section">
+            <h2>3. Propriété Intellectuelle</h2>
+            <div class="legal-card">
+                <p>L'ensemble du contenu du site (textes, images, vidéos, logos, etc.) est protégé par les droits d'auteur et les droits de propriété intellectuelle.</p>
+                <p>Toute reproduction, même partielle, est interdite sans autorisation préalable. Les utilisateurs peuvent consulter et télécharger les contenus pour un usage personnel uniquement.</p>
+                <p>Les marques, logos et noms commerciaux utilisés sont la propriété exclusive de leurs propriétaires respectifs.</p>
+            </div>
+        </section>
+
+        <!-- Responsabilité -->
+        <section class="legal-section">
+            <h2>4. Responsabilité</h2>
+            <div class="legal-card">
+                <p>How I Met My Human s'efforce de maintenir l'exactitude et l'actualité des informations publiées sur le site. Cependant, nous ne pouvons garantir l'absence d'erreurs.</p>
+                <p>Nous ne sommes pas responsables :</p>
+                <ul>
+                    <li>Des dommages directs ou indirects résultant de l'accès au site</li>
+                    <li>Des interruptions ou défaillances du service</li>
+                    <li>Des contenus fournis par les utilisateurs</li>
+                    <li>Des liens externes vers d'autres sites</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Conditions d'utilisation -->
+        <section class="legal-section">
+            <h2>5. Conditions d'Utilisation</h2>
+            <div class="legal-card">
+                <p>L'accès au site est libre et gratuit pour tous les utilisateurs. En utilisant le site, vous acceptez :</p>
+                <ul>
+                    <li>De respecter les lois applicables</li>
+                    <li>De ne pas utiliser le site à des fins illégales ou contraires à l'éthique</li>
+                    <li>De ne pas publier de contenu offensant ou discriminatoire</li>
+                    <li>De respecter la vie privée d'autrui</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Limitation de responsabilité -->
+        <section class="legal-section">
+            <h2>6. Limitation de Responsabilité</h2>
+            <div class="legal-card">
+                <p>How I Met My Human ne pourra être tenu responsable des dommages de toute nature résultant de l'utilisation du site ou de l'incapacité à utiliser le site, y compris mais non limité à :</p>
+                <ul>
+                    <li>La perte de données</li>
+                    <li>La perte de revenus</li>
+                    <li>Les dommages indirects ou consécutifs</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Modification des conditions -->
+        <section class="legal-section">
+            <h2>7. Modification des Mentions Légales</h2>
+            <div class="legal-card">
+                <p>How I Met My Human se réserve le droit de modifier à tout moment les présentes mentions légales. Les modifications entrent en vigueur dès leur publication sur le site.</p>
+            </div>
+        </section>
+
+        <!-- Droit applicable -->
+        <section class="legal-section">
+            <h2>8. Droit Applicable</h2>
+            <div class="legal-card">
+                <p>Les présentes mentions légales sont régies par la loi française. Tout litige sera soumis à la compétence des tribunaux français.</p>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="legal-section">
+            <h2>9. Contact</h2>
+            <div class="legal-card">
+                <p>Pour toute question relative aux présentes mentions légales :</p>
+                <p>
+                    <strong>Email :</strong> <a href="mailto:contact@howimetmyhuman.fr">contact@howimetmyhuman.fr</a>
+                </p>
+            </div>
+        </section>
+
+        <p class="legal-updated">Dernière mise à jour : {{ 'now'|date('d/m/Y') }}</p>
+    </div>
+</div>
+
+<style>
+    .legal-container {
+        max-width: 900px;
+        margin: 3rem auto;
+        padding: 0 1.5rem 3rem;
+    }
+
+    .legal-header {
+        background: linear-gradient(135deg, #368F8B 0%, #246A73 100%);
+        color: white;
+        padding: 3rem 2rem;
+        border-radius: 12px;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .legal-header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    .legal-subtitle {
+        margin: 0;
+        font-size: 1.1rem;
+        opacity: 0.95;
+    }
+
+    .legal-content {
+        color: #160F29;
+    }
+
+    .legal-section {
+        margin-bottom: 2.5rem;
+    }
+
+    .legal-section h2 {
+        color: #368F8B;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #F3DFC1;
+    }
+
+    .legal-card {
+        background: #F0F2EF;
+        padding: 1.5rem;
+        border-radius: 8px;
+        border-left: 4px solid #368F8B;
+    }
+
+    .legal-card p {
+        margin: 0.75rem 0;
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    .legal-card p:first-child {
+        margin-top: 0;
+    }
+
+    .legal-card p:last-child {
+        margin-bottom: 0;
+    }
+
+    .legal-card ul {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .legal-card li {
+        margin: 0.5rem 0;
+        line-height: 1.6;
+    }
+
+    .legal-card a {
+        color: #368F8B;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .legal-card a:hover {
+        color: #246A73;
+        text-decoration: underline;
+    }
+
+    .legal-updated {
+        text-align: center;
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    @media (max-width: 768px) {
+        .legal-container {
+            padding: 0 1rem 2rem;
+        }
+
+        .legal-header {
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .legal-header h1 {
+            font-size: 1.8rem;
+        }
+
+        .legal-section h2 {
+            font-size: 1.25rem;
+        }
+
+        .legal-card {
+            padding: 1.25rem;
+        }
+    }
+</style>
+{% endblock %}
