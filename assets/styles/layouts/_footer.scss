@@ -101,10 +101,33 @@
                 color: v.$color-black;
                 font-size: 1.1rem;
                 font-family: v.$font-family-bold;
+                display: flex;
+                align-items: center;
                 i {
                     margin-right: 8px;
                     color: v.$color-primary;
                 }
+            }
+        }
+
+        .footer-contact-btn {
+            background: none;
+            border: none;
+            color: v.$color-black;
+            font-size: 1.1rem;
+            font-family: v.$font-family-bold;
+            cursor: pointer;
+            padding: 0;
+            transition: opacity 0.3s ease;
+
+            &:hover {
+                opacity: 0.7;
+                text-decoration: underline;
+            }
+
+            &:focus {
+                outline: 2px solid v.$color-primary;
+                outline-offset: 2px;
             }
         }
     }

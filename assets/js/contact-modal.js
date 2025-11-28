@@ -26,6 +26,9 @@ export function initializeContactModal() {
                 openContactModal(`/contact/animal/${animalId}`);
             } else if (associationId) {
                 openContactModal(`/contact/association/${associationId}`);
+            } else {
+                // General contact form
+                openContactModal('/contact');
             }
         });
     });
