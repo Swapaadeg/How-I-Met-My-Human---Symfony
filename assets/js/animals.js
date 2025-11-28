@@ -62,15 +62,20 @@ function initializeFavoriteButtons() {
 
 function initializeAnimalCards() {
     const animalCards = document.querySelectorAll('.animal-card');
-    
+
     animalCards.forEach(card => {
-        // Add click handler for the main card (excluding buttons)
+        // Don't add click navigation for carousel cards - carousel handles their interaction
+        if (card.classList.contains('carousel-card')) {
+            return;
+        }
+
+        // Add click handler for grid cards (excluding buttons)
         card.addEventListener('click', function(e) {
             // Don't trigger if clicking on buttons
             if (e.target.closest('.action-btn') || e.target.closest('.see-more-btn')) {
                 return;
             }
-            
+
             // Get animal ID and redirect to detail page
             const animalId = this.dataset.animalId;
             if (animalId) {

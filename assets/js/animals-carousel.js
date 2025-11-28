@@ -148,6 +148,7 @@ export function initAnimalsCarousel() {
 
             // Prevent other interactions
             e.preventDefault();
+            e.stopPropagation();
 
             // Ignore clicks during navigation
             if (isNavigating) {
