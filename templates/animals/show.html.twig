@@ -19,7 +19,21 @@
                     <img src="{{ asset('uploads/images/' ~ animal.imageName) }}" alt="{{ animal.name }}">
                 {% else %}
                     <div class="placeholder-image">
-                        <i class="fas fa-paw"></i>
+                        {% if animal.species %}
+                            {% if animal.species.name|lower == 'chien' %}
+                                <i class="fas fa-dog"></i>
+                            {% elseif animal.species.name|lower == 'chat' %}
+                                <i class="fas fa-cat"></i>
+                            {% elseif animal.species.name|lower == 'lapin' %}
+                                <i class="fas fa-rabbit"></i>
+                            {% elseif animal.species.name|lower == 'oiseau' %}
+                                <i class="fas fa-dove"></i>
+                            {% else %}
+                                <i class="fas fa-paw"></i>
+                            {% endif %}
+                        {% else %}
+                            <i class="fas fa-paw"></i>
+                        {% endif %}
                     </div>
                 {% endif %}
             </div>
