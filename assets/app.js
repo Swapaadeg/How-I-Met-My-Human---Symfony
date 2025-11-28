@@ -23,6 +23,7 @@ import { initAuth } from './js/auth.js';
 
 // Import utility modules
 import { initializeMobileMenu } from './js/mobile-menu.js';
+import { initializeMobileActionMenu } from './js/mobile-action-menu.js';
 import { initializeCommentReply } from './js/comment-reply.js';
 import { initializeJoinForm } from './js/join-form.js';
 import { initializeModalUtils } from './js/utils/modal-utils.js';
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================== LAYOUT & NAVIGATION ====================
     // Mobile menu (used on all pages)
     initializeMobileMenu();
+    initializeMobileActionMenu();
 
     // ==================== HOMEPAGE FEATURES ====================
     // Hero carousel - auto-rotating slideshow

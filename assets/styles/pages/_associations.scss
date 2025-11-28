@@ -810,7 +810,7 @@
             }
 
             img {
-                display: block !important; // Override le display: none du parent
+                display: block;
                 max-width: 250px;
                 width: 100%;
                 height: auto;
