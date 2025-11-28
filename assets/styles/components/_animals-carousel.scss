@@ -4,9 +4,49 @@
 .animals-carousel-container {
     position: relative;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
     padding: 2rem 0;
-    
+
+    .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(v.$color-primary, 0.8);
+        border: none;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        z-index: 100;
+        padding: 0;
+        min-width: 40px;
+        min-height: 40px;
+        pointer-events: auto;
+
+        &:hover {
+            background: v.$color-primary;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        &:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        &.carousel-prev {
+            left: 0.5rem;
+        }
+
+        &.carousel-next {
+            right: 0.5rem;
+        }
+    }
+
     .animals-carousel {
         display: flex;
         align-items: center;
@@ -24,9 +64,9 @@
             // Cursor par défaut pour navigation
             &:not(.center) {
                 cursor: pointer;
-                
-                // Désactiver les liens sur les cartes non-centrales
-                a:not(.action-btn) {
+
+                // Désactiver tous les liens et actions sur les cartes non-centrales
+                a, button {
                     pointer-events: none;
                 }
             }
@@ -196,9 +236,45 @@
         .view-btn {
             background: v.$color-primary;
             color: white;
-            
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+
             &:hover {
                 background: #e7c547;
+            }
+        }
+    }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+    .animals-carousel-container {
+        .carousel-nav {
+            display: flex;
+        }
+
+        .animals-carousel {
+            height: 500px;
+
+            .carousel-card {
+                max-width: 85vw;
+                width: 85vw;
+
+                // Hide all cards except center on mobile
+                &.left,
+                &.right,
+                &.back-left,
+                &.back-right,
+                &.far-back-left,
+                &.far-back-right {
+                    opacity: 0;
+                    pointer-events: none;
+                }
+
+                &.center {
+                    transform: translateX(0) scale(1);
+                }
             }
         }
     }

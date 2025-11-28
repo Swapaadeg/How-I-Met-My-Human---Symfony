@@ -1,20 +1,27 @@
-// Animals page functionality
-document.addEventListener('DOMContentLoaded', function() {
+/**
+ * Animals Module
+ * Manages animal cards, favorites, sharing, and interactions
+ */
+
+/**
+ * Initialize all animals page functionality
+ */
+export function initializeAnimals() {
     // Initialize favorite buttons
     initializeFavoriteButtons();
-    
+
     // Initialize animal cards interactions
     initializeAnimalCards();
-    
+
     // Initialize see more buttons
     initializeSeeMoreButtons();
-    
+
     // Initialize action buttons
     initializeActionButtons();
-    
+
     // Initialize tooltips
     initializeTooltips();
-});
+}
 
 function initializeFavoriteButtons() {
     const favoriteButtons = document.querySelectorAll('.favorite-btn');
@@ -384,7 +391,19 @@ function showTagModal(tagName, description) {
     document.addEventListener('keydown', escapeHandler);
 }
 
-// Export functions for external use
+/**
+ * Export functions for external use
+ * showNotification is exported for use by other modules (like contact-modal.js)
+ */
+export {
+    showNotification,
+    addFavorite,
+    removeFavorite,
+    handleShare,
+    initializeTooltips
+};
+
+// Also make available globally for backward compatibility with contact-modal.js
 window.AnimalCards = {
     addFavorite,
     removeFavorite,

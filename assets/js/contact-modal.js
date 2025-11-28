@@ -1,10 +1,17 @@
-// Contact Modal Management
-document.addEventListener('DOMContentLoaded', function() {
-    initializeContactModal();
-});
+/**
+ * Contact Modal Module
+ * Manages contact form modal loading and submission via AJAX
+ */
 
-function initializeContactModal() {
-    // Gestion des boutons de contact
+// Import notification function from animals module
+import { showNotification } from './animals.js';
+
+/**
+ * Initialize contact modal functionality
+ * Attaches event listeners to all contact buttons
+ */
+export function initializeContactModal() {
+    // Initialize contact button event listeners
     const contactButtons = document.querySelectorAll('.contact-btn');
 
     contactButtons.forEach(button => {
@@ -125,17 +132,7 @@ function initializeContactForm(modal) {
     });
 }
 
-function showNotification(message, type = 'info') {
-    // Réutiliser la fonction existante
-    if (window.AnimalCards && window.AnimalCards.showNotification) {
-        window.AnimalCards.showNotification(message, type);
-    } else {
-        // Fallback si la fonction n'est pas disponible
-        alert(message);
-    }
-}
-
-// Export pour utilisation externe
+// Also make available globally for backward compatibility
 window.ContactModal = {
     open: openContactModal,
     close: closeContactModal,
