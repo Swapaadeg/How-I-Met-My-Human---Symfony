@@ -94,16 +94,16 @@
                 <h5 class="card-title">Animaux à adopter</h5>
                 <div class="animals-grid">
                     {% for animal in association.animals|slice(0, 6) %}
-                        <div class="animal-card">
+                        <a href="{{ path('animal_show', {'id': animal.id}) }}" class="animal-card">
                             {% if animal.imageName %}
-                                <img src="{{ vich_uploader_asset(animal, 'imageFile') }}" 
+                                <img src="{{ vich_uploader_asset(animal, 'imageFile') }}"
                                      class="image" alt="{{ animal.name }}">
                             {% endif %}
                             <div class="info">
                                 <h6 class="name">{{ animal.name }}</h6>
                                 <small class="species">{{ animal.species ? animal.species.name : 'Non spécifié' }}</small>
                             </div>
-                        </div>
+                        </a>
                     {% endfor %}
                 </div>
                 
