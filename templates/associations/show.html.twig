@@ -21,7 +21,9 @@
                 {% if association.contactEmail %}
                     <p class="email">
                         <i class="fas fa-envelope"></i>
-                        <a href="mailto:{{ association.contactEmail }}">{{ association.contactEmail }}</a>
+                        <button class="contact-btn email-link" data-association-id="{{ association.id }}" type="button">
+                            {{ association.contactEmail }}
+                        </button>
                     </p>
                 {% endif %}
                 

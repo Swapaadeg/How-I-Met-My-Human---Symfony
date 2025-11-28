@@ -321,7 +321,7 @@
             margin: 0 0 1rem 0;
         }
 
-        .location, 
+        .location,
         .email {
             color: #666;
             margin-bottom: 0.5rem;
@@ -329,12 +329,25 @@
             align-items: center;
             gap: 0.5rem;
 
-            a {
+            a, .email-link {
                 color: v.$color-secondary;
                 text-decoration: none;
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-family: inherit;
+                font-size: inherit;
+                padding: 0;
 
                 &:hover {
                     text-decoration: underline;
+                }
+            }
+
+            .email-link {
+                &:focus {
+                    outline: 2px solid v.$color-secondary;
+                    outline-offset: 2px;
                 }
             }
         }
