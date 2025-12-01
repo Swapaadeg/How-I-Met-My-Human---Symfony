@@ -250,32 +250,47 @@
 // Mobile responsive
 @media (max-width: 768px) {
     .animals-carousel-container {
+        // Hide navigation arrows on mobile
         .carousel-nav {
-            display: flex;
+            display: none !important;
         }
 
+        // Reset container positioning
+        position: relative;
+        overflow: visible;
+        padding: 1rem 0;
+
         .animals-carousel {
-            height: 500px;
+            // Remove fixed height and display as column
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            position: relative;
 
             .carousel-card {
+                // Reset all positioning and show all cards
+                position: static !important;
+                transform: none !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                z-index: 1 !important;
                 max-width: 85vw;
                 width: 85vw;
 
-                // Hide all cards except center on mobile
-                &.left,
-                &.right,
-                &.back-left,
-                &.back-right,
-                &.far-back-left,
-                &.far-back-right {
-                    opacity: 0;
-                    pointer-events: none;
-                }
+                // Enable all interactions on all cards
+                cursor: default !important;
 
-                &.center {
-                    transform: translateX(0) scale(1);
+                a, button {
+                    pointer-events: auto !important;
                 }
             }
+        }
+
+        // Hide pagination dots on mobile
+        .carousel-indicators {
+            display: none !important;
         }
     }
 }

@@ -15,6 +15,11 @@
     .oldest-animals-section {
         padding: 4rem 0;
         background: v.$color-background;
+
+        @media (max-width: 768px) {
+            padding: 2rem 0 4rem;
+            margin-top: 3rem;
+        }
         
         .container {
             max-width: 1200px;

@@ -126,9 +126,13 @@ final class AssociationsController extends AbstractController
             }
 
             $this->addFlash('success', 'Association créée avec succès ! Vous êtes maintenant gérant de cette association.');
+            
+            $association->setImageFile(null);
 
             return $this->redirectToRoute('associations_show', ['id' => $association->getId()]);
         }
+        
+        $association->setImageFile(null);
 
         return $this->render('associations/new.html.twig', [
             'association' => $association,
@@ -194,11 +198,15 @@ final class AssociationsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
+            
+            $association->setImageFile(null);
 
             $this->addFlash('success', 'Association modifiée avec succès !');
 
             return $this->redirectToRoute('associations_show', ['id' => $association->getId()]);
         }
+        
+        $association->setImageFile(null);
 
         return $this->render('associations/edit.html.twig', [
             'association' => $association,

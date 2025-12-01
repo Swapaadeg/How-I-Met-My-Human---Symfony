@@ -5,17 +5,14 @@ security:
     
     # Hiérarchie des rôles
     role_hierarchy:
-        ROLE_ADMIN: 
+        ROLE_ADMIN:
             - ROLE_ASSOCIATION_MANAGER
             - ROLE_ASSOCIATION_MEMBER
-            - ROLE_VISITOR
             - ROLE_USER
         ROLE_ASSOCIATION_MANAGER:
             - ROLE_ASSOCIATION_MEMBER
             - ROLE_USER
         ROLE_ASSOCIATION_MEMBER:
-            - ROLE_USER
-        ROLE_VISITOR:
             - ROLE_USER
             
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider

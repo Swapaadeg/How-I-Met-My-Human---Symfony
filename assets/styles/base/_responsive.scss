@@ -312,46 +312,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     ================================================================================
     */
     
-    /* Animals Carousel */
-    .animals-carousel-container {
-        .animals-carousel {
-            height: 500px;
-            
-            .carousel-card {
-                &.left {
-                    transform: translateX(-200px) scale(0.7);
-                }
-                
-                &.right {
-                    transform: translateX(200px) scale(0.7);
-                }
-                
-                &.back-left {
-                    transform: translateX(-320px) scale(0.5);
-                }
-                
-                &.back-right {
-                    transform: translateX(320px) scale(0.5);
-                }
-                
-                &.far-back-left {
-                    transform: translateX(-420px) scale(0.4);
-                }
-                
-                &.far-back-right {
-                    transform: translateX(420px) scale(0.4);
-                }
-                
-                &.hidden {
-                    transform: translateX(-500px) scale(0.3);
-                }
-                
-                &.hidden-right {
-                    transform: translateX(500px) scale(0.3);
-                }
-            }
-        }
-    }
+    /* Animals Carousel - Styles handled in _animals-carousel.scss */
 
     /*
     ================================================================================
@@ -433,25 +394,34 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
         .stats-container {
             flex-direction: column;
-            gap: 3rem;
-            
+            gap: 2rem;
+            align-items: center;
+            padding: 0 1rem;
+
             .stat-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                max-width: 300px;
+
                 .stat-icon {
                     width: 70px;
                     height: 70px;
-                    
+                    margin-bottom: 0;
+
                     i {
-                        font-size: 1.8rem;
+                        font-size: 2rem;
                     }
                 }
-                
+
                 .stat-content {
                     h3 {
                         font-size: 2rem;
                     }
-                    
+
                     p {
                         font-size: 1rem;
+                        text-align: center;
                     }
                 }
             }
@@ -646,18 +616,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         }
     }
 
-    .animals-carousel-container {
-        .animals-carousel {
-            height: 450px;
-            
-            .carousel-card {
-                &.left,
-                &.right {
-                    display: none; // Cache les cartes latérales sur mobile
-                }
-            }
-        }
-    }
+    /* Animals carousel styles handled in _animals-carousel.scss */
 
     .hero-carousel {
         .carousel-content h1 {

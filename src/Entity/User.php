@@ -305,8 +305,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function isVisitor(): bool
     {
-        return in_array(UserRole::ROLE_VISITOR, $this->roles) || 
-               (count($this->getApprovedAssociations()) === 0 && !$this->isAdmin());
+        return count($this->getApprovedAssociations()) === 0 && !$this->isAdmin();
     }
 
     /**
@@ -321,13 +320,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Add visitor role
+     * Remove all special roles (keeps only ROLE_USER)
      */
     public function setAsVisitor(): static
     {
-        if (!in_array(UserRole::ROLE_VISITOR, $this->roles)) {
-            $this->roles[] = UserRole::ROLE_VISITOR;
-        }
+        // Remove all roles except admin
+        $this->roles = array_filter($this->roles, function($role) {
+            return $role === UserRole::ROLE_ADMIN;
+        });
         return $this;
     }
 
@@ -340,8 +340,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roles = array_filter($this->roles, function($role) {
             return !in_array($role, [
                 UserRole::ROLE_ASSOCIATION_MANAGER,
-                UserRole::ROLE_ASSOCIATION_MEMBER,
-                UserRole::ROLE_VISITOR
+                UserRole::ROLE_ASSOCIATION_MEMBER
             ]);
         });
 
@@ -368,9 +367,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             } else {
                 $this->roles[] = UserRole::ROLE_ASSOCIATION_MEMBER;
             }
-        } else {
-            $this->roles[] = UserRole::ROLE_VISITOR;
         }
+        // Si pas de membership, l'utilisateur garde juste ROLE_USER (ajouté automatiquement dans getRoles())
 
         return $this;
     }

@@ -96,9 +96,9 @@
                         <tbody>
                             {% for membership in approved_members %}
                                 <tr>
-                                    <td>{{ membership.user.name }}</td>
-                                    <td>{{ membership.user.email }}</td>
-                                    <td>
+                                    <td data-label="Nom">{{ membership.user.name }}</td>
+                                    <td data-label="Email">{{ membership.user.email }}</td>
+                                    <td data-label="Rôle">
                                         {% if membership.isManager %}
                                             <span class="badge manager">
                                                 <i class="fas fa-crown"></i> Gérant
@@ -109,9 +109,9 @@
                                             </span>
                                         {% endif %}
                                     </td>
-                                    <td>{{ membership.approvedAt|date('d/m/Y H:i') }}</td>
-                                    <td>{{ membership.approvedBy ? membership.approvedBy.name : 'N/A' }}</td>
-                                    <td>
+                                    <td data-label="Approuvé le">{{ membership.approvedAt|date('d/m/Y H:i') }}</td>
+                                    <td data-label="Approuvé par">{{ membership.approvedBy ? membership.approvedBy.name : 'N/A' }}</td>
+                                    <td data-label="Actions">
                                         {% if not membership.isManager %}
                                             <form method="post" action="{{ path('associations_membership_promote', {id: membership.id}) }}" style="display: inline;">
                                                 <button type="submit" class="btn warning" 
