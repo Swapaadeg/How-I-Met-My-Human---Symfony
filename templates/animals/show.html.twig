@@ -78,8 +78,8 @@
         </div>
 
         {# Bouton favoris #}
-        <button class="fav-button favorite-btn" data-animal-id="{{ animal.id }}">
-            <i class="far fa-heart"></i>
+        <button class="fav-button favorite-btn {% if is_favorited %}favorited{% endif %}" data-animal-id="{{ animal.id }}">
+            <i class="{% if is_favorited %}fas{% else %}far{% endif %} fa-heart"></i>
         </button>
 
         {# Description #}
@@ -116,6 +116,16 @@
             <a href="{{ path('animals') }}" class="btn-back">
                 <i class="fas fa-arrow-left"></i> Retour à la liste
             </a>
+            {% if can_edit %}
+                <a href="{{ path('animals_edit', {'id': animal.id}) }}" class="btn-edit">
+                    <i class="fas fa-edit"></i> Modifier la fiche
+                </a>
+                <form method="post" action="{{ path('animals_delete', {'id': animal.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet animal ? Cette action est irréversible.');">
+                    <button type="submit" class="btn-delete">
+                        <i class="fas fa-trash"></i> Supprimer
+                    </button>
+                </form>
+            {% endif %}
             {% if animal.association and animal.association.contactEmail %}
                 <button class="btn-contact contact-btn" data-animal-id="{{ animal.id }}">
                     <i class="fas fa-envelope"></i> Contacter l'association
@@ -234,15 +244,180 @@
 </div>
 
 <script>
-document.querySelectorAll('[data-toggle-reply]').forEach(button => {
-    button.addEventListener('click', function() {
-        const commentId = this.dataset.toggleReply;
-        const form = document.getElementById('reply-form-' + commentId);
-        if (form) {
-            form.style.display = form.style.display === 'none' ? 'block' : 'none';
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize favorite button
+    const favoriteButton = document.querySelector('.favorite-btn');
+    if (favoriteButton) {
+        favoriteButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const animalId = this.dataset.animalId;
+            const heartIcon = this.querySelector('i');
+
+            // Toggle favorite state
+            if (this.classList.contains('favorited')) {
+                this.classList.remove('favorited');
+                heartIcon.classList.remove('fas');
+                heartIcon.classList.add('far');
+
+                // Remove from favorites
+                removeFavorite(animalId);
+            } else {
+                this.classList.add('favorited');
+                heartIcon.classList.remove('far');
+                heartIcon.classList.add('fas');
+
+                // Add to favorites
+                addFavorite(animalId);
+            }
+
+            // Add animation
+            this.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+        });
+    }
+
+    // Initialize reply toggles
+    document.querySelectorAll('[data-toggle-reply]').forEach(button => {
+        button.addEventListener('click', function() {
+            const commentId = this.dataset.toggleReply;
+            const form = document.getElementById('reply-form-' + commentId);
+            if (form) {
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            }
+        });
     });
 });
+
+function addFavorite(animalId) {
+    console.log(`Adding animal ${animalId} to favorites`);
+
+    fetch('/api/favorites', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ animalId: animalId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Ajouté aux favoris !', 'success');
+        } else {
+            showNotification(data.message || 'Erreur lors de l\'ajout aux favoris', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Erreur lors de l\'ajout aux favoris', 'error');
+    });
+}
+
+function removeFavorite(animalId) {
+    console.log(`Removing animal ${animalId} from favorites`);
+
+    fetch(`/api/favorites/${animalId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Retiré des favoris', 'info');
+        } else {
+            showNotification(data.message || 'Erreur lors de la suppression', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Erreur lors de la suppression', 'error');
+    });
+}
+
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notif => notif.remove());
+
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+
+    // Define colors based on type
+    const colors = {
+        success: '#10B981',
+        error: '#EF4444',
+        info: '#3B82F6',
+        warning: '#F59E0B'
+    };
+
+    // Style the notification
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${colors[type] || colors.info};
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        font-weight: 500;
+        animation: slideInRight 0.3s ease;
+        max-width: 300px;
+        font-size: 14px;
+    `;
+
+    // Add animation styles if not already present
+    if (!document.querySelector('#notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Add to page
+    document.body.appendChild(notification);
+
+    // Remove after 4 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
+}
 </script>
 
 {% endblock %}

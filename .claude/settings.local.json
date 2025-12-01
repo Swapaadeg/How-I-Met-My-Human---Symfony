@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npm run build:*)",
       "Bash(php bin/console doctrine:migrations:migrate:*)",
-      "Bash(nul)"
+      "Bash(nul)",
+      "Bash(php bin/console:*)"
     ],
     "deny": [],
     "ask": []

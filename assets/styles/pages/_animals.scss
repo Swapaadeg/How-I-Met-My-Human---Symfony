@@ -841,7 +841,7 @@
         flex-wrap: wrap;
         justify-content: center;
 
-        .btn-back, .btn-contact {
+        .btn-back, .btn-contact, .btn-edit, .btn-delete {
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
@@ -873,6 +873,19 @@
             }
         }
 
+        .btn-edit {
+            background: transparent;
+            color: v.$color-secondary;
+            border: 2px solid v.$color-secondary;
+
+            &:hover {
+                background: v.$color-secondary;
+                color: v.$color-background;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.4);
+            }
+        }
+
         .btn-contact {
             background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
             color: v.$color-background;
@@ -881,6 +894,19 @@
             &:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.5);
+            }
+        }
+
+        .btn-delete {
+            background: transparent;
+            color: #dc3545;
+            border: 2px solid #dc3545;
+
+            &:hover {
+                background: #dc3545;
+                color: v.$color-background;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(#dc3545, 0.4);
             }
         }
     }

@@ -150,12 +150,19 @@ final class AssociationsController extends AbstractController
 
         // Check if user has a pending membership request
         $pendingMembership = null;
+        $userFavoriteIds = [];
         if ($user) {
             $pendingMembership = $this->associationMemberRepository->findOneBy([
                 'user' => $user,
                 'association' => $association,
                 'status' => AssociationMember::STATUS_PENDING
             ]);
+
+            // Get all favorite animal IDs for this user
+            $favorites = $user->getFavorites();
+            foreach ($favorites as $favorite) {
+                $userFavoriteIds[] = $favorite->getAnimals()->getId();
+            }
         }
 
         return $this->render('associations/show.html.twig', [
@@ -164,6 +171,7 @@ final class AssociationsController extends AbstractController
             'can_manage' => $canManage,
             'user_role' => $userRole,
             'pending_membership' => $pendingMembership,
+            'user_favorite_ids' => $userFavoriteIds,
         ]);
     }
 
@@ -376,5 +384,54 @@ final class AssociationsController extends AbstractController
         }
 
         return $this->redirectToRoute('associations_manage', ['id' => $membership->getAssociation()->getId()]);
+    }
+
+    /**
+     * Delete an association
+     */
+    #[Route('/associations/{id}/delete', name: 'associations_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ASSOCIATION_MANAGER')]
+    public function delete(Association $association): Response
+    {
+        $user = $this->getUser();
+
+        // Check if user can delete this association
+        if (!$this->permissionService->canUserEditAssociation($user, $association)) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits pour supprimer cette association.');
+            return $this->redirectToRoute('association_show', ['id' => $association->getId()]);
+        }
+
+        // Delete all related animals first
+        foreach ($association->getAnimals() as $animal) {
+            // Delete related favorites
+            foreach ($animal->getFavorites() as $favorite) {
+                $this->entityManager->remove($favorite);
+            }
+            // Delete related comments
+            foreach ($animal->getComments() as $comment) {
+                $this->entityManager->remove($comment);
+            }
+            $this->entityManager->remove($animal);
+        }
+
+        // Delete all memberships
+        foreach ($association->getMembers() as $membership) {
+            $this->entityManager->remove($membership);
+        }
+
+        // Delete the association
+        $this->entityManager->remove($association);
+        $this->entityManager->flush();
+
+        // Update user roles
+        if ($user instanceof \App\Entity\User) {
+            $this->entityManager->refresh($user);
+            $user->updateRolesFromMemberships();
+            $this->entityManager->flush();
+        }
+
+        $this->addFlash('success', 'L\'association a été supprimée avec succès.');
+
+        return $this->redirectToRoute('associations');
     }
 }

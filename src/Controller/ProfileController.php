@@ -26,9 +26,16 @@ final class ProfileController extends AbstractController
         // Récupérer les favoris avec les animaux chargés
         $favorites = $favoritesRepository->findByUserWithAnimals($user);
 
+        // Get all favorite animal IDs for this user
+        $userFavoriteIds = [];
+        foreach ($favorites as $favorite) {
+            $userFavoriteIds[] = $favorite->getAnimals()->getId();
+        }
+
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'favorites' => $favorites,
+            'user_favorite_ids' => $userFavoriteIds,
         ]);
     }
 

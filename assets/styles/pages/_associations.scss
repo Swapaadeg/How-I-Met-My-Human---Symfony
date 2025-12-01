@@ -446,6 +446,17 @@
                     color: v.$color-background;
                 }
             }
+
+            &.delete {
+                background-color: transparent;
+                color: #dc3545;
+                border: 2px solid #dc3545;
+
+                &:hover {
+                    background-color: #dc3545;
+                    color: v.$color-background;
+                }
+            }
         }
     }
 
@@ -518,7 +529,7 @@
 
     .animals-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1rem;
         margin-bottom: 2rem;
 

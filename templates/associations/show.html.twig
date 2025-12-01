@@ -57,6 +57,11 @@
                             <a href="{{ path('associations_edit', {id: association.id}) }}" class="btn edit">
                                 <i class="fas fa-edit"></i> Modifier l'association
                             </a>
+                            <form method="post" action="{{ path('associations_delete', {id: association.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette association ? Tous les animaux et données associés seront également supprimés. Cette action est irréversible.');">
+                                <button type="submit" class="btn delete">
+                                    <i class="fas fa-trash"></i> Supprimer l'association
+                                </button>
+                            </form>
                         {% endif %}
                     </div>
                 {% endif %}

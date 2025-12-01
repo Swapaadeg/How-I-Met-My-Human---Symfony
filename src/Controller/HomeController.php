@@ -30,6 +30,16 @@ final class HomeController extends AbstractController
         $allSpecies = $speciesRepository->findAll();
         $allDepartments = $departmentRepository->findAll();
 
+        // Get user favorite IDs
+        $user = $this->getUser();
+        $userFavoriteIds = [];
+        if ($user) {
+            $favorites = $user->getFavorites();
+            foreach ($favorites as $favorite) {
+                $userFavoriteIds[] = $favorite->getAnimals()->getId();
+            }
+        }
+
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',
             'oldest_animals' => $oldestAnimals,
@@ -39,6 +49,7 @@ final class HomeController extends AbstractController
             'latest_news' => $latestNews,
             'allSpecies' => $allSpecies,
             'allDepartments' => $allDepartments,
+            'user_favorite_ids' => $userFavoriteIds,
         ]);
     }
 }

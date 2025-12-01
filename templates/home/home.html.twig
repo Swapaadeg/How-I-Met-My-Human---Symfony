@@ -178,8 +178,8 @@
                                         </div>
                                         
                                         <div class="card-actions">
-                                            <button class="action-btn favorite-btn" data-animal-id="{{ animal.id }}" title="Ajouter aux favoris">
-                                                <i class="far fa-heart"></i>
+                                            <button class="action-btn favorite-btn {% if animal.id in user_favorite_ids %}favorited{% endif %}" data-animal-id="{{ animal.id }}" title="{% if animal.id in user_favorite_ids %}Retirer des favoris{% else %}Ajouter aux favoris{% endif %}">
+                                                <i class="{% if animal.id in user_favorite_ids %}fas{% else %}far{% endif %} fa-heart"></i>
                                             </button>
                                             {% if animal.association and animal.association.contactEmail %}
                                                 <button class="action-btn contact-btn" data-animal-id="{{ animal.id }}" title="Contacter l'association">

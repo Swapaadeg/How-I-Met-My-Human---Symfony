@@ -10,6 +10,7 @@ use App\Form\CommentFormType;
 use App\Repository\AnimalsRepository;
 use App\Repository\SpeciesRepository;
 use App\Repository\DepartmentRepository;
+use App\Service\PermissionService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -70,12 +71,20 @@ final class AnimalsController extends AbstractController
         // Check if user is member of an association
         $user = $this->getUser();
         $isMember = false;
+        $userFavoriteIds = [];
+
         if ($user) {
             foreach ($user->getAssociationMembers() as $membership) {
                 if ($membership->isApproved()) {
                     $isMember = true;
                     break;
                 }
+            }
+
+            // Get all favorite animal IDs for this user
+            $favorites = $user->getFavorites();
+            foreach ($favorites as $favorite) {
+                $userFavoriteIds[] = $favorite->getAnimals()->getId();
             }
         }
 
@@ -87,6 +96,7 @@ final class AnimalsController extends AbstractController
             'currentDepartment' => $departmentId,
             'currentSexe' => $sexe,
             'is_member' => $isMember,
+            'user_favorite_ids' => $userFavoriteIds,
         ]);
     }
 
@@ -137,11 +147,13 @@ final class AnimalsController extends AbstractController
     }
 
     #[Route('/animals/{id}', name: 'animal_show', methods: ['GET'])]
-    public function show(Animals $animal, Request $request, EntityManagerInterface $entityManager): Response
+    public function show(Animals $animal, Request $request, EntityManagerInterface $entityManager, PermissionService $permissionService): Response
     {
         $user = $this->getUser();
         $form = null;
         $replyForms = [];
+        $canEdit = false;
+        $isFavorited = false;
 
         if ($user) {
             $comment = new Comments();
@@ -154,12 +166,24 @@ final class AnimalsController extends AbstractController
                     $replyForms[$comment->getId()] = $this->createForm(CommentFormType::class, $reply)->createView();
                 }
             }
+
+            // Check if user can edit this animal
+            $canEdit = $permissionService->canUserManageAnimal($user, $animal);
+
+            // Check if animal is already in user's favorites
+            $favorite = $entityManager->getRepository(Favorites::class)->findOneBy([
+                'user' => $user,
+                'animals' => $animal
+            ]);
+            $isFavorited = $favorite !== null;
         }
 
         return $this->render('animals/show.html.twig', [
             'animal' => $animal,
             'comment_form' => $form,
             'reply_forms' => $replyForms,
+            'can_edit' => $canEdit,
+            'is_favorited' => $isFavorited,
         ]);
     }
 
@@ -242,6 +266,67 @@ final class AnimalsController extends AbstractController
         $this->addFlash('success', 'Commentaire supprimé avec succès !');
 
         return $this->redirectToRoute('animal_show', ['id' => $animal->getId()]);
+    }
+
+    #[Route('/animals/{id}/edit', name: 'animals_edit')]
+    #[IsGranted('ROLE_ASSOCIATION_MEMBER')]
+    public function edit(Animals $animal, Request $request, EntityManagerInterface $entityManager, PermissionService $permissionService): Response
+    {
+        $user = $this->getUser();
+
+        // Check if user can edit this animal
+        if (!$permissionService->canUserManageAnimal($user, $animal)) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits pour modifier cet animal.');
+            return $this->redirectToRoute('animal_show', ['id' => $animal->getId()]);
+        }
+
+        $form = $this->createForm(AnimalFormType::class, $animal);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash('success', 'L\'animal a été modifié avec succès !');
+
+            return $this->redirectToRoute('animal_show', ['id' => $animal->getId()]);
+        }
+
+        return $this->render('animals/edit.html.twig', [
+            'form' => $form->createView(),
+            'animal' => $animal,
+        ]);
+    }
+
+    #[Route('/animals/{id}/delete', name: 'animals_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ASSOCIATION_MEMBER')]
+    public function delete(Animals $animal, EntityManagerInterface $entityManager, PermissionService $permissionService): Response
+    {
+        $user = $this->getUser();
+
+        // Check if user can delete this animal
+        if (!$permissionService->canUserManageAnimal($user, $animal)) {
+            $this->addFlash('error', 'Vous n\'avez pas les droits pour supprimer cet animal.');
+            return $this->redirectToRoute('animal_show', ['id' => $animal->getId()]);
+        }
+
+        $associationId = $animal->getAssociation()->getId();
+
+        // Delete related favorites first
+        foreach ($animal->getFavorites() as $favorite) {
+            $entityManager->remove($favorite);
+        }
+
+        // Delete related comments
+        foreach ($animal->getComments() as $comment) {
+            $entityManager->remove($comment);
+        }
+
+        $entityManager->remove($animal);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'L\'animal a été supprimé avec succès.');
+
+        return $this->redirectToRoute('association_show', ['id' => $associationId]);
     }
 
     #[Route('/api/favorites', name: 'favorites_add', methods: ['POST'])]
