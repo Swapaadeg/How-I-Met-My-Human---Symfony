@@ -42,7 +42,6 @@
                 </div>
                 
                 <div class="field image-field">
-                    {{ form_row(form.imageFile) }}
                     {% if association.imageName %}
                         <div class="current-image">
                             <p><strong>Image actuelle :</strong></p>
@@ -50,6 +49,7 @@
                                  alt="{{ association.name }}">
                         </div>
                     {% endif %}
+                    {{ form_row(form.imageFile) }}
                 </div>
                 
                 <div class="actions">

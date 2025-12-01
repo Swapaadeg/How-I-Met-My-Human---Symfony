@@ -40,6 +40,9 @@
     white-space: normal;
     font-family: v.$font-family-primary;
     padding: 0;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
 
 // Styles spécifiques pour les tags SOS, FAD, Education dans la modale
@@ -101,6 +104,8 @@
 
 .tag-modal-body {
     padding: 1.2rem 1.5rem 1.5rem;
+    overflow-y: auto;
+    flex: 1;
 }
 
 .tag-modal-body p {
@@ -110,8 +115,6 @@
     font-size: 1.05rem;
     white-space: pre-line;
     word-break: break-word;
-    max-height: 350px;
-    overflow-y: auto;
     font-family: v.$font-family-primary;
 }
 
@@ -218,8 +221,9 @@
         padding: 0.7rem 1.2rem;
         border-radius: 8px;
         font-size: 0.85rem;
-        max-width: min(400px, calc(100vw - 32px));
+        max-width: min(450px, calc(100vw - 32px));
         min-width: 200px;
+        width: max-content;
         line-height: 1.5;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
         z-index: 1000;
@@ -228,7 +232,7 @@
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         pointer-events: none;
         white-space: normal;
-        text-align: center;
+        text-align: left;
         overflow-wrap: break-word;
         word-break: break-word;
     }
@@ -268,8 +272,11 @@
         bottom: 140%;
         font-size: 0.8rem;
         padding: 0.6rem 1rem;
-        max-width: 220px;
+        max-width: min(450px, calc(100vw - 32px));
+        min-width: 200px;
+        width: max-content;
         white-space: normal;
+        text-align: left;
     }
 
     &::after {

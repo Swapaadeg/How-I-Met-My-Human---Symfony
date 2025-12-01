@@ -135,11 +135,15 @@ final class AnimalsController extends AbstractController
 
             $entityManager->persist($animal);
             $entityManager->flush();
+            
+            $animal->setImageFile(null);
 
             $this->addFlash('success', 'L\'animal a été ajouté avec succès !');
 
             return $this->redirectToRoute('animals');
         }
+        
+        $animal->setImageFile(null);
 
         return $this->render('animals/add.html.twig', [
             'form' => $form->createView(),
@@ -285,11 +289,15 @@ final class AnimalsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            
+            $animal->setImageFile(null);
 
             $this->addFlash('success', 'L\'animal a été modifié avec succès !');
 
             return $this->redirectToRoute('animal_show', ['id' => $animal->getId()]);
         }
+        
+        $animal->setImageFile(null);
 
         return $this->render('animals/edit.html.twig', [
             'form' => $form->createView(),
@@ -299,8 +307,15 @@ final class AnimalsController extends AbstractController
 
     #[Route('/animals/{id}/delete', name: 'animals_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ASSOCIATION_MEMBER')]
-    public function delete(Animals $animal, EntityManagerInterface $entityManager, PermissionService $permissionService): Response
+    public function delete(int $id, EntityManagerInterface $entityManager, AnimalsRepository $animalsRepository, PermissionService $permissionService): Response
     {
+        $animal = $animalsRepository->find($id);
+        
+        if (!$animal) {
+            $this->addFlash('error', 'Cet animal n\'existe pas ou a déjà été supprimé.');
+            return $this->redirectToRoute('animals');
+        }
+        
         $user = $this->getUser();
 
         // Check if user can delete this animal
@@ -326,7 +341,7 @@ final class AnimalsController extends AbstractController
 
         $this->addFlash('success', 'L\'animal a été supprimé avec succès.');
 
-        return $this->redirectToRoute('association_show', ['id' => $associationId]);
+        return $this->redirectToRoute('associations_show', ['id' => $associationId]);
     }
 
     #[Route('/api/favorites', name: 'favorites_add', methods: ['POST'])]
