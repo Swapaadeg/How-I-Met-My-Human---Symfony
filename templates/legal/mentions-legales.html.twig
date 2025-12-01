@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mentions Légales - How I Met My Human{% endblock %}
+
+{% block body %}
+<div class="legal-container">
+    <div class="legal-header">
+        <h1>Mentions Légales</h1>
+        <p class="legal-subtitle">Informations légales du site</p>
+    </div>
+
+    <div class="legal-content">
+        <section class="legal-section">
+            <h2>Éditeur</h2>
+            <div class="legal-card">
+                <p><strong>How I Met My Human</strong></p>
+                <p>Plateforme d'adoption d'animaux</p>
+                <p>Contact : <a href="mailto:contact@howimetmyhuman.fr">contact@howimetmyhuman.fr</a></p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Hébergement</h2>
+            <div class="legal-card">
+                <p><strong>Hébergeur :</strong> O2Switch</p>
+                <p>222-224 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand, France</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Propriété Intellectuelle</h2>
+            <div class="legal-card">
+                <p>Le contenu du site (design, textes, logos) est protégé par les droits d'auteur. Vous pouvez consulter le site pour un usage personnel uniquement.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Responsabilité</h2>
+            <div class="legal-card">
+                <p>How I Met My Human s'efforce d'assurer l'exactitude des informations. Le site est fourni sans garantie. Nous ne sommes pas responsables des dommages directs ou indirects liés à l'utilisation du site.</p>
+            </div>
+        </section>
+
+        <p class="legal-updated">Dernière mise à jour : {{ 'now'|date('d/m/Y') }}</p>
+    </div>
+</div>
+{% endblock %}

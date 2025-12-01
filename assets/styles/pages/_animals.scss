@@ -291,15 +291,15 @@
                 
                 // Tooltips spécifiques pour les tags mini (redéfinition)
                 &[data-tooltip]::before {
-                    bottom: 140% !important;
-                    font-size: 0.75rem !important;
-                    padding: 0.6rem 0.8rem !important;
-                    max-width: 200px !important;
-                    white-space: normal !important;
+                    bottom: 140%;
+                    font-size: 0.75rem;
+                    padding: 0.6rem 0.8rem;
+                    max-width: 200px;
+                    white-space: normal;
                 }
-                
+
                 &[data-tooltip]::after {
-                    bottom: 132% !important;
+                    bottom: 132%;
                 }
             }
             
@@ -1045,7 +1045,7 @@
 
             // Styling des labels comme des tags sélectionnables
             label {
-                display: inline-flex !important;
+                display: inline-flex;
                 align-items: center;
                 justify-content: center;
                 margin: 0;
@@ -1090,7 +1090,7 @@
                     opacity: 0;
                     width: 0;
                     height: 0;
-                    margin: 0 !important;
+                    margin: 0;
                     pointer-events: none;
                 }
 
@@ -1190,8 +1190,8 @@
         font-size: 1.2rem;
         text-decoration: none;
         transition: all 0.3s ease;
-        background: rgba(v.$color-secondary, 0.15) !important;
-        color: v.$color-dark !important;
+        background: rgba(v.$color-secondary, 0.15);
+        color: v.$color-dark;
         border: 2px solid transparent;
         margin: 0;
         box-shadow: 0 2px 8px rgba(v.$color-secondary, 0.1);
@@ -1201,7 +1201,7 @@
         cursor: pointer;
 
         &:hover {
-            background: rgba(v.$color-secondary, 0.3) !important;
+            background: rgba(v.$color-secondary, 0.3);
             transform: scale(1.08);
             box-shadow: 0 4px 12px rgba(v.$color-secondary, 0.25);
         }
@@ -1210,7 +1210,7 @@
     // Page active
     .active span,
     span.current {
-        background: rgba(v.$color-secondary, 0.35) !important;
+        background: rgba(v.$color-secondary, 0.35);
         transform: scale(1.12);
         box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.35);
         font-size: 1.3rem;

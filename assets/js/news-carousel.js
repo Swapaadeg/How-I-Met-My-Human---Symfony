@@ -1,9 +1,14 @@
 /**
+ * News Carousel Module
  * Infinite scroll carousel for adopter news
  * Creates a seamless infinite loop without visible jumps
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+/**
+ * Initialize news carousels
+ * Automatically starts infinite scroll animation for all carousels on the page
+ */
+export function initializeNewsCarousel() {
     const carousels = document.querySelectorAll('.news-carousel');
 
     carousels.forEach(carousel => {
@@ -33,6 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
         let lastTimestamp;
         let isPaused = false;
 
+        /**
+         * Animation loop using requestAnimationFrame
+         * @param {number} timestamp - High resolution timestamp from RAF
+         */
         function animate(timestamp) {
             if (!lastTimestamp) lastTimestamp = timestamp;
             const delta = timestamp - lastTimestamp;
@@ -83,4 +92,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+}

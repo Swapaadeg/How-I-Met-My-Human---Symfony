@@ -1,0 +1,104 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Politique de Confidentialité - How I Met My Human{% endblock %}
+
+{% block body %}
+<div class="legal-container">
+    <div class="legal-header">
+        <h1>Politique de Confidentialité</h1>
+        <p class="legal-subtitle">Comment nous protégeons vos données</p>
+    </div>
+
+    <div class="legal-content">
+        <section class="legal-section">
+            <h2>Données Collectées</h2>
+            <div class="legal-card">
+                <p><strong>À l'inscription :</strong></p>
+                <ul>
+                    <li>Nom et prénom</li>
+                    <li>Email</li>
+                    <li>Mot de passe (chiffré)</li>
+                    <li>Téléphone (optionnel)</li>
+                    <li>Photo de profil (optionnel)</li>
+                </ul>
+
+                <p><strong>Lors de votre utilisation :</strong></p>
+                <ul>
+                    <li>Commentaires et avis</li>
+                    <li>Favoris et demandes d'adoption</li>
+                    <li>Adhésions aux associations</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Utilisation de Vos Données</h2>
+            <div class="legal-card">
+                <p>Vos données sont utilisées pour :</p>
+                <ul>
+                    <li>Créer et gérer votre compte</li>
+                    <li>Traiter vos demandes d'adoption</li>
+                    <li>Vous permettre de communiquer avec les associations</li>
+                    <li>Améliorer le site</li>
+                </ul>
+
+                <p><strong>Nous ne vendons jamais vos données.</strong></p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Partage des Données</h2>
+            <div class="legal-card">
+                <p>Vos données sont partagées avec :</p>
+                <ul>
+                    <li><strong>Les associations :</strong> Pour traiter vos demandes d'adoption</li>
+                    <li><strong>O2Switch :</strong> Notre hébergeur (données techniques uniquement)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Durée de Conservation</h2>
+            <div class="legal-card">
+                <p>Vos données sont conservées tant que votre compte est actif. Après suppression, vos données sont effacées après 30 jours.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Vos Droits</h2>
+            <div class="legal-card">
+                <p>Vous avez le droit de :</p>
+                <ul>
+                    <li>Accéder à vos données</li>
+                    <li>Les corriger</li>
+                    <li>Les supprimer (droit à l'oubli)</li>
+                    <li>Retirer votre consentement</li>
+                </ul>
+                <p>Contactez-nous : <a href="mailto:contact@howimetmyhuman.fr">contact@howimetmyhuman.fr</a></p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Sécurité</h2>
+            <div class="legal-card">
+                <p>Nous protégeons vos données avec :</p>
+                <ul>
+                    <li>Chiffrement SSL/TLS</li>
+                    <li>Mots de passe hachés</li>
+                    <li>Accès limité aux données</li>
+                    <li>Sauvegardes régulières</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Plainte CNIL</h2>
+            <div class="legal-card">
+                <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez déposer une plainte auprès de la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
+            </div>
+        </section>
+
+        <p class="legal-updated">Dernière mise à jour : {{ 'now'|date('d/m/Y') }}</p>
+    </div>
+</div>
+{% endblock %}

@@ -2,14 +2,16 @@
     <div class="modal-header-contact">
         <h2>
             <i class="fas fa-envelope"></i>
-            {% if animal %}
+            {% if animal is defined and animal %}
                 Contacter l'association pour {{ animal.name }}
-            {% else %}
+            {% elseif association is defined and association %}
                 Contacter {{ association.name }}
+            {% else %}
+                Nous contacter
             {% endif %}
         </h2>
         <p class="modal-subtitle">
-            {% if animal and animal.association %}
+            {% if animal is defined and animal and animal.association %}
                 Message à {{ animal.association.name }}
             {% endif %}
         </p>
@@ -38,6 +40,14 @@
             {{ form_label(form.message) }}
             {{ form_widget(form.message) }}
             {{ form_errors(form.message) }}
+        </div>
+
+        <div class="form-group captcha-group">
+            <div class="captcha-checkbox">
+                {{ form_widget(form.notRobot) }}
+                {{ form_label(form.notRobot) }}
+            </div>
+            {{ form_errors(form.notRobot) }}
         </div>
 
         <div class="form-actions">
@@ -136,5 +146,40 @@
 
 .btn-submit-contact i {
     margin-right: 0.5rem;
+}
+
+.captcha-group {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.captcha-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.captcha-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #f8c630;
+}
+
+.captcha-checkbox label {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+/* Hide honeypot field from bots */
+.honeypot-field {
+    display: none;
 }
 </style>

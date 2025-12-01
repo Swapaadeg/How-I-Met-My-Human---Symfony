@@ -9,19 +9,19 @@
             <div class="carousel-container">
                 <div class="carousel-slides">
                     <div class="carousel-slide active">
-                        <img src="{{ asset('carousel1.jpg') }}" alt="Chien et enfant jouant ensemble">
+                        <img src="{{ asset('carousel1.jpg') }}" alt="Chat à poil long dans un cerisier en fleur">
                     </div>
                     <div class="carousel-slide">
-                        <img src="{{ asset('carousel2.jpg') }}" alt="Chat dans les bras d'une personne">
+                        <img src="{{ asset('carousel2.jpg') }}" alt="Bénévole de refuge entouré de chiens">
                     </div>
                     <div class="carousel-slide">
-                        <img src="{{ asset('carousel3.jpg') }}" alt="Famille adoptant un animal">
+                        <img src="{{ asset('carousel3.jpg') }}" alt="Une femme et son chien assis de dos au coucher du soleil au bord d'une falaise.">
                     </div>
                     <div class="carousel-slide">
-                        <img src="{{ asset('carousel4.jpg') }}" alt="Animal de refuge heureux">
+                        <img src="{{ asset('carousel4.jpg') }}" alt="Photo en noir et blanc d'un chien regardant un chat derrière des barreaux">
                     </div>
                     <div class="carousel-slide">
-                        <img src="{{ asset('carousel5.jpg') }}" alt="Moment de complicité avec animal">
+                        <img src="{{ asset('carousel5.jpg') }}" alt="Les mains d'un couple marié s'empilant avec une patte de chien au dessus de leurs mains">
                     </div>
                 </div>
                 
@@ -29,13 +29,6 @@
                     <h1>HOW I MET MY HUMAN</h1>
                     <h2>Chaque animal a son humain</h2>
                 </div>
-                
-                <button class="carousel-arrow carousel-prev" aria-label="Image précédente">
-                    <span>&larr;</span>
-                </button>
-                <button class="carousel-arrow carousel-next" aria-label="Image suivante">
-                    <span>&rarr;</span>
-                </button>
             </div>
         </div>
 
@@ -89,6 +82,9 @@
 
                 {% if oldest_animals is not empty %}
                     <div class="animals-carousel-container">
+                        <button class="carousel-nav carousel-prev" aria-label="Animal précédent">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
                         <div class="animals-carousel">
                             {% for animal in oldest_animals %}
                                 <div class="animal-card carousel-card" data-animal-id="{{ animal.id }}" data-index="{{ loop.index0 }}">
@@ -97,7 +93,21 @@
                                             <img src="{{ asset('uploads/images/' ~ animal.imageName) }}" alt="{{ animal.name }}">
                                         {% else %}
                                             <div class="placeholder-image">
-                                                <i class="fas fa-paw"></i>
+                                                {% if animal.species %}
+                                                    {% if animal.species.name|lower == 'chien' %}
+                                                        <i class="fas fa-dog"></i>
+                                                    {% elseif animal.species.name|lower == 'chat' %}
+                                                        <i class="fas fa-cat"></i>
+                                                    {% elseif animal.species.name|lower == 'lapin' %}
+                                                        <i class="fas fa-rabbit"></i>
+                                                    {% elseif animal.species.name|lower == 'oiseau' %}
+                                                        <i class="fas fa-dove"></i>
+                                                    {% else %}
+                                                        <i class="fas fa-paw"></i>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <i class="fas fa-paw"></i>
+                                                {% endif %}
                                             </div>
                                         {% endif %}
                                         <div class="duration-badge">

@@ -1,22 +1,22 @@
 @use "sass:color";
-@use "../abstracts/variables" as *;
+@use "../abstracts/variables" as v;
 
 // Mixins spécifiques à cette page
 @mixin elegant-card {
-    background: white;
+    background: v.$color-background;
     border-radius: 20px;
-    box-shadow: 0 20px 60px rgba($color-accent, 0.1);
+    box-shadow: 0 20px 60px rgba(v.$color-accent, 0.1);
     overflow: hidden;
-    border: 1px solid rgba($color-secondary, 0.08);
+    border: 1px solid rgba(v.$color-secondary, 0.08);
 }
 
-@mixin button-elegant($bg-color, $text-color: white) {
+@mixin button-elegant($bg-color, $text-color: v.$color-background) {
     background: linear-gradient(135deg, $bg-color, color.adjust($bg-color, $lightness: -8%));
     color: $text-color;
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
-    font-family: $font-family-primary;
+    font-family: v.$font-family-primary;
     font-weight: 600;
     font-size: 0.85rem;
     cursor: pointer;
@@ -27,7 +27,7 @@
     text-decoration: none;
     position: relative;
     overflow: hidden;
-    
+
     &::before {
         content: '';
         position: absolute;
@@ -35,7 +35,7 @@
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(white, 0.2), transparent);
+        background: linear-gradient(90deg, transparent, rgba(v.$color-background, 0.2), transparent);
         transition: left 0.5s;
     }
     
@@ -61,14 +61,14 @@
 }
 
 @mixin option-card {
-    background: white;
-    border: 2px solid rgba($color-secondary, 0.1);
+    background: v.$color-background;
+    border: 2px solid rgba(v.$color-secondary, 0.1);
     border-radius: 16px;
     padding: 24px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    
+
     &::before {
         content: '';
         position: absolute;
@@ -76,16 +76,16 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, $color-secondary, $color-accent);
+        background: linear-gradient(90deg, v.$color-secondary, v.$color-accent);
         transform: scaleX(0);
         transition: transform 0.3s ease;
     }
-    
+
     &:hover {
-        border-color: rgba($color-secondary, 0.3);
-        box-shadow: 0 15px 40px rgba($color-secondary, 0.15);
+        border-color: rgba(v.$color-secondary, 0.3);
+        box-shadow: 0 15px 40px rgba(v.$color-secondary, 0.15);
         transform: translateY(-5px);
-        
+
         &::before {
             transform: scaleX(1);
         }
@@ -95,13 +95,13 @@
 // Post Registration Association - Style moderne et épuré
 .post-registration-association {
     min-height: 100vh;
-    background: linear-gradient(135deg, 
-        rgba($color-secondary, 0.05) 0%, 
-        rgba($color-accent, 0.08) 50%, 
-        rgba($color-primary, 0.1) 100%
+    background: linear-gradient(135deg,
+        rgba(v.$color-secondary, 0.05) 0%,
+        rgba(v.$color-accent, 0.08) 50%,
+        rgba(v.$color-primary, 0.1) 100%
     );
     padding: 40px 20px;
-    font-family: $font-family-primary;
+    font-family: v.$font-family-primary;
     
     .container {
         max-width: 900px;
@@ -113,8 +113,8 @@
         @include elegant-card;
         
         .card-header {
-            background: linear-gradient(135deg, $color-secondary, $color-accent);
-            color: white;
+            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+            color: v.$color-background;
             padding: 40px 30px;
             text-align: center;
             position: relative;
@@ -127,7 +127,7 @@
                 right: -50%;
                 width: 100%;
                 height: 200%;
-                background: linear-gradient(45deg, transparent, rgba(white, 0.1), transparent);
+                background: linear-gradient(45deg, transparent, rgba(v.$color-background, 0.1), transparent);
                 transform: rotate(45deg);
                 animation: shimmer 3s infinite;
             }
@@ -135,7 +135,7 @@
             h3 {
                 margin: 0 0 12px 0;
                 font-size: 2rem;
-                font-family: $font-family-bold;
+                font-family: v.$font-family-bold;
                 font-weight: 700;
                 position: relative;
                 z-index: 2;
@@ -153,7 +153,7 @@
                 font-size: 1.15rem;
                 position: relative;
                 z-index: 2;
-                font-family: $font-family-primary;
+                font-family: v.$font-family-primary;
             }
         }
         
@@ -165,15 +165,15 @@
                 margin-bottom: 50px;
                 
                 h4 {
-                    color: $color-accent;
+                    color: v.$color-accent;
                     margin-bottom: 15px;
                     font-size: 1.75rem;
-                    font-family: $font-family-bold;
+                    font-family: v.$font-family-bold;
                     font-weight: 700;
                 }
                 
                 p {
-                    color: color.adjust($color-dark, $lightness: 20%);
+                    color: color.adjust(v.$color-dark, $lightness: 20%);
                     font-size: 1.1rem;
                     margin: 0;
                     opacity: 0.8;
@@ -197,8 +197,8 @@
                         h5 {
                             margin: 0 0 12px 0;
                             font-size: 1.3rem;
-                            font-family: $font-family-bold;
-                            color: $color-dark;
+                            font-family: v.$font-family-bold;
+                            color: v.$color-dark;
                             display: flex;
                             align-items: center;
                             justify-content: center;
@@ -206,17 +206,17 @@
                             
                             i {
                                 font-size: 1.2rem;
-                                color: $color-secondary;
+                                color: v.$color-secondary;
                                 
                                 &.fa-plus-circle {
-                                    color: $color-accent;
+                                    color: v.$color-accent;
                                 }
                             }
                         }
                         
                         p {
                             margin: 0;
-                            color: color.adjust($color-dark, $lightness: 30%);
+                            color: color.adjust(v.$color-dark, $lightness: 30%);
                             line-height: 1.6;
                             font-size: 1rem;
                         }
@@ -233,20 +233,20 @@
                     h5 {
                         margin: 0 0 15px 0;
                         font-size: 1.3rem;
-                        font-family: $font-family-bold;
-                        color: $color-dark;
+                        font-family: v.$font-family-bold;
+                        color: v.$color-dark;
                         display: flex;
                         align-items: center;
                         gap: 12px;
                         
                         i {
-                            color: $color-secondary;
+                            color: v.$color-secondary;
                         }
                     }
                     
                     > p {
                         margin: 0 0 25px 0;
-                        color: color.adjust($color-dark, $lightness: 30%);
+                        color: color.adjust(v.$color-dark, $lightness: 30%);
                     }
                     
                     .association-list {
@@ -261,16 +261,16 @@
                         }
                         
                         &::-webkit-scrollbar-track {
-                            background: rgba($color-secondary, 0.1);
+                            background: rgba(v.$color-secondary, 0.1);
                             border-radius: 10px;
                         }
                         
                         &::-webkit-scrollbar-thumb {
-                            background: linear-gradient(180deg, $color-secondary, $color-accent);
+                            background: linear-gradient(180deg, v.$color-secondary, v.$color-accent);
                             border-radius: 10px;
                             
                             &:hover {
-                                background: linear-gradient(180deg, $color-accent, color.adjust($color-accent, $lightness: -10%));
+                                background: linear-gradient(180deg, v.$color-accent, color.adjust(v.$color-accent, $lightness: -10%));
                             }
                         }
                         
@@ -286,18 +286,18 @@
                                     cursor: pointer;
                                     
                                     &:checked + label {
-                                        border-color: $color-secondary;
+                                        border-color: v.$color-secondary;
                                         background: linear-gradient(135deg, 
-                                            rgba($color-secondary, 0.05), 
-                                            rgba($color-accent, 0.03)
+                                            rgba(v.$color-secondary, 0.05), 
+                                            rgba(v.$color-accent, 0.03)
                                         );
-                                        box-shadow: 0 8px 25px rgba($color-secondary, 0.2);
+                                        box-shadow: 0 8px 25px rgba(v.$color-secondary, 0.2);
                                         transform: translateY(-2px);
                                         
                                         &::before {
-                                            background: linear-gradient(135deg, $color-secondary, $color-accent);
-                                            border-color: $color-secondary;
-                                            box-shadow: 0 4px 15px rgba($color-secondary, 0.3);
+                                            background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
+                                            border-color: v.$color-secondary;
+                                            box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
                                         }
                                         
                                         &::after {
@@ -308,8 +308,8 @@
                                 
                                 label {
                                     display: block;
-                                    background: white;
-                                    border: 2px solid rgba($color-secondary, 0.15);
+                                    background: v.$color-background;
+                                    border: 2px solid rgba(v.$color-secondary, 0.15);
                                     border-radius: 15px;
                                     padding: 20px 20px 20px 55px;
                                     cursor: pointer;
@@ -324,9 +324,9 @@
                                         transform: translateY(-50%);
                                         width: 20px;
                                         height: 20px;
-                                        border: 2px solid rgba($color-secondary, 0.3);
+                                        border: 2px solid rgba(v.$color-secondary, 0.3);
                                         border-radius: 50%;
-                                        background: white;
+                                        background: v.$color-background;
                                         transition: all 0.3s ease;
                                     }
                                     
@@ -339,14 +339,14 @@
                                         width: 8px;
                                         height: 8px;
                                         border-radius: 50%;
-                                        background: white;
+                                        background: v.$color-background;
                                         opacity: 0;
                                         transition: opacity 0.3s ease;
                                     }
                                     
                                     &:hover {
-                                        border-color: rgba($color-secondary, 0.4);
-                                        box-shadow: 0 5px 20px rgba($color-secondary, 0.15);
+                                        border-color: rgba(v.$color-secondary, 0.4);
+                                        box-shadow: 0 5px 20px rgba(v.$color-secondary, 0.15);
                                         transform: translateY(-1px);
                                     }
                                     
@@ -354,8 +354,8 @@
                                         .association-info {
                                             .association-name {
                                                 display: block;
-                                                font-family: $font-family-bold;
-                                                color: $color-dark;
+                                                font-family: v.$font-family-bold;
+                                                color: v.$color-dark;
                                                 margin-bottom: 8px;
                                                 font-size: 1.1rem;
                                             }
@@ -363,7 +363,7 @@
                                             .association-location,
                                             .association-description {
                                                 display: block;
-                                                color: color.adjust($color-dark, $lightness: 35%);
+                                                color: color.adjust(v.$color-dark, $lightness: 35%);
                                                 font-size: 0.9rem;
                                                 line-height: 1.5;
                                                 margin-bottom: 6px;
@@ -375,7 +375,7 @@
                                             
                                             .association-location {
                                                 font-weight: 600;
-                                                color: $color-accent;
+                                                color: v.$color-accent;
                                             }
                                         }
                                     }
@@ -392,13 +392,13 @@
             
             .no-associations {
                 background: linear-gradient(135deg, 
-                    rgba($color-secondary, 0.1), 
-                    rgba($color-accent, 0.05)
+                    rgba(v.$color-secondary, 0.1), 
+                    rgba(v.$color-accent, 0.05)
                 );
-                color: $color-accent;
+                color: v.$color-accent;
                 padding: 30px;
                 border-radius: 15px;
-                border: 2px solid rgba($color-secondary, 0.2);
+                border: 2px solid rgba(v.$color-secondary, 0.2);
                 text-align: center;
                 
                 i {
@@ -410,20 +410,20 @@
         
         .card-footer {
             background: linear-gradient(135deg, 
-                rgba($color-primary, 0.05), 
-                rgba($color-secondary, 0.03)
+                rgba(v.$color-primary, 0.05), 
+                rgba(v.$color-secondary, 0.03)
             );
             padding: 25px 40px;
             text-align: center;
-            border-top: 1px solid rgba($color-secondary, 0.1);
+            border-top: 1px solid rgba(v.$color-secondary, 0.1);
             
             small {
-                color: color.adjust($color-dark, $lightness: 25%);
+                color: color.adjust(v.$color-dark, $lightness: 25%);
                 font-size: 0.95rem;
                 
                 i {
                     margin-right: 8px;
-                    color: $color-secondary;
+                    color: v.$color-secondary;
                 }
             }
         }
@@ -432,15 +432,15 @@
     // Buttons modernes
     .btn {
         &.btn-secondary {
-            @include button-elegant(color.adjust($color-dark, $lightness: 15%));
+            @include button-elegant(color.adjust(v.$color-dark, $lightness: 15%));
         }
         
         &.btn-success {
-            @include button-elegant($color-accent);
+            @include button-elegant(v.$color-accent);
         }
         
         &.btn-primary {
-            @include button-elegant($color-secondary);
+            @include button-elegant(v.$color-secondary);
         }
     }
 }

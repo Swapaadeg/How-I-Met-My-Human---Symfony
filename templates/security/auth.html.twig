@@ -28,7 +28,7 @@
                     {% endfor %}
 
                     <div class="input-box animation" style="--i: 1; --j: 21;">
-                        <input type="email" value="{{ last_username }}" name="_username" id="username" required>
+                        <input type="email" value="{{ last_username ?? '' }}" name="_username" id="username" required>
                         <label for="username">Email</label>
                         <i class="fa-solid fa-envelope"></i>
                     </div>

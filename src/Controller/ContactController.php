@@ -14,6 +14,61 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
 {
+    #[Route('/contact', name: 'contact_general', methods: ['GET', 'POST'])]
+    public function contactGeneral(
+        Request $request,
+        MailerInterface $mailer
+    ): Response {
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if (!$form->isValid()) {
+                // Si c'est une requête AJAX, retourner JSON avec les erreurs
+                if ($request->isXmlHttpRequest()) {
+                    $errors = [];
+                    foreach ($form->getErrors(true) as $error) {
+                        $errors[] = $error->getMessage();
+                    }
+                    return $this->json([
+                        'success' => false,
+                        'message' => count($errors) > 0 ? $errors[0] : 'Veuillez remplir correctement le formulaire'
+                    ], 400);
+                }
+            } elseif ($form->isValid()) {
+                $data = $form->getData();
+
+                try {
+                    $email = (new Email())
+                        ->from('noreply@himmh.fr')
+                        ->to('contact@howimetmyhuman.fr')
+                        ->replyTo($data['email'])
+                        ->subject('Message de contact - ' . $data['name'])
+                        ->html($this->renderView('emails/contact.html.twig', [
+                            'data' => $data
+                        ]));
+
+                    $mailer->send($email);
+
+                    return $this->json([
+                        'success' => true,
+                        'message' => 'Votre message a été envoyé avec succès !'
+                    ]);
+                } catch (\Exception) {
+                    return $this->json([
+                        'success' => false,
+                        'message' => 'Une erreur est survenue lors de l\'envoi du message'
+                    ], 500);
+                }
+            }
+        }
+
+        return $this->render('contact/modal_form.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+
     #[Route('/contact/animal/{animalId}', name: 'contact_animal', methods: ['GET', 'POST'])]
     public function contactAnimal(
         int $animalId,
@@ -61,7 +116,7 @@ class ContactController extends AbstractController
                     'success' => true,
                     'message' => 'Votre message a été envoyé avec succès !'
                 ]);
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 return $this->json([
                     'success' => false,
                     'message' => 'Une erreur est survenue lors de l\'envoi du message'
@@ -122,7 +177,7 @@ class ContactController extends AbstractController
                     'success' => true,
                     'message' => 'Votre message a été envoyé avec succès !'
                 ]);
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 return $this->json([
                     'success' => false,
                     'message' => 'Une erreur est survenue lors de l\'envoi du message'

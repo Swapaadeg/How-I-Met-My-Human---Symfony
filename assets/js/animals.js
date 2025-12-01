@@ -1,20 +1,27 @@
-// Animals page functionality
-document.addEventListener('DOMContentLoaded', function() {
+/**
+ * Animals Module
+ * Manages animal cards, favorites, sharing, and interactions
+ */
+
+/**
+ * Initialize all animals page functionality
+ */
+export function initializeAnimals() {
     // Initialize favorite buttons
     initializeFavoriteButtons();
-    
+
     // Initialize animal cards interactions
     initializeAnimalCards();
-    
+
     // Initialize see more buttons
     initializeSeeMoreButtons();
-    
+
     // Initialize action buttons
     initializeActionButtons();
-    
+
     // Initialize tooltips
     initializeTooltips();
-});
+}
 
 function initializeFavoriteButtons() {
     const favoriteButtons = document.querySelectorAll('.favorite-btn');
@@ -55,15 +62,20 @@ function initializeFavoriteButtons() {
 
 function initializeAnimalCards() {
     const animalCards = document.querySelectorAll('.animal-card');
-    
+
     animalCards.forEach(card => {
-        // Add click handler for the main card (excluding buttons)
+        // Don't add click navigation for carousel cards - carousel handles their interaction
+        if (card.classList.contains('carousel-card')) {
+            return;
+        }
+
+        // Add click handler for grid cards (excluding buttons)
         card.addEventListener('click', function(e) {
             // Don't trigger if clicking on buttons
             if (e.target.closest('.action-btn') || e.target.closest('.see-more-btn')) {
                 return;
             }
-            
+
             // Get animal ID and redirect to detail page
             const animalId = this.dataset.animalId;
             if (animalId) {
@@ -384,7 +396,19 @@ function showTagModal(tagName, description) {
     document.addEventListener('keydown', escapeHandler);
 }
 
-// Export functions for external use
+/**
+ * Export functions for external use
+ * showNotification is exported for use by other modules (like contact-modal.js)
+ */
+export {
+    showNotification,
+    addFavorite,
+    removeFavorite,
+    handleShare,
+    initializeTooltips
+};
+
+// Also make available globally for backward compatibility with contact-modal.js
 window.AnimalCards = {
     addFavorite,
     removeFavorite,

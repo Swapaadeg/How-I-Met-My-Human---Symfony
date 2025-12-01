@@ -28,6 +28,65 @@
                 </ul>
 
                 <div class="auth-section">
+                    {# Menu accès rapide (desktop + mobile) #}
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="action-menu-wrapper">
+                            <button class="action-menu-toggle" id="actionMenuToggle" aria-label="Accès rapide">
+                                <i class="fas fa-tasks"></i>
+                                <span class="action-label">Accès rapide</span>
+                            </button>
+                            <div class="action-menu" id="actionMenu">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {# Admin menu #}
+                                    <a href="{{ path('admin') }}" class="action-link admin-link" target="_blank">
+                                        <i class="fas fa-cog"></i> Panel Admin
+                                    </a>
+                                    <a href="{{ path('animals_add') }}" class="action-link">
+                                        <i class="fas fa-plus"></i> Ajouter un animal
+                                    </a>
+                                    {% if app.user.association %}
+                                        <a href="{{ path('associations_show', {'id': app.user.association.id}) }}" class="action-link">
+                                            <i class="fas fa-home"></i> {{ app.user.association.name }}
+                                        </a>
+                                    {% elseif app.user.associationMembers|length > 0 %}
+                                        {% set firstAssociation = app.user.associationMembers|first %}
+                                        <a href="{{ path('associations_show', {'id': firstAssociation.association.id}) }}" class="action-link">
+                                            <i class="fas fa-home"></i> {{ firstAssociation.association.name }}
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('associations') }}" class="action-link">
+                                            <i class="fas fa-plus"></i> Ajouter une association
+                                        </a>
+                                    {% endif %}
+                                {% elseif is_granted('ROLE_ASSOCIATION') %}
+                                    {# Association manager menu #}
+                                    <a href="{{ path('animals_add') }}" class="action-link">
+                                        <i class="fas fa-plus"></i> Ajouter un animal
+                                    </a>
+                                    {% if app.user.association %}
+                                        <a href="{{ path('associations_show', {'id': app.user.association.id}) }}" class="action-link">
+                                            <i class="fas fa-home"></i> {{ app.user.association.name }}
+                                        </a>
+                                    {% elseif app.user.associationMembers|length > 0 %}
+                                        {% set firstAssociation = app.user.associationMembers|first %}
+                                        <a href="{{ path('associations_show', {'id': firstAssociation.association.id}) }}" class="action-link">
+                                            <i class="fas fa-home"></i> {{ firstAssociation.association.name }}
+                                        </a>
+                                    {% endif %}
+                                    <a href="{{ path('adopter_news_new') }}" class="action-link">
+                                        <i class="fas fa-heart"></i> Partager des nouvelles
+                                    </a>
+                                {% else %}
+                                    {# Regular user menu #}
+                                    <a href="{{ path('adopter_news_new') }}" class="action-link">
+                                        <i class="fas fa-heart"></i> Partager des nouvelles
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {# Auth section (right aligned) #}
                     {% if not is_granted('ROLE_USER') %}
                         <a href="{{ path('auth') }}" class="auth-link">
                             <i class="fa-solid fa-sign-in-alt"></i> Connexion / Inscription
@@ -36,19 +95,6 @@
                         <a href="{{ path('profile') }}" class="auth-link">
                             <i class="fa-solid fa-user"></i> Mon espace
                         </a>
-                        <a href="{{ path('adopter_news_new') }}" class="auth-link share-news-btn">
-                            <i class="fas fa-heart"></i> Partager des nouvelles
-                        </a>
-                        {% if is_granted('ROLE_ASSOCIATION') %}
-                            <a href="{{ path('animals_add') }}" class="auth-link">
-                                <i class="fas fa-plus"></i> Ajouter un animal
-                            </a>
-                        {% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('admin') }}" class="auth-link" target="_blank">
-                                <i class="fas fa-cog"></i> Panel Admin
-                            </a>
-                        {% endif %}
                         <div class="user-disconnect-section">
                             <span class="greeting-text">Bonjour {{ app.user.name }}!</span>
                             <div class="separator"></div>
@@ -86,20 +132,63 @@
                                 <i class="fa-solid fa-sign-in-alt"></i> Connexion / Inscription
                             </a>
                         {% else %}
+                            {# Mobile action menu (quick access) #}
+                            <button class="mobile-action-toggle" id="mobileActionToggle" type="button">
+                                <i class="fas fa-tasks"></i> Accès rapide
+                                <i class="fas fa-chevron-down mobile-action-chevron"></i>
+                            </button>
+                            <div class="mobile-action-menu" id="mobileActionMenu">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {# Admin menu #}
+                                    <a href="{{ path('admin') }}" class="mobile-action-link" target="_blank">
+                                        <i class="fas fa-cog"></i> Panel Admin
+                                    </a>
+                                    <a href="{{ path('animals_add') }}" class="mobile-action-link">
+                                        <i class="fas fa-plus"></i> Ajouter un animal
+                                    </a>
+                                    {% if app.user.association %}
+                                        <a href="{{ path('associations_show', {'id': app.user.association.id}) }}" class="mobile-action-link">
+                                            <i class="fas fa-home"></i> {{ app.user.association.name }}
+                                        </a>
+                                    {% elseif app.user.associationMembers|length > 0 %}
+                                        {% set firstAssociation = app.user.associationMembers|first %}
+                                        <a href="{{ path('associations_show', {'id': firstAssociation.association.id}) }}" class="mobile-action-link">
+                                            <i class="fas fa-home"></i> {{ firstAssociation.association.name }}
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('associations') }}" class="mobile-action-link">
+                                            <i class="fas fa-plus"></i> Ajouter une association
+                                        </a>
+                                    {% endif %}
+                                {% elseif is_granted('ROLE_ASSOCIATION') %}
+                                    {# Association manager menu #}
+                                    <a href="{{ path('animals_add') }}" class="mobile-action-link">
+                                        <i class="fas fa-plus"></i> Ajouter un animal
+                                    </a>
+                                    {% if app.user.association %}
+                                        <a href="{{ path('associations_show', {'id': app.user.association.id}) }}" class="mobile-action-link">
+                                            <i class="fas fa-home"></i> {{ app.user.association.name }}
+                                        </a>
+                                    {% elseif app.user.associationMembers|length > 0 %}
+                                        {% set firstAssociation = app.user.associationMembers|first %}
+                                        <a href="{{ path('associations_show', {'id': firstAssociation.association.id}) }}" class="mobile-action-link">
+                                            <i class="fas fa-home"></i> {{ firstAssociation.association.name }}
+                                        </a>
+                                    {% endif %}
+                                    <a href="{{ path('adopter_news_new') }}" class="mobile-action-link">
+                                        <i class="fas fa-heart"></i> Partager des nouvelles
+                                    </a>
+                                {% else %}
+                                    {# Regular user menu #}
+                                    <a href="{{ path('adopter_news_new') }}" class="mobile-action-link">
+                                        <i class="fas fa-heart"></i> Partager des nouvelles
+                                    </a>
+                                {% endif %}
+                            </div>
+
                             <a href="{{ path('profile') }}" class="mobile-auth-link">
                                 <i class="fa-solid fa-user"></i> Mon espace
                             </a>
-                            <a href="{{ path('adopter_news_new') }}" class="mobile-auth-link">
-                                <i class="fas fa-heart"></i> Partager des nouvelles
-                            </a>
-                            {% if is_granted('ROLE_ASSOCIATION') %}
-                                <a href="{{ path('animals_add') }}" class="mobile-auth-link">
-                                    <i class="fas fa-plus"></i> Ajouter un animal
-                                </a>
-                            {% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('admin') }}" class="mobile-auth-link" target="_blank">Pannel Admin</a>
-                            {% endif %}
                             <a href="{{ path('logout') }}" class="mobile-auth-link">
                                 <i class="fa-solid fa-sign-out-alt"></i> Se déconnecter
                             </a>
@@ -130,15 +219,15 @@
                     </div>
                     <div class="link-footer right">
                         <ul>
-                            <li><a href="#">Mentions légales</a></li>
-                            <li><a href="#">Politique de confidentialité</a></li>
-                            <li><a href="#">Conditions générales d'utilisation</a></li>
+                            <li><a href="{{ path('legal_mentions') }}">Mentions légales</a></li>
+                            <li><a href="{{ path('legal_privacy') }}">Politique de confidentialité</a></li>
+                            <li><a href="{{ path('legal_terms') }}">Conditions générales d'utilisation</a></li>
                         </ul>
                     </div>
                     <div class="contact-footer">
                         <h4>Contact</h4>
                         <ul>
-                            <li><i class="fa-solid fa-envelope"></i>marie.rivier23@gmail.com</li>
+                            <li><i class="fa-solid fa-envelope"></i><button class="contact-btn footer-contact-btn" type="button">Nous contacter</button></li>
                             <li><i class="fa-solid fa-phone"></i>06 06 06 06 06</li>
                         </ul>
                     </div>
@@ -150,36 +239,5 @@
             {{ encore_entry_script_tags('app') }}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const burgerToggle = document.getElementById('burgerToggle');
-                const mobileMenu = document.getElementById('mobileMenu');
-                const closeMenu = document.getElementById('closeMenu');
-                const mobileMenuContent = document.querySelector('.mobile-menu-content');
-                const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-                const mobileLinks = document.querySelectorAll('.mobile-nav-links a, .mobile-auth-link');
-
-                function toggleMenu() {
-                    burgerToggle.classList.toggle('active');
-                    mobileMenu.classList.toggle('active');
-                    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-                }
-
-                function closeMenuHandler() {
-                    burgerToggle.classList.remove('active');
-                    mobileMenu.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-
-                burgerToggle.addEventListener('click', toggleMenu);
-                closeMenu.addEventListener('click', closeMenuHandler);
-                mobileMenuOverlay.addEventListener('click', closeMenuHandler);
-
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', closeMenuHandler);
-                });
-            });
-        </script>
     </body>
 </html>

@@ -1,0 +1,86 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Conditions Générales d'Utilisation - How I Met My Human{% endblock %}
+
+{% block body %}
+<div class="legal-container">
+    <div class="legal-header">
+        <h1>Conditions Générales d'Utilisation</h1>
+        <p class="legal-subtitle">Comment utiliser notre plateforme</p>
+    </div>
+
+    <div class="legal-content">
+        <section class="legal-section">
+            <h2>Accès au Site</h2>
+            <div class="legal-card">
+                <p>L'accès au site est gratuit. Certaines fonctionnalités nécessitent une inscription. Vous êtes responsable de vos identifiants. How I Met My Human peut suspendre votre compte en cas de violation des CGU.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Inscription</h2>
+            <div class="legal-card">
+                <p>Pour vous inscrire, vous devez fournir des informations exactes et accepter les CGU et la politique de confidentialité.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Comportement Acceptable</h2>
+            <div class="legal-card">
+                <p>Vous vous engagez à :</p>
+                <ul>
+                    <li>Respecter les lois applicables</li>
+                    <li>Ne pas publier de contenu offensant ou discriminatoire</li>
+                    <li>Ne pas harceler ou menacer d'autres utilisateurs</li>
+                    <li>Ne pas tenter de pirater le site</li>
+                    <li>Ne pas utiliser le site à des fins commerciales non autorisées</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Contenu Utilisateur</h2>
+            <div class="legal-card">
+                <p>Vous êtes responsable de ce que vous publiez. En publiant du contenu, vous accordez à How I Met My Human le droit de l'utiliser et l'afficher. Nous pouvons supprimer tout contenu qui viole ces conditions.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Animaux et Adoption</h2>
+            <div class="legal-card">
+                <p>Les associations sont responsables de l'exactitude des informations sur les animaux. How I Met My Human ne garantit pas la disponibilité des animaux. Les demandes d'adoption sont traitées par les associations, pas par How I Met My Human.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Limitation de Responsabilité</h2>
+            <div class="legal-card">
+                <p>Le site est fourni tel quel. How I Met My Human n'est pas responsable des dommages résultant de l'utilisation du site, notamment l'inexactitude des informations ou les interruptions de service.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Suppression de Compte</h2>
+            <div class="legal-card">
+                <p>Vous pouvez demander la suppression de votre compte à tout moment à <a href="mailto:contact@howimetmyhuman.fr">contact@howimetmyhuman.fr</a>. Vos données seront supprimées selon notre politique de confidentialité.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Partenaires</h2>
+            <div class="legal-card">
+                <p>How I Met My Human est une plateforme collaborative. Les associations restent propriétaires de leurs contenus.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Contact</h2>
+            <div class="legal-card">
+                <p>Email : <a href="mailto:contact@howimetmyhuman.fr">contact@howimetmyhuman.fr</a></p>
+            </div>
+        </section>
+
+        <p class="legal-updated">Dernière mise à jour : {{ 'now'|date('d/m/Y') }}</p>
+    </div>
+</div>
+{% endblock %}
