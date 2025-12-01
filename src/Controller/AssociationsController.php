@@ -114,13 +114,16 @@ final class AssociationsController extends AbstractController
             $membership->setApprovedBy($user);
 
             $this->entityManager->persist($membership);
-            
-            // Update user roles
+            $this->entityManager->flush();
+
+            // Refresh user to reload associationMembers collection from database
+            $this->entityManager->refresh($user);
+
+            // Update user roles now that the membership is in the collection
             if ($user instanceof User) {
                 $user->updateRolesFromMemberships();
+                $this->entityManager->flush();
             }
-            
-            $this->entityManager->flush();
 
             $this->addFlash('success', 'Association créée avec succès ! Vous êtes maintenant gérant de cette association.');
 

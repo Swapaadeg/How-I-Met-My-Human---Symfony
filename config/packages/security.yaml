@@ -34,7 +34,7 @@ security:
             provider: app_user_provider
             form_login:
                 login_path: auth
-                check_path: auth
+                check_path: auth_check
                 enable_csrf: true
                 default_target_path: home
                 failure_path: auth

@@ -57,8 +57,9 @@ class PermissionService
      */
     public function canUserCreateAssociation(User $user): bool
     {
-        // Admins and association managers can create new associations
-        return $user->isAdmin() || $user->isAssociationManager();
+        // Any authenticated user can create an association
+        // They will become the manager of the association they create
+        return true;
     }
 
     /**

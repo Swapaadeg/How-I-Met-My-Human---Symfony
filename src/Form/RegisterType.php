@@ -29,6 +29,7 @@ class RegisterType extends AbstractType
                 'required' => false,
                 'allow_delete' => false,
                 'download_uri' => false,
+                'mapped' => false, // Ne pas mapper automatiquement pour éviter les erreurs de sérialisation
             ]);
     }
 
