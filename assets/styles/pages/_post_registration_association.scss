@@ -38,22 +38,22 @@
         background: linear-gradient(90deg, transparent, rgba(v.$color-background, 0.2), transparent);
         transition: left 0.5s;
     }
-    
+
     &:hover:not(:disabled) {
         transform: translateY(-3px);
         box-shadow: 0 15px 35px rgba($bg-color, 0.4);
-        
+
         &::before {
             left: 100%;
         }
     }
-    
+
     &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
         transform: none;
         box-shadow: none;
-        
+
         &::before {
             display: none;
         }
@@ -102,16 +102,16 @@
     );
     padding: 40px 20px;
     font-family: v.$font-family-primary;
-    
+
     .container {
         max-width: 900px;
         margin: 0 auto;
         width: 100%;
     }
-    
+
     .registration-card {
         @include elegant-card;
-        
+
         .card-header {
             background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
             color: v.$color-background;
@@ -119,7 +119,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            
+
             &::before {
                 content: '';
                 position: absolute;
@@ -131,7 +131,7 @@
                 transform: rotate(45deg);
                 animation: shimmer 3s infinite;
             }
-            
+
             h3 {
                 margin: 0 0 12px 0;
                 font-size: 2rem;
@@ -139,14 +139,14 @@
                 font-weight: 700;
                 position: relative;
                 z-index: 2;
-                
+
                 i {
                     margin-right: 15px;
                     font-size: 1.8rem;
                     opacity: 0.9;
                 }
             }
-            
+
             p {
                 margin: 0;
                 opacity: 0.9;
@@ -156,14 +156,14 @@
                 font-family: v.$font-family-primary;
             }
         }
-        
+
         .card-body {
             padding: 50px 40px;
-            
+
             .intro {
                 text-align: center;
                 margin-bottom: 50px;
-                
+
                 h4 {
                     color: v.$color-accent;
                     margin-bottom: 15px;
@@ -171,7 +171,7 @@
                     font-family: v.$font-family-bold;
                     font-weight: 700;
                 }
-                
+
                 p {
                     color: color.adjust(v.$color-dark, $lightness: 20%);
                     font-size: 1.1rem;
@@ -179,21 +179,21 @@
                     opacity: 0.8;
                 }
             }
-            
+
             .step-option {
                 @include option-card;
                 margin-bottom: 25px;
-                
+
                 &:last-of-type {
                     margin-bottom: 0;
                 }
-                
+
                 .option-content {
                     text-align: center;
-                    
+
                     .option-info {
                         margin-bottom: 20px;
-                        
+
                         h5 {
                             margin: 0 0 12px 0;
                             font-size: 1.3rem;
@@ -203,17 +203,17 @@
                             align-items: center;
                             justify-content: center;
                             gap: 12px;
-                            
+
                             i {
                                 font-size: 1.2rem;
                                 color: v.$color-secondary;
-                                
+
                                 &.fa-plus-circle {
                                     color: v.$color-accent;
                                 }
                             }
                         }
-                        
+
                         p {
                             margin: 0;
                             color: color.adjust(v.$color-dark, $lightness: 30%);
@@ -222,14 +222,14 @@
                         }
                     }
                 }
-                
+
                 &.join-option {
                     .option-content {
                         flex-direction: column;
                         align-items: stretch;
                         gap: 20px;
                     }
-                    
+
                     h5 {
                         margin: 0 0 15px 0;
                         font-size: 1.3rem;
@@ -238,74 +238,74 @@
                         display: flex;
                         align-items: center;
                         gap: 12px;
-                        
+
                         i {
                             color: v.$color-secondary;
                         }
                     }
-                    
+
                     > p {
                         margin: 0 0 25px 0;
                         color: color.adjust(v.$color-dark, $lightness: 30%);
                     }
-                    
+
                     .association-list {
                         max-height: 400px;
                         overflow-y: auto;
                         margin-bottom: 25px;
                         padding-right: 10px;
-                        
+
                         // Scrollbar moderne
                         &::-webkit-scrollbar {
                             width: 8px;
                         }
-                        
+
                         &::-webkit-scrollbar-track {
                             background: rgba(v.$color-secondary, 0.1);
                             border-radius: 10px;
                         }
-                        
+
                         &::-webkit-scrollbar-thumb {
                             background: linear-gradient(180deg, v.$color-secondary, v.$color-accent);
                             border-radius: 10px;
-                            
+
                             &:hover {
                                 background: linear-gradient(180deg, v.$color-accent, color.adjust(v.$color-accent, $lightness: -10%));
                             }
                         }
-                        
+
                         .association-item {
                             margin-bottom: 15px;
-                            
+
                             .radio-wrapper {
                                 position: relative;
-                                
+
                                 input[type="radio"] {
                                     position: absolute;
                                     opacity: 0;
                                     cursor: pointer;
-                                    
+
                                     &:checked + label {
                                         border-color: v.$color-secondary;
-                                        background: linear-gradient(135deg, 
-                                            rgba(v.$color-secondary, 0.05), 
+                                        background: linear-gradient(135deg,
+                                            rgba(v.$color-secondary, 0.05),
                                             rgba(v.$color-accent, 0.03)
                                         );
                                         box-shadow: 0 8px 25px rgba(v.$color-secondary, 0.2);
                                         transform: translateY(-2px);
-                                        
+
                                         &::before {
                                             background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
                                             border-color: v.$color-secondary;
                                             box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
                                         }
-                                        
+
                                         &::after {
                                             opacity: 1;
                                         }
                                     }
                                 }
-                                
+
                                 label {
                                     display: block;
                                     background: v.$color-background;
@@ -315,7 +315,7 @@
                                     cursor: pointer;
                                     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                                     position: relative;
-                                    
+
                                     &::before {
                                         content: '';
                                         position: absolute;
@@ -329,7 +329,7 @@
                                         background: v.$color-background;
                                         transition: all 0.3s ease;
                                     }
-                                    
+
                                     &::after {
                                         content: '';
                                         position: absolute;
@@ -343,13 +343,13 @@
                                         opacity: 0;
                                         transition: opacity 0.3s ease;
                                     }
-                                    
+
                                     &:hover {
                                         border-color: rgba(v.$color-secondary, 0.4);
                                         box-shadow: 0 5px 20px rgba(v.$color-secondary, 0.15);
                                         transform: translateY(-1px);
                                     }
-                                    
+
                                     .association-details {
                                         .association-info {
                                             .association-name {
@@ -359,7 +359,7 @@
                                                 margin-bottom: 8px;
                                                 font-size: 1.1rem;
                                             }
-                                            
+
                                             .association-location,
                                             .association-description {
                                                 display: block;
@@ -367,12 +367,12 @@
                                                 font-size: 0.9rem;
                                                 line-height: 1.5;
                                                 margin-bottom: 6px;
-                                                
+
                                                 &:last-child {
                                                     margin-bottom: 0;
                                                 }
                                             }
-                                            
+
                                             .association-location {
                                                 font-weight: 600;
                                                 color: v.$color-accent;
@@ -383,16 +383,16 @@
                             }
                         }
                     }
-                    
+
                     .join-action {
                         text-align: center;
                     }
                 }
             }
-            
+
             .no-associations {
-                background: linear-gradient(135deg, 
-                    rgba(v.$color-secondary, 0.1), 
+                background: linear-gradient(135deg,
+                    rgba(v.$color-secondary, 0.1),
                     rgba(v.$color-accent, 0.05)
                 );
                 color: v.$color-accent;
@@ -400,27 +400,27 @@
                 border-radius: 15px;
                 border: 2px solid rgba(v.$color-secondary, 0.2);
                 text-align: center;
-                
+
                 i {
                     margin-right: 15px;
                     font-size: 1.2rem;
                 }
             }
         }
-        
+
         .card-footer {
-            background: linear-gradient(135deg, 
-                rgba(v.$color-primary, 0.05), 
+            background: linear-gradient(135deg,
+                rgba(v.$color-primary, 0.05),
                 rgba(v.$color-secondary, 0.03)
             );
             padding: 25px 40px;
             text-align: center;
             border-top: 1px solid rgba(v.$color-secondary, 0.1);
-            
+
             small {
                 color: color.adjust(v.$color-dark, $lightness: 25%);
                 font-size: 0.95rem;
-                
+
                 i {
                     margin-right: 8px;
                     color: v.$color-secondary;
@@ -428,224 +428,19 @@
             }
         }
     }
-    
+
     // Buttons modernes
     .btn {
         &.btn-secondary {
             @include button-elegant(color.adjust(v.$color-dark, $lightness: 15%));
         }
-        
+
         &.btn-success {
             @include button-elegant(v.$color-accent);
         }
-        
+
         &.btn-primary {
             @include button-elegant(v.$color-secondary);
-        }
-    }
-}
-
-// Design Responsive moderne
-@media (max-width: 768px) {
-    .post-registration-association {
-        padding: 20px 15px;
-        
-        .registration-card {
-            .card-header {
-                padding: 30px 25px;
-                
-                h3 {
-                    font-size: 1.6rem;
-                    
-                    i {
-                        margin-right: 10px;
-                        font-size: 1.4rem;
-                    }
-                }
-                
-                p {
-                    font-size: 1rem;
-                }
-            }
-            
-            .card-body {
-                padding: 35px 25px;
-                
-                .intro {
-                    margin-bottom: 35px;
-                    
-                    h4 {
-                        font-size: 1.5rem;
-                    }
-                }
-                
-                .step-option {
-                    padding: 20px;
-                    margin-bottom: 20px;
-                    
-                    .option-content {
-                        text-align: center;
-                        
-                        .option-info {
-                            margin-bottom: 15px;
-                            
-                            h5 {
-                                justify-content: center;
-                                font-size: 1.2rem;
-                            }
-                        }
-                    }
-                    
-                    &.join-option {
-                        .association-list {
-                            max-height: 300px;
-                            
-                            .association-item {
-                                .radio-wrapper {
-                                    label {
-                                        padding: 15px 15px 15px 45px;
-                                        
-                                        &::before {
-                                            left: 15px;
-                                            width: 18px;
-                                            height: 18px;
-                                        }
-                                        
-                                        &::after {
-                                            left: 20px;
-                                            width: 8px;
-                                            height: 8px;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
-            .card-footer {
-                padding: 20px 25px;
-            }
-        }
-    }
-}
-
-@media (max-width: 480px) {
-    .post-registration-association {
-        padding: 15px 10px;
-        
-        .registration-card {
-            border-radius: 15px;
-            
-            .card-header {
-                padding: 25px 20px;
-                
-                h3 {
-                    font-size: 1.4rem;
-                    
-                    i {
-                        font-size: 1.2rem;
-                    }
-                }
-            }
-            
-            .card-body {
-                padding: 25px 20px;
-                
-                .intro {
-                    h4 {
-                        font-size: 1.3rem;
-                    }
-                    
-                    p {
-                        font-size: 1rem;
-                    }
-                }
-                
-                .step-option {
-                    border-radius: 12px;
-                    padding: 18px;
-                    
-                    .option-info {
-                        h5 {
-                            font-size: 1.1rem;
-                            gap: 8px;
-                            
-                            i {
-                                font-size: 1rem;
-                            }
-                        }
-                        
-                        p {
-                            font-size: 0.9rem;
-                        }
-                    }
-                    
-                    &.join-option {
-                        .association-list {
-                            .association-item {
-                                .radio-wrapper {
-                                    label {
-                                        padding: 12px 12px 12px 40px;
-                                        border-radius: 10px;
-                                        
-                                        &::before {
-                                            left: 12px;
-                                            width: 16px;
-                                            height: 16px;
-                                        }
-                                        
-                                        &::after {
-                                            left: 16px;
-                                            width: 6px;
-                                            height: 6px;
-                                        }
-                                        
-                                        .association-details {
-                                            .association-info {
-                                                .association-name {
-                                                    font-size: 1rem;
-                                                }
-                                                
-                                                .association-location,
-                                                .association-description {
-                                                    font-size: 0.85rem;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                .no-associations {
-                    padding: 20px;
-                    font-size: 0.9rem;
-                }
-            }
-            
-            .card-footer {
-                padding: 18px 20px;
-                
-                small {
-                    font-size: 0.85rem;
-                }
-            }
-        }
-        
-        // Ajustement des boutons sur mobile
-        .btn {
-            padding: 8px 16px;
-            font-size: 0.8rem;
-            border-radius: 6px;
-            gap: 6px;
-            
-            i {
-                font-size: 0.8rem;
-            }
         }
     }
 }

@@ -8,9 +8,46 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
 /* 992px and below */
 @media (max-width: 992px) {
+    /*
+    ================================================================================
+    ASSOCIATIONS
+    ================================================================================
+    */
+
     .association-detail {
         .content {
             grid-template-columns: 1fr;
+        }
+    }
+
+    /*
+    ================================================================================
+    STATIC PAGES
+    ================================================================================
+    */
+
+    /* Adoption Conditions */
+    .adoption-conditions {
+        .content-section {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Our Team */
+    .our-team {
+        .team-member {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+
+            &.right {
+                .member-image {
+                    order: 1;
+                }
+
+                .member-content {
+                    order: 2;
+                }
+            }
         }
     }
 }
@@ -146,6 +183,15 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
                 font-size: 0.85rem;
             }
         }
+
+        .pending-members-list {
+            .member-card {
+                .member-header {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+            }
+        }
     }
 
     /*
@@ -202,41 +248,105 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     ADD ANIMAL PAGE
     ================================================================================
     */
-    
+
     .add-animal-page {
+        padding: 1rem 0 8rem;
+
         .container {
             padding: 0 1rem;
         }
-    }
 
-    .form-container {
-        padding: 2rem 1.5rem;
-    }
+        .page-header {
+            margin-bottom: 2rem;
 
-    .animal-form {
-        .form-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-        
-        .form-row {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-        
-        .tags-wrapper {
-            grid-template-columns: 1fr;
-        }
-        
-        .form-actions {
-            flex-direction: column;
-            gap: 1rem;
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
+            h1 {
+                font-size: 1.75rem;
+
+                i {
+                    margin-right: 0.35rem;
+                }
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
             }
         }
+
+        .form-container {
+            padding: 1.5rem 1rem;
+            border-radius: 15px;
+        }
+
+        .animal-form {
+            .form-section {
+                padding: 1.25rem;
+
+                h3 {
+                    font-size: 1.25rem;
+                    margin-bottom: 1rem;
+                }
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-group {
+                margin-bottom: 1.25rem;
+            }
+
+            .tags-wrapper {
+                > div {
+                    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                    gap: 0.6rem;
+                }
+
+                label {
+                    padding: 0.6rem 1rem;
+                    font-size: 0.85rem;
+                }
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 2rem;
+                padding-top: 1.5rem;
+
+                .btn {
+                    width: 100%;
+                    padding: 0.85rem 1.5rem;
+                }
+            }
+        }
+    }
+
+    /*
+    ================================================================================
+    RGPD PAGES
+    ================================================================================
+    */
+
+    .legal-container {
+        padding: 0 1rem 2rem;
+    }
+
+    .legal-header {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+
+        h1 {
+            font-size: 1.8rem;
+        }
+    }
+
+    .legal-section h2 {
+        font-size: 1.25rem;
+    }
+
+    .legal-card {
+        padding: 1.25rem;
     }
 
     /*
@@ -311,15 +421,79 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     COMPONENTS
     ================================================================================
     */
-    
-    /* Animals Carousel - Styles handled in _animals-carousel.scss */
+
+    /* Modal */
+    .contact-modal {
+        max-width: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .contact-modal-overlay {
+        padding: 0;
+    }
+
+    /* Animals Carousel */
+    .animals-carousel-container {
+        // Hide navigation arrows on mobile
+        .carousel-nav {
+            display: none !important;
+        }
+
+        // Reset container positioning
+        position: relative;
+        overflow: visible;
+        padding: 1rem 0;
+
+        .animals-carousel {
+            // Remove fixed height and display as column
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            position: relative;
+
+            .carousel-card {
+                // Reset all positioning and show all cards
+                position: static !important;
+                transform: none !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                z-index: 1 !important;
+                max-width: 85vw;
+                width: 85vw;
+
+                // Enable all interactions on all cards
+                cursor: default !important;
+
+                a, button {
+                    pointer-events: auto !important;
+                }
+            }
+        }
+
+        // Hide pagination dots on mobile
+        .carousel-indicators {
+            display: none !important;
+        }
+    }
 
     /*
     ================================================================================
     HOMEPAGE
     ================================================================================
     */
-    
+
+    /* Oldest Animals Section */
+    .homepage {
+        .oldest-animals-section {
+            padding: 2rem 0 4rem;
+            margin-top: 3rem;
+        }
+    }
+
     /* Header and Navigation */
     .main-header .navbar {
         padding: 1rem;
@@ -457,6 +631,56 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
+    CONTACT PAGE
+    ================================================================================
+    */
+
+    .contact-page {
+        padding: 2rem 0 3rem;
+
+        .container {
+            padding: 0 1rem;
+        }
+
+        .page-header {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        .contact-form-container {
+            padding: 2rem 1.5rem;
+        }
+
+        .contact-form {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+
+                .btn-submit,
+                .btn-cancel {
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .contact-info {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+
+    /*
+    ================================================================================
     GLOBAL UTILITIES
     ================================================================================
     */
@@ -555,6 +779,31 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
                         font-size: 0.8rem;
                     }
                 }
+            }
+        }
+    }
+
+    /* Add Animal Page - 480px */
+    .add-animal-page {
+        .page-header h1 {
+            font-size: 1.5rem;
+        }
+
+        .form-container {
+            padding: 1rem 0.75rem;
+        }
+
+        .animal-form {
+            .form-section {
+                padding: 1rem;
+
+                h3 {
+                    font-size: 1.1rem;
+                }
+            }
+
+            .tags-wrapper > div {
+                grid-template-columns: 1fr;
             }
         }
     }
@@ -768,132 +1017,56 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     */
 
     .profile-page {
-        .container {
+        .profile-container {
+            grid-template-columns: 1fr;
+            gap: 2rem;
             padding: 1rem;
         }
 
         .profile-header {
-            padding: 1.5rem;
+            text-align: center;
 
-            .profile-info {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                margin: 0 auto 1rem;
+            }
 
-                .profile-avatar {
-                    img,
-                    .avatar-placeholder {
-                        width: 100px;
-                        height: 100px;
-                    }
-                }
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+            }
 
-                .profile-details {
-                    h1 {
-                        font-size: 1.8rem;
-                    }
+            .profile-email {
+                font-size: 0.95rem;
+            }
+        }
 
-                    .email {
-                        font-size: 1rem;
-                        margin-bottom: 1rem;
-                    }
+        .profile-details {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
 
-                    .profile-actions {
-                        .btn {
-                            width: 100%;
-                        }
-                    }
+            .detail-section {
+                padding: 1.5rem;
+
+                h3 {
+                    font-size: 1.3rem;
                 }
             }
         }
 
-        .profile-content {
-            .association-section {
-                padding: 1.5rem;
+        .profile-actions {
+            flex-direction: column;
+            gap: 1rem;
 
-                h2 {
-                    font-size: 1.5rem;
-                }
-
-                .association-card {
-                    flex-direction: column;
-                    padding: 1.5rem;
-                    gap: 1.5rem;
-
-                    .association-info {
-                        flex-direction: column;
-                        text-align: center;
-                        width: 100%;
-
-                        .association-logo {
-                            width: 100px;
-                            height: 100px;
-                        }
-
-                        .association-details {
-                            h3 {
-                                font-size: 1.3rem;
-                            }
-
-                            p {
-                                justify-content: center;
-                                font-size: 0.95rem;
-                            }
-                        }
-                    }
-
-                    .association-actions {
-                        width: 100%;
-                        flex-direction: column;
-
-                        .btn {
-                            width: 100%;
-                        }
-                    }
-                }
-
-                .no-association {
-                    padding: 1.5rem;
-
-                    h3 {
-                        font-size: 1.2rem;
-                    }
-
-                    .btn {
-                        width: 100%;
-                    }
-                }
+            .btn {
+                width: 100%;
             }
+        }
 
-            .favorites-section {
-                padding: 1.5rem;
-
-                h2 {
-                    font-size: 1.5rem;
-                }
-
-                .favorites-grid {
-                    grid-template-columns: 1fr;
-                    gap: 1.5rem;
-                }
-
-                .no-favorites {
-                    padding: 1.5rem;
-
-                    h3 {
-                        font-size: 1.2rem;
-                    }
-
-                    p {
-                        font-size: 0.95rem;
-                    }
-
-                    .btn {
-                        width: 100%;
-                        min-width: auto;
-                    }
-                }
-            }
+        .favorites-section {
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
     }
 
@@ -1253,99 +1426,30 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     .profile-page {
         .profile-header {
-            padding: 1rem;
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
 
-            .profile-info {
-                .profile-avatar {
-                    img,
-                    .avatar-placeholder {
-                        width: 80px;
-                        height: 80px;
-                        font-size: 2rem;
-                    }
-                }
+            h1 {
+                font-size: 1.5rem;
+            }
 
-                .profile-details {
-                    h1 {
-                        font-size: 1.5rem;
-                    }
-
-                    .email {
-                        font-size: 0.9rem;
-                    }
-
-                    .profile-actions .btn {
-                        font-size: 0.85rem;
-                        padding: 0.6rem 1rem;
-                    }
-                }
+            .profile-email {
+                font-size: 0.9rem;
             }
         }
 
-        .profile-content {
-            .association-section {
+        .profile-details {
+            .detail-section {
                 padding: 1rem;
 
-                h2 {
-                    font-size: 1.3rem;
+                h3 {
+                    font-size: 1.1rem;
                 }
 
-                .association-card {
-                    padding: 1rem;
-
-                    .association-info {
-                        .association-logo {
-                            width: 80px;
-                            height: 80px;
-                        }
-
-                        .association-details {
-                            h3 {
-                                font-size: 1.1rem;
-                            }
-
-                            p {
-                                font-size: 0.85rem;
-                            }
-                        }
-                    }
-
-                    .association-actions .btn {
-                        font-size: 0.85rem;
-                        padding: 0.6rem 1rem;
-                    }
-                }
-
-                .no-association {
-                    padding: 1rem;
-
-                    h3 {
-                        font-size: 1.1rem;
-                    }
-
-                    p {
-                        font-size: 0.9rem;
-                    }
-                }
-            }
-
-            .favorites-section {
-                padding: 1rem;
-
-                h2 {
-                    font-size: 1.3rem;
-                }
-
-                .no-favorites {
-                    padding: 1rem;
-
-                    h3 {
-                        font-size: 1.1rem;
-                    }
-
-                    p {
-                        font-size: 0.9rem;
-                    }
+                p {
+                    font-size: 0.9rem;
                 }
             }
         }

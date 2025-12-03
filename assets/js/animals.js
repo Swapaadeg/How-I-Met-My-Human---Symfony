@@ -150,7 +150,7 @@ function addFavorite(animalId) {
     })
     .catch(error => {
         console.error('Error:', error);
-        showNotification('Erreur lors de l\'ajout aux favoris', 'error');
+        showNotification('Vous devez être connecté pour ajouter un animal en favoris', 'error');
     });
 }
 
