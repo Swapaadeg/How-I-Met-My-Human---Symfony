@@ -29,7 +29,6 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            entry_point: App\Security\ApiAuthenticationEntryPoint
             form_login:
                 login_path: auth
                 check_path: auth_check
