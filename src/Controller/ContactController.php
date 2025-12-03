@@ -40,8 +40,8 @@ class ContactController extends AbstractController
 
                 try {
                     $email = (new Email())
-                        ->from('noreply@himmh.fr')
-                        ->to('contact@howimetmyhuman.fr')
+                        ->from('marie.rivier24@gmail.com')
+                        ->to('marie.rivier24@gmail.com')
                         ->replyTo($data['email'])
                         ->subject('Message de contact - ' . $data['name'])
                         ->html($this->renderView('emails/contact.html.twig', [
@@ -54,10 +54,11 @@ class ContactController extends AbstractController
                         'success' => true,
                         'message' => 'Votre message a été envoyé avec succès !'
                     ]);
-                } catch (\Exception) {
+                } catch (\Exception $e) {
+                    error_log('Erreur mailer: ' . $e->getMessage());
                     return $this->json([
                         'success' => false,
-                        'message' => 'Une erreur est survenue lors de l\'envoi du message'
+                        'message' => 'Une erreur est survenue lors de l\'envoi du message: ' . $e->getMessage()
                     ], 500);
                 }
             }
@@ -101,7 +102,7 @@ class ContactController extends AbstractController
             try {
                 // Créer l'email
                 $email = (new Email())
-                    ->from('noreply@himmh.fr') // Vous devrez configurer cet email
+                    ->from('marie.rivier24@gmail.com')
                     ->to($animal->getAssociation()->getContactEmail())
                     ->replyTo($data['email'])
                     ->subject('Demande d\'information concernant ' . $animal->getName())
@@ -116,10 +117,11 @@ class ContactController extends AbstractController
                     'success' => true,
                     'message' => 'Votre message a été envoyé avec succès !'
                 ]);
-            } catch (\Exception) {
+            } catch (\Exception $e) {
+                error_log('Erreur mailer: ' . $e->getMessage());
                 return $this->json([
                     'success' => false,
-                    'message' => 'Une erreur est survenue lors de l\'envoi du message'
+                    'message' => 'Une erreur est survenue lors de l\'envoi du message: ' . $e->getMessage()
                 ], 500);
             }
         }
@@ -162,7 +164,7 @@ class ContactController extends AbstractController
 
             try {
                 $email = (new Email())
-                    ->from('noreply@himmh.fr')
+                    ->from('marie.rivier24@gmail.com')
                     ->to($association->getContactEmail())
                     ->replyTo($data['email'])
                     ->subject('Demande d\'information')
@@ -177,10 +179,11 @@ class ContactController extends AbstractController
                     'success' => true,
                     'message' => 'Votre message a été envoyé avec succès !'
                 ]);
-            } catch (\Exception) {
+            } catch (\Exception $e) {
+                error_log('Erreur mailer: ' . $e->getMessage());
                 return $this->json([
                     'success' => false,
-                    'message' => 'Une erreur est survenue lors de l\'envoi du message'
+                    'message' => 'Une erreur est survenue lors de l\'envoi du message: ' . $e->getMessage()
                 ], 500);
             }
         }

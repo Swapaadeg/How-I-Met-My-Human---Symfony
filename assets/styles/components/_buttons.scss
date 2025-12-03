@@ -73,8 +73,65 @@
     background: v.$color-secondary;
     color: v.$color-primary;
     box-shadow: 0 4px 15px rgba(54, 143, 139, 0.3);
-    
+
     i {
         color: v.$color-primary;
     }
+}
+
+/**
+ * Standardized Primary Button
+ * Consistent button styling across the entire application
+ * Based on .btn-adopt design
+ */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background: v.$color-secondary;
+    color: v.$color-primary;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(v.$color-secondary, 0.3);
+    font-family: v.$font-family-primary;
+
+    // Icon positioning (paw icon on the right)
+    i {
+        order: 2;
+        font-size: 1.1rem;
+    }
+
+    &:hover {
+        background: v.$color-accent;
+        color: v.$color-primary;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(v.$color-secondary, 0.4);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+
+        &:hover {
+            transform: none;
+            background: v.$color-secondary;
+        }
+    }
+}
+
+// Aliases for backward compatibility and semantic naming
+.btn-adopt,
+.btn-associations {
+    @extend .btn-primary;
 }

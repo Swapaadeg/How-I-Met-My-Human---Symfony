@@ -119,7 +119,6 @@
         <div class="email-header">
             <div class="paw-icon">🐾</div>
             <h1>Nouveau message depuis HowIMetMyHuman</h1>
-            <div class="association-badge">{{ association.name }}</div>
         </div>
 
         <div class="email-body">
@@ -130,32 +129,32 @@
                 <h2>📋 Informations du contact</h2>
                 <div class="info-row">
                     <span class="info-label">Nom :</span>
-                    <span class="info-value">{{ name }}</span>
+                    <span class="info-value">{{ data.name }}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Email :</span>
-                    <span class="info-value"><a href="mailto:{{ email }}">{{ email }}</a></span>
+                    <span class="info-value"><a href="mailto:{{ data.email }}">{{ data.email }}</a></span>
                 </div>
-                {% if phone %}
+                {% if data.phone %}
                 <div class="info-row">
                     <span class="info-label">Téléphone :</span>
-                    <span class="info-value">{{ phone }}</span>
+                    <span class="info-value">{{ data.phone }}</span>
                 </div>
                 {% endif %}
                 <div class="info-row">
                     <span class="info-label">Sujet :</span>
-                    <span class="info-value">{{ subject }}</span>
+                    <span class="info-value">{{ data.subject }}</span>
                 </div>
             </div>
 
             <div class="message-section">
                 <h2>💬 Message</h2>
-                <div class="message-content">{{ message }}</div>
+                <div class="message-content">{{ data.message }}</div>
             </div>
 
             <div style="text-align: center;">
-                <a href="mailto:{{ email }}?subject=Re: {{ subject|url_encode }}" class="reply-button">
-                    Répondre à {{ name }}
+                <a href="mailto:{{ data.email }}?subject=Re: {{ data.subject|url_encode }}" class="reply-button">
+                    Répondre à {{ data.name }}
                 </a>
             </div>
 

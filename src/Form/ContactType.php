@@ -51,6 +51,22 @@ class ContactType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('subject', TextType::class, [
+                'label' => 'Sujet',
+                'attr' => [
+                    'placeholder' => 'Objet de votre message',
+                    'class' => 'form-control'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'Veuillez saisir le sujet']),
+                    new Assert\Length([
+                        'min' => 3,
+                        'max' => 100,
+                        'minMessage' => 'Le sujet doit contenir au moins {{ limit }} caractères',
+                        'maxMessage' => 'Le sujet ne peut pas dépasser {{ limit }} caractères'
+                    ])
+                ]
+            ])
             ->add('message', TextareaType::class, [
                 'label' => 'Votre message',
                 'attr' => [

@@ -26,7 +26,7 @@ export function addFavorite(animalId) {
     })
     .catch(error => {
         console.error('Error:', error);
-        showNotification('Vous devez être connecté pour ajouter un animal en favoris', 'error');
+        showNotification('Vous devez être connecté pour ajouter un animal à vos favoris', 'error');
     });
 }
 

@@ -99,10 +99,16 @@ function closeContactModal(modal) {
 function initializeContactForm(modal) {
     const form = modal.querySelector('.contact-form-ajax');
 
-    if (!form) return;
+    console.log('Initializing contact form...', form);
+
+    if (!form) {
+        console.error('Contact form not found in modal!');
+        return;
+    }
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
+        console.log('Form submitted!', form.action);
 
         const submitBtn = form.querySelector('.btn-submit-contact');
         const originalText = submitBtn.innerHTML;
@@ -111,12 +117,21 @@ function initializeContactForm(modal) {
 
         const formData = new FormData(form);
 
+        console.log('Sending form data to:', form.action);
+
         fetch(form.action, {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log('Response status:', response.status);
+            return response.json();
+        })
         .then(data => {
+            console.log('Response data:', data);
             if (data.success) {
                 showNotification(data.message, 'success');
                 closeContactModal(modal);
