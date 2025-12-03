@@ -3,8 +3,8 @@
  * Manages contact form modal loading and submission via AJAX
  */
 
-// Import notification function from animals module
-import { showNotification } from './animals.js';
+// Import notification function from notifications module
+import { showNotification } from './modules/notifications.js';
 
 /**
  * Initialize contact modal functionality
