@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Animals;
 use App\Entity\Comments;
 use App\Entity\Favorites;
+use App\Entity\User;
 use App\Form\AnimalFormType;
 use App\Form\CommentFormType;
 use App\Repository\AnimalsRepository;
@@ -69,6 +70,7 @@ final class AnimalsController extends AbstractController
         $allDepartments = $departmentRepository->findAll();
 
         // Check if user is member of an association
+        /** @var User|null $user */
         $user = $this->getUser();
         $isMember = false;
         $userFavoriteIds = [];
@@ -104,6 +106,7 @@ final class AnimalsController extends AbstractController
     #[IsGranted('ROLE_ASSOCIATION_MEMBER')]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         // Récupérer l'association de l'utilisateur
@@ -153,6 +156,7 @@ final class AnimalsController extends AbstractController
     #[Route('/animals/{id}', name: 'animal_show', methods: ['GET'])]
     public function show(Animals $animal, Request $request, EntityManagerInterface $entityManager, PermissionService $permissionService): Response
     {
+        /** @var User|null $user */
         $user = $this->getUser();
         $form = null;
         $replyForms = [];
@@ -195,6 +199,7 @@ final class AnimalsController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function addComment(Animals $animal, Request $request, EntityManagerInterface $entityManager): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
         $comment = new Comments();
         $form = $this->createForm(CommentFormType::class, $comment);
@@ -217,6 +222,7 @@ final class AnimalsController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function addReply(Animals $animal, int $commentId, Request $request, EntityManagerInterface $entityManager): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
         $parentComment = $entityManager->getRepository(Comments::class)->find($commentId);
 
@@ -246,6 +252,7 @@ final class AnimalsController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function deleteComment(Animals $animal, int $commentId, EntityManagerInterface $entityManager): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
         $comment = $entityManager->getRepository(Comments::class)->find($commentId);
 
@@ -276,6 +283,7 @@ final class AnimalsController extends AbstractController
     #[IsGranted('ROLE_ASSOCIATION_MEMBER')]
     public function edit(Animals $animal, Request $request, EntityManagerInterface $entityManager, PermissionService $permissionService): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         // Check if user can edit this animal
@@ -316,6 +324,7 @@ final class AnimalsController extends AbstractController
             return $this->redirectToRoute('animals');
         }
         
+        /** @var User $user */
         $user = $this->getUser();
 
         // Check if user can delete this animal
@@ -360,6 +369,7 @@ final class AnimalsController extends AbstractController
             return new JsonResponse(['success' => false, 'message' => 'Animal non trouvé'], 404);
         }
 
+        /** @var User $user */
         $user = $this->getUser();
 
         // Check if already favorited
@@ -391,6 +401,7 @@ final class AnimalsController extends AbstractController
             return new JsonResponse(['success' => false, 'message' => 'Animal non trouvé'], 404);
         }
 
+        /** @var User $user */
         $user = $this->getUser();
 
         $favorite = $entityManager->getRepository(Favorites::class)->findOneBy([
