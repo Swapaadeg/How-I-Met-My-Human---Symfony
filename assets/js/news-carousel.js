@@ -1,13 +1,8 @@
 /**
- * News Carousel Module
- * Infinite scroll carousel for adopter news
- * Creates a seamless infinite loop without visible jumps
+News Carousel Module
+Scroll infini des nouvelles
  */
 
-/**
- * Initialize news carousels
- * Automatically starts infinite scroll animation for all carousels on the page
- */
 export function initializeNewsCarousel() {
     const carousels = document.querySelectorAll('.news-carousel');
 

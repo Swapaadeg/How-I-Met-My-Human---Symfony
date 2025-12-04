@@ -1,12 +1,5 @@
-/**
- * Mobile Menu Module
- * Handles mobile hamburger menu and action menu dropdown functionality
- */
+/* Mobile Menu Module */
 
-/**
- * Initialize mobile menu functionality
- * Sets up burger toggle, mobile menu, and action menu (user dropdown)
- */
 export function initializeMobileMenu() {
     const burgerToggle = document.getElementById('burgerToggle');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -23,18 +16,15 @@ export function initializeMobileMenu() {
     const actionMenuToggle = document.getElementById('actionMenuToggle');
     const actionMenu = document.getElementById('actionMenu');
 
-    /**
-     * Toggle mobile menu open/closed
-     */
+    //Toggle mobile menu open/closed
+
     function toggleMenu() {
         burgerToggle.classList.toggle('active');
         mobileMenu.classList.toggle('active');
         document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
     }
 
-    /**
-     * Close mobile menu
-     */
+    //Close mobile menu
     function closeMenuHandler() {
         burgerToggle.classList.remove('active');
         mobileMenu.classList.remove('active');
@@ -42,9 +32,9 @@ export function initializeMobileMenu() {
         closeActionMenu();
     }
 
-    /**
-     * Toggle action menu (user dropdown)
-     */
+
+    //Toggle action menu (user dropdown)
+
     function toggleActionMenu() {
         if (actionMenu) {
             actionMenu.classList.toggle('active');
@@ -52,9 +42,9 @@ export function initializeMobileMenu() {
         }
     }
 
-    /**
-     * Close action menu
-     */
+
+    //Close action menu
+
     function closeActionMenu() {
         if (actionMenu) {
             actionMenu.classList.remove('active');

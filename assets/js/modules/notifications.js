@@ -1,7 +1,4 @@
-/**
- * Notifications Module
- * Handles display of toast notifications
- */
+/* Module de notifications */
 
 export function showNotification(message, type = 'info') {
     // Remove existing notifications

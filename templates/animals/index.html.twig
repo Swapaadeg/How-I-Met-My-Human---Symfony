@@ -166,35 +166,8 @@
                                 <div class="animal-tags">
                                     {% for tag in behavioralTags|slice(0, 3) %}
                                         {% set tagClass = tag.type|lower|replace({' ': '-', '\'': '', 'é': 'e', 'è': 'e'}) %}
-                                        {% set tagDescription = '' %}
-                                        {% if tag.type|lower == 'sociable' %}
-                                            {% set tagDescription = 'Animal qui aime le contact et s\'entend bien avec tout le monde' %}
-                                        {% elseif tag.type|lower == 'calme' %}
-                                            {% set tagDescription = 'Animal posé et tranquille, idéal pour un foyer paisible' %}
-                                        {% elseif tag.type|lower == 'joueur' %}
-                                            {% set tagDescription = 'Animal énergique qui adore jouer et s\'amuser' %}
-                                        {% elseif tag.type|lower == 'câlin' or tag.type|lower == 'calin' %}
-                                            {% set tagDescription = 'Animal affectueux qui recherche les moments de tendresse' %}
-                                        {% elseif tag.type|lower == 'énergique' or tag.type|lower == 'energique' %}
-                                            {% set tagDescription = 'Animal plein de vitalité qui a besoin de beaucoup d\'exercice' %}
-                                        {% elseif 'enfants' in tag.type|lower %}
-                                            {% set tagDescription = 'Animal qui s\'entend parfaitement avec les enfants' %}
-                                        {% elseif 'chats' in tag.type|lower %}
-                                            {% set tagDescription = 'Animal compatible avec la présence d\'autres chats' %}
-                                        {% elseif 'chiens' in tag.type|lower %}
-                                            {% set tagDescription = 'Animal qui cohabite bien avec d\'autres chiens' %}
-                                        {% elseif tag.type|lower == 'propre' %}
-                                            {% set tagDescription = 'Animal qui maîtrise parfaitement la propreté' %}
-                                        {% elseif tag.type|lower == 'peureux' %}
-                                            {% set tagDescription = 'Animal timide qui a besoin de patience et de douceur' %}
-                                        {% elseif tag.type|lower == 'confiant' %}
-                                            {% set tagDescription = 'Animal sûr de lui qui s\'adapte facilement aux nouvelles situations' %}
-                                        {% else %}
-                                            {% set tagDescription = 'Caractéristique comportementale de ' ~ animal.name %}
-                                        {% endif %}
-                                        
-                                        <span class="tag {{ tagClass }}" 
-                                              data-tooltip="{{ tagDescription }}" 
+                                        <span class="tag {{ tagClass }}"
+                                              data-tooltip="{{ tag.description }}"
                                               data-tag-name="{{ tag.type }}">
                                             {{ tag.type }}
                                         </span>
@@ -208,9 +181,6 @@
                                 </button>
                                 <button class="action-btn contact-btn" data-animal-id="{{ animal.id }}" title="Contacter l'association">
                                     <i class="fas fa-envelope"></i>
-                                </button>
-                                <button class="action-btn share-btn" data-animal-id="{{ animal.id }}" title="Partager">
-                                    <i class="fas fa-share-alt"></i>
                                 </button>
                             </div>
                             

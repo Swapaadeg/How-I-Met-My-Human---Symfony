@@ -1,7 +1,4 @@
-/**
- * Mobile Action Menu Module
- * Handles the dropdown toggle for "Accès rapide" in mobile menu
- */
+/* Mobile Action Menu Module */
 
 export function initializeMobileActionMenu() {
     const mobileActionToggle = document.getElementById('mobileActionToggle');

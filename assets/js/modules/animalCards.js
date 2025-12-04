@@ -1,6 +1,6 @@
 /**
- * Animal Cards Module
- * Handles animal card interactions and navigation
+Animal Cards Module
+Handles animal card interactions and navigation
  */
 
 export function initializeAnimalCards() {

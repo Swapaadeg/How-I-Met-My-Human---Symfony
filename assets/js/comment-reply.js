@@ -1,12 +1,4 @@
-/**
- * Comment Reply Module
- * Handles comment reply form toggle functionality
- */
-
-/**
- * Initialize comment reply functionality
- * Sets up reply form toggle buttons on comments
- */
+/*Repondre aux commentaires*/
 export function initializeCommentReply() {
     const replyToggleButtons = document.querySelectorAll('[data-toggle-reply]');
 

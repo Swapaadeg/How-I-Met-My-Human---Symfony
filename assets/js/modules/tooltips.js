@@ -1,7 +1,4 @@
-/**
- * Tooltips Module
- * Handles tooltip display and mobile modal
- */
+/*Tooltips Module*/
 
 export function initializeTooltips() {
     const tagsWithTooltips = document.querySelectorAll('.tag[data-tooltip], .tag-mini[data-tooltip]');

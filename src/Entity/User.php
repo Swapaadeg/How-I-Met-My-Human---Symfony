@@ -297,7 +297,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function isAdmin(): bool
     {
-        return in_array(UserRole::ROLE_ADMIN, $this->roles);
+        return in_array('ROLE_ADMIN', $this->roles);
     }
 
     /**
@@ -313,8 +313,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setAsAdmin(): static
     {
-        if (!in_array(UserRole::ROLE_ADMIN, $this->roles)) {
-            $this->roles[] = UserRole::ROLE_ADMIN;
+        if (!in_array('ROLE_ADMIN', $this->roles)) {
+            $this->roles[] = 'ROLE_ADMIN';
         }
         return $this;
     }
@@ -326,7 +326,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // Remove all roles except admin
         $this->roles = array_filter($this->roles, function($role) {
-            return $role === UserRole::ROLE_ADMIN;
+            return $role === 'ROLE_ADMIN';
         });
         return $this;
     }
@@ -339,8 +339,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // Remove association-related roles first
         $this->roles = array_filter($this->roles, function($role) {
             return !in_array($role, [
-                UserRole::ROLE_ASSOCIATION_MANAGER,
-                UserRole::ROLE_ASSOCIATION_MEMBER
+                'ROLE_ASSOCIATION_MANAGER',
+                'ROLE_ASSOCIATION_MEMBER'
             ]);
         });
 
@@ -363,9 +363,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         if ($hasApprovedMembership) {
             if ($isManager) {
-                $this->roles[] = UserRole::ROLE_ASSOCIATION_MANAGER;
+                $this->roles[] = 'ROLE_ASSOCIATION_MANAGER';
             } else {
-                $this->roles[] = UserRole::ROLE_ASSOCIATION_MEMBER;
+                $this->roles[] = 'ROLE_ASSOCIATION_MEMBER';
             }
         }
         // Si pas de membership, l'utilisateur garde juste ROLE_USER (ajouté automatiquement dans getRoles())

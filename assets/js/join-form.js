@@ -1,12 +1,4 @@
-/**
- * Join Form Module
- * Handles association join form interactions
- */
-
-/**
- * Initialize join form functionality
- * Enables/disables the join button based on radio selection
- */
+/* Formulaire d'adhésion*/
 export function initializeJoinForm() {
     const associationRadios = document.querySelectorAll('input[name="association_id"]');
     const joinBtn = document.getElementById('joinBtn');

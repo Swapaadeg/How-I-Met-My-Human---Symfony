@@ -1,214 +1,180 @@
-# 📋 PRÉSENTATION ORALE - SYSTÈME D'AJOUT AUX FAVORIS
+# Présentation Orale: Système d'Ajout aux Favoris
 
-## 🎯 STRUCTURE (15 minutes)
-
-1. **Introduction** (1 min)
-2. **Vue d'ensemble** (1 min)
-3. **Démonstration visuelle** (2 min)
-4. **Code Frontend** (4 min)
-5. **Code Backend** (4 min)
-6. **Sécurité & Optimisations** (2 min)
-7. **Conclusion & Questions** (1 min)
+## Vue d'ensemble (2 min)
+La fonctionnalité "Ajouter aux favoris" permet aux utilisateurs connectés de sauvegarder leurs animaux préférés en cliquant sur un bouton cœur. C'est une fonctionnalité **full-stack** qui montre:
+- **Frontend:** JavaScript AJAX avec fetch()
+- **Backend:** API REST Symfony avec validation
+- **Base de données:** Relation Many-to-Many
 
 ---
 
-## 1️⃣ INTRODUCTION (1 min)
+## 1. Le Bouton (Frontend HTML/Twig)
 
-### Le pitch
-```
-"J'ai implémenté un système permettant aux utilisateurs d'ajouter leurs
-animaux préférés à une liste de favoris, SANS rechargement de page.
-C'est un bon exemple d'une application full-stack moderne avec:
-- Frontend JavaScript (AJAX)
-- Backend API REST (Symfony)
-- Base de données (Doctrine ORM)
-- Sécurité (authentification + validation)
-"
+### Fichier: `templates/animals/index.html.twig` (ligne 179)
+
+```twig
+<button class="action-btn favorite-btn {% if animal.id in user_favorite_ids %}favorited{% endif %}"
+        data-animal-id="{{ animal.id }}"
+        title="{% if animal.id in user_favorite_ids %}Retirer des favoris{% else %}Ajouter aux favoris{% endif %}">
+    <i class="{% if animal.id in user_favorite_ids %}fas{% else %}far{% endif %} fa-heart"></i>
+</button>
 ```
 
-### Pourquoi c'est intéressant pour un examen?
-✅ Communication Frontend ↔ Backend asynchrone
-✅ Bonnes pratiques REST (POST pour créer, DELETE pour supprimer)
-✅ Sécurité (utilisateur authentifié, validation)
-✅ UX moderne (pas de refresh, feedback immédiat)
+### Explication mot par mot:
+
+**`class="action-btn favorite-btn"`**
+- `action-btn` = Style général pour tous les boutons d'action
+- `favorite-btn` = Style spécifique au bouton favoris
+
+**`{% if animal.id in user_favorite_ids %}favorited{% endif %}`**
+- Condition Twig qui vérifie si l'animal est déjà en favoris
+- Si oui → ajoute la classe `favorited` (cœur plein, coloré)
+- Si non → pas de classe (cœur vide)
+
+**`data-animal-id="{{ animal.id }}"`**
+- Attribut HTML personnalisé qui stocke l'ID de l'animal
+- JavaScript va lire cet ID pour savoir quel animal ajouter/retirer
+
+**`title="..."`**
+- Tooltip qui s'affiche au survol
+- Change selon si déjà en favoris ou pas
+
+**`<i class="... fa-heart"></i>`**
+- Icône Font Awesome
+- `fas` (solid) = cœur plein si déjà favori
+- `far` (regular) = cœur vide sinon
+
+### Pourquoi ce code est intelligent:
+✅ Le serveur rend l'état initial correct (pas de clignotement au chargement)
+✅ JavaScript gère ensuite les changements dynamiques
+✅ Bon équilibre entre Twig (état serveur) et JS (interactivité)
 
 ---
 
-## 2️⃣ VUE D'ENSEMBLE (1 min)
-
-### Schéma conceptuel
-```
-┌─────────────────────────────────────────────────────────┐
-│                    NAVIGATEUR UTILISATEUR                │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  Page avec animaux                              │   │
-│  │  [♡ Button]  →  Click  →  JS Event Handler     │   │
-│  │                ↓                                 │   │
-│  │           DOM Update ♡→♥                        │   │
-│  │           Notification Toast                    │   │
-│  │                ↓                                 │   │
-│  │           Fetch POST /api/favorites             │   │
-│  └─────────────────────────────────────────────────┘   │
-│                         ↕ HTTP                          │
-├─────────────────────────────────────────────────────────┤
-│              SERVEUR SYMFONY (Backend)                  │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  POST /api/favorites                            │   │
-│  │  ↓                                               │   │
-│  │  1. Vérif: User authentifié? ✓                 │   │
-│  │  2. Vérif: Animal existe? ✓                    │   │
-│  │  3. Vérif: Pas déjà favori? ✓                  │   │
-│  │  ↓                                               │   │
-│  │  4. CREATE Favorites entity                     │   │
-│  │  5. INSERT en base de données                   │   │
-│  │  ↓                                               │   │
-│  │  Response: {success: true}                      │   │
-│  └─────────────────────────────────────────────────┘   │
-│                         ↓                               │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  BASE DE DONNÉES MySQL                          │   │
-│  │  Table: favorites (user_id, animals_id)        │   │
-│  │  ↓                                               │   │
-│  │  INSERT INTO favorites VALUES (42, 101)        │   │
-│  └─────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
-```
-
----
-
-## 3️⃣ DÉMONSTRATION VISUELLE (2 min)
-
-### État 1: Avant (unfavorited)
-```
-┌──────────────────┐
-│   Animal Card    │
-│  [cute dog pic]  │
-│                  │
-│  Medor 🐕        │
-│  ♡ (grey)        │  ← Cœur vide
-│  [Share] [Info]  │
-└──────────────────┘
-```
-
-### État 2: Après (favorited)
-```
-┌──────────────────┐
-│   Animal Card    │
-│  [cute dog pic]  │
-│                  │
-│  Medor 🐕        │
-│  ♥ (rouge)       │  ← Cœur rempli + animation scale
-│  [Share] [Info]  │
-└──────────────────┘
-
-+ Toast notification (top-right): "Ajouté aux favoris ✓" (vert)
-```
-
-**À montrer sur l'app:**
-- Cliquer sur ♡ → immédiatement devient ♥
-- Toast notification apparaît
-- Recharger page → ♥ reste (persisté en DB)
-- Cliquer ♥ → redevient ♡ (suppression)
-
----
-
-## 4️⃣ CODE FRONTEND (4 min)
+## 2. Le JavaScript (Frontend)
 
 ### Fichier: `assets/js/modules/favorites.js`
 
-#### Partie 1: Initialisation
+### 2.1 Initialisation des boutons
+
 ```javascript
-// 👇 CODE À MONTRER #1
 export function initializeFavoriteButtons() {
-    // 1️⃣ Sélectionner TOUS les boutons favoris
     const favoriteButtons = document.querySelectorAll('.favorite-btn');
 
-    // 2️⃣ Attacher un listener à chacun
     favoriteButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            // 3️⃣ Empêcher comportement par défaut
-            e.preventDefault();           // Pas de refresh
-            e.stopPropagation();          // Pas de bubbling
+            e.preventDefault();
+            e.stopPropagation();
 
-            // 4️⃣ Récupérer ID de l'animal depuis data attribute
             const animalId = this.dataset.animalId;
-            const heartIcon = this.querySelector('i');
+            const isFavorited = this.classList.contains('favorited');
 
-            // 5️⃣ Basculer l'état
-            if (this.classList.contains('favorited')) {
-                // Déjà favori → retirer
-                removeFavoriteAction(this, heartIcon, animalId);
+            if (isFavorited) {
+                removeFavorite(animalId, this);
             } else {
-                // Pas favori → ajouter
-                addFavoriteAction(this, heartIcon, animalId);
+                addFavorite(animalId, this);
             }
         });
     });
 }
-
-function addFavoriteAction(button, icon, animalId) {
-    // DOM update immédiat (UX responsive)
-    button.classList.add('favorited');        // Ajouter classe CSS
-    icon.classList.remove('far');              // ♡ Regular
-    icon.classList.add('fas');                 // ♥ Solid
-
-    // Animation
-    button.style.transform = 'scale(1.2)';
-    setTimeout(() => button.style.transform = '', 200);
-
-    // Appel serveur
-    addFavorite(animalId);
-}
 ```
 
-**Points clés à expliquer:**
-- `querySelectorAll()` = sélection multiple
-- `addEventListener()` = délégation d'événements
-- `dataset.animalId` = récupère valeur HTML `data-animal-id="42"`
-- `classList.add/remove` = manipulation DOM légère
-- Mise à jour DOM AVANT appel serveur = UX responsive
+**Ce qui se passe:**
+1. `querySelectorAll('.favorite-btn')` = Trouve tous les boutons favoris
+2. `addEventListener('click')` = Écoute les clics
+3. `e.preventDefault()` = Empêche le comportement par défaut
+4. `e.stopPropagation()` = Empêche le clic de se propager (évite d'ouvrir la fiche animal)
+5. `dataset.animalId` = Récupère l'ID depuis `data-animal-id`
+6. `classList.contains('favorited')` = Vérifie si déjà en favoris
+7. Appelle `addFavorite()` ou `removeFavorite()` selon l'état
 
 ---
 
-#### Partie 2: Requête AJAX
+### 2.2 Ajouter aux favoris (La partie AJAX!)
+
 ```javascript
-// 👇 CODE À MONTRER #2
-function addFavorite(animalId) {
-    // 1️⃣ FETCH API (alternative moderne à jQuery.ajax)
+export function addFavorite(animalId, button) {
     fetch('/api/favorites', {
-        method: 'POST',                    // Create = POST (REST convention)
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'  // Signal: c'est AJAX
+            'X-Requested-With': 'XMLHttpRequest'
         },
-        body: JSON.stringify({ animalId: animalId })  // Payload JSON
+        body: JSON.stringify({ animalId: animalId })
     })
-
-    // 2️⃣ Parser la réponse
     .then(response => response.json())
-
-    // 3️⃣ Traiter la réponse
     .then(data => {
         if (data.success) {
-            // ✓ Succès: notification verte
+            button.classList.add('favorited');
+            const icon = button.querySelector('i');
+            icon.classList.remove('far');
+            icon.classList.add('fas');
             showNotification('Ajouté aux favoris !', 'success');
-        } else {
-            // ✗ Erreur: notification rouge
-            showNotification(data.message || 'Erreur', 'error');
         }
     })
-
-    // 4️⃣ Traiter erreur réseau
     .catch(error => {
-        console.error('Network error:', error);
-        showNotification('Erreur réseau', 'error');
+        console.error('Error:', error);
+        showNotification('Erreur lors de l\'ajout', 'error');
     });
 }
+```
 
-function removeFavorite(animalId) {
-    // Pattern similaire mais avec DELETE (REST convention)
+### Décortication ligne par ligne:
+
+#### **fetch('/api/favorites', {**
+- `fetch()` = Fonction JavaScript pour envoyer une requête au serveur
+- `'/api/favorites'` = L'adresse (route Symfony) à contacter
+
+#### **method: 'POST',**
+- `POST` = Type de requête pour AJOUTER des données
+- (Contrairement à `GET` pour lire, `DELETE` pour supprimer)
+
+#### **headers: { ... }**
+Les "headers" sont des informations supplémentaires pour le serveur:
+
+**`'Content-Type': 'application/json'`**
+- Dit au serveur: "Je t'envoie du JSON"
+- Comme une enveloppe avec "FRAGILE" dessus
+
+**`'X-Requested-With': 'XMLHttpRequest'`**
+- Dit au serveur: "C'est une requête AJAX, pas un formulaire normal"
+- Symfony utilise ça pour vérifier que c'est bien une requête asynchrone
+
+#### **body: JSON.stringify({ animalId: animalId })**
+- `body` = Le contenu qu'on envoie (les données)
+- `JSON.stringify()` = Convertit l'objet JavaScript en texte JSON
+- `{ animalId: animalId }` = On envoie l'ID de l'animal
+
+**Exemple:** Si `animalId = 42`, ça envoie `{"animalId":42}`
+
+#### **.then(response => response.json())**
+- `then()` = "Quand la réponse arrive..."
+- `response.json()` = Convertit la réponse JSON en objet JavaScript
+
+#### **.then(data => { ... })**
+- Maintenant qu'on a les données converties, on peut les utiliser
+- `data.success` = Le serveur a dit si ça a marché ou pas
+
+#### **Si succès: Mise à jour visuelle**
+```javascript
+button.classList.add('favorited');      // Ajoute la classe CSS
+icon.classList.remove('far');           // Enlève "regular"
+icon.classList.add('fas');              // Ajoute "solid" (plein)
+showNotification('Ajouté !', 'success'); // Toast notification
+```
+
+#### **.catch(error => { ... })**
+- Si quelque chose plante (pas de connexion, erreur serveur, etc.)
+- Affiche un message d'erreur
+
+---
+
+### 2.3 Retirer des favoris
+
+```javascript
+export function removeFavorite(animalId, button) {
     fetch(`/api/favorites/${animalId}`, {
-        method: 'DELETE',                  // Delete = DELETE
+        method: 'DELETE',
         headers: {
             'X-Requested-With': 'XMLHttpRequest'
         }
@@ -216,554 +182,378 @@ function removeFavorite(animalId) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            button.classList.remove('favorited');
+            const icon = button.querySelector('i');
+            icon.classList.remove('fas');
+            icon.classList.add('far');
             showNotification('Retiré des favoris', 'info');
-        } else {
-            showNotification(data.message, 'error');
         }
     })
-    .catch(error => showNotification('Erreur réseau', 'error'));
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Erreur', 'error');
+    });
 }
 ```
 
-**Points clés à expliquer:**
-- `fetch()` = API moderne, remplace XMLHttpRequest et jQuery.ajax
-- `method: 'POST'` vs `'DELETE'` = REST conventions (POST=create, DELETE=remove)
-- Header `X-Requested-With` = indique à Symfony que c'est une requête AJAX
-- `then()` chains = gestion asynchrone
-- `response.json()` = parse la réponse JSON
+**Différences avec addFavorite:**
+- Route: `/api/favorites/${animalId}` (avec l'ID dans l'URL)
+- Méthode: `DELETE` au lieu de `POST`
+- Pas de body (l'ID est dans l'URL)
+- Enlève `favorited` et change `fas` → `far`
 
 ---
 
-#### Partie 3: Notification Toast
-```javascript
-// 👇 CODE À MONTRER #3 (Bonus)
-function showNotification(message, type = 'info') {
-    // 1️⃣ Créer élément div
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-
-    // 2️⃣ Styles dynamiques
-    const colors = {
-        success: '#10B981',  // Vert
-        error: '#EF4444',    // Rouge
-        info: '#3B82F6'      // Bleu
-    };
-
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${colors[type]};
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        animation: slideInRight 0.3s ease;
-        z-index: 1000;
-    `;
-
-    // 3️⃣ Injecter en DOM
-    document.body.appendChild(notification);
-
-    // 4️⃣ Auto-dismiss après 4 secondes
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    }, 4000);
-}
-```
-
-**Points clés à expliquer:**
-- `createElement()` = création dynamique
-- `cssText` = styles inline déclaratifs
-- `appendChild()` = injection en DOM
-- `setTimeout()` = auto-removal après 4s
-- Animations CSS natives (GPU accelerated)
-
----
-
-### Récapitulatif Frontend
-```
-User Click
-    ↓
-Event Handler
-    ├─ preventDefault() (pas de refresh)
-    ├─ stopPropagation() (pas de bubbling)
-    ├─ Extract: animalId from data attribute
-    ├─ Toggle: .favorited class
-    ├─ Swap: Font Awesome icons (far ↔ fas)
-    └─ Animation: scale(1.2)
-    ↓
-Fetch POST/DELETE to Backend
-    ├─ Send JSON payload
-    ├─ Include headers (Content-Type, X-Requested-With)
-    └─ Chain .then() for responses
-    ↓
-Handle Response
-    ├─ Check data.success
-    └─ Show toast notification
-```
-
----
-
-## 5️⃣ CODE BACKEND (4 min)
+## 3. Le Backend (API Symfony)
 
 ### Fichier: `src/Controller/AnimalsController.php`
 
-#### Endpoint POST: Ajouter aux favoris
+### 3.1 Ajouter aux favoris (ligne 356)
+
 ```php
-// 👇 CODE À MONTRER #4
-#[Route('/api/favorites', name: 'favorites_add', methods: ['POST'])]
-#[IsGranted('ROLE_USER')]  // ← Sécurité: user connecté seulement
+#[Route('/api/favorites', methods: ['POST'])]
+#[IsGranted('ROLE_USER')]
 public function addFavorite(
     Request $request,
     EntityManagerInterface $entityManager,
     AnimalsRepository $animalsRepository
 ): JsonResponse {
+    // 1️⃣ Récupérer l'utilisateur connecté
+    $user = $this->getUser();
 
-    // 1️⃣ EXTRACT DATA
+    // 2️⃣ Récupérer les données JSON envoyées
     $data = json_decode($request->getContent(), true);
     $animalId = $data['animalId'] ?? null;
 
-    // 2️⃣ VALIDATE: ID fourni?
+    // 3️⃣ Vérifier que l'ID est fourni
     if (!$animalId) {
-        return new JsonResponse(
-            ['success' => false, 'message' => 'ID manquant'],
-            400  // Bad Request
-        );
+        return new JsonResponse([
+            'success' => false,
+            'message' => 'Animal ID manquant'
+        ], 400);
     }
 
-    // 3️⃣ DATABASE QUERY: Animal existe?
+    // 4️⃣ Trouver l'animal dans la base de données
     $animal = $animalsRepository->find($animalId);
+
     if (!$animal) {
-        return new JsonResponse(
-            ['success' => false, 'message' => 'Animal non trouvé'],
-            404  // Not Found
-        );
+        return new JsonResponse([
+            'success' => false,
+            'message' => 'Animal introuvable'
+        ], 404);
     }
 
-    // 4️⃣ SECURITY: Get authenticated user
-    $user = $this->getUser();
-
-    // 5️⃣ PREVENT DUPLICATE: Déjà en favoris?
+    // 5️⃣ Vérifier si déjà en favoris (éviter les doublons)
     $existingFavorite = $entityManager->getRepository(Favorites::class)
-        ->findOneBy([
-            'user' => $user,
-            'animals' => $animal
-        ]);
+        ->findOneBy(['user' => $user, 'animals' => $animal]);
 
     if ($existingFavorite) {
-        return new JsonResponse(
-            ['success' => false, 'message' => 'Déjà en favoris'],
-            400
-        );
+        return new JsonResponse([
+            'success' => false,
+            'message' => 'Déjà en favoris'
+        ], 400);
     }
 
-    // 6️⃣ CREATE ENTITY
+    // 6️⃣ Créer le favori
     $favorite = new Favorites();
     $favorite->setUser($user);
     $favorite->setAnimals($animal);
 
-    // 7️⃣ PERSIST TO DATABASE
+    // 7️⃣ Sauvegarder en base de données
     $entityManager->persist($favorite);
-    $entityManager->flush();  // ← INSERT en base
+    $entityManager->flush();
 
-    // 8️⃣ RESPOND SUCCESS
-    return new JsonResponse(
-        ['success' => true, 'message' => 'Ajouté aux favoris']
-    );
+    // 8️⃣ Répondre avec succès
+    return new JsonResponse([
+        'success' => true,
+        'message' => 'Ajouté aux favoris'
+    ]);
 }
 ```
 
-**Points clés à expliquer:**
+### Explication étape par étape:
 
-| Ligne | Concept | Explication |
-|-------|---------|-------------|
-| `#[Route(...)]` | Routing Symfony | Mappe la requête POST `/api/favorites` à cette méthode |
-| `#[IsGranted('ROLE_USER')]` | Sécurité | Lance exception 403 si user pas connecté |
-| `json_decode()` | Parse JSON | Récupère data de request body |
-| `$animalsRepository->find()` | Query Builder | SELECT animal FROM table WHERE id = ? |
-| `$this->getUser()` | Security Context | Récupère user actuellement authentifié |
-| `findOneBy()` | Query Doctrine | Requête préventive: vérifier pas déjà favori |
-| `$entityManager->persist()` | ORM Track | Marquer entity pour insertion |
-| `$entityManager->flush()` | ORM Commit | Exécuter INSERT/UPDATE/DELETE en DB |
-| `JsonResponse` | API Response | Retourner JSON parsable par Frontend |
+#### **#[Route('/api/favorites', methods: ['POST'])]**
+- Déclare la route accessible via `POST /api/favorites`
+- `methods: ['POST']` = Uniquement les requêtes POST
+
+#### **#[IsGranted('ROLE_USER')]**
+- Sécurité Symfony: vérifie que l'utilisateur est connecté
+- Sinon → erreur 403 Forbidden
+
+#### **1️⃣ Récupérer l'utilisateur**
+```php
+$user = $this->getUser();
+```
+- `getUser()` retourne l'utilisateur connecté (via la session)
+
+#### **2️⃣ Récupérer les données JSON**
+```php
+$data = json_decode($request->getContent(), true);
+$animalId = $data['animalId'] ?? null;
+```
+- `$request->getContent()` = Lit le body de la requête (le JSON brut)
+- `json_decode(..., true)` = Convertit le JSON en tableau PHP
+- `?? null` = Si `animalId` n'existe pas, mettre `null`
+
+#### **3️⃣-4️⃣ Validation**
+- Vérifie que l'ID est fourni
+- Vérifie que l'animal existe en BDD
+- Si problème → retourne une erreur JSON avec code HTTP approprié
+
+#### **5️⃣ Vérifier les doublons**
+```php
+$existingFavorite = $entityManager->getRepository(Favorites::class)
+    ->findOneBy(['user' => $user, 'animals' => $animal]);
+```
+- Cherche s'il existe déjà un favori pour cet utilisateur + animal
+- Évite d'ajouter deux fois le même
+
+#### **6️⃣ Créer l'objet Favorites**
+```php
+$favorite = new Favorites();
+$favorite->setUser($user);
+$favorite->setAnimals($animal);
+```
+- Crée une nouvelle instance de `Favorites`
+- Associe l'utilisateur et l'animal
+
+#### **7️⃣ Sauvegarder**
+```php
+$entityManager->persist($favorite);  // Dire "prépare-toi à sauvegarder ça"
+$entityManager->flush();             // Exécuter la sauvegarde en BDD
+```
+
+#### **8️⃣ Réponse JSON**
+```php
+return new JsonResponse(['success' => true, 'message' => '...']);
+```
+- Renvoie du JSON que JavaScript va recevoir dans `.then(data => ...)`
 
 ---
 
-#### Endpoint DELETE: Retirer des favoris
+### 3.2 Retirer des favoris (ligne 394)
+
 ```php
-// 👇 CODE À MONTRER #5 (Bonus)
-#[Route('/api/favorites/{animalId}', name: 'favorites_remove', methods: ['DELETE'])]
+#[Route('/api/favorites/{animalId}', methods: ['DELETE'])]
 #[IsGranted('ROLE_USER')]
 public function removeFavorite(
     int $animalId,
     EntityManagerInterface $entityManager,
     AnimalsRepository $animalsRepository
 ): JsonResponse {
-
-    // 1️⃣ Vérif: Animal existe?
+    $user = $this->getUser();
     $animal = $animalsRepository->find($animalId);
+
     if (!$animal) {
-        return new JsonResponse(['success' => false, 'message' => 'Animal non trouvé'], 404);
+        return new JsonResponse([
+            'success' => false,
+            'message' => 'Animal introuvable'
+        ], 404);
     }
 
-    // 2️⃣ Get user
-    $user = $this->getUser();
-
-    // 3️⃣ Find favorite record
+    // Trouver le favori à supprimer
     $favorite = $entityManager->getRepository(Favorites::class)
         ->findOneBy(['user' => $user, 'animals' => $animal]);
 
-    // 4️⃣ Vérif: Est-il en favori?
     if (!$favorite) {
-        return new JsonResponse(['success' => false, 'message' => 'Pas en favoris'], 400);
+        return new JsonResponse([
+            'success' => false,
+            'message' => 'Pas en favoris'
+        ], 404);
     }
 
-    // 5️⃣ DELETE
+    // Supprimer
     $entityManager->remove($favorite);
-    $entityManager->flush();  // ← DELETE en base
+    $entityManager->flush();
 
-    // 6️⃣ Response
-    return new JsonResponse(['success' => true, 'message' => 'Retiré des favoris']);
+    return new JsonResponse([
+        'success' => true,
+        'message' => 'Retiré des favoris'
+    ]);
 }
 ```
 
-**Point clé:** Pattern identique mais avec `DELETE` et `remove()` au lieu de `persist()`
+**Différence principale:**
+- `remove()` au lieu de `persist()`
+- Cherche le favori existant et le supprime
 
 ---
 
-### Fichier Template: `templates/animals/index.html.twig`
+## 4. La Base de Données
 
-```twig
-{# 👇 CODE À MONTRER #6 #}
-<button class="action-btn favorite-btn"
-        data-animal-id="{{ animal.id }}"
-        title="Ajouter aux favoris">
-    <i class="far fa-heart"></i>
-</button>
-```
+### Entité: `src/Entity/Favorites.php`
 
-**Points clés:**
-- `data-animal-id` = HTML5 custom data attribute
-- Accessible en JS via `this.dataset.animalId`
-- `class="favorite-btn"` = sélecteur CSS pour querySelector
-- `<i>` = Font Awesome icon
-
----
-
-### Récapitulatif Backend
-```
-POST /api/favorites
-    ↓
-1. [SECURITY] #[IsGranted('ROLE_USER')]
-   → Lancepem exception 403 si pas connecté
-    ↓
-2. [PARSE] json_decode($request->getContent())
-   → Récupère animalId du payload JSON
-    ↓
-3. [VALIDATE] Check animalId fourni? ✓
-   → Return 400 si missing
-    ↓
-4. [DATABASE] $animalsRepository->find($animalId)
-   → Vérif animal existe
-   → Return 404 si not found
-    ↓
-5. [SECURITY] $this->getUser()
-   → Impossible de favoriser pour quelqu'un d'autre
-    ↓
-6. [IDEMPOTENT] findOneBy(['user' => $user, 'animals' => $animal])
-   → Vérif pas déjà favori (prevent duplicate)
-   → Return 400 si exists
-    ↓
-7. [CREATE] new Favorites() + setUser() + setAnimals()
-   → Créer entity
-    ↓
-8. [PERSIST] $entityManager->persist() + flush()
-   → INSERT en base de données
-    ↓
-9. [RESPOND] JsonResponse(['success' => true])
-   → Retourner JSON
-```
-
----
-
-## 6️⃣ SÉCURITÉ & OPTIMISATIONS (2 min)
-
-### Sécurité
-
-#### 1. Authentication
-```
-[FRONTEND]
-Clic sur bouton sans être connecté
-    ↓
-Fetch POST /api/favorites
-    ↓
-[BACKEND]
-#[IsGranted('ROLE_USER')]
-    → Lance AccessDeniedException
-    → Response: 403 Forbidden
-    ↓
-[FRONTEND]
-Catch error, affiche "Vous devez être connecté"
-```
-
-#### 2. Ownership
 ```php
-// Impossible de favoriser pour quelqu'un d'autre
-$user = $this->getUser();  // ← Toujours authenticated user
-$favorite->setUser($user);  // ← Toujours user connecté
-```
+#[ORM\Entity]
+class Favorites
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-#### 3. Idempotency (Prevent Duplicates)
-```php
-$existingFavorite = $entityManager->getRepository(Favorites::class)
-    ->findOneBy(['user' => $user, 'animals' => $animal]);
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'favorites')]
+    private ?User $user = null;
 
-if ($existingFavorite) {
-    return 400;  // Safe: pas d'insertion dupliquée
+    #[ORM\ManyToOne(targetEntity: Animals::class, inversedBy: 'favorites')]
+    private ?Animals $animals = null;
 }
 ```
 
-#### 4. CSRF Protection
+### Structure en BDD:
+
+Table `favorites`:
+```
+id  | user_id | animal_id
+----|---------|-----------
+1   | 5       | 23
+2   | 5       | 42
+3   | 7       | 23
+```
+
+**Relation Many-to-Many:**
+- Un utilisateur peut avoir plusieurs favoris
+- Un animal peut être favori de plusieurs utilisateurs
+- La table `Favorites` est la **table de liaison**
+
+---
+
+## 5. Le Flux Complet (Diagramme)
+
+```
+UTILISATEUR CLIQUE SUR LE CŒUR
+           ↓
+JavaScript détecte le clic
+           ↓
+Lit data-animal-id="42"
+           ↓
+Envoie POST /api/favorites avec {animalId: 42}
+           ↓
+SERVEUR SYMFONY reçoit la requête
+           ↓
+Vérifie que l'utilisateur est connecté
+           ↓
+Vérifie que l'animal existe
+           ↓
+Vérifie qu'il n'est pas déjà en favoris
+           ↓
+Crée une ligne dans la table favorites
+           ↓
+Retourne {success: true}
+           ↓
+JavaScript reçoit la réponse
+           ↓
+Ajoute la classe "favorited"
+Change far → fas (cœur vide → plein)
+Affiche notification "Ajouté aux favoris !"
+           ↓
+FIN
+```
+
+---
+
+## 6. Questions Probables à l'Oral
+
+### Q: Pourquoi utiliser AJAX au lieu d'un formulaire normal?
+**R:** Parce qu'avec AJAX:
+- ✅ Pas de rechargement de page (meilleure UX)
+- ✅ Plus rapide
+- ✅ Peut ajouter/retirer plusieurs favoris sans perdre sa position sur la page
+
+### Q: Que fait JSON.stringify()?
+**R:** Convertit un objet JavaScript en texte JSON.
+- Avant: `{ animalId: 42 }` (objet JavaScript)
+- Après: `"{"animalId":42}"` (texte qu'on peut envoyer sur le réseau)
+
+### Q: Pourquoi deux méthodes (POST et DELETE)?
+**R:** C'est une bonne pratique REST:
+- `POST` = Créer une ressource
+- `DELETE` = Supprimer une ressource
+- Rend l'API claire et prévisible
+
+### Q: Comment le serveur sait qui est l'utilisateur?
+**R:** Via la session Symfony. Quand tu te connectes, Symfony crée une session avec un cookie. À chaque requête, le navigateur envoie ce cookie automatiquement.
+
+### Q: Et si deux personnes ajoutent le même animal en même temps?
+**R:** Pas de problème! On vérifie les doublons (ligne 5️⃣ du code backend). Si ça existe déjà, on refuse.
+
+### Q: Que se passe-t-il si l'utilisateur n'est pas connecté?
+**R:** `#[IsGranted('ROLE_USER')]` bloque la requête automatiquement. Retourne une erreur 403 Forbidden.
+
+### Q: Pourquoi `e.stopPropagation()` dans le JavaScript?
+**R:** Parce que le bouton est à l'intérieur d'une card cliquable. Sans ça, cliquer sur le cœur ouvrirait aussi la fiche de l'animal.
+
+---
+
+## 7. Points Clés à Retenir pour l'Oral
+
+✅ **Frontend:** HTML/Twig rend l'état initial, JavaScript gère l'interactivité
+
+✅ **AJAX:** Pas de rechargement, juste des requêtes JSON en background
+
+✅ **Backend:** Validation stricte, vérification des doublons, sécurité
+
+✅ **Base de données:** Relation Many-to-Many via table de liaison
+
+✅ **UX:** Feedback immédiat (cœur change, notification s'affiche)
+
+---
+
+## 8. Fichiers à Montrer dans l'Ordre
+
+1. **Le bouton** → `templates/animals/index.html.twig:179`
+2. **JavaScript init** → `assets/js/modules/favorites.js:1-20`
+3. **JavaScript addFavorite** → `assets/js/modules/favorites.js:22-45`
+4. **Backend addFavorite** → `src/Controller/AnimalsController.php:356-392`
+5. **Entité Favorites** → `src/Entity/Favorites.php:10-20`
+
+---
+
+## 9. Code pour Copier-Coller
+
+Si tu veux mettre dans ton diaporama:
+
 ```javascript
-// Frontend header
-headers: {
-    'X-Requested-With': 'XMLHttpRequest'  // ← AJAX signal
-}
+// Le fetch() simplifié
+fetch('/api/favorites', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ animalId: 42 })
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        // Mettre à jour l'UI
+    }
+});
 ```
-→ Symfony reconnaît comme AJAX request
-→ Bypass CSRF token validation (convention)
 
----
-
-### Optimisations
-
-#### Frontend
-```javascript
-// Mise à jour DOM AVANT appel serveur
-button.classList.add('favorited');  // ← Immédiat (UX responsive)
-// ... puis fetch POST
-```
-→ Utilisateur voit immédiatement le changement
-→ Pas d'attente de serveur
-
-#### Backend
 ```php
-// Éviter N+1 queries
-$existingFavorite = $entityManager->getRepository(Favorites::class)
-    ->findOneBy([...]);  // ← 1 query pour vérifier doublon
-// vs boucle qui ferait N queries
-```
+// Le backend simplifié
+$favorite = new Favorites();
+$favorite->setUser($user);
+$favorite->setAnimals($animal);
 
-#### Database
-```sql
--- Index sur (user_id, animals_id)
-ALTER TABLE favorites ADD UNIQUE KEY unique_user_animal (user_id, animals_id);
--- Accélère findOneBy() + prévient doublon au niveau DB
-```
+$entityManager->persist($favorite);
+$entityManager->flush();
 
----
-
-## 7️⃣ QUESTIONS POSSIBLES À L'EXAMEN
-
-### Question 1: "Pourquoi `preventDefault()` et `stopPropagation()`?"
-
-**Réponse:**
-```
-preventDefault() = Empêche comportement par défaut du bouton (pas de refresh/soumit)
-stopPropagation() = Empêche event de remonter à éléments parents
-                    Important quand bouton est dans une <a> ou <form>
+return new JsonResponse(['success' => true]);
 ```
 
 ---
 
-### Question 2: "Comment gérez-vous les erreurs?"
+## Durée Estimée de Présentation
 
-**Réponse:**
-```
-Frontend:
-- Try/catch sur fetch
-- Afficher toast error si response pas success
-- Log erreur en console
+- **Introduction** (qu'est-ce que c'est): 1 min
+- **Le bouton HTML/Twig**: 2 min
+- **Le JavaScript AJAX**: 3 min
+- **Le backend Symfony**: 3 min
+- **La base de données**: 1 min
+- **Questions**: 2-3 min
 
-Backend:
-- Return JsonResponse avec success: false + message
-- HTTP status codes (400, 404, 403)
-- Exceptions catégorisées
-
-Exemple:
-if (!$animal) {
-    return 404 Not Found
-}
-if ($existingFavorite) {
-    return 400 Bad Request
-}
-```
+**Total: 12-14 minutes** ← Parfait pour un oral!
 
 ---
 
-### Question 3: "Pourquoi utiliser AJAX plutôt qu'un form submit normal?"
-
-**Réponse:**
-```
-AJAX:
-✅ Pas de refresh page
-✅ UX fluide (utilisateur continue navigation)
-✅ Feedback immédiat avec toast notification
-✅ Multiple requests possibles (ajouter/retirer rapidement)
-
-Form submit:
-❌ Rechargement page complet
-❌ Perte contexte utilisateur
-❌ Lent et mauvaise UX
-```
-
----
-
-### Question 4: "Comment assurez-vous qu'un user peut pas favoriser pour quelqu'un d'autre?"
-
-**Réponse:**
-```
-Backend:
-1. #[IsGranted('ROLE_USER')] ← Vérif authentification
-2. $user = $this->getUser() ← Récupère USER CONNECTÉ
-3. $favorite->setUser($user) ← Toujours le user connecté
-                               (pas de paramètre ID fourni par frontend)
-
-Impossible de faire:
-POST /api/favorites?userId=999  ← userId ignoré
-- Backend récupère toujours $this->getUser()
-- Propriétaire = toujours user connecté
-```
-
----
-
-### Question 5: "Qu'est-ce qu'une relation ManyToMany?"
-
-**Réponse:**
-```
-User ←─ Favorites ─→ Animals
-(1)     (Many)      (Many)
-
-Un User peut avoir PLUSIEURS favoris
-Un Animal peut être favori de PLUSIEURS users
-
-Table Favorites = "join table" qui lie les deux
-
-Example:
-User #1 (Alice) → favorise Animal #10, #20, #30
-User #2 (Bob)   → favorise Animal #10, #40
-
-Rows en base:
-| user_id | animals_id |
-|---------|-----------|
-| 1       | 10        |
-| 1       | 20        |
-| 1       | 30        |
-| 2       | 10        |
-| 2       | 40        |
-```
-
----
-
-## 8️⃣ FICHIERS À MONTRER
-
-```
-Frontend:
-├─ assets/js/modules/favorites.js (initializeFavoriteButtons, addFavorite, removeFavorite)
-├─ assets/js/modules/notifications.js (showNotification)
-├─ assets/styles/pages/_animals.scss (bouton styling)
-└─ templates/animals/index.html.twig (HTML button)
-
-Backend:
-├─ src/Controller/AnimalsController.php (endpoints POST/DELETE)
-├─ src/Entity/Favorites.php (entité)
-├─ src/Entity/User.php (relation OneToMany)
-└─ src/Entity/Animals.php (relation OneToMany)
-
-Database:
-└─ favorites table (user_id, animals_id)
-```
-
----
-
-## 9️⃣ DÉMONSTRATION LIVE (Optionnel)
-
-**Sur l'app en local:**
-
-1. Ouvrir page /animals
-2. Ouvrir DevTools (F12) → Network tab
-3. Cliquer sur ♡ → Montrer:
-   - Request POST /api/favorites
-   - Payload: {"animalId": 42}
-   - Response: {"success": true}
-4. Montrer DOM update: classe .favorited ajoutée
-5. Cliquer ♥ → Montrer DELETE request
-6. Recharger page → Montrer ♥ reste (persisté en DB)
-
----
-
-## 🔟 CONCLUSION (1 min)
-
-### Résumé
-```
-"Ce système de favoris montre une implémentation moderne et sécurisée
-d'une fonctionnalité full-stack:
-
-✅ Frontend: Fetch API, DOM manipulation, feedback utilisateur
-✅ Backend: API REST, validation, sécurité
-✅ Database: Doctrine relationships, persistence
-✅ UX: AJAX sans refresh, notifications toast
-
-C'est un pattern réutilisable pour d'autres features AJAX:
-- System de likes
-- Add to cart
-- Follow user
-- etc.
-"
-```
-
-### Points forts à souligner
-1. **Asynchrone:** AJAX pour UX fluide
-2. **Sécurisé:** Authorization + validation frontend et backend
-3. **Robuste:** Gestion d'erreurs multi-niveaux
-4. **Performant:** DOM update immédiat (optimistic), UX responsive
-
----
-
-## ❓ OUVERTURE AUX QUESTIONS
-
-### Si examinateur demande plus loin:
-
-**"Comment gérer cas edge: user clique 10 fois rapidement?"**
-→ `isNavigating` flag ou debounce() sur frontend
-→ Idempotency au backend (check existe déjà)
-
-**"Comment tester ce système?"**
-→ Unit tests PHP: Mock Repository
-→ Integration tests: Fake HTTP client
-→ E2E tests: Selenium/Playwright pour click réel
-
-**"Performance avec 1 million d'utilisateurs?"**
-→ Cache user favorites (Redis)
-→ Index database sur (user_id, animals_id)
-→ Pagination si trop de favoris
-
----
-
-## 📝 NOTES POUR PRÉSENTATION
-
-**À faire:**
-- ✅ Parler avec confiance et fluidité
-- ✅ Montrer code sur IDE/GitHub
-- ✅ Faire démo live si possible
-- ✅ Expliquer en termes simples (pas jargon)
-- ✅ Anticiper questions (vérif 9️⃣)
-- ✅ Montrer passion pour la tech
-
-**À éviter:**
-- ❌ Lire le code ligne par ligne
-- ❌ Entrer dans trop de détails mineurs
-- ❌ Montrer code sans expliquer
-- ❌ Répondre "je sais pas" (dire "bonne question, faudrait investiguer")
+Bonne présentation! 🐾❤️

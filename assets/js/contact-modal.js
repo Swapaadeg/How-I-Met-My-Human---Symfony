@@ -1,15 +1,8 @@
-/**
- * Contact Modal Module
- * Manages contact form modal loading and submission via AJAX
- */
+/* Contact module */
 
 // Import notification function from notifications module
 import { showNotification } from './modules/notifications.js';
 
-/**
- * Initialize contact modal functionality
- * Attaches event listeners to all contact buttons
- */
 export function initializeContactModal() {
     // Initialize contact button event listeners
     const contactButtons = document.querySelectorAll('.contact-btn');
@@ -35,7 +28,7 @@ export function initializeContactModal() {
 }
 
 function openContactModal(url) {
-    // Créer la modal
+    // Créer la modale
     const modal = document.createElement('div');
     modal.className = 'contact-modal-overlay';
     modal.innerHTML = `
@@ -150,7 +143,7 @@ function initializeContactForm(modal) {
     });
 }
 
-// Also make available globally for backward compatibility
+
 window.ContactModal = {
     open: openContactModal,
     close: closeContactModal,

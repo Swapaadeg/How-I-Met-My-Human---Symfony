@@ -1,17 +1,5 @@
-/**
- * Animals Carousel Module
- * Manages the 10 oldest animals carousel with navigation, swipe, and keyboard controls
- */
+/** Le carousel des 10 animaux les plus anciens avec navigation*/
 
-/**
- * Initialize the animals carousel
- * Sets up navigation arrows, swipe detection, keyboard controls, and indicators
- * Supports multiple navigation methods:
- * - Click on navigation arrows (prev/next buttons)
- * - Click on indicator dots
- * - Keyboard arrow keys (left/right)
- * - Touch swipe gestures (mobile)
- */
 export function initAnimalsCarousel() {
     const carousel = document.querySelector('.animals-carousel');
     const cards = document.querySelectorAll('.carousel-card');

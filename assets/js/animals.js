@@ -5,7 +5,6 @@
 
 import { initializeFavoriteButtons, addFavorite, removeFavorite } from './modules/favorites.js';
 import { showNotification } from './modules/notifications.js';
-import { handleShare, initializeActionButtons } from './modules/share.js';
 import { initializeTooltips } from './modules/tooltips.js';
 import { initializeAnimalCards, initializeSeeMoreButtons } from './modules/animalCards.js';
 
@@ -22,9 +21,6 @@ export function initializeAnimals() {
     // Initialize see more buttons
     initializeSeeMoreButtons();
 
-    // Initialize action buttons (share)
-    initializeActionButtons();
-
     // Initialize tooltips
     initializeTooltips();
 }
@@ -36,7 +32,6 @@ export {
     showNotification,
     addFavorite,
     removeFavorite,
-    handleShare,
     initializeTooltips
 };
 
@@ -45,6 +40,5 @@ window.AnimalCards = {
     addFavorite,
     removeFavorite,
     showNotification,
-    handleShare,
     initializeTooltips
 };

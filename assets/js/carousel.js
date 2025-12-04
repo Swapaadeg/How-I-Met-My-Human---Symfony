@@ -1,4 +1,4 @@
-// Carrousel functionality
+// Carrousel bannière automatique toutes les 5 secondes
 export function initCarousel() {
     const slides = document.querySelectorAll('.carousel-slide');
 

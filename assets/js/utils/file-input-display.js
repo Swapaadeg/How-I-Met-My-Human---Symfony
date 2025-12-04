@@ -1,8 +1,4 @@
-/**
- * File Input Display Utility
- * Manages display of selected file names in file input fields
- * Used in: security/auth.html.twig, adopter_news/new.html.twig
- */
+//Affiche le nom du fichier sélectionné dans un input de type file
 
 /**
  * Initialize file input display for a specific file input and display element

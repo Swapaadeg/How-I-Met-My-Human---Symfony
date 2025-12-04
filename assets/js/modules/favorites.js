@@ -1,7 +1,4 @@
-/**
- * Favorites Module
- * Handles adding and removing favorites
- */
+/*Ajout dans les favoris*/
 
 import { showNotification } from './notifications.js';
 
@@ -30,6 +27,7 @@ export function addFavorite(animalId) {
     });
 }
 
+/*Retrait des favoris */
 export function removeFavorite(animalId) {
     console.log(`Removing animal ${animalId} from favorites`);
 
