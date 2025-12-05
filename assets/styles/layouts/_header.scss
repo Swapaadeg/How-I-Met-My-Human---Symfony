@@ -754,7 +754,7 @@
                     color: v.$color-dark;
                     font-size: 1rem;
                     font-family: v.$font-family-primary;
-                    min-width: 120px;
+                    width: 250px;
                     cursor: pointer;
                     transition: all 0.3s ease;
 
@@ -766,11 +766,6 @@
 
                     &:hover {
                         background: rgba(v.$color-primary, 0.8);
-                    }
-
-                    // Style spécifique pour le département (plus large)
-                    &#department-select {
-                        min-width: 200px;
                     }
                 }
             }

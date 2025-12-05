@@ -97,12 +97,13 @@
                 object-fit: cover;
                 object-position: center;
                 box-shadow: 0 15px 40px rgba(v.$color-accent, 0.2);
-                display: block; // Élimine l'espace sous l'image
+                display: block;
             }
         }
         
         .text-info {
             flex: 1;
+            padding: 0 2rem;
             
             h4 {
                 font-family: v.$font-family-bold;

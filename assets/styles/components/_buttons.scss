@@ -14,12 +14,11 @@
     align-items: center;
     gap: 0.5rem;
     justify-content: center;
-    
+
     i {
         font-size: 1.1rem;
-        order: 2;
     }
-    
+
     &:hover {
         background: v.$color-accent;
         transform: translateY(-2px);

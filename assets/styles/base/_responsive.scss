@@ -1,13 +1,7 @@
 @use "../abstracts/variables" as v;
 
-/*
-================================================================================
-RESPONSIVE BREAKPOINTS OPTIMIZATION
-================================================================================
-*/
-
-/* 992px and below */
-@media (max-width: 992px) {
+/* TABLETTE - 1040px */
+@media (max-width: 1040px) {
     /*
     ================================================================================
     ASSOCIATIONS
@@ -26,14 +20,12 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     ================================================================================
     */
 
-    /* Adoption Conditions */
     .adoption-conditions {
         .content-section {
             grid-template-columns: 1fr;
         }
     }
 
-    /* Our Team */
     .our-team {
         .team-member {
             grid-template-columns: 1fr;
@@ -52,7 +44,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     }
 }
 
-/* 768px and below */
+/* MOBILE LARGE - 768px */
 @media (max-width: 768px) {
     /*
     ================================================================================
@@ -112,13 +104,61 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         }
     }
 
+    footer {
+        margin-top: 6rem;
+        .section-footer {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            padding-top: 4rem;
+            padding: 8rem 1rem 2rem;
+
+            .link-footer,
+            .contact-footer {
+                width: 100%;
+                text-align: center;
+
+                h4 {
+                    text-align: center;
+                    display: block;
+                }
+
+                ul {
+                    padding-left: 0;
+                    margin: 0;
+                    list-style: none;
+
+                    li {
+                        margin-bottom: 0.75rem;
+                        line-height: 1.5;
+                        display: block;
+                        text-align: center;
+
+                        i {
+                            margin-right: 0;
+                            display: inline;
+                        }
+
+                        a {
+                            display: inline;
+                        }
+                    }
+                }
+            }
+
+            .contact-footer ul li {
+                display: block;
+            }
+        }
+    }
+
     /*
     ================================================================================
-    ASSOCIATIONS PAGES
+    ASSOCIATIONS
     ================================================================================
     */
     
-    /* Main associations listing page */
     .associations {
         .container {
             padding: 1rem 0.5rem 5rem;
@@ -138,17 +178,16 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         .grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;
+            justify-items: center;
         }
     }
 
-    /* Association detail page */
     .association-detail {
         .header-card .title {
             font-size: 2rem;
         }
     }
 
-    /* Association forms (new/edit) */
     .association-form {
         .card .header {
             flex-direction: column;
@@ -160,7 +199,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         }
     }
 
-    /* Association management page */
     .association-manage {
         .header {
             flex-direction: column;
@@ -196,39 +234,65 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    ANIMALS PAGES
+    ANIMALS
     ================================================================================
     */
     
-    /* Animals listing page */
     .animals-page {
         .container {
             padding: 0 1rem;
         }
-        
+
         .page-header {
             h1 {
                 font-size: 2rem;
             }
         }
-        
+
+        .filters-section {
+            padding: 1rem;
+
+            .filters-form {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: stretch;
+
+                .filter-field,
+                .filter-btn,
+                .reset-btn {
+                    width: 100%;
+                }
+
+                .filter-field select {
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+
+                .filter-btn,
+                .reset-btn {
+                    justify-content: center;
+                    box-sizing: border-box;
+                }
+            }
+        }
+
         .animals-grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;
         }
-        
+
         .animal-card {
             .card-image {
                 height: 200px;
             }
-            
+
             .card-content {
                 padding: 1.2rem;
             }
         }
     }
 
-    /* Animal detail page */
     .animal-detail-page {
         .animal-detail {
             grid-template-columns: 1fr;
@@ -242,12 +306,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
             }
         }
     }
-
-    /*
-    ================================================================================
-    ADD ANIMAL PAGE
-    ================================================================================
-    */
 
     .add-animal-page {
         padding: 1rem 0 8rem;
@@ -324,7 +382,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    RGPD PAGES
+    LEGAL PAGES
     ================================================================================
     */
 
@@ -382,7 +440,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         transform: translateY(-100%);
     }
 
-    /* Password Reset Pages */
     .bouteille-form-container {
         padding: 2rem 1rem;
         min-height: calc(100vh - 200px);
@@ -422,7 +479,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     ================================================================================
     */
 
-    /* Modal */
     .contact-modal {
         max-width: 100%;
         max-height: 100vh;
@@ -434,20 +490,25 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         padding: 0;
     }
 
-    /* Animals Carousel */
-    .animals-carousel-container {
-        // Hide navigation arrows on mobile
-        .carousel-nav {
-            display: none !important;
+    [data-tooltip] {
+        &::before {
+            max-width: 90vw;
+            min-width: 120px;
+            font-size: 0.8rem;
+            padding: 0.5rem 0.7rem;
         }
+    }
 
-        // Reset container positioning
+    .animals-carousel-container {
         position: relative;
         overflow: visible;
         padding: 1rem 0;
 
+        .carousel-nav {
+            display: none;
+        }
+
         .animals-carousel {
-            // Remove fixed height and display as column
             height: auto;
             display: flex;
             flex-direction: column;
@@ -455,28 +516,41 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
             align-items: center;
             position: relative;
 
-            .carousel-card {
-                // Reset all positioning and show all cards
-                position: static !important;
-                transform: none !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
-                z-index: 1 !important;
+            .carousel-card.carousel-card.carousel-card {
+                position: static;
+                transform: none;
+                opacity: 1;
+                pointer-events: auto;
+                z-index: 1;
                 max-width: 85vw;
                 width: 85vw;
+                cursor: default;
 
-                // Enable all interactions on all cards
-                cursor: default !important;
+                &.left,
+                &.right,
+                &.center,
+                &.far-left,
+                &.far-right,
+                &.back-left,
+                &.back-right,
+                &.far-back-left,
+                &.far-back-right,
+                &.hidden,
+                &.hidden-right {
+                    position: static;
+                    transform: none;
+                    opacity: 1;
+                    pointer-events: auto;
+                }
 
                 a, button {
-                    pointer-events: auto !important;
+                    pointer-events: auto;
                 }
             }
         }
 
-        // Hide pagination dots on mobile
         .carousel-indicators {
-            display: none !important;
+            display: none;
         }
     }
 
@@ -486,7 +560,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
     ================================================================================
     */
 
-    /* Oldest Animals Section */
     .homepage {
         .oldest-animals-section {
             padding: 2rem 0 4rem;
@@ -494,22 +567,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         }
     }
 
-    /* Header and Navigation */
-    .main-header .navbar {
-        padding: 1rem;
-        flex-direction: column;
-        gap: 1rem;
-        
-        .nav-links {
-            gap: 1rem;
-        }
-        
-        .auth-section {
-            gap: 0.5rem;
-        }
-    }
-
-    /* Hero Carousel */
     .hero-carousel {
         .carousel-content {
             h1 {
@@ -517,19 +574,34 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
             }
             
             .search-form {
+                display: flex;
                 flex-direction: column;
-                gap: 0.5rem;
-                
-                .search-field select,
+                gap: 0.75rem;
+                align-items: center;
+                width: 100%;
+                max-width: 360px;
+                margin: 0 auto;
+                padding: 0 1rem;
+                box-sizing: border-box;
+
+                .search-field,
                 .search-btn {
                     width: 100%;
-                    max-width: 250px;
+                }
+
+                .search-field select {
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+
+                .search-btn {
+                    display: flex;
+                    box-sizing: border-box;
                 }
             }
         }
     }
 
-    /* Info Section */
     .info-section {
         padding: 3rem 0;
         
@@ -542,7 +614,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
                 width: 100%;
                 
                 img {
-                    max-width: 400px;
                     margin: 0 auto;
                     display: block;
                 }
@@ -550,6 +621,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
             
             .text-info {
                 text-align: center;
+                padding: 1rem 2rem;
                 
                 h4 {
                     font-size: 2rem;
@@ -562,7 +634,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         }
     }
 
-    /* Stats Section */
     .stats-section {
         padding: 3rem 0;
 
@@ -602,7 +673,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
         }
     }
 
-    /* Adopter News Section */
     .adopter-news-section {
         padding: 2.5rem 0;
 
@@ -681,337 +751,6 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    GLOBAL UTILITIES
-    ================================================================================
-    */
-    
-    /* Hide elements on mobile */
-    .d-none-mobile {
-        display: none;
-    }
-
-    /* Text alignment utilities */
-    .text-center-mobile {
-        text-align: center;
-    }
-
-    .text-left-mobile {
-        text-align: left;
-    }
-
-    /* Spacing utilities */
-    .p-mobile-1 {
-        padding: 0.5rem;
-    }
-
-    .p-mobile-2 {
-        padding: 1rem;
-    }
-
-    .m-mobile-1 {
-        margin: 0.5rem;
-    }
-
-    .m-mobile-2 {
-        margin: 1rem;
-    }
-
-    /* Flex utilities */
-    .flex-column-mobile {
-        flex-direction: column;
-    }
-
-    .flex-row-mobile {
-        flex-direction: row;
-    }
-}
-
-/* 600px and below */
-@media (max-width: 600px) {
-    /* Modal tooltips */
-    [data-tooltip] {
-        &::before {
-            max-width: 90vw;
-            min-width: 120px;
-            font-size: 0.8rem;
-            padding: 0.5rem 0.7rem;
-        }
-    }
-}
-
-/* 480px and below */
-@media (max-width: 480px) {
-    .animals-page {
-        padding: 1rem 0;
-
-        .page-header {
-            margin-bottom: 2rem;
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-            }
-        }
-
-        .animals-grid {
-            gap: 1rem;
-        }
-
-        .animal-card {
-            .card-image {
-                height: 180px;
-            }
-
-            .card-content {
-                padding: 1rem;
-
-                .card-header .animal-name {
-                    font-size: 1.2rem;
-                }
-
-                .card-actions {
-                    .action-btn {
-                        width: 30px;
-                        height: 30px;
-                        font-size: 0.8rem;
-                    }
-                }
-            }
-        }
-    }
-
-    /* Add Animal Page - 480px */
-    .add-animal-page {
-        .page-header h1 {
-            font-size: 1.5rem;
-        }
-
-        .form-container {
-            padding: 1rem 0.75rem;
-        }
-
-        .animal-form {
-            .form-section {
-                padding: 1rem;
-
-                h3 {
-                    font-size: 1.1rem;
-                }
-            }
-
-            .tags-wrapper > div {
-                grid-template-columns: 1fr;
-            }
-        }
-    }
-
-    .animal-detail-page {
-        .animal-detail .animal-info {
-            padding: 1rem;
-
-            h1 {
-                font-size: 1.6rem;
-            }
-
-            .contact-buttons {
-                flex-direction: column;
-            }
-        }
-    }
-
-    /* Password Reset Pages - Small Screens */
-    .bouteille-form-container {
-        padding: 1.5rem 1rem;
-
-        h2 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-grid {
-            padding: 1.5rem 1rem;
-        }
-
-        .form-label {
-            font-size: 13px;
-        }
-
-        .form-input {
-            height: 42px;
-            font-size: 14px;
-            padding: 0 15px;
-        }
-
-        .form-actions .btn {
-            height: 42px;
-            font-size: 14px;
-        }
-    }
-
-    .modale-flash .modale-content {
-        padding: 1.5rem;
-
-        p {
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        .modale-close {
-            padding: 0.7rem 1.5rem;
-            font-size: 14px;
-        }
-    }
-
-    /* Animals carousel styles handled in _animals-carousel.scss */
-
-    .hero-carousel {
-        .carousel-content h1 {
-            font-size: 2rem;
-        }
-    }
-
-    /* Adopter News Section - Small Screens */
-    .adopter-news-section {
-        padding: 2rem 0;
-
-        h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.6rem;
-        }
-
-        .news-card {
-            width: 350px;
-            padding: 0.8rem;
-            gap: 1rem;
-            flex-direction: column;
-            text-align: center;
-
-            .news-image {
-                width: 70px;
-                height: 70px;
-                margin: 0 auto;
-            }
-
-            .news-content {
-                .news-text {
-                    font-size: 0.95rem;
-                }
-
-                .news-meta {
-                    font-size: 0.7rem;
-                    justify-content: center;
-                }
-            }
-        }
-    }
-
-    /*
-    ================================================================================
-    HOMEPAGE
-    ================================================================================
-    */
-
-    .homepage {
-        .why-adopt-section {
-            .why-adopt-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-    }
-
-    /*
-    ================================================================================
-    HOMEPAGE - Why Adopt Section
-    ================================================================================
-    */
-    .homepage {
-        .why-adopt-section {
-            .why-adopt-container {
-                gap: 2rem;
-            }
-
-            .why-adopt-text {
-                h4 {
-                    font-size: 1.8rem;
-                }
-
-                p {
-                    font-size: 1rem;
-                    margin-bottom: 1.5rem;
-                }
-
-                .btn-adopt {
-                    padding: 0.8rem 1.5rem;
-                    font-size: 0.9rem;
-                }
-            }
-
-            .why-adopt-image {
-                img {
-                    max-width: 300px;
-                }
-            }
-        }
-    }
-}
-
-/* 576px and below */
-@media (max-width: 576px) {
-    /*
-    ================================================================================
-    HOMEPAGE - Why Adopt Section Mobile
-    ================================================================================
-    */
-    .homepage {
-        .why-adopt-section {
-            padding: 3rem 0;
-
-            .why-adopt-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
-            }
-
-            .why-adopt-text {
-                order: 2;
-
-                h4 {
-                    font-size: 1.6rem;
-                    margin-bottom: 1rem;
-                }
-
-                p {
-                    font-size: 0.95rem;
-                    line-height: 1.6;
-                    margin-bottom: 1.5rem;
-                    max-width: none;
-                }
-
-                .btn-adopt {
-                    padding: 0.8rem 1.5rem;
-                    font-size: 0.9rem;
-                }
-            }
-
-            .why-adopt-image {
-                order: 1;
-
-                img {
-                    max-width: 250px;
-                }
-            }
-        }
-    }
-}
-
-/* 768px Mobile section - Additional Pages */
-@media (max-width: 768px) {
-    /*
-    ================================================================================
     PROFILE PAGE
     ================================================================================
     */
@@ -1072,7 +811,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    COMMENTS SECTION
+    COMMENTS
     ================================================================================
     */
 
@@ -1090,11 +829,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
             .comment-user-info {
                 margin-bottom: 1rem;
 
-                .comment-avatar {
-                    width: 35px;
-                    height: 35px;
-                }
-
+                .comment-avatar,
                 .comment-avatar-placeholder {
                     width: 35px;
                     height: 35px;
@@ -1176,7 +911,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    JOIN ASSOCIATION PAGE
+    JOIN ASSOCIATION
     ================================================================================
     */
 
@@ -1259,65 +994,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    FOOTER
-    ================================================================================
-    */
-
-    footer {
-        .footer-wrapper {
-            padding: 2rem 1rem;
-
-            .logo-footer {
-                margin-bottom: 2rem;
-                text-align: center;
-
-                img {
-                    height: 60px;
-                }
-
-                p {
-                    font-size: 1rem;
-                }
-            }
-
-            .section-footer {
-                flex-direction: column;
-                gap: 2rem;
-                text-align: center;
-
-                .link-footer {
-                    h4 {
-                        font-size: 1.1rem;
-                    }
-
-                    ul li {
-                        padding: 0.25rem;
-                        font-size: 0.95rem;
-                    }
-                }
-
-                .contact-footer {
-                    h4 {
-                        font-size: 1.1rem;
-                    }
-
-                    li {
-                        font-size: 0.95rem;
-                        margin-bottom: 0.5rem;
-                    }
-                }
-            }
-
-            .copyright {
-                font-size: 0.85rem;
-                margin-top: 2rem;
-            }
-        }
-    }
-
-    /*
-    ================================================================================
-    ADOPTER NEWS PAGE
+    ADOPTER NEWS
     ================================================================================
     */
 
@@ -1357,7 +1034,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    ANIMAL DETAIL PAGE WITH COMMENTS
+    ANIMAL DETAIL
     ================================================================================
     */
 
@@ -1414,13 +1091,302 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
             }
         }
     }
+
+    /*
+    ================================================================================
+    UTILITIES
+    ================================================================================
+    */
+    
+    .d-none-mobile {
+        display: none;
+    }
+
+    .text-center-mobile {
+        text-align: center;
+    }
+
+    .text-left-mobile {
+        text-align: left;
+    }
+
+    .p-mobile-1 {
+        padding: 0.5rem;
+    }
+
+    .p-mobile-2 {
+        padding: 1rem;
+    }
+
+    .m-mobile-1 {
+        margin: 0.5rem;
+    }
+
+    .m-mobile-2 {
+        margin: 1rem;
+    }
+
+    .flex-column-mobile {
+        flex-direction: column;
+    }
+
+    .flex-row-mobile {
+        flex-direction: row;
+    }
 }
 
-/* 480px Mobile section - Additional Optimizations */
+/* MOBILE PETIT - 480px */
 @media (max-width: 480px) {
     /*
     ================================================================================
-    PROFILE PAGE
+    ANIMALS
+    ================================================================================
+    */
+
+    .animals-page {
+        padding: 1rem 0;
+
+        .page-header {
+            margin-bottom: 2rem;
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        .animals-grid {
+            gap: 1rem;
+        }
+
+        .animal-card {
+            .card-image {
+                height: 180px;
+            }
+
+            .card-content {
+                padding: 1rem;
+
+                .card-header .animal-name {
+                    font-size: 1.2rem;
+                }
+
+                .card-actions {
+                    .action-btn {
+                        width: 30px;
+                        height: 30px;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .add-animal-page {
+        .page-header h1 {
+            font-size: 1.5rem;
+        }
+
+        .form-container {
+            padding: 1rem 0.75rem;
+        }
+
+        .animal-form {
+            .form-section {
+                padding: 1rem;
+
+                h3 {
+                    font-size: 1.1rem;
+                }
+            }
+
+            .tags-wrapper > div {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+
+    .animal-detail-page {
+        .animal-detail .animal-info {
+            padding: 1rem;
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+        }
+    }
+
+    .animal-show-page {
+        .animal-show-container {
+            padding: 0.75rem;
+
+            .animal-profile-wrapper {
+                .profile-img {
+                    width: 120px;
+                    height: 120px;
+                }
+
+                .info-box {
+                    font-size: 0.85rem;
+                    padding: 0.6rem;
+                }
+
+                .circle-rotate,
+                .circle-rotate2 {
+                    width: 160px;
+                    height: 160px;
+                }
+            }
+
+            .animal-tags-section {
+                padding: 1rem 0.75rem;
+
+                .tags-container {
+                    .tag {
+                        padding: 0.4rem 0.8rem;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+
+    /*
+    ================================================================================
+    AUTH
+    ================================================================================
+    */
+
+    .bouteille-form-container {
+        padding: 1.5rem 1rem;
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-grid {
+            padding: 1.5rem 1rem;
+        }
+
+        .form-label {
+            font-size: 13px;
+        }
+
+        .form-input {
+            height: 42px;
+            font-size: 14px;
+            padding: 0 15px;
+        }
+
+        .form-actions .btn {
+            height: 42px;
+            font-size: 14px;
+        }
+    }
+
+    .modale-flash .modale-content {
+        padding: 1.5rem;
+
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .modale-close {
+            padding: 0.7rem 1.5rem;
+            font-size: 14px;
+        }
+    }
+
+    /*
+    ================================================================================
+    HOMEPAGE
+    ================================================================================
+    */
+
+    .hero-carousel {
+        .carousel-content h1 {
+            font-size: 2rem;
+        }
+    }
+
+    .adopter-news-section {
+        padding: 2rem 0;
+
+        h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .news-card {
+            width: 350px;
+            padding: 0.8rem;
+            gap: 1rem;
+            flex-direction: column;
+            text-align: center;
+
+            .news-image {
+                width: 70px;
+                height: 70px;
+                margin: 0 auto;
+            }
+
+            .news-content {
+                .news-text {
+                    font-size: 0.95rem;
+                }
+
+                .news-meta {
+                    font-size: 0.7rem;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+
+    .homepage {
+        .why-adopt-section {
+            .why-adopt-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .why-adopt-text {
+                h4 {
+                    font-size: 1.8rem;
+                }
+
+                p {
+                    font-size: 1rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                .btn-adopt {
+                    padding: 0.8rem 1.5rem;
+                    font-size: 0.9rem;
+                }
+            }
+
+            .why-adopt-image {
+                img {
+                    max-width: 300px;
+                }
+            }
+        }
+    }
+
+    /*
+    ================================================================================
+    PROFILE
     ================================================================================
     */
 
@@ -1457,7 +1423,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    COMMENTS SECTION
+    COMMENTS
     ================================================================================
     */
 
@@ -1547,7 +1513,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    JOIN ASSOCIATION PAGE
+    JOIN ASSOCIATION
     ================================================================================
     */
 
@@ -1612,48 +1578,7 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
 
     /*
     ================================================================================
-    FOOTER
-    ================================================================================
-    */
-
-    footer {
-        .footer-wrapper {
-            padding: 1.5rem 0.75rem;
-
-            .logo-footer {
-                margin-bottom: 1.5rem;
-
-                img {
-                    height: 50px;
-                }
-
-                p {
-                    font-size: 0.9rem;
-                }
-            }
-
-            .section-footer {
-                gap: 1.5rem;
-
-                .link-footer h4,
-                .contact-footer h4 {
-                    font-size: 1rem;
-                }
-
-                li {
-                    font-size: 0.9rem;
-                }
-            }
-
-            .copyright {
-                font-size: 0.8rem;
-            }
-        }
-    }
-
-    /*
-    ================================================================================
-    ADOPTER NEWS PAGE
+    ADOPTER NEWS
     ================================================================================
     */
 
@@ -1689,50 +1614,9 @@ RESPONSIVE BREAKPOINTS OPTIMIZATION
             }
         }
     }
-
-    /*
-    ================================================================================
-    ANIMAL DETAIL PAGE WITH COMMENTS
-    ================================================================================
-    */
-
-    .animal-show-page {
-        .animal-show-container {
-            padding: 0.75rem;
-
-            .animal-profile-wrapper {
-                .profile-img {
-                    width: 120px;
-                    height: 120px;
-                }
-
-                .info-box {
-                    font-size: 0.85rem;
-                    padding: 0.6rem;
-                }
-
-                .circle-rotate,
-                .circle-rotate2 {
-                    width: 160px;
-                    height: 160px;
-                }
-            }
-
-            .animal-tags-section {
-                padding: 1rem 0.75rem;
-
-                .tags-container {
-                    .tag {
-                        padding: 0.4rem 0.8rem;
-                        font-size: 0.8rem;
-                    }
-                }
-            }
-        }
-    }
 }
 
-/* Desktop only utilities */
+/* DESKTOP - masquage éléments mobiles */
 @media (min-width: 769px) {
     .d-none-desktop {
         display: none;

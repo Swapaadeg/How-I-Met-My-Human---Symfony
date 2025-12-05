@@ -133,7 +133,7 @@
 
             .filter-btn {
                 background: linear-gradient(135deg, v.$color-secondary, v.$color-accent);
-                color: white;
+                color: v.$color-background;
 
                 &:hover {
                     transform: translateY(-2px);
