@@ -414,12 +414,13 @@
     */
 
     .auth-form-section {
-        padding: 80px 10px 40px;
+        padding: 80px 10px 100px;
     }
 
     .auth-wrapper {
         width: 95%;
-        height: 500px;
+        min-height: 850px;
+        height: auto;
         flex-direction: column;
     }
 
@@ -438,6 +439,10 @@
 
     .auth-wrapper.sign-up-mode .info-panel {
         transform: translateY(-100%);
+    }
+    .auth-wrapper.sign-up-mode .register-panel {
+        margin-top: 12rem;
+        margin-bottom: 2rem;
     }
 
     .bouteille-form-container {
