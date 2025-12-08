@@ -437,8 +437,8 @@ final class AssociationsController extends AbstractController
             }
 
             // Delete all memberships
-            foreach ($association->getMembers() as $membership) {
-                $this->entityManager->remove($membership);
+            foreach ($association->getAssociationMembers() as $member) {
+                $this->entityManager->remove($member);
             }
 
             // Delete the association
