@@ -7,11 +7,26 @@
         <h2> S'inscrire</h2>
 
         {{ form_start(userForm) }}
+            {# Afficher les erreurs globales du formulaire #}
             {% for error in userForm.vars.errors %}
-                <div class="form-error">
+                <div class="alert alert-danger">
                     {{ error.message }}
                 </div>
             {% endfor %}
+
+            {# Afficher les erreurs flash #}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
                 <div class="form-grid">
                 <div class="form-group">
                     {{ form_row(userForm.email, {

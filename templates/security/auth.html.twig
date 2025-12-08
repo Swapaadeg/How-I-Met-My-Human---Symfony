@@ -63,9 +63,26 @@
                 <h2>S'inscrire</h2>
                 
                 {{ form_start(registerForm, {'attr': {'class': 'auth-form', 'id': 'registerForm'}}) }}
+                    {# Afficher les erreurs globales du formulaire #}
                     {% for error in registerForm.vars.errors %}
                         <div class="form-error">
                             {{ error.message }}
+                        </div>
+                    {% endfor %}
+
+                    {# Afficher les erreurs des champs password #}
+                    {% if registerForm.password.first.vars.errors|length > 0 %}
+                        {% for error in registerForm.password.first.vars.errors %}
+                            <div class="form-error">
+                                {{ error.message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {# Afficher les erreurs flash #}
+                    {% for message in app.flashes('error') %}
+                        <div class="form-error">
+                            {{ message }}
                         </div>
                     {% endfor %}
 

@@ -88,8 +88,15 @@ export function initAuth() {
         });
     }
 
-    // Initialize animations
-    initAnimations();
+    // Check if there are errors in the register form and switch to sign-up mode
+    const registerFormErrors = document.querySelectorAll('.register-panel .form-error');
+    if (registerFormErrors.length > 0) {
+        // Switch to sign-up panel if there are registration errors
+        switchToSignUp();
+    } else {
+        // Initialize animations normally (login panel by default)
+        initAnimations();
+    }
 
     // Floating label effect for form inputs
     const inputs = document.querySelectorAll('.input-box input');

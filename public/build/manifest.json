@@ -1,8 +1,8 @@
 {
-  "build/app.css": "/build/app.88e71329.css",
-  "build/app.js": "/build/app.7f2ebaf3.js",
-  "build/runtime.js": "/build/runtime.6f4bd0a9.js",
-  "build/618.2da6d103.js": "/build/618.2da6d103.js",
+  "build/app.css": "/build/app.css",
+  "build/app.js": "/build/app.js",
+  "build/runtime.js": "/build/runtime.js",
+  "build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-ab823f.js": "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-ab823f.js",
   "build/images/chiens.jpg": "/build/images/chiens.ad4462c7.jpg",
   "build/images/background-avis.jpg": "/build/images/background-avis.7210699c.jpg",
   "build/images/bg-auth.jpg": "/build/images/bg-auth.ddab8613.jpg",
@@ -11,5 +11,9 @@
   "build/fonts/Nunito-Regular.ttf": "/build/fonts/Nunito-Regular.5c82641f.ttf",
   "build/fonts/Nunito-Bold.ttf": "/build/fonts/Nunito-Bold.01134d79.ttf",
   "build/fonts/Nunito-ExtraLight.ttf": "/build/fonts/Nunito-ExtraLight.ddee2cda.ttf",
-  "build/fonts/Courgette-Regular.ttf": "/build/fonts/Courgette-Regular.f99d9948.ttf"
+  "build/fonts/Courgette-Regular.ttf": "/build/fonts/Courgette-Regular.f99d9948.ttf",
+  "build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-cc76ff.js": "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-cc76ff.js",
+  "build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-2aa93b.js": "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-2aa93b.js",
+  "build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-5bd4c2.js": "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-5bd4c2.js",
+  "build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-2024e0.js": "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-2024e0.js"
 }
