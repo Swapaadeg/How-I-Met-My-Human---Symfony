@@ -307,6 +307,114 @@
         }
     }
 
+    .animal-show-page {
+        padding: 2rem 1rem;
+
+        .animal-show-container {
+            padding: 0;
+            gap: 1.5rem;
+        }
+
+        .animal-profile-wrapper {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            margin-bottom: 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .circle-container,
+        .circle-rotate,
+        .circle-rotate2 {
+            display: none;
+        }
+
+        .profile-img {
+            position: static;
+            transform: none;
+            width: 240px;
+            height: 240px;
+            border: 4px solid v.$color-secondary;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-nom {
+            position: static;
+            transform: none;
+            top: auto;
+            left: auto;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .info-box {
+            position: static;
+            transform: none;
+            top: auto;
+            left: auto;
+            right: auto;
+            bottom: auto;
+            width: 100%;
+            max-width: 280px;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .info-sexe,
+        .info-age,
+        .info-arrivee,
+        .info-asso,
+        .info-ville {
+            position: static;
+            transform: none;
+            width: 100%;
+        }
+
+        .fav-button {
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .animal-description-box {
+            max-width: 100%;
+            padding: 1.5rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .animal-tags-section {
+            max-width: 100%;
+            padding: 1.25rem 1rem;
+
+            .tags-container {
+                .tag {
+                    padding: 0.5rem 1rem;
+                    font-size: 0.85rem;
+                }
+            }
+        }
+
+        .action-buttons {
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            width: 100%;
+            max-width: 350px;
+
+            .btn-back,
+            .btn-contact,
+            .btn-edit,
+            .btn-delete {
+                width: 100%;
+                justify-content: center;
+                padding: 0.85rem 1.5rem;
+            }
+        }
+    }
+
     .add-animal-page {
         padding: 1rem 0 8rem;
 
@@ -1043,59 +1151,6 @@
     ================================================================================
     */
 
-    .animal-show-page {
-        .animal-show-container {
-            padding: 1rem;
-
-            .animal-profile-wrapper {
-                .profile-img {
-                    width: 150px;
-                    height: 150px;
-                }
-
-                .info-box {
-                    font-size: 0.9rem;
-                    padding: 0.8rem;
-                }
-
-                .circle-rotate,
-                .circle-rotate2 {
-                    width: 200px;
-                    height: 200px;
-                }
-            }
-
-            .animal-tags-section {
-                padding: 1.5rem 1rem;
-
-                h3 {
-                    font-size: 1.3rem;
-                }
-
-                .tags-container {
-                    flex-wrap: wrap;
-                    gap: 0.5rem;
-
-                    .tag {
-                        padding: 0.5rem 1rem;
-                        font-size: 0.85rem;
-                    }
-                }
-            }
-
-            .action-buttons {
-                flex-direction: column;
-                gap: 1rem;
-                margin-bottom: 2rem;
-
-                .btn-back,
-                .btn-contact {
-                    width: 100%;
-                    justify-content: center;
-                }
-            }
-        }
-    }
 
     /*
     ================================================================================
@@ -1229,36 +1284,109 @@
     }
 
     .animal-show-page {
+        padding: 2rem 1rem;
+
         .animal-show-container {
-            padding: 0.75rem;
+            padding: 0;
+            gap: 1.5rem;
+        }
 
-            .animal-profile-wrapper {
-                .profile-img {
-                    width: 120px;
-                    height: 120px;
-                }
+        .animal-profile-wrapper {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            margin-bottom: 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-                .info-box {
+        .circle-container,
+        .circle-rotate,
+        .circle-rotate2 {
+            display: none;
+        }
+
+        .profile-img {
+            position: static;
+            transform: none;
+            width: 240px;
+            height: 240px;
+            border: 4px solid v.$color-secondary;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-nom {
+            position: static;
+            transform: none;
+            top: auto;
+            left: auto;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .info-box {
+            position: static;
+            transform: none;
+            top: auto;
+            left: auto;
+            right: auto;
+            bottom: auto;
+            width: 100%;
+            max-width: 280px;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .info-sexe,
+        .info-age,
+        .info-arrivee,
+        .info-asso,
+        .info-ville {
+            position: static;
+            transform: none;
+            width: 100%;
+        }
+
+        .fav-button {
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .animal-description-box {
+            max-width: 100%;
+            padding: 1.5rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .animal-tags-section {
+            max-width: 100%;
+            padding: 1.25rem 1rem;
+
+            .tags-container {
+                .tag {
+                    padding: 0.5rem 1rem;
                     font-size: 0.85rem;
-                    padding: 0.6rem;
-                }
-
-                .circle-rotate,
-                .circle-rotate2 {
-                    width: 160px;
-                    height: 160px;
                 }
             }
+        }
 
-            .animal-tags-section {
-                padding: 1rem 0.75rem;
+        .action-buttons {
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            width: 100%;
+            max-width: 350px;
 
-                .tags-container {
-                    .tag {
-                        padding: 0.4rem 0.8rem;
-                        font-size: 0.8rem;
-                    }
-                }
+            .btn-back,
+            .btn-contact,
+            .btn-edit,
+            .btn-delete {
+                width: 100%;
+                justify-content: center;
+                padding: 0.85rem 1.5rem;
             }
         }
     }
