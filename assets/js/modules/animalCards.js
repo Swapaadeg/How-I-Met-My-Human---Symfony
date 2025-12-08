@@ -14,8 +14,10 @@ export function initializeAnimalCards() {
 
         // Add click handler for grid cards (excluding buttons)
         card.addEventListener('click', function(e) {
-            // Don't trigger if clicking on buttons
-            if (e.target.closest('.action-btn') || e.target.closest('.see-more-btn')) {
+            // Don't trigger if clicking on buttons or their children
+            if (e.target.closest('.action-btn') ||
+                e.target.closest('.see-more-btn') ||
+                e.target.closest('.card-actions')) {
                 return;
             }
 
