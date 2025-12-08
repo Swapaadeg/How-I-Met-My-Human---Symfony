@@ -2,88 +2,77 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Inline styles for email compatibility */
+        .mail-body {
+            font-family: 'Nunito', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #160F29;
+            background-color: #F0F2EF;
+            margin: 0;
+            padding: 0;
+        }
+        .mail-container {
             max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
         }
-        .header {
-            background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 8px 8px 0 0;
+        .mail-header {
+            background: linear-gradient(135deg, #368F8B, #246A73);
+            color: #ffffff;
+            padding: 24px;
             text-align: center;
         }
-        .content {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 0 0 8px 8px;
-        }
-        .animal-info {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #f8c630;
-        }
-        .message-box {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        .footer {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #e0e0e0;
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-        }
-        h2 {
-            color: #1d3557;
-            margin-top: 0;
-        }
-        .label {
-            font-weight: bold;
-            color: #1d3557;
-        }
+        .mail-header h1 { margin: 0; font-size: 22px; }
+        .mail-section { padding: 24px; background-color: #ffffff; }
+        .mail-info { background-color: #F0F2EF; border-left: 4px solid #368F8B; padding: 16px; margin-bottom: 20px; border-radius: 6px; }
+        .mail-info-title { color: #246A73; font-size: 18px; margin: 0 0 12px; }
+        .mail-row { margin: 0 0 8px; }
+        .mail-label { font-weight: 600; color: #160F29; display: inline-block; min-width: 120px; }
+        .mail-value { color: #160F29; }
+        .mail-message { border: 1px solid #368F8B; border-radius: 6px; padding: 16px; background-color: #ffffff; margin-top: 16px; }
+        .mail-message-content { margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+        .mail-footer { background-color: #160F29; color: #ffffff; padding: 16px; text-align: center; font-size: 14px; }
     </style>
 </head>
-<body>
-    <div class="header">
-        <h1>📧 Nouvelle demande de contact</h1>
-        <p>Concernant {{ animal.name }}</p>
-    </div>
-
-    <div class="content">
-        <div class="animal-info">
-            <h2>🐾 Animal concerné</h2>
-            <p><span class="label">Nom:</span> {{ animal.name }}</p>
-            <p><span class="label">Espèce:</span> {{ animal.species ? animal.species.name : 'Non renseigné' }}</p>
-            <p><span class="label">Âge:</span> {{ animal.age }}</p>
+<body class="mail-body">
+    <div class="mail-container">
+        <div class="mail-header">
+            <h1><i class="fa-solid fa-envelope"></i> Nouvelle demande de contact</h1>
+            <p>Concernant {{ animal.name }}</p>
         </div>
 
-        <h2>👤 Informations du contact</h2>
-        <p><span class="label">Nom:</span> {{ data.name }}</p>
-        <p><span class="label">Email:</span> <a href="mailto:{{ data.email }}">{{ data.email }}</a></p>
-        {% if data.phone %}
-            <p><span class="label">Téléphone:</span> {{ data.phone }}</p>
-        {% endif %}
+        <div class="mail-section">
+            <div class="mail-info">
+                <h2 class="mail-info-title"><i class="fa-solid fa-paw"></i> Animal concerné</h2>
+                <p class="mail-row"><span class="mail-label">Nom:</span><span class="mail-value">{{ animal.name }}</span></p>
+                <p class="mail-row"><span class="mail-label">Espèce:</span><span class="mail-value">{{ animal.species ? animal.species.name : 'Non renseigné' }}</span></p>
+                <p class="mail-row"><span class="mail-label">Âge:</span><span class="mail-value">{{ animal.age }}</span></p>
+            </div>
 
-        <div class="message-box">
-            <h2>💬 Message</h2>
-            <p>{{ data.message|nl2br }}</p>
+            <div class="mail-info">
+                <h2 class="mail-info-title"><i class="fa-solid fa-user"></i> Informations du contact</h2>
+                <p class="mail-row"><span class="mail-label">Nom:</span><span class="mail-value">{{ data.name }}</span></p>
+                <p class="mail-row"><span class="mail-label">Email:</span><span class="mail-value"><a href="mailto:{{ data.email }}">{{ data.email }}</a></span></p>
+                {% if data.phone %}
+                    <p class="mail-row"><span class="mail-label">Téléphone:</span><span class="mail-value">{{ data.phone }}</span></p>
+                {% endif %}
+            </div>
+
+            <div class="mail-message">
+                <h2 class="mail-info-title"><i class="fa-solid fa-comments"></i> Message</h2>
+                <p class="mail-message-content">{{ data.message|nl2br }}</p>
+            </div>
         </div>
-    </div>
 
-    <div class="footer">
-        <p>Ce message a été envoyé depuis le site HIMMH - How I Met My Human</p>
-        <p>Vous pouvez répondre directement à cet email pour contacter {{ data.name }}</p>
+        <div class="mail-footer">
+            <p>Ce message a été envoyé depuis le site HIMMH - How I Met My Human.</p>
+            <p>Vous pouvez répondre directement à cet email pour contacter {{ data.name }}.</p>
+        </div>
     </div>
 </body>
 </html>

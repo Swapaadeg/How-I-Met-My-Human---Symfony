@@ -380,7 +380,7 @@ public function removeFavorite(
 
 ---
 
-## 4. La Base de Données
+## 4. La Base de Données et l'Entité
 
 ### Entité: `src/Entity/Favorites.php`
 
@@ -401,21 +401,109 @@ class Favorites
 }
 ```
 
+### À dire sur l'entité Favorites:
+
+#### **C'est quoi une entité?**
+Une entité est une classe PHP qui représente une table en base de données. Chaque entité = une table, chaque propriété = une colonne.
+
+#### **`#[ORM\Entity]`** ← L'attribut magique
+- Doctrine (l'ORM) lit cet attribut et dit: "Ah, cette classe doit être stockée en BDD"
+- Sans ça, c'est juste une classe PHP normale
+
+#### **`#[ORM\Id]` et `#[ORM\GeneratedValue]`**
+```php
+#[ORM\Id]
+#[ORM\GeneratedValue]
+#[ORM\Column]
+private ?int $id = null;
+```
+
+- `#[ORM\Id]` = C'est la **clé primaire** (identifiant unique de chaque ligne)
+- `#[ORM\GeneratedValue]` = La base de données génère cet ID automatiquement (1, 2, 3, ...)
+- `?int` = C'est un entier (ou null avant sauvegarde)
+
+**Analogie:** C'est comme un numéro de dossier unique pour chaque favori.
+
+#### **`#[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'favorites')]`**
+```php
+private ?User $user = null;
+```
+
+Décomposons:
+- **`ManyToOne`** = Plusieurs favoris peuvent appartenir à **un** utilisateur
+- **`targetEntity: User::class`** = Cette propriété pointe vers l'entité `User`
+- **`inversedBy: 'favorites'`** = C'est la "relation inverse" (User a un tableau `$favorites`)
+
+**En base de données:** Il y a une colonne `user_id` qui stocke l'ID de l'utilisateur.
+
+**Exemple concret:**
+```
+Favoris #1 → user_id = 5 (appartient à l'utilisateur 5)
+Favoris #2 → user_id = 5 (aussi à l'utilisateur 5)
+Favoris #3 → user_id = 7 (appartient à l'utilisateur 7)
+```
+
+#### **`#[ORM\ManyToOne(targetEntity: Animals::class, inversedBy: 'favorites')]`**
+```php
+private ?Animals $animals = null;
+```
+
+Même logique:
+- **`ManyToOne`** = Plusieurs favoris peuvent référencer **un** animal
+- **`targetEntity: Animals::class`** = Pointe vers l'entité `Animals`
+- **`inversedBy: 'favorites'`** = Animal a une relation inverse
+
+**En base de données:** Il y a une colonne `animal_id` qui stocke l'ID de l'animal.
+
 ### Structure en BDD:
 
 Table `favorites`:
 ```
-id  | user_id | animal_id
-----|---------|-----------
-1   | 5       | 23
-2   | 5       | 42
-3   | 7       | 23
+id  | user_id | animal_id | created_at
+----|---------|-----------|-----------
+1   | 5       | 23        | 2025-12-08
+2   | 5       | 42        | 2025-12-08
+3   | 7       | 23        | 2025-12-07
+4   | 7       | 15        | 2025-12-06
 ```
 
-**Relation Many-to-Many:**
-- Un utilisateur peut avoir plusieurs favoris
-- Un animal peut être favori de plusieurs utilisateurs
-- La table `Favorites` est la **table de liaison**
+### Pourquoi cette structure?
+
+**Le problème:** Un utilisateur peut aimer plusieurs animaux, et plusieurs utilisateurs peuvent aimer le même animal.
+
+**La solution:** Une **table de liaison** (Favorites) qui fait le pont entre les deux.
+
+```
+Users (table)              Favorites (table)      Animals (table)
+┌─────────────────┐       ┌──────────────────┐   ┌─────────────────┐
+│ id │ name        │       │ id│user_id│animal│   │ id │ name        │
+├─────────────────┤       ├──────────────────┤   ├─────────────────┤
+│ 5  │ Alice       │◄─────│ 1 │ 5     │ 23   │──►│ 23 │ Minou       │
+│ 7  │ Bob         │       │ 2 │ 5     │ 42   │   │ 42 │ Rex         │
+│    │             │◄─────│ 3 │ 7     │ 23   │──►│ 15 │ Bella       │
+└─────────────────┘       │ 4 │ 7     │ 15   │   └─────────────────┘
+                          └──────────────────┘
+
+Lecture:
+- Alice (id=5) aime Minou (23) et Rex (42)
+- Bob (id=7) aime Minou (23) et Bella (15)
+- Minou est aimé par Alice ET Bob
+```
+
+### À dire à l'oral:
+
+**"Donc la table Favorites, c'est simplement une table de liaison avec deux colonnes de clés étrangères.**
+**Chaque ligne dit: 'Cet utilisateur aime cet animal.'**
+**C'est très efficace parce qu'on n'est pas limité en nombre - un utilisateur peut aimer 0, 1, 100 animaux sans problème!"**
+
+### Cas d'usage réels en base:
+
+| Scénario | user_id | animal_id | Signification |
+|----------|---------|-----------|---------------|
+| Alice clique ❤️ sur Rex | 5 | 42 | Crée une ligne `(5, 42)` |
+| Alice clique ❌ sur Rex | 5 | 42 | Supprime la ligne `(5, 42)` |
+| Alice consulte ses favoris | 5 | - | SELECT * WHERE user_id = 5 |
+| Bob voit qui aime Rex | - | 42 | SELECT * WHERE animal_id = 42 |
 
 ---
 
