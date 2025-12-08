@@ -58,6 +58,7 @@
                                 <i class="fas fa-edit"></i> Modifier l'association
                             </a>
                             <form method="post" action="{{ path('associations_delete', {id: association.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette association ? Tous les animaux et données associés seront également supprimés. Cette action est irréversible.');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete_association_' ~ association.id) }}">
                                 <button type="submit" class="btn delete">
                                     <i class="fas fa-trash"></i> Supprimer l'association
                                 </button>

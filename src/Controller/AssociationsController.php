@@ -406,47 +406,62 @@ final class AssociationsController extends AbstractController
      */
     #[Route('/associations/{id}/delete', name: 'associations_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ASSOCIATION_MANAGER')]
-    public function delete(Association $association): Response
+    public function delete(Request $request, Association $association): Response
     {
         $user = $this->getUser();
 
         // Check if user can delete this association
         if (!$this->permissionService->canUserEditAssociation($user, $association)) {
             $this->addFlash('error', 'Vous n\'avez pas les droits pour supprimer cette association.');
-            return $this->redirectToRoute('association_show', ['id' => $association->getId()]);
+            return $this->redirectToRoute('associations_show', ['id' => $association->getId()]);
         }
 
-        // Delete all related animals first
-        foreach ($association->getAnimals() as $animal) {
-            // Delete related favorites
-            foreach ($animal->getFavorites() as $favorite) {
-                $this->entityManager->remove($favorite);
+        // Verify CSRF token
+        if (!$this->isCsrfTokenValid('delete_association_'.$association->getId(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'Token de sécurité invalide.');
+            return $this->redirectToRoute('associations_show', ['id' => $association->getId()]);
+        }
+
+        try {
+            // Delete all related animals first
+            foreach ($association->getAnimals() as $animal) {
+                // Delete related favorites
+                foreach ($animal->getFavorites() as $favorite) {
+                    $this->entityManager->remove($favorite);
+                }
+                // Delete related comments
+                foreach ($animal->getComments() as $comment) {
+                    $this->entityManager->remove($comment);
+                }
+                // Delete related adopter news
+                foreach ($animal->getAdopterNews() as $news) {
+                    $this->entityManager->remove($news);
+                }
+                $this->entityManager->remove($animal);
             }
-            // Delete related comments
-            foreach ($animal->getComments() as $comment) {
-                $this->entityManager->remove($comment);
+
+            // Delete all memberships
+            foreach ($association->getMembers() as $membership) {
+                $this->entityManager->remove($membership);
             }
-            $this->entityManager->remove($animal);
-        }
 
-        // Delete all memberships
-        foreach ($association->getMembers() as $membership) {
-            $this->entityManager->remove($membership);
-        }
-
-        // Delete the association
-        $this->entityManager->remove($association);
-        $this->entityManager->flush();
-
-        // Update user roles
-        if ($user instanceof \App\Entity\User) {
-            $this->entityManager->refresh($user);
-            $user->updateRolesFromMemberships();
+            // Delete the association
+            $this->entityManager->remove($association);
             $this->entityManager->flush();
+
+            // Update user roles
+            if ($user instanceof \App\Entity\User) {
+                $this->entityManager->refresh($user);
+                $user->updateRolesFromMemberships();
+                $this->entityManager->flush();
+            }
+
+            $this->addFlash('success', 'L\'association a été supprimée avec succès.');
+
+            return $this->redirectToRoute('associations');
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Une erreur est survenue lors de la suppression de l\'association : ' . $e->getMessage());
+            return $this->redirectToRoute('associations_show', ['id' => $association->getId()]);
         }
-
-        $this->addFlash('success', 'L\'association a été supprimée avec succès.');
-
-        return $this->redirectToRoute('associations');
     }
 }
