@@ -57,8 +57,20 @@ class PermissionService
      */
     public function canUserCreateAssociation(User $user): bool
     {
-        // Any authenticated user can create an association
-        // They will become the manager of the association they create
+        // Admin can always create associations
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        // Check if user is already manager of an association
+        foreach ($user->getAssociationMembers() as $membership) {
+            if ($membership->isApproved() && $membership->isManager()) {
+                // User is already manager of an association, cannot create another
+                return false;
+            }
+        }
+
+        // User is not manager of any association, can create one
         return true;
     }
 

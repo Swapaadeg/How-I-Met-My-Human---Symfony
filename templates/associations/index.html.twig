@@ -7,7 +7,7 @@
     <div class="container">
         <div class="header">
             <h1 class="title">Liste des associations</h1>
-            {% if is_granted('ROLE_USER') %}
+            {% if is_granted('ROLE_USER') and not is_already_manager %}
                 <a href="{{ path('associations_new') }}" class="create-btn">
                     Créer mon association <i class="fas fa-paw"></i>
                 </a>

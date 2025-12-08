@@ -53,10 +53,16 @@ final class AssociationsController extends AbstractController
         // Sort associations: user's associations first
         $user = $this->getUser();
         $userAssociationIds = [];
+        $isAlreadyManager = false;
+
         if ($user) {
             foreach ($user->getAssociationMembers() as $membership) {
                 if ($membership->isApproved()) {
                     $userAssociationIds[] = $membership->getAssociation()->getId();
+                    // Check if user is manager of at least one association
+                    if ($membership->isManager()) {
+                        $isAlreadyManager = true;
+                    }
                 }
             }
         }
@@ -76,6 +82,7 @@ final class AssociationsController extends AbstractController
             'departments' => $departments,
             'selected_department' => $departmentId,
             'user_association_ids' => $userAssociationIds,
+            'is_already_manager' => $isAlreadyManager,
         ]);
     }
 
@@ -87,10 +94,11 @@ final class AssociationsController extends AbstractController
     public function new(Request $request): Response
     {
         $user = $this->getUser();
-        
+
         // Check if user can create associations
         if (!$this->permissionService->canUserCreateAssociation($user)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', 'Vous êtes déjà gérant d\'une association. Un utilisateur ne peut gérer qu\'une seule association à la fois.');
+            return $this->redirectToRoute('associations');
         }
 
         $association = new Association();

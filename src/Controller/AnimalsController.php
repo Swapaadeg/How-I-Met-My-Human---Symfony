@@ -327,7 +327,7 @@ final class AnimalsController extends AbstractController
 
         $this->addFlash('success', 'L\'animal a été supprimé avec succès.');
 
-        return $this->redirectToRoute('association_show', ['id' => $associationId]);
+        return $this->redirectToRoute('associations_show', ['id' => $associationId]);
     }
 
     #[Route('/api/favorites', name: 'favorites_add', methods: ['POST'])]
