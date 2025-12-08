@@ -433,10 +433,6 @@ final class AssociationsController extends AbstractController
                 foreach ($animal->getComments() as $comment) {
                     $this->entityManager->remove($comment);
                 }
-                // Delete related adopter news
-                foreach ($animal->getAdopterNews() as $news) {
-                    $this->entityManager->remove($news);
-                }
                 $this->entityManager->remove($animal);
             }
 
