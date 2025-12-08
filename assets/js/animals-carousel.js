@@ -127,10 +127,12 @@ export function initAnimalsCarousel() {
     // Card click handling
     cards.forEach((card, index) => {
         card.addEventListener('click', (e) => {
-            // Allow view button to work
             const clickedElement = e.target;
-            const isViewBtn = clickedElement.closest('.view-btn');
-            if (isViewBtn) {
+
+            // Allow action buttons (view, favorite, contact) to work
+            const isActionBtn = clickedElement.closest('.action-btn') ||
+                               clickedElement.closest('.view-btn');
+            if (isActionBtn) {
                 return;
             }
 

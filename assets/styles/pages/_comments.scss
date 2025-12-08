@@ -232,6 +232,37 @@
     }
 }
 
+.comment-delete-action {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(v.$color-secondary, 0.1);
+
+    .btn-delete-comment {
+        background: transparent;
+        color: #dc3545;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        font-family: v.$font-family-primary;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+
+        &:hover {
+            background: rgba(#dc3545, 0.1);
+            color: #c82333;
+        }
+
+        i {
+            font-size: 0.85rem;
+        }
+    }
+}
+
 .reply-form-container {
     margin-top: 1rem;
     padding: 1rem;

@@ -189,6 +189,17 @@
                                 {{ comment.text }}
                             </div>
 
+                            {# Bouton de suppression (visible seulement pour l'auteur) #}
+                            {% if app.user and app.user.id == comment.user.id %}
+                                <div class="comment-delete-action">
+                                    <form method="POST" action="{{ path('animal_comment_delete', {'id': animal.id, 'commentId': comment.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">
+                                        <button type="submit" class="btn-delete-comment">
+                                            <i class="fas fa-trash"></i> Supprimer
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+
                             {# Affichage des réponses imbriquées #}
                             {% if comment.replies|length > 0 %}
                                 <div class="comment-replies">
@@ -210,6 +221,17 @@
                                             <div class="comment-content">
                                                 {{ reply.text }}
                                             </div>
+
+                                            {# Bouton de suppression pour les réponses #}
+                                            {% if app.user and app.user.id == reply.user.id %}
+                                                <div class="comment-delete-action">
+                                                    <form method="POST" action="{{ path('animal_comment_delete', {'id': animal.id, 'commentId': reply.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette réponse ?');">
+                                                        <button type="submit" class="btn-delete-comment">
+                                                            <i class="fas fa-trash"></i> Supprimer
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            {% endif %}
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -226,12 +248,12 @@
                                 {# Formulaire de réponse (caché par défaut) #}
                                 <div class="reply-form-container" id="reply-form-{{ comment.id }}" style="display: none;">
                                     <div class="reply-form-content">
-                                        <form method="POST" action="{{ path('animal_comment_reply', {'id': animal.id, 'commentId': comment.id}) }}">
-                                            <textarea name="comment_form_type[text]" placeholder="Écrivez votre réponse..." rows="2" class="comment-textarea"></textarea>
+                                        {{ form_start(reply_forms[comment.id], {'action': path('animal_comment_reply', {'id': animal.id, 'commentId': comment.id}), 'method': 'POST'}) }}
+                                            {{ form_widget(reply_forms[comment.id].text, {'attr': {'placeholder': 'Écrivez votre réponse...', 'rows': '2'}}) }}
                                             <button type="submit" class="btn-comment-submit">
                                                 <i class="fas fa-paper-plane"></i> Envoyer
                                             </button>
-                                        </form>
+                                        {{ form_end(reply_forms[comment.id]) }}
                                     </div>
                                 </div>
                             {% endif %}
@@ -243,176 +265,5 @@
     </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize favorite button
-    const favoriteButton = document.querySelector('.favorite-btn');
-    if (favoriteButton) {
-        favoriteButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const animalId = this.dataset.animalId;
-            const heartIcon = this.querySelector('i');
-
-            // Toggle favorite state
-            if (this.classList.contains('favorited')) {
-                this.classList.remove('favorited');
-                heartIcon.classList.remove('fas');
-                heartIcon.classList.add('far');
-
-                // Remove from favorites
-                removeFavorite(animalId);
-            } else {
-                this.classList.add('favorited');
-                heartIcon.classList.remove('far');
-                heartIcon.classList.add('fas');
-
-                // Add to favorites
-                addFavorite(animalId);
-            }
-
-            // Add animation
-            this.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 200);
-        });
-    }
-
-    // Initialize reply toggles
-    document.querySelectorAll('[data-toggle-reply]').forEach(button => {
-        button.addEventListener('click', function() {
-            const commentId = this.dataset.toggleReply;
-            const form = document.getElementById('reply-form-' + commentId);
-            if (form) {
-                form.style.display = form.style.display === 'none' ? 'block' : 'none';
-            }
-        });
-    });
-});
-
-function addFavorite(animalId) {
-    fetch('/api/favorites', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: JSON.stringify({ animalId: animalId })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            showNotification('Ajouté aux favoris !', 'success');
-        } else {
-            showNotification(data.message || 'Erreur lors de l\'ajout aux favoris', 'error');
-        }
-    })
-    .catch(error => {
-        showNotification('Vous devez être connecté pour ajouter un animal à vos favoris', 'error');
-    });
-}
-
-function removeFavorite(animalId) {
-
-    fetch(`/api/favorites/${animalId}`, {
-        method: 'DELETE',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            showNotification('Retiré des favoris', 'info');
-        } else {
-            showNotification(data.message || 'Erreur lors de la suppression', 'error');
-        }
-    })
-    .catch(error => {
-        showNotification('Erreur lors de la suppression', 'error');
-    });
-}
-
-function showNotification(message, type = 'info') {
-    // Remove existing notifications
-    const existingNotifications = document.querySelectorAll('.notification');
-    existingNotifications.forEach(notif => notif.remove());
-
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-
-    // Define colors based on type
-    const colors = {
-        success: '#10B981',
-        error: '#EF4444',
-        info: '#3B82F6',
-        warning: '#F59E0B'
-    };
-
-    // Style the notification
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${colors[type] || colors.info};
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        z-index: 1000;
-        font-weight: 500;
-        animation: slideInRight 0.3s ease;
-        max-width: 300px;
-        font-size: 14px;
-    `;
-
-    // Add animation styles if not already present
-    if (!document.querySelector('#notification-styles')) {
-        const style = document.createElement('style');
-        style.id = 'notification-styles';
-        style.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-
-            @keyframes slideOutRight {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    // Add to page
-    document.body.appendChild(notification);
-
-    // Remove after 4 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    }, 4000);
-}
-</script>
 
 {% endblock %}

@@ -69,7 +69,6 @@ const lastClickTimes = new Map();
 export function initializeFavoriteButtons() {
     // Prevent multiple initializations
     if (favoritesInitialized) {
-        console.log('[FAVORITE] Already initialized, skipping');
         return;
     }
     favoritesInitialized = true;
@@ -77,7 +76,9 @@ export function initializeFavoriteButtons() {
     // Use event delegation on document to avoid multiple listeners
     document.addEventListener('click', function(e) {
         const button = e.target.closest('.favorite-btn');
-        if (!button) return;
+        if (!button) {
+            return;
+        }
 
         e.preventDefault();
         e.stopPropagation();
@@ -87,7 +88,6 @@ export function initializeFavoriteButtons() {
         const now = Date.now();
         const lastClick = lastClickTimes.get(button) || 0;
         if (now - lastClick < 500) {
-            console.log(`[FAVORITE] Debounced click - too fast`);
             return;
         }
         lastClickTimes.set(button, now);
@@ -96,11 +96,8 @@ export function initializeFavoriteButtons() {
         const heartIcon = button.querySelector('i');
         const wasFavorited = button.classList.contains('favorited');
 
-        console.log(`[FAVORITE] Click on animal ${animalId}, wasFavorited: ${wasFavorited}`);
-
         // Disable button during API call
         if (button.disabled || button.dataset.processing === 'true') {
-            console.log(`[FAVORITE] Button already processing, ignoring click`);
             return;
         }
         button.disabled = true;
@@ -109,7 +106,6 @@ export function initializeFavoriteButtons() {
         // Toggle favorite state
         if (wasFavorited) {
             // Remove from favorites
-            console.log(`[FAVORITE] Removing animal ${animalId} from favorites`);
             removeFavorite(animalId)
                 .then(success => {
                     if (success) {
@@ -125,7 +121,6 @@ export function initializeFavoriteButtons() {
                 });
         } else {
             // Add to favorites
-            console.log(`[FAVORITE] Adding animal ${animalId} to favorites`);
             addFavorite(animalId)
                 .then(success => {
                     if (success) {
@@ -136,6 +131,7 @@ export function initializeFavoriteButtons() {
                     }
                 })
                 .finally(() => {
+                    button.disabled = false;
                     button.dataset.processing = 'false';
                 });
         }
