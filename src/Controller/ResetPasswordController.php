@@ -46,7 +46,7 @@ final class ResetPasswordController extends AbstractController
                     $mailer->send($email);
                     $this->addFlash('success', 'un email de réinitialisation a été envoyé.');
 
-                    return $this->redirectToRoute('login');
+                    return $this->redirectToRoute('auth');
             }
 
             $this->addFlash('error', 'Aucun utilisateur trouvé pour cet email.');
@@ -83,7 +83,7 @@ final class ResetPasswordController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre mot de passe a été mis à jour avec succès.');
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('auth');
         }
 
         return $this->render('mot_de_passe/reset.html.twig', [

@@ -574,12 +574,40 @@
     }
 
     // Messages d'erreur
-    .invalid-feedback {
+    .invalid-feedback,
+    .form-error-message,
+    ul.form-error-list {
         display: block;
         color: #ff6b6b;
         font-size: 13px;
         margin-top: 0.5rem;
         font-weight: 500;
+        list-style: none;
+        padding: 0;
+
+        li {
+            margin-bottom: 0.25rem;
+        }
+    }
+
+    // Champs avec erreur
+    .form-input.is-invalid,
+    .form-input:invalid:not(:placeholder-shown) {
+        border-color: #ff6b6b;
+    }
+
+    // Alert générique
+    .alert {
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        font-size: 14px;
+        
+        &.alert-danger {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid #ff6b6b;
+            color: #d63031;
+        }
     }
 
     // Lien retour
@@ -593,6 +621,10 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+
+            i {
+                margin-right: 0.5rem;
+            }
 
             &:hover {
                 color: v.$color-accent;
