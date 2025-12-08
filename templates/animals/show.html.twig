@@ -293,8 +293,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function addFavorite(animalId) {
-    console.log(`Adding animal ${animalId} to favorites`);
-
     fetch('/api/favorites', {
         method: 'POST',
         headers: {
@@ -312,13 +310,11 @@ function addFavorite(animalId) {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
-        showNotification('Erreur lors de l\'ajout aux favoris', 'error');
+        showNotification('Vous devez être connecté pour ajouter un animal à vos favoris', 'error');
     });
 }
 
 function removeFavorite(animalId) {
-    console.log(`Removing animal ${animalId} from favorites`);
 
     fetch(`/api/favorites/${animalId}`, {
         method: 'DELETE',
@@ -335,7 +331,6 @@ function removeFavorite(animalId) {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
         showNotification('Erreur lors de la suppression', 'error');
     });
 }

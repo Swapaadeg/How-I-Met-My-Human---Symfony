@@ -11,7 +11,6 @@ export function initializeFileInputDisplay(inputSelector, displaySelector, defau
     const fileNameDisplay = document.querySelector(displaySelector);
 
     if (!fileInput || !fileNameDisplay) {
-        console.warn(`File input display: Could not find elements for "${inputSelector}" or "${displaySelector}"`);
         return;
     }
 

@@ -3,8 +3,6 @@
 import { showNotification } from './notifications.js';
 
 export function addFavorite(animalId) {
-    console.log(`Adding animal ${animalId} to favorites`);
-
     fetch('/api/favorites', {
         method: 'POST',
         headers: {
@@ -22,15 +20,12 @@ export function addFavorite(animalId) {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
         showNotification('Vous devez être connecté pour ajouter un animal à vos favoris', 'error');
     });
 }
 
 /*Retrait des favoris */
 export function removeFavorite(animalId) {
-    console.log(`Removing animal ${animalId} from favorites`);
-
     fetch(`/api/favorites/${animalId}`, {
         method: 'DELETE',
         headers: {
@@ -46,7 +41,6 @@ export function removeFavorite(animalId) {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
         showNotification('Erreur lors de la suppression', 'error');
     });
 }
